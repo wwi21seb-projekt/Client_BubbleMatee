@@ -7,3 +7,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    networks:
+      - external-network
+networks:
+  external-network:
+    internal: false

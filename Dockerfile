@@ -1,4 +1,4 @@
-# Wählen Sie ein Ubuntu Basisimage mit Node.js
+# Wählen des Ubuntu Basisimage mit Node.js
 FROM ubuntu:latest
 
 # Node.js und npm installieren
@@ -6,23 +6,25 @@ RUN apt-get update && apt-get install -y curl software-properties-common && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 
-# Setzen Sie das Arbeitsverzeichnis im Container
+# Setzen des Arbeitsverzeichnis im Container
 WORKDIR /app
 
-# Kopieren Sie die package.json und package-lock.json
-COPY package*.json ./
+# Kopieren der package.json und package-lock.json
+COPY package.json ./
+COPY package-log.json ./
 
-# Installieren Sie die Projekt-Abhängigkeiten
+
+# Installieren der Projekt-Abhängigkeiten
 RUN npm install
 
-# Kopieren Sie die Projektdateien in das Arbeitsverzeichnis
+# Kopieren der Projektdateien in das Arbeitsverzeichnis
 COPY . .
 
-# Bauen Sie die Anwendung für die Produktion
+# Bauen der Anwendung für die Produktion
 RUN npm run build
 
 # Der Port, auf dem der Container laufen soll
 EXPOSE 5173
 
-# Starten Sie die App
+# Starten der App
 CMD ["npm", "run", "dev"]
