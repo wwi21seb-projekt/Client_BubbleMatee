@@ -14,9 +14,9 @@ Follow these steps to set up your environment:
    Launch the terminal or command prompt on your computer.
 
 3. ### 📂 **Navigate to Directory**
-   Use the command line to navigate to the directory where the repository is located and navigate into this directory: ```Client_BubbleMatee. 
-   ```bash
-   cd path/to/repository
+   Use the command line to navigate to the directory where the repository is located and navigate into this directory: **Client_BubbleMatee**. 
+   ```bash optional
+   cd ./Client_BubbleMatee
    ```
 
 4. ### 🐳 **Execute Docker Command**
