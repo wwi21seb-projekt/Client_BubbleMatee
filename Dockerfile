@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Kopieren der package.json und package-lock.json
 COPY package.json ./
-COPY package-log.json ./
+COPY package-lock.json ./
 
 
 # Installieren der Projekt-Abhängigkeiten
