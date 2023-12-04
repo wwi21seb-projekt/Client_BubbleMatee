@@ -29,8 +29,14 @@ Follow these steps to set up your environment:
 5. ### 🌐 **Access Webpage**
    Once Docker has successfully started the services, open your web browser and go to:
    ```
+   
    http://localhost:5173/
    or
    http://192.168.16.2:5173/
    ```
    This URL will lead you to the webpage hosted locally on your machine.
+
+## **Repository-Description**
+Notizen: Projektstruktur
+Beschreibung der test np11y
+sowie struktur des Projektes selbst
