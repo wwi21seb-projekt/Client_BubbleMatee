@@ -24,6 +24,7 @@ Follow these steps to set up your environment:
    ```bash
    docker compose up
    ```
+   Please wait, it requires time.
 
 5. ### 🌐 **Access Webpage**
    Once Docker has successfully started the services, open your web browser and go to:
