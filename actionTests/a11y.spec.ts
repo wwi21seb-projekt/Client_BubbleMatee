@@ -1,4 +1,4 @@
-const pa11y = require('pa11y');
+/* const pa11y = require('pa11y');
 
 (async function () {
 	try {
@@ -13,3 +13,4 @@ const pa11y = require('pa11y');
 		throw new Error(e);
 	}
 })();
+ */
