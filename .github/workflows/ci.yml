@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: actions/checkout@v1P
+      - uses: actions/checkout@v1
       - name: Install application dependencies
         run: npm install
 
