@@ -32,7 +32,7 @@
 			<p>Try editing the following:</p>
 			<p><code class="code">/src/routes/+layout.svelte</code></p>
 			<p><code class="code">/src/routes/+page.svelte</code></p>
-			<p> Hello World </p>
+			<p> Hello World!</p>
 		</div>
 	</div>
 </div>
