@@ -17,6 +17,7 @@
 - [ ] Der Nutzer sieht jederzeit, in welchem Bereich der Anwendung er sich befindet und wie er auf die Hauptseiten zurückgelangt.
 
 ## Code Checkliste - Developer
+
 ### Überprüfe alle unten stehenden Punkte gewissenhaft
 
 - [ ] Ich habe konsequent Variablen, Rückgabewerte von Funktionen, Arrays usw. typisiert.
@@ -28,8 +29,9 @@
 - [ ] Ich habe unnötige Code-Duplikation vermieden und Code, der an verschiedenen Stellen benötigt wird, in Funktionen oder Komponenten ausgelagert.
 - [ ] Ich habe meinen Code angemessen kommentiert, insbesondere bei komplexen Logiken oder unklaren Stellen.
 - [ ] Wo immer möglich, habe ich Async/Await statt Promises für asynchrone Operationen verwendet, um den Code lesbarer zu machen.
-  
+
 ## Code Checkliste - Reviewer
+
 ### Überprüfe alle unten stehenden Punkte gewissenhaft
 
 - [ ] Es wurden konsequent Variablen, Rückgabewerte von Funktionen, Arrays usw. typisiert.
