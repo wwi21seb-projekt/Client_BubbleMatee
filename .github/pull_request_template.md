@@ -27,7 +27,7 @@
 - [ ] Ich habe Files, die mehr als 200 Code Zeilen haben in wiederverwendbare Komponenten aufgeteilt
 - [ ] Ich habe unnötige Code-Duplikation vermieden und Code, der an verschiedenen Stellen benötigt wird, in Funktionen oder Komponenten ausgelagert.
 - [ ] Ich habe meinen Code angemessen kommentiert, insbesondere bei komplexen Logiken oder unklaren Stellen.
-- [ ] Wo immer möglich, habe ich Async/Await statt Promises für asynchrone Operationen verwendet, um den Code lesbarer zu machen.
+- [ ] Wo immer möglich, habe ich Async/Await statt Promises mit .then() für asynchrone Operationen verwendet, um den Code lesbarer zu machen.
   
 ## Code Checkliste - Reviewer
 ### Überprüfe alle unten stehenden Punkte gewissenhaft
@@ -40,4 +40,4 @@
 - [ ] Es wurden Files, die mehr als 200 Codezeilen enthalten, in wiederverwendbare Komponenten aufgeteilt.
 - [ ] Es wurde unnötige Code-Duplikation vermieden, indem Code, der an verschiedenen Stellen benötigt wird, in Funktionen oder Komponenten ausgelagert wurde.
 - [ ] Der Code wurde angemessen kommentiert, insbesondere bei komplexen Logiken oder unklaren Stellen.
-- [ ] Wo immer möglich, wurde Async/Await anstelle von Promises für asynchrone Operationen verwendet, um den Code lesbarer zu gestalten.
+- [ ] Wo immer möglich, wurde Async/Await anstelle von Promises mit .then() für asynchrone Operationen verwendet, um den Code lesbarer zu gestalten.
