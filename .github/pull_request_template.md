@@ -1,7 +1,7 @@
 ## BubbleMatee - PR Checkliste
 
-## Usability Checklist nach  den UI-Prinzipien von Nielsen - PR Checkliste
- 
+## Usability Checklist nach den UI-Prinzipien von Nielsen - PR Checkliste
+
 - [ ] Der Nutzer wird über jede Zustandsänderung der Anwendung informiert (z. B. Beitrag wird gepostet, Post fehlgeschlagen).
 - [ ] Die verwendete Sprache und Symbole sind einfach verständlich und entsprechen den Erwartungen der Benutzer.
 - [ ] Das Design (Farben/Icons...) sind stimmen mit denen der restlichen Anwendung überein.
