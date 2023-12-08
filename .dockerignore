@@ -1,0 +1,10 @@
+.github/
+
+.eslintignore
+.eslintrc.cjs
+.gitignore
+.prettierignore
+.prettierrc
+node_modules/
+README.md
+LICENSE
