@@ -1,49 +1,33 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-
-	// Floating UI for Popups
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	import { AppShell } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
+	import { isMobileDevice } from '$lib/stores/store';
+	import Header from '$lib/utils/components/layoutComponents/header.svelte';
+	import NavigationBarMobile from '$lib/utils/components/layoutComponents/navigationBarMobile.svelte';
+	import NavigationBarDesktop from '$lib/utils/components/layoutComponents/navigationBarDesktop.svelte';
+	// Check wether the app is rendered on a mobile device or not.
+	// The Information is stored in $lib/stores/store and can be refferenced from everywhere
+	onMount(() => {
+		$isMobileDevice = window.innerWidth <= 750;
+	});
 </script>
 
-<!-- App Shell -->
+<!-- Basic Layout of the App -->
 <AppShell>
 	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar>
-			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
-			</svelte:fragment>
-		</AppBar>
+		<Header></Header>
 	</svelte:fragment>
-	<!-- Page Route Content -->
+	<!-- If the App is rendered on a mobile device, the navigation Bar is displayed on the bottom, otherwise on the left sidebar  -->
+	<svelte:fragment slot="footer">
+		{#if $isMobileDevice}
+			<NavigationBarMobile></NavigationBarMobile>
+		{/if}
+	</svelte:fragment>
+	<svelte:fragment slot="sidebarLeft">
+		{#if $isMobileDevice === false}
+			<NavigationBarDesktop></NavigationBarDesktop>
+		{/if}
+	</svelte:fragment>
 	<slot />
 </AppShell>
