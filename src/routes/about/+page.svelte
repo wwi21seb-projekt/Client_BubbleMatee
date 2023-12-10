@@ -185,10 +185,10 @@
             </div>
         </svelte:fragment>
 	</AccordionItem>
-    <!-- Projektdokumentation -->
+    <!-- Dokumentationen -->
 	<AccordionItem>
 		<svelte:fragment slot="lead"><img src='./src/routes/about/folders.png' alt="(icon-folders)" class="icon-folders"></svelte:fragment>
-		<svelte:fragment slot="summary"><h2 class="h2"><span class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone">Projektdokumentation</span></h2>
+		<svelte:fragment slot="summary"><h2 class="h2"><span class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone">Dokumentation</span></h2>
         </svelte:fragment>
 		<svelte:fragment slot="content">
             <blockquote class="blockquote">
@@ -373,8 +373,16 @@
           --logo-icon-size: 25px; /* Kleinere Größe für Icons */
         }
 
-        .h1, .h2 {
+        .h1 {
+            font-size: 2rem; /* Kleinere Schriftgröße für Überschriften */
+        }
+
+        .h2{
             font-size: 1.5rem; /* Kleinere Schriftgröße für Überschriften */
+        }
+        .h1, .h2 {
+            word-wrap: break-word; /* Erzwingt den Zeilenumbruch innerhalb des Containers */
+            overflow-wrap: break-word; /* Alternative Eigenschaft für Zeilenumbruch */
         }
 
         .carousel-image {
@@ -401,6 +409,10 @@
 
         .logo-item > span {
           font-size: 0.8rem; /* Kleinere Schriftgröße für Logo-Text */
+        }
+
+        .btn-icon{
+            display: none;
         }
     }
 
