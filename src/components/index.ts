@@ -5,3 +5,9 @@ export { default as Header } from './layoutComponents/header.svelte';
 
 //About Components
 export { default as RechtlicheHinweise } from './about/rechtlicheHinweise.svelte';
+
+//Login Components
+export { default as EmailInput } from './login/emailInput.svelte';
+export { default as PasswordInput } from './login/passwordInput.svelte';
+export { default as UsernameInput } from './login/usernameInput.svelte';
+export { default as NicknameInput } from './login/nicknameInput.svelte';

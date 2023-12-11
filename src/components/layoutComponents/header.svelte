@@ -5,6 +5,6 @@
 <!-- App Shell -->
 <AppBar>
 	<svelte:fragment slot="lead">
-		<strong class="text-xl text-center">BubbleMate</strong>
+		<strong class="text-xl text-center">BubbleMatee</strong>
 	</svelte:fragment>
 </AppBar>

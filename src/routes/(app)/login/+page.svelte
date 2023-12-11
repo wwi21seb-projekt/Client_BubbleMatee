@@ -1,4 +1,7 @@
 <script>
+	import { PasswordInput } from '$components';
+	import EmailInput from '$components/login/emailInput.svelte';
+
 	let email = '';
 	let password = '';
 
@@ -10,33 +13,16 @@
 	};
 </script>
 
-<main class="p-4 h-full grid grid-cols-1 place-content-center">
+<main class="p-4 h-full grid grid-cols-1 place-content-center justify-items-center">
 	<div class="flex justify-center">
 		<h1 class="h1">Login</h1>
 	</div>
-	<form on:submit|preventDefault={handleSubmit} class="m-4 grid justify-items-center gap-4">
-		<label class="p-1">
-			<span>E-Mail:</span>
-			<input
-				class="input w-full"
-				title="Input (email)"
-				type="email"
-				placeholder="john@example.com"
-				autocomplete="email"
-				bind:value={email}
-			/>
-		</label>
-
-		<label class="p-1">
-			<span>Passwort:</span>
-			<input
-				class="input"
-				title="Input (password)"
-				type="password"
-				placeholder="password"
-				bind:value={password}
-			/>
-		</label>
+	<form
+		on:submit|preventDefault={handleSubmit}
+		class="m-4 grid justify-items-strech max-w-xs gap-4"
+	>
+		<EmailInput bind:email />
+		<PasswordInput bind:password isRepeatPassword={false} />
 
 		<button type="submit" class="btn variant-filled-primary">Anmelden</button>
 	</form>
