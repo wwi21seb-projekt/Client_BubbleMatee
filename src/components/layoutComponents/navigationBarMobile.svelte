@@ -1,59 +1,67 @@
 <script lang="ts">
+	import { TabGroup, TabAnchor } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
-	import { AppRail, AppRailAnchor } from '@skeletonlabs/skeleton';
-	import { isLoggedIn } from '$lib/stores/store';
+	import { isLoggedIn } from '$stores';
 </script>
 
-<AppRail>
+<TabGroup
+	justify="justify-center"
+	active="variant-filled-primary"
+	hover="hover:variant-soft-primary"
+	flex="flex-1 lg:flex-none"
+	rounded=""
+	border=""
+	class="bg-surface-100-800-token w-full"
+>
 	{#if $isLoggedIn === false}
-		<AppRailAnchor href="/about" selected={$page.url.pathname === '/about'}>
+		<TabAnchor href="/about" selected={$page.url.pathname === '/about'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>About</span>
-		</AppRailAnchor>
-		<AppRailAnchor href="/search" selected={$page.url.pathname === '/search'}>
+		</TabAnchor>
+		<TabAnchor href="/search" selected={$page.url.pathname === '/search'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>Search</span>
-		</AppRailAnchor>
-		<AppRailAnchor href="/login" selected={$page.url.pathname === '/login'}>
+		</TabAnchor>
+		<TabAnchor href="/login" selected={$page.url.pathname === '/login'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>Login</span>
-		</AppRailAnchor>
+		</TabAnchor>
 	{:else}
-		<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>
+		<TabAnchor href="/" selected={$page.url.pathname === '/'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>Home</span>
-		</AppRailAnchor>
-		<AppRailAnchor href="/search" selected={$page.url.pathname === '/search'}>
+		</TabAnchor>
+		<TabAnchor href="/search" selected={$page.url.pathname === '/search'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>Search</span>
-		</AppRailAnchor>
-		<AppRailAnchor href="/post" selected={$page.url.pathname === '/post'}>
+		</TabAnchor>
+		<TabAnchor href="/post" selected={$page.url.pathname === '/post'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>Post</span>
-		</AppRailAnchor>
-		<AppRailAnchor href="/about" selected={$page.url.pathname === '/about'}>
+		</TabAnchor>
+		<TabAnchor href="/about" selected={$page.url.pathname === '/about'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>About</span>
-		</AppRailAnchor>
-		<AppRailAnchor href="/profile" selected={$page.url.pathname === '/profile'}>
+		</TabAnchor>
+		<TabAnchor href="/profile" selected={$page.url.pathname === '/profile'}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>
 			<span>My Profile</span>
-		</AppRailAnchor>
+		</TabAnchor>
 	{/if}
-</AppRail>
+</TabGroup>

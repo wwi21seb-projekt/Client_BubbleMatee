@@ -2,10 +2,8 @@
 	import '../app.postcss';
 	import { AppShell } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
-	import { isMobileDevice } from '$lib/stores/store';
-	import Header from '$lib/utils/components/layoutComponents/header.svelte';
-	import NavigationBarMobile from '$lib/utils/components/layoutComponents/navigationBarMobile.svelte';
-	import NavigationBarDesktop from '$lib/utils/components/layoutComponents/navigationBarDesktop.svelte';
+	import { isMobileDevice } from '$stores';
+	import { Header, NavigationBarMobile, NavigationBarDesktop } from '$components';
 	// Check wether the app is rendered on a mobile device or not.
 	// The Information is stored in $lib/stores/store and can be refferenced from everywhere
 	onMount(() => {
