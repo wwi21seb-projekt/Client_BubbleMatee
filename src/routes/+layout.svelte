@@ -14,17 +14,17 @@
 <!-- Basic Layout of the App -->
 <AppShell>
 	<svelte:fragment slot="header">
-		<Header></Header>
+		<Header />
 	</svelte:fragment>
 	<!-- If the App is rendered on a mobile device, the navigation Bar is displayed on the bottom, otherwise on the left sidebar  -->
 	<svelte:fragment slot="footer">
 		{#if $isMobileDevice}
-			<NavigationBarMobile></NavigationBarMobile>
+			<NavigationBarMobile />
 		{/if}
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
 		{#if $isMobileDevice === false}
-			<NavigationBarDesktop></NavigationBarDesktop>
+			<NavigationBarDesktop />
 		{/if}
 	</svelte:fragment>
 	<slot />
