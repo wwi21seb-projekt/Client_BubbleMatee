@@ -22,7 +22,6 @@
 	<!-- Dokumentationen -->
 	<Projektdokumentation />
 	<!-- Produktvideo -->
-	<!-- svelte-ignore a11y-media-has-caption -->
 	<Produktvideo />
 	<!-- Rechtliche Hinweise -->
 	<RechtlicheHinweise />

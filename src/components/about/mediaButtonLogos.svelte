@@ -71,11 +71,6 @@
 			margin: var(--logo-item-margin); /* Kleinerer Abstand */
 		}
 
-		/* Anpassungen für Text und Buttons */
-		p {
-			font-size: 0.9rem; /* Kleinere Schriftgröße für normalen Text und Buttons */
-		}
-
 		.logo-item > span {
 			font-size: 0.8rem; /* Kleinere Schriftgröße für Logo-Text */
 		}
