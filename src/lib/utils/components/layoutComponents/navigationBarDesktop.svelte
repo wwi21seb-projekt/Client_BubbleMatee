@@ -14,7 +14,7 @@
 		<AppRailAnchor href="/search" selected={$page.url.pathname === '/search'}>
 			<svelte:fragment slot="lead">
 				<img class="mx-auto" src="/favicon.png" alt="Suche" />
-			</svelte:fragment>			
+			</svelte:fragment>
 		</AppRailAnchor>
 		<AppRailAnchor href="/login" selected={$page.url.pathname === '/login'}>
 			<svelte:fragment slot="lead">

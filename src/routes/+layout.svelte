@@ -15,7 +15,7 @@
 	<svelte:fragment slot="footer">
 		<div class="md:hidden">
 			<NavigationBarMobile></NavigationBarMobile>
-	</div>
+		</div>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
 		<div class="hidden md:flex h-full">

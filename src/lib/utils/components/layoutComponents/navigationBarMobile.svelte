@@ -9,7 +9,7 @@
 	active="variant-filled-primary"
 	hover="hover:variant-soft-primary"
 	flex="flex-1 lg:flex-none"
-	rounded='rounded-tl-container-token rounded-br-container-token rounded-tr-container-token rounded-bl-container-token'
+	rounded="rounded-tl-container-token rounded-br-container-token rounded-tr-container-token rounded-bl-container-token"
 	border=""
 	class="bg-surface-100-800-token w-full"
 >
@@ -22,7 +22,7 @@
 		<TabAnchor href="/search" selected={$page.url.pathname === '/search'}>
 			<svelte:fragment slot="lead">
 				<img class="mx-auto" src="/favicon.png" alt="Suche" />
-			</svelte:fragment>			
+			</svelte:fragment>
 		</TabAnchor>
 		<TabAnchor href="/login" selected={$page.url.pathname === '/login'}>
 			<svelte:fragment slot="lead">
