@@ -1,14 +1,47 @@
 <script lang="ts">
-	import { PasswordInput, EmailInput } from '$components';
+	import { goto } from '$app/navigation';
+	import { PasswordInput, EmailInput, ErrorMessage } from '$components';
+	import type { Response } from '$domains';
+	import { isLoggedIn, loading } from '$stores';
 
 	let email: string;
 	let password: string;
 
-	const handleSubmit = () => {
-		// Hier kannst du die Logik für die Authentifizierung implementieren
-		console.log('E-Mail:', email);
-		console.log('Passwort:', password);
-		// Füge hier die Authentifizierungslogik hinzu, z.B. API-Aufruf oder lokale Überprüfung
+	let error: Error | null = null;
+
+	const login = async () => {
+		loading.set(true);
+		error = null;
+		try {
+			const response = await fetch('/api/users/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email: email, password: password })
+			});
+
+			const body = (await response.json()) as Response;
+
+			if (body.error) {
+				error = body.data.error;
+			} else {
+				isLoggedIn.set(true);
+				goto('/myProfile');
+			}
+
+			return body;
+		} catch (e: any) {
+			console.error(e);
+			/* errorState.set(true);
+			errorCode.set('EM-000'); */
+		} finally {
+			loading.set(false);
+		}
+	};
+
+	const handleSubmit = async () => {
+		await login();
 	};
 </script>
 
@@ -22,8 +55,14 @@
 	>
 		<EmailInput bind:email />
 		<PasswordInput bind:password isRepeatPassword={false} isSignUp={false} />
-
-		<button type="submit" class="btn variant-filled-primary">Anmelden</button>
+		{#if error}
+			<ol>
+				<ErrorMessage message={error.message} />
+			</ol>
+		{/if}
+		<button type="submit" class="btn variant-filled-primary mt-2"
+			>{loading ? `Anmelden` : `Lädt...`}</button
+		>
 	</form>
 	<div class="flex justify-center">
 		<p>Noch kein Account? <a class="text-primary-400" href="/login/register">Registrieren</a></p>

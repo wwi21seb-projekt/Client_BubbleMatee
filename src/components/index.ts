@@ -14,3 +14,8 @@ export { default as PasswordValidations } from './login/password-validations.sve
 export { default as UsernameInput } from './login/username-input.svelte';
 export { default as NicknameInput } from './login/nickname-input.svelte';
 export { default as CodeInput } from './login/code-input.svelte';
+export { default as ErrorMessage } from './login/error-message.svelte';
+
+//Register Step Components
+export { default as PasswordStep } from './login/steps/password-step.svelte';
+export { default as UserInfoStep } from './login/steps/user-info-step.svelte';

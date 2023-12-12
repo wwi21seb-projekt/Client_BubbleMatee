@@ -3,10 +3,10 @@
 	//TODO: Latin 1 letters allowed
 </script>
 
-<label class="p-1">
+<label>
 	<span>Username:</span>
 	<input
-		class="input valid:input-success invalid:input-error"
+		class="input"
 		title="Bitte gib einen Nutzernamen ein."
 		type="text"
 		placeholder="max_mueller"

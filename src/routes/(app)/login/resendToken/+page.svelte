@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { CodeInput, UsernameInput, ErrorMessage } from '$components';
 	import type { Response } from '$domains';
-	import { currentUser, isLoggedIn, loading } from '$stores';
+	import { currentUser, loading } from '$stores';
 
 	let username: string = $currentUser.username;
-	let code: string;
 
 	let error: Error | null = null;
 
@@ -14,13 +12,7 @@
 		error = null;
 		try {
 			const response = await fetch(`/api/users/${username}/activate`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					token: code
-				})
+				method: 'DELETE'
 			});
 
 			const body = (await response.json()) as Response;
@@ -28,8 +20,7 @@
 			if (body.error) {
 				error = body.data.error;
 			} else {
-				isLoggedIn.set(true);
-				goto('/myProfile');
+				//TODO: code was snet again
 			}
 
 			return body;
@@ -45,14 +36,13 @@
 
 <main class="p-4 h-full grid grid-cols-1 place-content-center justify-items-center">
 	<div class="flex justify-center">
-		<h1 class="h1">Account bestätigen</h1>
+		<h1 class="h1">Email erneut senden</h1>
 	</div>
 	<form
 		on:submit|preventDefault={handleSubmit}
 		class="m-4 grid justify-items-strech max-w-xs gap-4"
 	>
 		<UsernameInput bind:username />
-		<CodeInput bind:code />
 
 		{#if error}
 			<ol>
@@ -62,8 +52,6 @@
 		<button type="submit" class="btn variant-filled-primary">Bestätigen</button>
 	</form>
 	<div class="flex justify-center">
-		<p>
-			Keinen Code erhalten? <a class="text-primary-400" href="/login/resendToken">Erneut senden</a>
-		</p>
+		<p>Code erhalten? <a class="text-primary-400" href="/login/verify">Code eingeben</a></p>
 	</div>
 </main>

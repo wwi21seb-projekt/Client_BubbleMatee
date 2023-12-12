@@ -57,7 +57,7 @@
 			</svelte:fragment>
 			<span>About</span>
 		</TabAnchor>
-		<TabAnchor href="/profile" selected={$page.url.pathname.startsWith('/profile')}>
+		<TabAnchor href="/myProfile" selected={$page.url.pathname.startsWith('/myProfile')}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>

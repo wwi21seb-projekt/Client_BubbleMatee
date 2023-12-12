@@ -4,6 +4,6 @@ export interface Response {
 }
 
 export interface Error {
-	errorCode: string;
-	errorMessage: string;
+	code: string;
+	message: string;
 }

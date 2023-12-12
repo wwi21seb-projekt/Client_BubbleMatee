@@ -2,10 +2,10 @@
 	export let email: string;
 </script>
 
-<label class="p-1">
+<label>
 	<span>E-Mail:</span>
 	<input
-		class="input valid:input-success invalid:input-error"
+		class="input"
 		title="Bitte gib deine E-Mail-Adresse ein."
 		type="email"
 		placeholder="john@example.com"

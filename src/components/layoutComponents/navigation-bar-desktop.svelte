@@ -49,7 +49,7 @@
 			</svelte:fragment>
 			<span>About</span>
 		</AppRailAnchor>
-		<AppRailAnchor href="/profile" selected={$page.url.pathname.startsWith('/profile')}>
+		<AppRailAnchor href="/myProfile" selected={$page.url.pathname.startsWith('/myProfile')}>
 			<svelte:fragment slot="lead">
 				<img src="/favicon.png" alt="Icon" />
 			</svelte:fragment>

@@ -2,10 +2,10 @@
 	export let nickname: string;
 </script>
 
-<label class="p-1">
+<label>
 	<span>Nickname (optional):</span>
 	<input
-		class="input valid:input-success invalid:input-error"
+		class="input"
 		title="Bitte gib einen Aliasnamen ein."
 		type="text"
 		placeholder="max_müller"
