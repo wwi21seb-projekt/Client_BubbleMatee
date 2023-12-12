@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { PasswordInput } from '$components';
-	import EmailInput from '$components/login/emailInput.svelte';
+	import { PasswordInput, EmailInput } from '$components';
 
 	let email: string;
 	let password: string;
@@ -22,7 +21,7 @@
 		class="m-4 grid justify-items-strech max-w-xs gap-4"
 	>
 		<EmailInput bind:email />
-		<PasswordInput bind:password isRepeatPassword={false} />
+		<PasswordInput bind:password isRepeatPassword={false} isSignUp={false} />
 
 		<button type="submit" class="btn variant-filled-primary">Anmelden</button>
 	</form>

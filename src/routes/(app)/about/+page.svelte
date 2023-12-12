@@ -2,8 +2,10 @@
 	import { Accordion, AccordionItem, tableMapperValues } from '@skeletonlabs/skeleton';
 	import { Table } from '@skeletonlabs/skeleton';
 	import type { TableSource } from '@skeletonlabs/skeleton';
-	import type { PersonData, PersonSourceData, Logo } from '$domains';
-	import { RechtlicheHinweise } from '$components';
+	import type { PersonData, PersonSourceData, Logo, Response } from '$domains';
+	import { RechtlicheHinweise, ServerImprint } from '$components';
+
+	export let data: Response;
 
 	// Zentrale Datenquelle für alle Personen
 	const personsData: PersonSourceData[] = [
@@ -262,6 +264,7 @@
 	<!-- Rechtliche Hinweise -->
 	<RechtlicheHinweise />
 	<!-- ... -->
+	<ServerImprint {data} />
 </Accordion>
 
 <!-- Trennline -->
