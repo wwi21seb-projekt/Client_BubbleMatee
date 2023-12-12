@@ -27,29 +27,29 @@
 </AccordionItem>
 
 <style>
-	/* Definition von CSS-Variablen für wiederkehrende Werte */
+	/* Definition of CSS variables for recurring values */
 	:root {
-		--logo-icon-size: 35px; /* Größe für Logo-Icons */
-		--default-font-size-large: 3rem; /* Standardgröße für große Schrift */
+		--logo-icon-size: 35px; /* Size for logo icons */
+		--default-font-size-large: 3rem; /* Standard size for large text */
 	}
 
-	/* Stile für verschiedene Icons */
+	/* Styles for various icons */
 	.video-icon {
 		height: var(--logo-icon-size);
 		width: var(--logo-icon-size);
 	}
 
-	/* Media Query für kleine Bildschirme (z.B. Mobiltelefone) */
+	/* Media Query for small screens (e.g., mobile phones) */
 	@media (max-width: 600px) {
 		:root {
-			--default-font-size-large: 2rem; /* Kleinere Schriftgröße für mobile Geräte */
-			--logo-icon-size: 25px; /* Kleinere Größe für Icons */
+			--default-font-size-large: 2rem; /* Smaller font size for mobile devices */
+			--logo-icon-size: 25px; /* Smaller size for icons */
 		}
 
 		.h2 {
-			font-size: 1.5rem; /* Kleinere Schriftgröße für Überschriften */
-			word-wrap: break-word; /* Erzwingt den Zeilenumbruch innerhalb des Containers */
-			overflow-wrap: break-word; /* Alternative Eigenschaft für Zeilenumbruch */
+			font-size: 1.5rem; /* smaller size for title */
+			word-wrap: break-word; /* foreces line break in container*/
+			overflow-wrap: break-word; /* alternative linebreak */
 		}
 
 		.video-icon {

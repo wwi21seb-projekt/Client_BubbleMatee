@@ -4,7 +4,7 @@
 	import type { TableSource } from '@skeletonlabs/skeleton';
 	import type { PersonData, PersonSourceData } from '$domains';
 
-	// Zentrale Datenquelle für alle Personen
+	// Central data source for all persons
 	const personsData: PersonSourceData[] = [
 		{
 			id: 'Jp6O3FFRdEI',
@@ -60,10 +60,10 @@
 				{ position: 4, description: 'Stellvertreter', value: 'Build Prozess - CI/CD' }
 			]
 		}
-		// Weitere Personen...
+		// Additional persons...
 	];
 
-	// Hilfsfunktion zur Erstellung von TableSource-Objekten
+	// Helper function to create TableSource objects
 	function createTableSource(data: PersonData[]): TableSource {
 		return {
 			head: ['Bezeichnung', 'Beschreibung'],
@@ -72,17 +72,16 @@
 		};
 	}
 
-	// Erstellen der TableSource Objekte für jede Person in einer Map
+	// Creating TableSource objects for each person in a map
 	const tableSources = personsData.map((person) => ({
-		...person, //person übernimmt die gesamte map aus personsData
-		table: createTableSource(person.data) //fügt ein Element durch die Funktion hinzu
+		...person, // Person takes the entire map from personsData
+		table: createTableSource(person.data) // Adds an element through the function
 	}));
 
-	//Karusellelement
+	// Carousel element
 	let elemCarousel: HTMLDivElement;
 
-	// Karussell-Navigationsfunktionen
-
+	// Carousel navigation functions
 	function carouselMove(direction: 'left' | 'right'): void {
 		const step = elemCarousel.clientWidth;
 		const maxScroll = elemCarousel.scrollWidth - step;
@@ -116,24 +115,24 @@
 		</h2></svelte:fragment
 	>
 	<svelte:fragment slot="content">
-		<!-- Karusell-->
+		<!-- Carousel -->
 		<div class="card p-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center">
 			<!-- Button: Left -->
 			<button type="button" class="btn-icon variant-filled" on:click={carouselLeft}>
 				<img src="./src/images/icons/arrow-left.png" alt="DHBW Mannheim Logo" />
 			</button>
-			<!-- Karte bestehend aus tabelle und bild -->
+			<!-- Card consisting of table and image -->
 			<div
 				bind:this={elemCarousel}
 				class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto"
 			>
 				{#each tableSources as source}
 					<div class="snap-center rounded-container-token carousel-item">
-						<!-- Bild-Teil der Karte -->
+						<!-- Image part of the card -->
 						<div class="image-container">
 							<img class="carousel-image" src={source.src} alt={source.id} loading="lazy" />
 						</div>
-						<!-- Text-Teil der Karte -->
+						<!-- Text part of the card -->
 						<div class="table-container">
 							<Table source={source.table} />
 						</div>
@@ -150,20 +149,20 @@
 </AccordionItem>
 
 <style>
-	/* Definition von CSS-Variablen für wiederkehrende Werte */
+	/* Definition of CSS variables for recurring values */
 	:root {
-		--carousel-item-min-width: 600px; /* Mindestbreite für Karussell-Elemente */
-		--carousel-item-margin: 20px; /* Außenabstand für Karussell-Elemente */
-		--table-container-min-width: 400px; /* Mindestbreite für Tabellencontainer */
-		--table-container-min-height: 300px; /* Mindesthöhe für Tabellencontainer */
-		--image-container-min-width: 200px; /* Mindestbreite für Bildcontainer */
-		--image-container-min-height: 200px; /* Mindesthöhe für Bildcontainer */
-		--carousel-image-max-width: 200px; /* Maximale Breite für Karussell-Bilder */
-		--carousel-image-max-height: 200px; /* Maximale Höhe für Karussell-Bilder */
-		--logo-icon-size: 35px; /* Größe für Logo-Icons */
+		--carousel-item-min-width: 600px; /* Minimum width for carousel items */
+		--carousel-item-margin: 20px; /* Outer margin for carousel items */
+		--table-container-min-width: 400px; /* Minimum width for table containers */
+		--table-container-min-height: 300px; /* Minimum height for table containers */
+		--image-container-min-width: 200px; /* Minimum width for image containers */
+		--image-container-min-height: 200px; /* Minimum height for image containers */
+		--carousel-image-max-width: 200px; /* Maximum width for carousel images */
+		--carousel-image-max-height: 200px; /* Maximum height for carousel images */
+		--logo-icon-size: 35px; /* Size for logo icons */
 	}
 
-	/* Stile für Karussell-Elemente */
+	/* Styles for carousel items */
 	.carousel-item {
 		display: flex;
 		flex-direction: row;
@@ -174,7 +173,7 @@
 		margin-left: var(--carousel-item-margin);
 	}
 
-	/* Stile für Tabellencontainer */
+	/* Styles for table containers */
 	.table-container {
 		text-align: left;
 		width: 100%;
@@ -183,7 +182,7 @@
 		min-height: var(--table-container-min-height);
 	}
 
-	/* Stile für Bildcontainer */
+	/* Styles for image containers */
 	.image-container {
 		width: 100%;
 		display: flex;
@@ -192,45 +191,45 @@
 		min-height: var(--image-container-min-height);
 	}
 
-	/* Stile für Bilder im Karussell */
+	/* Styles for images in the carousel */
 	.carousel-image {
 		border-radius: 50%;
 		overflow: hidden;
 		width: 100%;
 		height: auto;
-		object-fit: cover; /* Sorgt dafür, dass das Bild den Container ausfüllt */
+		object-fit: cover; /* Ensures the image fills the container */
 		max-width: var(--carousel-image-max-width);
 		max-height: var(--carousel-image-max-height);
 	}
 
-	/* Stile für verschiedene Icons */
+	/* Styles for various icons */
 	.icon-team {
 		height: var(--logo-icon-size);
 		width: var(--logo-icon-size);
 	}
 
-	/* Media Query für kleine Bildschirme (z.B. Mobiltelefone) */
+	/* Media Query for small screens (e.g., mobile phones) */
 	@media (max-width: 600px) {
 		:root {
-			--carousel-item-min-width: 360px; /* Vollständige Breite auf kleinen Bildschirmen */
-			--carousel-item-margin: 5px; /* Geringerer Abstand für Karussell-Elemente */
-			--table-container-min-width: 150px; /* Anpassung der Mindestbreite für Tabellencontainer */
-			--table-container-min-height: 150px; /* Anpassung der Mindesthöhe für Tabellencontainer */
-			--image-container-min-width: 150px; /* Anpassung der Mindestbreite für Bildcontainer */
-			--image-container-min-height: 150px; /* Anpassung der Mindesthöhe für Bildcontainer */
-			--carousel-image-max-width: 150px; /* Kleinere Maximalbreite für Bilder */
-			--carousel-image-max-height: 150px; /* Kleinere Maximalhöhe für Bilder */
-			--logo-icon-size: 25px; /* Kleinere Größe für Icons */
+			--carousel-item-min-width: 360px; /* Full width on small screens */
+			--carousel-item-margin: 5px; /* Reduced margin for carousel items */
+			--table-container-min-width: 150px; /* Adjusted minimum width for table containers */
+			--table-container-min-height: 150px; /* Adjusted minimum height for table containers */
+			--image-container-min-width: 150px; /* Adjusted minimum width for image containers */
+			--image-container-min-height: 150px; /* Adjusted minimum height for image containers */
+			--carousel-image-max-width: 150px; /* Smaller maximum width for images */
+			--carousel-image-max-height: 150px; /* Smaller maximum height for images */
+			--logo-icon-size: 25px; /* Smaller size for icons */
 		}
 
 		.h2 {
-			font-size: 1.5rem; /* Kleinere Schriftgröße für Überschriften */
-			word-wrap: break-word; /* Erzwingt den Zeilenumbruch innerhalb des Containers */
-			overflow-wrap: break-word; /* Alternative Eigenschaft für Zeilenumbruch */
+			font-size: 1.5rem; /* Smaller font size for headings */
+			word-wrap: break-word; /* Forces line break within the container */
+			overflow-wrap: break-word; /* Alternative property for line break */
 		}
 
 		.carousel-image {
-			width: 150px; /* Verringerte Größe für Bilder und Icons */
+			width: 150px; /* Reduced size for images and icons */
 			height: 150px;
 		}
 
@@ -239,12 +238,12 @@
 		}
 
 		.carousel-item {
-			flex-direction: column; /* Ändert die Ausrichtung der Flex-Items */
+			flex-direction: column; /* Changes the alignment of flex items */
 		}
 
-		/* Anpassungen für Text und Buttons */
+		/* Adjustments for text and buttons */
 		button {
-			font-size: 0.9rem; /* Kleinere Schriftgröße für normalen Text und Buttons */
+			font-size: 0.9rem; /* Smaller font size for normal text and buttons */
 		}
 
 		.btn-icon {

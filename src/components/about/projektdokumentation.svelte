@@ -53,38 +53,52 @@
 </AccordionItem>
 
 <style>
-	/* Definition von CSS-Variablen für wiederkehrende Werte */
+	/* Definition of CSS variables for recurring values */
 	:root {
-		--logo-icon-size: 35px; /* Größe für Logo-Icons */
-		--default-font-size-large: 3rem; /* Standardgröße für große Schrift */
+		--logo-icon-size: 35px; /* Size for logo icons */
+		--default-font-size-large: 3rem; /* Default size for large text */
 	}
 
-	/* Stile für verschiedene Icons */
+	/* Styles for various icons */
 	.icon-folders {
 		height: var(--logo-icon-size);
 		width: var(--logo-icon-size);
 	}
 
-	/* Media Query für kleine Bildschirme (z.B. Mobiltelefone) */
+	h3 {
+		color: rgba(
+			var(--color-surface-50),
+			1
+		); /* Replace --color-surface-100 with the actual variable name from your palette */
+	}
+
+	p {
+		color: rgba(
+			var(--color-surface-50),
+			1
+		); /* Replace --color-surface-100 with the actual variable name from your palette */
+	}
+
+	/* Media Query for small screens (e.g., mobile phones) */
 	@media (max-width: 600px) {
 		:root {
-			--default-font-size-large: 2rem; /* Kleinere Schriftgröße für mobile Geräte */
-			--logo-icon-size: 25px; /* Kleinere Größe für Icons */
+			--default-font-size-large: 2rem; /* Smaller text size for mobile devices */
+			--logo-icon-size: 25px; /* Smaller size for icons */
 		}
 
 		.h2 {
-			font-size: 1.5rem; /* Kleinere Schriftgröße für Überschriften */
-			word-wrap: break-word; /* Erzwingt den Zeilenumbruch innerhalb des Containers */
-			overflow-wrap: break-word; /* Alternative Eigenschaft für Zeilenumbruch */
+			font-size: 1.5rem; /* Smaller text size for headings */
+			word-wrap: break-word; /* Forces line breaks within the container */
+			overflow-wrap: break-word; /* Alternative property for line breaks */
 		}
 
 		.icon-folders {
 			display: none;
 		}
 
-		/* Anpassungen für Text und Buttons */
+		/* Adjustments for text and buttons */
 		p {
-			font-size: 0.9rem; /* Kleinere Schriftgröße für normalen Text und Buttons */
+			font-size: 0.9rem; /* Smaller text size for normal text and buttons */
 		}
 	}
 </style>

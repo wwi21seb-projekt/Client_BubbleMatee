@@ -5,7 +5,8 @@
 		RechtlicheHinweise,
 		Produktvideo,
 		KarusellProjektbeteiligte,
-		MediaButtonLogos
+		MediaButtonLogos,
+		Serverteam
 	} from '$components';
 </script>
 
@@ -15,61 +16,67 @@
 		>ABOUT US</span
 	>
 </h1>
+<!-- Separator Line -->
 <hr class="!border-t-8" />
 <Accordion>
 	<!-- Team -->
 	<KarusellProjektbeteiligte />
-	<!-- Dokumentationen -->
+	<!-- Documentation -->
 	<Projektdokumentation />
-	<!-- Produktvideo -->
+	<!-- Product Video -->
 	<Produktvideo />
-	<!-- Rechtliche Hinweise -->
+	<!-- Legal Notes -->
 	<RechtlicheHinweise />
 	<!-- ... -->
 </Accordion>
 
-<!-- Trennline -->
+<!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
 
 <MediaButtonLogos />
 
+<!-- Separator Line -->
+<hr class="!border-t-8 !border-double" />
+
+<Serverteam />
+
 <style>
-	/* Definition von CSS-Variablen für wiederkehrende Werte */
+	/* Definition of CSS variables for recurring values */
 	:root {
-		--primary-color: #007bff; /* Hauptfarbe der Anwendung */
-		--line-color: #a0a0a0; /* Graue Farbe für Linien */
-		--default-margin: 2rem; /* Standardaußenabstand */
-		--default-font-size-large: 3rem; /* Standardgröße für große Schrift */
+		--primary-color: #007bff; /* Main color of the application */
+		--line-color: #a0a0a0; /* Gray color for lines */
+		--default-margin: 2rem; /* Default outer margin */
+		--default-font-size-large: 3rem; /* Default size for large text */
 	}
 
-	/* Stile für h1-Elemente */
+	/* Styles for h1 elements */
 	.h1 {
 		font-size: var(--default-font-size-large);
 		text-align: center;
 		margin-top: var(--default-margin);
 		margin-bottom: var(--default-margin);
-		transition: transform 0.3s ease-in-out; /* Übergangseffekt für Maus-Hover */
+		transition: transform 0.3s ease-in-out; /* Transition effect for mouse hover */
 	}
 
 	.h1:hover {
-		transform: scale(1.1); /* Vergrößern beim Hovern */
+		transform: scale(1.1); /* Enlarge on hover */
 	}
 
-	/* Stile für horizontale Linien (hr) */
+	/* Styles for horizontal lines (hr) */
 	hr {
-		border-top: 8px double var(--line-color); /* Doppelte Linie mit grauer Farbe */
+		border-top: 8px double var(--line-color); /* Double line with gray color */
 		margin-top: var(--default-margin);
 		margin-bottom: var(--default-margin);
 	}
 
-	/* Media Query für kleine Bildschirme (z.B. Mobiltelefone) */
+	/* Media Query for small screens (e.g., mobile phones) */
 	@media (max-width: 600px) {
 		:root {
-			--default-font-size-large: 2rem; /* Kleinere Schriftgröße für mobile Geräte */
+			--default-font-size-large: 2rem; /* Smaller text size for mobile devices */
 		}
 
 		.h1 {
-			font-size: 2rem; /* Kleinere Schriftgröße für Überschriften */
+			font-size: 2rem; /* Smaller text size for headings */
 		}
 	}
 </style>

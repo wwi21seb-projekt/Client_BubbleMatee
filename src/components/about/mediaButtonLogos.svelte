@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Logo } from '$domains';
 
-	// Erstellen einer Sammlung von Logos
+	// Creating a collection of logos
 	const logos: Logo[] = [
 		{
 			name: 'DHBW Mannheim',
@@ -21,7 +21,7 @@
 			src: './src/images/about/x.avif',
 			description: 'Twitter Logo'
 		}
-		// Fügen Sie hier weitere Logos hinzu...
+		// Add more logos here...
 	];
 </script>
 
@@ -33,16 +33,16 @@
 			<span>{logo.name}</span>
 		</a>
 	{/each}
-	<!-- Weitere Logos... -->
+	<!-- More logos... -->
 </div>
 
 <style>
-	/* Definition von CSS-Variablen für wiederkehrende Werte */
+	/* Definition of CSS variables for recurring values */
 	:root {
-		--logo-item-margin: 0.5rem; /* Außenabstand für Logo-Elemente */
+		--logo-item-margin: 0.5rem; /* Outer margin for logo elements */
 	}
 
-	/* Stile für den Logo-Bereich */
+	/* Styles for the logo area */
 	.logo-cloud {
 		display: flex;
 		justify-content: center;
@@ -50,29 +50,29 @@
 		flex-wrap: wrap;
 	}
 
-	/* Stile für einzelne Logo-Elemente */
+	/* Styles for individual logo elements */
 	.logo-item {
 		margin: var(--logo-item-margin);
 	}
 
-	/* Stile für Text innerhalb der Logo-Elemente */
+	/* Styles for text within the logo elements */
 	.logo-item > span {
 		display: block;
 		text-align: center;
 	}
 
-	/* Media Query für kleine Bildschirme (z.B. Mobiltelefone) */
+	/* Media Query for small screens (e.g., mobile phones) */
 	@media (max-width: 600px) {
 		:root {
-			--logo-item-margin: 0.25rem; /* Geringerer Abstand für Logos */
+			--logo-item-margin: 0.25rem; /* Reduced margin for logos */
 		}
 
 		.logo-item {
-			margin: var(--logo-item-margin); /* Kleinerer Abstand */
+			margin: var(--logo-item-margin); /* Smaller margin */
 		}
 
 		.logo-item > span {
-			font-size: 0.8rem; /* Kleinere Schriftgröße für Logo-Text */
+			font-size: 0.8rem; /* Smaller font size for logo text */
 		}
 	}
 </style>
