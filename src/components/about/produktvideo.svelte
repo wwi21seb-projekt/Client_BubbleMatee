@@ -1,35 +1,28 @@
-<script lang="ts">
+<script>
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
+<!-- svelte-ignore a11y-media-has-caption -->
 <AccordionItem>
 	<svelte:fragment slot="lead"
-		><img src="./src/images/about/law.png" alt="(icon-law)" class="icon-law" /></svelte:fragment
+		><img
+			src="./src/images/about/video-marketing.png"
+			alt="(icon-video)"
+			class="video-icon"
+		/></svelte:fragment
 	>
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
 			<span
 				class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
-				>Gesetzliche Richtlinien</span
+				>Produktvideo</span
 			>
-		</h2></svelte:fragment
-	>
+		</h2>
+	</svelte:fragment>
 	<svelte:fragment slot="content">
-		<blockquote class="blockquote">
-			<h3>Rechtlicher Hinweis</h3>
-			<p>
-				Dies ist ein Studentenprojekt und ist im Rahmen des Moduls Projektkonzeption an der Dualen
-				Hochschule Baden Württemberg Mannheim entstanden. Alle Inhalte und Materialien, die im
-				Rahmen dieses Projekts bereitgestellt werden, dienen ausschließlich Bildungszwecken.
-			</p>
-
-			<p>
-				<strong>Haftungsausschluss:</strong> Die Projektteilnehmer, Tutoren und die Bildungseinrichtung
-				übernehmen keine Haftung für die Korrektheit, Vollständigkeit und Aktualität der bereitgestellten
-				Inhalte. Jegliche Nutzung der auf diesen Seiten dargestellten Informationen erfolgt auf eigenes
-				Risiko des Nutzers.
-			</p>
-		</blockquote>
+		<video src="pfad/zu/deinem/video.mp4" controls poster="pfad/zu/deinem/poster.jpg">
+			Dein Browser unterstützt das Video-Tag nicht.
+		</video>
 	</svelte:fragment>
 </AccordionItem>
 
@@ -41,7 +34,7 @@
 	}
 
 	/* Stile für verschiedene Icons */
-	.icon-law {
+	.video-icon {
 		height: var(--logo-icon-size);
 		width: var(--logo-icon-size);
 	}
@@ -59,13 +52,8 @@
 			overflow-wrap: break-word; /* Alternative Eigenschaft für Zeilenumbruch */
 		}
 
-		.icon-law {
+		.video-icon {
 			display: none;
-		}
-
-		/* Anpassungen für Text und Buttons */
-		p {
-			font-size: 0.9rem; /* Kleinere Schriftgröße für normalen Text und Buttons */
 		}
 	}
 </style>

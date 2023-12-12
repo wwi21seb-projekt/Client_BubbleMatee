@@ -1,33 +1,52 @@
-<script lang="ts">
+<script>
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
 <AccordionItem>
 	<svelte:fragment slot="lead"
-		><img src="./src/images/about/law.png" alt="(icon-law)" class="icon-law" /></svelte:fragment
+		><img
+			src="./src/images/about/folders.png"
+			alt="(icon-folders)"
+			class="icon-folders"
+		/></svelte:fragment
 	>
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
 			<span
 				class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
-				>Gesetzliche Richtlinien</span
+				>Dokumentation</span
 			>
-		</h2></svelte:fragment
-	>
+		</h2>
+	</svelte:fragment>
 	<svelte:fragment slot="content">
 		<blockquote class="blockquote">
-			<h3>Rechtlicher Hinweis</h3>
+			<h3>Projektdokumentation</h3>
 			<p>
-				Dies ist ein Studentenprojekt und ist im Rahmen des Moduls Projektkonzeption an der Dualen
-				Hochschule Baden Württemberg Mannheim entstanden. Alle Inhalte und Materialien, die im
-				Rahmen dieses Projekts bereitgestellt werden, dienen ausschließlich Bildungszwecken.
+				Das Hauptrepository unseres Projekts <strong>"Client_BubbleMatee"</strong>, welches den
+				gesamten Code und die dazugehörigen Materialien beinhaltet, finden Sie auf GitHub unter dem
+				folgenden Link:
+				<a
+					href="https://github.com/wwi21seb-projekt/Client_BubbleMatee"
+					target="_blank"
+					style="text-decoration: underline;">Client_BubbleMatee Repository</a
+				>.
 			</p>
-
 			<p>
-				<strong>Haftungsausschluss:</strong> Die Projektteilnehmer, Tutoren und die Bildungseinrichtung
-				übernehmen keine Haftung für die Korrektheit, Vollständigkeit und Aktualität der bereitgestellten
-				Inhalte. Jegliche Nutzung der auf diesen Seiten dargestellten Informationen erfolgt auf eigenes
-				Risiko des Nutzers.
+				Ergänzend dazu umfasst unser Dokumentationsrepository <strong
+					>"Documentation_Client_BubbleMatee"</strong
+				>
+				die gesamte Projektplanung und Prüfungsleistungen, einschließlich der Präsentationen. Dieses
+				bietet einen umfassenden Einblick in die konzeptionelle Arbeit unseres Teams:
+				<a
+					href="https://github.com/wwi21seb-projekt/Documentation_Client_BubbleMatee"
+					target="_blank"
+					style="text-decoration: underline;">Documentation_Client_BubbleMatee Repository</a
+				>.
+			</p>
+			<p>
+				Wir ermutigen alle Interessierten, die Repositories zu besuchen und einen tiefgreifenden
+				Einblick in unser Projekt zu gewinnen. Für Fragen, Feedback und Anregungen sind wir stets
+				offen und dankbar.
 			</p>
 		</blockquote>
 	</svelte:fragment>
@@ -41,7 +60,7 @@
 	}
 
 	/* Stile für verschiedene Icons */
-	.icon-law {
+	.icon-folders {
 		height: var(--logo-icon-size);
 		width: var(--logo-icon-size);
 	}
@@ -59,7 +78,7 @@
 			overflow-wrap: break-word; /* Alternative Eigenschaft für Zeilenumbruch */
 		}
 
-		.icon-law {
+		.icon-folders {
 			display: none;
 		}
 
