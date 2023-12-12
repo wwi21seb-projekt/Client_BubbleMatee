@@ -5,6 +5,8 @@
 <!-- App Shell -->
 <AppBar>
 	<svelte:fragment slot="lead">
-		<strong class="text-xl text-center">BubbleMate</strong>
+		<img class="w-16" src="src/images/layout/logo.png" alt="BubbleMateLogo">
 	</svelte:fragment>
+	<h1 class="text-center text-4xl md:text-5xl bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone">BubbleMatee</h1>
 </AppBar>
+<hr class="!border-t-2" />

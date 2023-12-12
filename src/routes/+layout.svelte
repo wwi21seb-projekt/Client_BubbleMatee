@@ -1,16 +1,9 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
-	import { isMobileDevice } from '$lib/stores/store';
 	import Header from '$lib/utils/components/layoutComponents/header.svelte';
 	import NavigationBarMobile from '$lib/utils/components/layoutComponents/navigationBarMobile.svelte';
 	import NavigationBarDesktop from '$lib/utils/components/layoutComponents/navigationBarDesktop.svelte';
-	// Check wether the app is rendered on a mobile device or not.
-	// The Information is stored in $lib/stores/store and can be refferenced from everywhere
-	onMount(() => {
-		$isMobileDevice = window.innerWidth <= 750;
-	});
 </script>
 
 <!-- Basic Layout of the App -->
@@ -20,14 +13,14 @@
 	</svelte:fragment>
 	<!-- If the App is rendered on a mobile device, the navigation Bar is displayed on the bottom, otherwise on the left sidebar  -->
 	<svelte:fragment slot="footer">
-		{#if $isMobileDevice}
+		<div class="md:hidden">
 			<NavigationBarMobile></NavigationBarMobile>
-		{/if}
+	</div>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-		{#if $isMobileDevice === false}
+		<div class="hidden md:flex h-full">
 			<NavigationBarDesktop></NavigationBarDesktop>
-		{/if}
+		</div>
 	</svelte:fragment>
 	<slot />
 </AppShell>
