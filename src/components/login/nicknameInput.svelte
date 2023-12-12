@@ -5,7 +5,7 @@
 <label class="p-1">
 	<span>Nickname (optional):</span>
 	<input
-		class="input"
+		class="input valid:input-success invalid:input-error"
 		title="Bitte gib einen Aliasnamen ein."
 		type="text"
 		placeholder="max_müller"

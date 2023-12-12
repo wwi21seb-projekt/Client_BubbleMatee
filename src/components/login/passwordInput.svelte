@@ -8,7 +8,7 @@
 <label class="p-1">
 	<span>{isRepeatPassword ? 'Wiederhole Passwort' : 'Passwort:'}</span>
 	<input
-		class="input"
+		class="input valid:input-success invalid:input-error"
 		title="Bitte gib ein Passwort mit mindestens 1 Groß- und Kleinbuchstaben, 1 Zahl und 1 Sonderzeichen ein."
 		type="password"
 		placeholder="password"

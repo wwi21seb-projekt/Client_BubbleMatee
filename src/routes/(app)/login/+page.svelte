@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import { PasswordInput } from '$components';
 	import EmailInput from '$components/login/emailInput.svelte';
 
-	let email = '';
-	let password = '';
+	let email: string;
+	let password: string;
 
 	const handleSubmit = () => {
 		// Hier kannst du die Logik für die Authentifizierung implementieren

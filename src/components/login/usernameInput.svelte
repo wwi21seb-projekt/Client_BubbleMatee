@@ -6,7 +6,7 @@
 <label class="p-1">
 	<span>Username:</span>
 	<input
-		class="input"
+		class="input valid:input-success invalid:input-error"
 		title="Bitte gib einen Nutzernamen ein."
 		type="text"
 		placeholder="max_mueller"

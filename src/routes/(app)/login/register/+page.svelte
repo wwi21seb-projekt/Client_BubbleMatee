@@ -1,15 +1,15 @@
-<script>
+<script lang="ts">
 	import { PasswordInput } from '$components';
 	import EmailInput from '$components/login/emailInput.svelte';
 	import NicknameInput from '$components/login/nicknameInput.svelte';
 	import PasswordImput from '$components/login/passwordInput.svelte';
 	import UsernameInput from '$components/login/usernameInput.svelte';
 
-	let email = '';
-	let password = '';
-	let passwordRepeat = '';
-	let username = '';
-	let nickname = '';
+	let email: string;
+	let password: string;
+	let passwordRepeat: string;
+	let username: string;
+	let nickname: string;
 
 	const handleSubmit = () => {
 		// Hier kannst du die Logik für die Authentifizierung implementieren

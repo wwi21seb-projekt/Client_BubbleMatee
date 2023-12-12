@@ -5,7 +5,7 @@
 <label class="p-1">
 	<span>E-Mail:</span>
 	<input
-		class="input"
+		class="input valid:input-success invalid:input-error"
 		title="Bitte gib deine E-Mail-Adresse ein."
 		type="email"
 		placeholder="john@example.com"
