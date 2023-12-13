@@ -29,11 +29,11 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
+			error: true,
 			data: {
-				error: true,
-				errorCode: 500
-			},
-			errorMessage: 'Internal Server Error'
+				code: 500,
+				message: 'Internal Server Error'
+			}
 		});
 	}
 };
