@@ -6,14 +6,14 @@
 	<svelte:fragment slot="lead"
 		><img
 			src="./src/images/about/folders.png"
-			alt="(icon-folders)"
+			alt="(icon für den Inhalt der Projektdokumentation)"
 			class="icon-folders"
 		/></svelte:fragment
 	>
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
 			<span
-				class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
+				class="bg-gradient-to-br from-warning-600 to-warning-300 bg-clip-text text-transparent box-decoration-clone"
 				>Dokumentation</span
 			>
 		</h2>
@@ -55,7 +55,7 @@
 <style>
 	/* Definition of CSS variables for recurring values */
 	:root {
-		--logo-icon-size: 35px; /* Size for logo icons */
+		--logo-icon-size: 2.188rem; /* Size for logo icons */
 		--default-font-size-large: 3rem; /* Default size for large text */
 	}
 
@@ -80,10 +80,10 @@
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
-	@media (max-width: 600px) {
+	@media (max-width: 40rem) {
 		:root {
 			--default-font-size-large: 2rem; /* Smaller text size for mobile devices */
-			--logo-icon-size: 25px; /* Smaller size for icons */
+			--logo-icon-size: 1.563rem; /* Smaller size for icons */
 		}
 
 		.h2 {

@@ -1,39 +1,39 @@
 <script lang="ts">
 	import { Accordion } from '@skeletonlabs/skeleton';
 	import {
-		Projektdokumentation,
-		RechtlicheHinweise,
-		Produktvideo,
-		KarusellProjektbeteiligte,
-		MediaButtonLogos,
+		Projectdocumentation,
+		LegalNotice,
+		Productvideo,
+		CarouselProjectParticipants,
+		MediaButtonsLogo,
 		Serverteam
 	} from '$components';
 </script>
 
 <h1 class="h1">
 	<span
-		class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
+		class="bg-gradient-to-br from-tertiary-500 to-tertiary-200 bg-clip-text text-transparent box-decoration-clone"
 		>ABOUT US</span
 	>
 </h1>
 <!-- Separator Line -->
-<hr class="!border-t-8" />
+<hr class="!border-t-8 !border-double" />
 <Accordion>
 	<!-- Team -->
-	<KarusellProjektbeteiligte />
+	<CarouselProjectParticipants />
 	<!-- Documentation -->
-	<Projektdokumentation />
+	<Projectdocumentation />
 	<!-- Product Video -->
-	<Produktvideo />
+	<Productvideo />
 	<!-- Legal Notes -->
-	<RechtlicheHinweise />
+	<LegalNotice />
 	<!-- ... -->
 </Accordion>
 
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
 
-<MediaButtonLogos />
+<MediaButtonsLogo />
 
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
@@ -43,8 +43,6 @@
 <style>
 	/* Definition of CSS variables for recurring values */
 	:root {
-		--primary-color: #007bff; /* Main color of the application */
-		--line-color: #a0a0a0; /* Gray color for lines */
 		--default-margin: 2rem; /* Default outer margin */
 		--default-font-size-large: 3rem; /* Default size for large text */
 	}
@@ -64,13 +62,12 @@
 
 	/* Styles for horizontal lines (hr) */
 	hr {
-		border-top: 8px double var(--line-color); /* Double line with gray color */
 		margin-top: var(--default-margin);
 		margin-bottom: var(--default-margin);
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
-	@media (max-width: 600px) {
+	@media (max-width: 40rem) {
 		:root {
 			--default-font-size-large: 2rem; /* Smaller text size for mobile devices */
 		}

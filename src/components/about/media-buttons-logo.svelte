@@ -1,28 +1,5 @@
 <script lang="ts">
-	import type { Logo } from '$domains';
-
-	// Creating a collection of logos
-	const logos: Logo[] = [
-		{
-			name: 'DHBW Mannheim',
-			url: 'https://www.mannheim.dhbw.de/startseite',
-			src: './src/images/about/DHBW.jpg',
-			description: 'DHBW Mannheim Logo'
-		},
-		{
-			name: 'Instagram',
-			url: 'https://www.instagram.com/',
-			src: './src/images/about/Instagram.png',
-			description: 'Instagram Logo'
-		},
-		{
-			name: 'Twitter',
-			url: 'https://twitter.com/?lang=de',
-			src: './src/images/about/x.avif',
-			description: 'Twitter Logo'
-		}
-		// Add more logos here...
-	];
+	import { logos } from './static/variableMediaButtonsLogo.ts';
 </script>
 
 <!-- Logos dhbw insta x -->
@@ -62,7 +39,7 @@
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
-	@media (max-width: 600px) {
+	@media (max-width: 40rem) {
 		:root {
 			--logo-item-margin: 0.25rem; /* Reduced margin for logos */
 		}

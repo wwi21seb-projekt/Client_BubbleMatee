@@ -2,66 +2,8 @@
 	import { AccordionItem, tableMapperValues } from '@skeletonlabs/skeleton';
 	import { Table } from '@skeletonlabs/skeleton';
 	import type { TableSource } from '@skeletonlabs/skeleton';
-	import type { PersonData, PersonSourceData } from '$domains';
-
-	// Central data source for all persons
-	const personsData: PersonSourceData[] = [
-		{
-			id: 'Jp6O3FFRdEI',
-			src: './src/images/about/Professor.png',
-			data: [
-				{ position: 1, description: 'Name', value: 'Herr Dr. Prof Eichberg' },
-				{ position: 2, description: 'Rolle', value: 'Projektbegleiter' },
-				{ position: 3, description: 'Modulleiter', value: 'Projektkonzeption' },
-				{ position: 4, description: 'Vorleungszeitraum', value: '5./6. Semester' }
-			]
-		},
-		{
-			id: 'I3C_eojFVQY',
-			src: './src/images/about/Paul.png',
-			data: [
-				{ position: 1, description: 'Name', value: 'Paul Bahde' },
-				{ position: 2, description: 'Martriktelnummer', value: '5584368' },
-				{ position: 3, description: 'Hauptverantwortlichkeit', value: 'Mock-Server' },
-				{ position: 4, description: 'Stellvertreter', value: 'Schnittstellenbeauftragter' }
-			]
-		},
-		{
-			id: 'Jp6O3FFRdEI',
-			src: './src/images/about/Jonas.png',
-			data: [
-				{ position: 1, description: 'Name', value: 'Jonas Braun' },
-				{ position: 2, description: 'Martriktelnummer', value: '6813146' },
-				{ position: 3, description: 'Hauptverantwortlichkeit', value: 'Build Prozess - CI/CD' },
-				{ position: 4, description: 'Stellvertreter', value: 'UI/UX' }
-			]
-		},
-		{
-			id: 'Jp6O3FFRdEI',
-			src: './src/images/about/Johanna.png',
-			data: [
-				{ position: 1, description: 'Name', value: 'Johanna Deike' },
-				{ position: 2, description: 'Martriktelnummer', value: 'xxxxxx' },
-				{ position: 3, description: 'Hauptverantwortlichkeit', value: 'UI/UX' },
-				{ position: 4, description: 'Stellvertreter', value: 'Mock-Server' }
-			]
-		},
-		{
-			id: 'Jp6O3FFRdEI',
-			src: './src/images/about/Aidan.png',
-			data: [
-				{ position: 1, description: 'Name', value: 'Aidan Zimmer' },
-				{ position: 2, description: 'Martriktelnummer', value: 'xxxxxxxx' },
-				{
-					position: 3,
-					description: 'Hauptverantwortlichkeit',
-					value: 'Schnittstellenbeauftragter'
-				},
-				{ position: 4, description: 'Stellvertreter', value: 'Build Prozess - CI/CD' }
-			]
-		}
-		// Additional persons...
-	];
+	import type { PersonData } from '$domains';
+	import { personsData } from './static/variableCarouselProjectParticipants.ts';
 
 	// Helper function to create TableSource objects
 	function createTableSource(data: PersonData[]): TableSource {
@@ -71,7 +13,6 @@
 			meta: tableMapperValues(data, ['position', 'description', 'value'])
 		};
 	}
-
 	// Creating TableSource objects for each person in a map
 	const tableSources = personsData.map((person) => ({
 		...person, // Person takes the entire map from personsData
@@ -104,12 +45,16 @@
 
 <AccordionItem open>
 	<svelte:fragment slot="lead"
-		><img src="./src/images/about/team.png" alt="(icon-team)" class="icon-team" /></svelte:fragment
+		><img
+			src="./src/images/about/team.png"
+			alt="Bild von allen Teammitgliedern"
+			class="icon-team"
+		/></svelte:fragment
 	>
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
 			<span
-				class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
+				class="bg-gradient-to-br from-warning-600 to-warning-300 bg-clip-text text-transparent box-decoration-clone"
 				>Projektbeteiligte</span
 			>
 		</h2></svelte:fragment
@@ -130,7 +75,7 @@
 					<div class="snap-center rounded-container-token carousel-item">
 						<!-- Image part of the card -->
 						<div class="image-container">
-							<img class="carousel-image" src={source.src} alt={source.id} loading="lazy" />
+							<img class="carousel-image" src={source.src} alt="Bild von Person" loading="lazy" />
 						</div>
 						<!-- Text part of the card -->
 						<div class="table-container">
@@ -151,15 +96,15 @@
 <style>
 	/* Definition of CSS variables for recurring values */
 	:root {
-		--carousel-item-min-width: 600px; /* Minimum width for carousel items */
-		--carousel-item-margin: 20px; /* Outer margin for carousel items */
-		--table-container-min-width: 400px; /* Minimum width for table containers */
-		--table-container-min-height: 300px; /* Minimum height for table containers */
-		--image-container-min-width: 200px; /* Minimum width for image containers */
-		--image-container-min-height: 200px; /* Minimum height for image containers */
-		--carousel-image-max-width: 200px; /* Maximum width for carousel images */
-		--carousel-image-max-height: 200px; /* Maximum height for carousel images */
-		--logo-icon-size: 35px; /* Size for logo icons */
+		--carousel-item-min-width: 37.5rem; /* Minimum width for carousel items */
+		--carousel-item-margin: 1.25rem; /* Outer margin for carousel items */
+		--table-container-min-width: 25rem; /* Minimum width for table containers */
+		--table-container-min-height: 18.75rem; /* Minimum height for table containers */
+		--image-container-min-width: 12.5rem; /* Minimum width for image containers */
+		--image-container-min-height: 12.5rem; /* Minimum height for image containers */
+		--carousel-image-max-width: 12.5rem; /* Maximum width for carousel images */
+		--carousel-image-max-height: 12.5rem; /* Maximum height for carousel images */
+		--logo-icon-size: 2.188rem; /* Size for logo icons */
 	}
 
 	/* Styles for carousel items */
@@ -209,17 +154,17 @@
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
-	@media (max-width: 600px) {
+	@media (max-width: 40rem) {
 		:root {
-			--carousel-item-min-width: 360px; /* Full width on small screens */
-			--carousel-item-margin: 5px; /* Reduced margin for carousel items */
-			--table-container-min-width: 150px; /* Adjusted minimum width for table containers */
-			--table-container-min-height: 150px; /* Adjusted minimum height for table containers */
-			--image-container-min-width: 150px; /* Adjusted minimum width for image containers */
-			--image-container-min-height: 150px; /* Adjusted minimum height for image containers */
-			--carousel-image-max-width: 150px; /* Smaller maximum width for images */
-			--carousel-image-max-height: 150px; /* Smaller maximum height for images */
-			--logo-icon-size: 25px; /* Smaller size for icons */
+			--carousel-item-min-width: 22.5rem; /* Full width on small screens */
+			--carousel-item-margin: 0.313rem; /* Reduced margin for carousel items */
+			--table-container-min-width: 9.375rem; /* Adjusted minimum width for table containers */
+			--table-container-min-height: 9.375rem; /* Adjusted minimum height for table containers */
+			--image-container-min-width: 9.375rem; /* Adjusted minimum width for image containers */
+			--image-container-min-height: 9.375rem; /* Adjusted minimum height for image containers */
+			--carousel-image-max-width: 9.375rem; /* Smaller maximum width for images */
+			--carousel-image-max-height: 9.375rem; /* Smaller maximum height for images */
+			--logo-icon-size: 1.563rem; /* Smaller size for icons */
 		}
 
 		.h2 {
@@ -229,8 +174,8 @@
 		}
 
 		.carousel-image {
-			width: 150px; /* Reduced size for images and icons */
-			height: 150px;
+			width: 9.375rem; /* Reduced size for images and icons */
+			height: 9.375rem;
 		}
 
 		.icon-team {
