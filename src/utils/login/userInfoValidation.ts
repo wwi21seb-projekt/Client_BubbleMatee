@@ -61,7 +61,7 @@ export function getUserInfoIcons(
 	message: string,
 	validation: (str: string) => boolean
 ): typeof XMark | typeof Check | undefined {
-	if (message === '' && validation(message)) {
+	if (message !== '' && validation(message)) {
 		return Check;
 	} else {
 		return XMark;
@@ -79,7 +79,7 @@ export function getUserInfoColors(
 	message: string,
 	validation: (str: string) => boolean
 ): string | undefined {
-	if (message === '' && validation(message)) {
+	if (message !== '' && validation(message)) {
 		return 'text-success-500';
 	} else {
 		return 'text-error-500';
