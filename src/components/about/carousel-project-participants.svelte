@@ -3,7 +3,7 @@
 	import { Table } from '@skeletonlabs/skeleton';
 	import type { TableSource } from '@skeletonlabs/skeleton';
 	import type { PersonData } from '$domains';
-	import { personsData } from './static/variableCarouselProjectParticipants.ts';
+	import { personsData } from '../../static/components/index.ts';
 
 	// Helper function to create TableSource objects
 	function createTableSource(data: PersonData[]): TableSource {

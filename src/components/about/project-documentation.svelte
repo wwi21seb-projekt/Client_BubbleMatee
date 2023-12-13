@@ -6,7 +6,7 @@
 	<svelte:fragment slot="lead"
 		><img
 			src="./src/images/about/folders.png"
-			alt="(icon für den Inhalt der Projektdokumentation)"
+			alt="icon für den Inhalt der Projektdokumentation"
 			class="icon-folders"
 		/></svelte:fragment
 	>

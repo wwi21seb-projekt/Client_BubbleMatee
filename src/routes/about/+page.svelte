@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { Accordion } from '@skeletonlabs/skeleton';
 	import {
-		Projectdocumentation,
+		ProjectDocumentation,
 		LegalNotice,
-		Productvideo,
+		ProductVideo,
 		CarouselProjectParticipants,
 		MediaButtonsLogo,
-		Serverteam
+		ServerTeam
 	} from '$components';
 </script>
 
@@ -22,9 +22,9 @@
 	<!-- Team -->
 	<CarouselProjectParticipants />
 	<!-- Documentation -->
-	<Projectdocumentation />
+	<ProjectDocumentation />
 	<!-- Product Video -->
-	<Productvideo />
+	<ProductVideo />
 	<!-- Legal Notes -->
 	<LegalNotice />
 	<!-- ... -->
@@ -38,7 +38,7 @@
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
 
-<Serverteam />
+<ServerTeam />
 
 <style>
 	/* Definition of CSS variables for recurring values */

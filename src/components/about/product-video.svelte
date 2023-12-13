@@ -7,7 +7,7 @@
 	<svelte:fragment slot="lead"
 		><img
 			src="./src/images/about/video-marketing.png"
-			alt="(icon für den Inhalt des Produktvideos)"
+			alt="icon für den Inhalt des Produktvideos"
 			class="video-icon"
 		/></svelte:fragment
 	>

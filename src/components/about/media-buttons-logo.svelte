@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { logos } from './static/variableMediaButtonsLogo.ts';
+	import { logos } from '../../static/components/index.ts';
 </script>
 
 <!-- Logos dhbw insta x -->
