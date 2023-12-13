@@ -4,7 +4,11 @@
 
 <AccordionItem>
 	<svelte:fragment slot="lead"
-		><img src="./src/images/about/law.png" alt="Bild zum Gesetzestext" class="icon-law" /></svelte:fragment
+		><img
+			src="./src/images/about/law.png"
+			alt="Bild zum Gesetzestext"
+			class="icon-law"
+		/></svelte:fragment
 	>
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
