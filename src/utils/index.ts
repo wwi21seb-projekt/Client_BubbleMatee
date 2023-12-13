@@ -8,3 +8,11 @@ export {
 	passwordValid,
 	passwordsMatch
 } from './login/passwordValidations';
+
+export {
+	getUserInfoColors,
+	getUserInfoIcons,
+	isValidEmail,
+	isValidNickname,
+	isValidUsername
+} from './login/userInfoValidation';

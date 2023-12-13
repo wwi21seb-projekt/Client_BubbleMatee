@@ -1,3 +1,4 @@
+import type { ErrorResponse, LoginResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
@@ -16,7 +17,11 @@ export const POST: RequestHandler = async ({ fetch, request, params }) => {
 		});
 
 		const body = await response.json();
-		return json({ data: body, error: response.ok ? false : true });
+
+		if (response.ok) {
+			return json({ data: body, error: false } as LoginResponse);
+		}
+		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
 			data: {
@@ -29,7 +34,7 @@ export const POST: RequestHandler = async ({ fetch, request, params }) => {
 };
 export const DELETE: RequestHandler = async ({ fetch, request, params }) => {
 	const username = params.username;
-	console.log(` DELETE ${PUBLIC_BASE_URL}/api/v1/users/${username}/activate}`);
+	console.log(` DELETE ${PUBLIC_BASE_URL}/api/v1/users/${username}/activate`);
 
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/v1/users/${username}/activate`, {
@@ -42,7 +47,7 @@ export const DELETE: RequestHandler = async ({ fetch, request, params }) => {
 		return json({
 			data: {
 				error: true,
-				errorCode: '500'
+				errorCode: 500
 			},
 			errorMessage: 'Internal Server Error'
 		});

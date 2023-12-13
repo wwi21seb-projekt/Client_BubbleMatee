@@ -5,7 +5,7 @@
 <label class="p-1">
 	<span>Code:</span>
 	<input
-		class="input valid:input-success invalid:input-error"
+		class="input"
 		title="Bitte gib den per Email zugesandten Code ein."
 		type="text"
 		placeholder="123456"

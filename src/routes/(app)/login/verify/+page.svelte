@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { CodeInput, UsernameInput, ErrorMessage } from '$components';
-	import type { Response } from '$domains';
+	import { CodeInput, UsernameInput } from '$components';
+	import type { Error } from '$domains';
 	import { currentUser, isLoggedIn, loading } from '$stores';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+
+	const toastStore = getToastStore();
 
 	let username: string = $currentUser.username;
 	let code: string;
 
-	let error: Error | null = null;
-
 	const handleSubmit = async () => {
 		loading.set(true);
-		error = null;
 		try {
 			const response = await fetch(`/api/users/${username}/activate`, {
 				method: 'POST',
@@ -23,10 +24,27 @@
 				})
 			});
 
-			const body = (await response.json()) as Response;
+			const body = await response.json();
 
 			if (body.error) {
-				error = body.data.error;
+				let error: Error = body.data.error; //TODO: error handling messages
+				let message: string = error.message;
+
+				console.log(error.code);
+				switch (error.code) {
+					case 404: {
+						message = 'Code ungültig';
+						break;
+					}
+					case 401: {
+						message = 'Code abgelaufen. Wir haben dir einen neuen Code zugesendet';
+						break;
+					}
+				}
+				const t: ToastSettings = {
+					message: message
+				};
+				toastStore.trigger(t);
 			} else {
 				isLoggedIn.set(true);
 				goto('/myProfile');
@@ -54,11 +72,6 @@
 		<UsernameInput bind:username />
 		<CodeInput bind:code />
 
-		{#if error}
-			<ol>
-				<ErrorMessage message={error.message} />
-			</ol>
-		{/if}
 		<button type="submit" class="btn variant-filled-primary">Bestätigen</button>
 	</form>
 	<div class="flex justify-center">

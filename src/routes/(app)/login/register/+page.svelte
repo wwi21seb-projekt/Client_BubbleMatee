@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { UserInfoStep, PasswordStep } from '$components';
-	import type { Response } from '$domains';
-	import { currentUser, isLoggedIn, loading } from '$stores';
-	import { Stepper } from '@skeletonlabs/skeleton';
+	import type { Error } from '$domains';
+	import { currentUser, loading } from '$stores';
+	import { Stepper, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+
+	const toastStore = getToastStore();
 
 	let email: string;
 	let password: string;
@@ -11,11 +14,8 @@
 	let username: string;
 	let nickname: string;
 
-	let error: Error | null = null;
-
 	const handleSubmit = async () => {
 		loading.set(true);
-		error = null;
 		try {
 			const response = await fetch('/api/users', {
 				method: 'POST',
@@ -30,20 +30,42 @@
 				})
 			});
 
-			const body = (await response.json()) as Response;
+			const body = await response.json();
 
 			if (body.error) {
-				error = body.data.error;
+				let error: Error = body.data.error;
+				let message: string = error.message;
+				switch (error.code) {
+					case 409: {
+						message = 'Username bereits vergeben';
+						break;
+					}
+					case 422: {
+						message = 'Email Adresse bereits vergeben';
+						break;
+					}
+					case 400: {
+						message = 'Fehlerhafte Eingabe';
+						break;
+					}
+				}
+				const t: ToastSettings = {
+					message: message
+				};
+				toastStore.trigger(t);
+				//TODO: navigate back to tep 1
 			} else {
-				currentUser.set({ email: body.data.email, username: body.data.username });
+				currentUser.set({
+					email: body.data.email,
+					username: body.data.username,
+					nickname: body.data.nickname
+				});
 				goto('/login/verify');
 			}
 
 			return body;
 		} catch (e: any) {
 			console.error(e);
-			/* errorState.set(true);
-			errorCode.set('EM-000'); */
 		} finally {
 			loading.set(false);
 		}

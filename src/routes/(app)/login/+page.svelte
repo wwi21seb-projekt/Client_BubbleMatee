@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { PasswordInput, EmailInput, ErrorMessage } from '$components';
-	import type { Response } from '$domains';
+	import { PasswordInput, EmailInput } from '$components';
 	import { isLoggedIn, loading } from '$stores';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+
+	const toastStore = getToastStore();
 
 	let email: string;
 	let password: string;
 
-	let error: Error | null = null;
-
 	const login = async () => {
 		loading.set(true);
-		error = null;
 		try {
 			const response = await fetch('/api/users/login', {
 				method: 'POST',
@@ -21,10 +21,40 @@
 				body: JSON.stringify({ email: email, password: password })
 			});
 
-			const body = (await response.json()) as Response;
+			const body = await response.json();
 
 			if (body.error) {
-				error = body.data.error;
+				switch (body.data.error.code) {
+					case 403: {
+						const t: ToastSettings = {
+							message: 'Bitte bestätige deine Email Adresse'
+						};
+						toastStore.trigger(t);
+						goto('/login/verify');
+						break;
+					}
+					case 401: {
+						const t: ToastSettings = {
+							message: 'Falsches Passwort'
+						};
+						toastStore.trigger(t);
+						break;
+					}
+					case 404: {
+						const t: ToastSettings = {
+							message: 'Email Adresse nicht gefunden'
+						};
+						toastStore.trigger(t);
+						break;
+					}
+					default: {
+						const t: ToastSettings = {
+							message: body.data.error.message,
+							autohide: false
+						};
+						toastStore.trigger(t);
+					}
+				}
 			} else {
 				isLoggedIn.set(true);
 				goto('/myProfile');
@@ -33,8 +63,6 @@
 			return body;
 		} catch (e: any) {
 			console.error(e);
-			/* errorState.set(true);
-			errorCode.set('EM-000'); */
 		} finally {
 			loading.set(false);
 		}
@@ -53,15 +81,10 @@
 		on:submit|preventDefault={handleSubmit}
 		class="m-4 grid justify-items-strech max-w-xs gap-4"
 	>
-		<EmailInput bind:email />
+		<EmailInput bind:email isSignUp={false} />
 		<PasswordInput bind:password isRepeatPassword={false} isSignUp={false} />
-		{#if error}
-			<ol>
-				<ErrorMessage message={error.message} />
-			</ol>
-		{/if}
 		<button type="submit" class="btn variant-filled-primary mt-2"
-			>{loading ? `Anmelden` : `Lädt...`}</button
+			>{$loading ? `Lädt...` : `Anmelden`}</button
 		>
 	</form>
 	<div class="flex justify-center">

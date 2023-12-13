@@ -18,7 +18,3 @@ export interface Logo {
 	src: string;
 	description: string;
 }
-
-export interface Imprint {
-	text: string;
-}

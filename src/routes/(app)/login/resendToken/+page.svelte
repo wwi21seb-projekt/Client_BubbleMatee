@@ -1,26 +1,37 @@
 <script lang="ts">
-	import { CodeInput, UsernameInput, ErrorMessage } from '$components';
-	import type { Response } from '$domains';
+	import { goto } from '$app/navigation';
+	import { UsernameInput } from '$components';
+	import type { Error } from '$domains';
 	import { currentUser, loading } from '$stores';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+
+	const toastStore = getToastStore();
 
 	let username: string = $currentUser.username;
 
-	let error: Error | null = null;
-
 	const handleSubmit = async () => {
 		loading.set(true);
-		error = null;
 		try {
 			const response = await fetch(`/api/users/${username}/activate`, {
 				method: 'DELETE'
 			});
 
-			const body = (await response.json()) as Response;
+			const body = await response.json();
 
 			if (body.error) {
-				error = body.data.error;
+				const error: Error = body.data.error;
+				const t: ToastSettings = {
+					message: error.message
+				};
+				toastStore.trigger(t);
 			} else {
 				//TODO: code was snet again
+				const t: ToastSettings = {
+					message: 'Code wurde erneut gesendet'
+				};
+				toastStore.trigger(t);
+				goto('/login/verify');
 			}
 
 			return body;
@@ -44,11 +55,6 @@
 	>
 		<UsernameInput bind:username />
 
-		{#if error}
-			<ol>
-				<ErrorMessage message={error.message} />
-			</ol>
-		{/if}
 		<button type="submit" class="btn variant-filled-primary">Bestätigen</button>
 	</form>
 	<div class="flex justify-center">

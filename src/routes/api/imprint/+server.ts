@@ -1,3 +1,4 @@
+import type { ErrorResponse, ImprintResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
@@ -12,14 +13,20 @@ export const GET: RequestHandler = async ({ fetch }) => {
 		});
 
 		const body = await response.json();
-		return json({ data: body, error: response.ok ? false : true });
+
+		if (response.ok) {
+			let result = { data: body, error: false };
+			return json(result as ImprintResponse);
+		}
+
+		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
+			error: true,
 			data: {
-				error: true,
-				errorCode: '500'
-			},
-			errorMessage: 'Internal Server Error'
-		});
+				code: 500,
+				message: 'Internal Server Error'
+			}
+		} as ErrorResponse);
 	}
 };

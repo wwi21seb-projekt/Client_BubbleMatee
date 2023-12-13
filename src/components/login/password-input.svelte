@@ -10,8 +10,6 @@
 	export let passwordValid: boolean = false;
 
 	$: isValid = determineIconType(passwordsMatch, isRepeatPassword, passwordValid);
-	//TODO: Passwort Länge maximal?
-	//TODO: Was sind alles ASCII SOnderzeichen? pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
 </script>
 
 <label>
@@ -28,9 +26,11 @@
 			required
 			minlength="8"
 		/>
-		{#if isSignUp}<Icon
+		{#if isSignUp}
+			<Icon
 				class="{isValid ? 'text-success-500' : 'text-error-500'} w-6"
 				src={isValid ? Check : XMark}
-			/>{/if}
+			/>
+		{/if}
 	</div>
 </label>

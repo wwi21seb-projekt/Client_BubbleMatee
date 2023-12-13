@@ -1,6 +1,6 @@
 import type { ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import type { Response } from '$domains';
+import type { ErrorResponse, ImprintResponse } from '$domains';
 
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const response = await event.fetch('/api/imprint', {
@@ -10,6 +10,6 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 		}
 	});
 
-	const body: Response = await response.json();
-	return body;
+	const body = await response.json();
+	return body as ImprintResponse | ErrorResponse;
 };

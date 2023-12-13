@@ -28,7 +28,7 @@
 		<hr class="w-16 h-1 bg-primary-500 rounded-full flex justify-center mt-2" />
 	</svelte:fragment>
 	<section>
-		<form class="m-4 grid justify-items-strech max-w-xs gap-4">
+		<form class="m-4 grid justify-items-strech max-w-xs gap-4 h-60 w-56 md:w-72">
 			<PasswordInput
 				bind:password
 				isRepeatPassword={false}

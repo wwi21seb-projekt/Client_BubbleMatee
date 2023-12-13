@@ -1,3 +1,4 @@
+import type { ErrorResponse, RegisterResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
@@ -14,12 +15,16 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		});
 
 		const body = await response.json();
-		return json({ data: body, error: response.ok ? false : true });
+
+		if (response.ok) {
+			return json({ data: body, error: false } as RegisterResponse);
+		}
+		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
 			data: {
 				error: true,
-				errorCode: '500'
+				errorCode: 500
 			},
 			errorMessage: 'Internal Server Error'
 		});

@@ -1,8 +1,11 @@
 <script lang="ts">
-	import type { Response } from '$domains';
+	import type { ErrorResponse, ImprintResponse } from '$domains';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 
-	export let data: Response;
+	export let data: ImprintResponse | ErrorResponse;
+
+	let hasError: boolean = data.error;
+	let impressumText: string = 'text' in data.data ? data.data.text : '';
 </script>
 
 <AccordionItem>
@@ -23,7 +26,7 @@
 	>
 	<svelte:fragment slot="content">
 		<blockquote class="blockquote">
-			<p>{data.error ? 'Server ist derzeit nicht verfügbar' : data.data.text}</p>
+			<p>{hasError ? 'Server ist derzeit nicht verfügbar' : impressumText}</p>
 		</blockquote>
 	</svelte:fragment>
 </AccordionItem>
