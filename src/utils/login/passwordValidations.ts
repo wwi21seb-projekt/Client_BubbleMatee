@@ -29,7 +29,7 @@ export function containsSmallLetter(password: string): boolean {
 }
 
 export function containsSpecialCharacter(password: string): boolean {
-	return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+	return /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
 }
 
 export function containsNumber(password: string): boolean {

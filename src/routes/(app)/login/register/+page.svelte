@@ -64,7 +64,7 @@
 			}
 
 			return body;
-		} catch (e: any) {
+		} catch (e) {
 			console.error(e);
 		} finally {
 			loading.set(false);

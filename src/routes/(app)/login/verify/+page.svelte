@@ -51,7 +51,7 @@
 			}
 
 			return body;
-		} catch (e: any) {
+		} catch (e) {
 			console.error(e);
 			/* errorState.set(true);
 			errorCode.set('EM-000'); */

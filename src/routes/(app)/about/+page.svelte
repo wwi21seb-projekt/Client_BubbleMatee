@@ -430,8 +430,7 @@
 
 		.icon-team,
 		.icon-folders,
-		.video-icon,
-		.icon-law {
+		.video-icon {
 			display: none;
 		}
 

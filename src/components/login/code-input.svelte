@@ -18,15 +18,3 @@
 		inputmode="numeric"
 	/>
 </label>
-
-<style>
-	input:invalid + span::after {
-		content: '✖';
-		padding-right: 5px;
-	}
-
-	input:valid + span::after {
-		content: '✓';
-		padding-right: 5px;
-	}
-</style>

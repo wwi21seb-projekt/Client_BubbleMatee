@@ -1,4 +1,4 @@
-import { XMark, Check, QuestionMarkCircle } from '@steeze-ui/heroicons';
+import { XMark, Check } from '@steeze-ui/heroicons';
 
 function containsSpace(str: string): boolean {
 	return str.includes(' ');

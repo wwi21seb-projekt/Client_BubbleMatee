@@ -15,7 +15,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 		const body = await response.json();
 
 		if (response.ok) {
-			let result = { data: body, error: false };
+			const result = { data: body, error: false };
 			return json(result as ImprintResponse);
 		}
 

@@ -32,7 +32,7 @@ export const POST: RequestHandler = async ({ fetch, request, params }) => {
 		});
 	}
 };
-export const DELETE: RequestHandler = async ({ fetch, request, params }) => {
+export const DELETE: RequestHandler = async ({ fetch, params }) => {
 	const username = params.username;
 	console.log(` DELETE ${PUBLIC_BASE_URL}/api/v1/users/${username}/activate`);
 
