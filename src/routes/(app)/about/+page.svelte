@@ -6,7 +6,6 @@
 		ProductVideo,
 		CarouselProjectParticipants,
 		MediaButtonsLogo,
-		ServerTeam,
 		ServerImprint
 	} from '$components';
 	import type { ErrorResponse, ImprintResponse } from '$domains';
@@ -39,11 +38,6 @@
 <hr class="!border-t-8 !border-double" />
 
 <MediaButtonsLogo />
-
-<!-- Separator Line -->
-<hr class="!border-t-8 !border-double" />
-
-<ServerTeam />
 
 <style>
 	/* Definition of CSS variables for recurring values */
