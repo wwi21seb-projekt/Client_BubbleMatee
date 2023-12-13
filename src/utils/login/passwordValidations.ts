@@ -11,6 +11,14 @@ export function determineIconType(
 	isRepeatPassword: boolean,
 	passwordValid: boolean
 ) {
+	/**
+	 * Checks the validity of password-related input.
+	 *
+	 * @param passwordsMatch Indicates if the passwords match.
+	 * @param isRepeatPassword Indicates if the input is for repeating the password.
+	 * @param passwordValid Indicates if the password is valid based on various criteria.
+	 * @returns true if the input is valid; otherwise, false.
+	 */
 	function isInputValid(
 		passwordsMatch: boolean,
 		isRepeatPassword: boolean,
