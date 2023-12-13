@@ -1,4 +1,4 @@
-import type { Logo } from '$domains';
+import type { Logo, PersonSourceData } from '$domains';
 
 // Creating a collection of logos
 export const logos: Logo[] = [
@@ -22,8 +22,6 @@ export const logos: Logo[] = [
 	}
 	// Add more logos here...
 ];
-
-import type { PersonSourceData } from '$domains';
 
 // Central data source for all persons
 export const personsData: PersonSourceData[] = [
