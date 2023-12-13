@@ -7,7 +7,6 @@ export interface PersonData {
 
 // Definieren einer Schnittstelle für die Quelldaten der Personen
 export interface PersonSourceData {
-	id: string;
 	src: string;
 	data: PersonData[];
 }

@@ -4,8 +4,13 @@ export { default as NavigationBarMobile } from './layoutComponents/navigation-ba
 export { default as Header } from './layoutComponents/header.svelte';
 
 //About Components
-export { default as RechtlicheHinweise } from './about/rechtliche-hinweise.svelte';
 export { default as ServerImprint } from './about/server-imprint.svelte';
+export { default as LegalNotice } from './about/legal-notice.svelte';
+export { default as ProductVideo } from './about/product-video.svelte';
+export { default as ProjectDocumentation } from './about/project-documentation.svelte';
+export { default as CarouselProjectParticipants } from './about/carousel-project-participants.svelte';
+export { default as MediaButtonsLogo } from './about/media-buttons-logo.svelte';
+export { default as ServerTeam } from './about/server-team.svelte';
 
 //Login Components
 export { default as EmailInput } from './login/email-input.svelte';
