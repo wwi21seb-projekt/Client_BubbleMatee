@@ -27,7 +27,8 @@
 				switch (body.data.error.code) {
 					case 403: {
 						const t: ToastSettings = {
-							message: 'Bitte bestätige deine Email Adresse'
+							message: 'Bitte bestätige deine Email Adresse',
+							background: 'variant-filled-warning'
 						};
 						toastStore.trigger(t);
 						goto('/login/verify');
@@ -35,14 +36,16 @@
 					}
 					case 401: {
 						const t: ToastSettings = {
-							message: 'Falsches Passwort'
+							message: 'Falsches Passwort',
+							background: 'variant-filled-error'
 						};
 						toastStore.trigger(t);
 						break;
 					}
 					case 404: {
 						const t: ToastSettings = {
-							message: 'Email Adresse nicht gefunden'
+							message: 'Email Adresse nicht gefunden',
+							background: 'variant-filled-error'
 						};
 						toastStore.trigger(t);
 						break;
@@ -50,7 +53,7 @@
 					default: {
 						const t: ToastSettings = {
 							message: body.data.error.message,
-							autohide: false
+							background: 'variant-filled-error'
 						};
 						toastStore.trigger(t);
 					}

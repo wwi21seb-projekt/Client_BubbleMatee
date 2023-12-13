@@ -22,13 +22,15 @@
 			if (body.error) {
 				const error: Error = body.data.error;
 				const t: ToastSettings = {
-					message: error.message
+					message: error.message,
+					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
 			} else {
 				//TODO: code was snet again
 				const t: ToastSettings = {
-					message: 'Code wurde erneut gesendet'
+					message: 'Code wurde erneut gesendet',
+					background: 'variant-filled-success'
 				};
 				toastStore.trigger(t);
 				goto('/login/verify');

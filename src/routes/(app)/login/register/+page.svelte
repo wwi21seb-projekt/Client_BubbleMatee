@@ -50,7 +50,8 @@
 					}
 				}
 				const t: ToastSettings = {
-					message: message
+					message: message,
+					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
 				//TODO: navigate back to tep 1

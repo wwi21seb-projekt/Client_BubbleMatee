@@ -42,7 +42,8 @@
 					}
 				}
 				const t: ToastSettings = {
-					message: message
+					message: message,
+					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
 			} else {
