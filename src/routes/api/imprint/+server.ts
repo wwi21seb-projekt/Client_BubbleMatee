@@ -2,6 +2,12 @@ import type { ErrorResponse, ImprintResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
+/**
+ * Handles GET requests to retrieve imprint information.
+ *
+ * @param fetch The fetch function for making HTTP requests.
+ * @returns The response containing imprint data or an error.
+ */
 export const GET: RequestHandler = async ({ fetch }) => {
 	console.log(` GET ${PUBLIC_BASE_URL}/api/v1/imprint`);
 	try {

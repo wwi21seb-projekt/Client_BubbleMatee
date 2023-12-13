@@ -2,6 +2,13 @@ import type { ErrorResponse, RegisterResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
+/**
+ * Handles POST requests for user registration.
+ *
+ * @param fetch The fetch function for making HTTP requests.
+ * @param request The SvelteKit request object.
+ * @returns The response containing registration data or an error.
+ */
 export const POST: RequestHandler = async ({ fetch, request }) => {
 	console.log(` POST ${PUBLIC_BASE_URL}/api/v1/users`);
 	const requestBody = await request.json();

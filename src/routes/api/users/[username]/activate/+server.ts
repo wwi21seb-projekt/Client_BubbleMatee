@@ -2,6 +2,14 @@ import type { ErrorResponse, LoginResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
+/**
+ * Handles POST requests to activate a user.
+ *
+ * @param fetch The fetch function for making HTTP requests.
+ * @param request The SvelteKit request object.
+ * @param params The parameters extracted from the route.
+ * @returns The response containing login data or an error.
+ */
 export const POST: RequestHandler = async ({ fetch, request, params }) => {
 	const username = params.username;
 	console.log(` POST ${PUBLIC_BASE_URL}/api/v1/users/${username}/activate}`);
@@ -32,6 +40,14 @@ export const POST: RequestHandler = async ({ fetch, request, params }) => {
 		});
 	}
 };
+
+/**
+ * Handles DELETE requests to resend the code to a user.
+ *
+ * @param fetch The fetch function for making HTTP requests.
+ * @param params The parameters extracted from the route.
+ * @returns The response containing data or an error.
+ */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
 	const username = params.username;
 	console.log(` DELETE ${PUBLIC_BASE_URL}/api/v1/users/${username}/activate`);
