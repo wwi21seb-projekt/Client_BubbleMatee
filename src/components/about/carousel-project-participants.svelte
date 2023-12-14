@@ -4,6 +4,7 @@
 	import type { TableSource } from '@skeletonlabs/skeleton';
 	import type { PersonData } from '$domains';
 	import { personsData } from '../../static/components/index.ts';
+	import ListeProjectParticipants from './liste-project-participants.svelte';
 
 	// Helper function to create TableSource objects
 	function createTableSource(data: PersonData[]): TableSource {
@@ -18,6 +19,8 @@
 		...person, // Person takes the entire map from personsData
 		table: createTableSource(person.data) // Adds an element through the function
 	}));
+	console.log(tableSources)
+
 
 	// Carousel element
 	let elemCarousel: HTMLDivElement;
@@ -74,15 +77,20 @@
 				{#each tableSources as source}
 					<div class="snap-center rounded-container-token carousel-item">
 						<!-- Image part of the card -->
-						<div class="image-container">
+						<div class="image-container items-center">
 							<img class="carousel-image" src={source.src} alt="Bild von Person" loading="lazy" />
 						</div>
 						<!-- Text part of the card -->
-						<div class="table-container">
+						<div class="table-container hidden sm:flex">
 							<Table source={source.table} />
 						</div>
+						<div class="table-container flex sm:hidden">
+							<ListeProjectParticipants
+								source={source.data}
+							></ListeProjectParticipants>
+						</div>
 					</div>
-					<span class="divider-vertical h-72" />
+					<span class="divider-vertical h-100" />
 				{/each}
 			</div>
 			<!-- Button: Right -->
@@ -134,6 +142,7 @@
 		justify-content: center;
 		min-width: var(--image-container-min-width);
 		min-height: var(--image-container-min-height);
+		margin-right: 20px;
 	}
 
 	/* Styles for images in the carousel */
@@ -154,7 +163,7 @@
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
-	@media (max-width: 40rem) {
+	@media (max-width: 768px) {
 		:root {
 			--carousel-item-min-width: 22.5rem; /* Full width on small screens */
 			--carousel-item-margin: 0.313rem; /* Reduced margin for carousel items */
@@ -176,6 +185,8 @@
 		.carousel-image {
 			width: 9.375rem; /* Reduced size for images and icons */
 			height: 9.375rem;
+			margin-bottom: 10px;
+			margin-left:0px
 		}
 
 		.icon-team {

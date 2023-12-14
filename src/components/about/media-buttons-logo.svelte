@@ -5,8 +5,8 @@
 <!-- Logos dhbw insta x -->
 <div class="logo-cloud grid grid-cols-1 lg:grid-cols-3 gap-4">
 	{#each logos as logo}
-		<a class="logo-item flex flex-col items-center" href={logo.url}>
-			<img src={logo.src} alt={logo.description} class="h-12 w-auto mb-2" />
+		<a class="logo-item flex flex-col items-center h-40 w-1/4" href={logo.url}>
+			<img src={logo.src} alt={logo.description} class="h-20 mb-2" />
 			<span>{logo.name}</span>
 		</a>
 	{/each}
@@ -36,6 +36,7 @@
 	.logo-item > span {
 		display: block;
 		text-align: center;
+		margin-left: 0px;
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
