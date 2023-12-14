@@ -78,10 +78,10 @@
 							<img class="carousel-image" src={source.src} alt="Bild von Person" loading="lazy" />
 						</div>
 						<!-- Text part of the card -->
-						<div class="table-container hidden sm:flex">
+						<div class="table-container tableData">
 							<Table source={source.table} />
 						</div>
-						<div class="table-container flex sm:hidden">
+						<div class="table-container flex tableDataText">
 							<ListeProjectParticipants source={source.data}></ListeProjectParticipants>
 						</div>
 					</div>
@@ -157,10 +157,18 @@
 		width: var(--logo-icon-size);
 	}
 
+	.tableData {
+		display:flex;
+	}
+
+	.tableDataText{
+		display:none;
+	}
+
 	/* Media Query for small screens (e.g., mobile phones) */
 	@media (max-width: 768px) {
 		:root {
-			--carousel-item-min-width: 22.5rem; /* Full width on small screens */
+			--carousel-item-min-width: 13.5rem; /* Full width on small screens */
 			--carousel-item-margin: 0.313rem; /* Reduced margin for carousel items */
 			--table-container-min-width: 9.375rem; /* Adjusted minimum width for table containers */
 			--table-container-min-height: 9.375rem; /* Adjusted minimum height for table containers */
@@ -199,6 +207,17 @@
 
 		.btn-icon {
 			display: none;
+		}
+
+		.table-container {
+			text-align: center;
+		}
+		.tableData {
+		display:none;
+		}
+
+		.tableDataText{
+			display:flex;
 		}
 	}
 </style>
