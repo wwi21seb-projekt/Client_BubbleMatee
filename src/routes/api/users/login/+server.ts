@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		return json({
 			error: true,
 			data: {
-				code: 500,
+				code: '500',
 				message: 'Internal Server Error'
 			}
 		});

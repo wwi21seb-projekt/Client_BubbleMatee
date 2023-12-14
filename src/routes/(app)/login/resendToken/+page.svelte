@@ -27,7 +27,6 @@
 				};
 				toastStore.trigger(t);
 			} else {
-				//TODO: code was snet again
 				const t: ToastSettings = {
 					message: 'Code wurde erneut gesendet',
 					background: 'variant-filled-success'
@@ -39,8 +38,6 @@
 			return body;
 		} catch (e) {
 			console.error(e);
-			/* errorState.set(true);
-			errorCode.set('EM-000'); */
 		} finally {
 			loading.set(false);
 		}

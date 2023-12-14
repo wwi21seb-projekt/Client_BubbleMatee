@@ -63,7 +63,7 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 		return json({
 			data: {
 				error: {
-					code: response.status,
+					code: response.status.toString(),
 					message: response.statusText
 				}
 			},
@@ -73,7 +73,7 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 		return json({
 			error: true,
 			data: {
-				code: 500,
+				code: '500',
 				message: 'Internal Server Error'
 			}
 		});

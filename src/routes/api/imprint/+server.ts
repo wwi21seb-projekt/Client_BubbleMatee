@@ -30,7 +30,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 		return json({
 			error: true,
 			data: {
-				code: 500,
+				code: '500',
 				message: 'Internal Server Error'
 			}
 		} as ErrorResponse);

@@ -24,40 +24,19 @@
 			const body = await response.json();
 
 			if (body.error) {
-				switch (body.data.error.code) {
-					case 403: {
-						const t: ToastSettings = {
-							message: 'Bitte bestätige deine Email Adresse',
-							background: 'variant-filled-warning'
-						};
-						toastStore.trigger(t);
-						goto('/login/verify');
-						break;
-					}
-					case 401: {
-						const t: ToastSettings = {
-							message: 'Falsches Passwort',
-							background: 'variant-filled-error'
-						};
-						toastStore.trigger(t);
-						break;
-					}
-					case 404: {
-						const t: ToastSettings = {
-							message: 'Username nicht gefunden',
-							background: 'variant-filled-error'
-						};
-						toastStore.trigger(t);
-						break;
-					}
-					default: {
-						const t: ToastSettings = {
-							message: body.data.error.message,
-							background: 'variant-filled-error'
-						};
-						toastStore.trigger(t);
-					}
+				if (body.data.error.code === 'ERR-005') {
+					const t: ToastSettings = {
+						message: body.data.error.Message,
+						background: 'variant-filled-warning'
+					};
+					toastStore.trigger(t);
+					goto('/login/verify');
 				}
+				const t: ToastSettings = {
+					message: body.data.error.Message,
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
 			} else {
 				isLoggedIn.set(true);
 				goto('/myProfile');

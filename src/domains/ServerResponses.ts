@@ -6,7 +6,7 @@ export interface Response {
 }
 
 export interface Error {
-	code: number;
+	code: string;
 	message: string;
 }
 

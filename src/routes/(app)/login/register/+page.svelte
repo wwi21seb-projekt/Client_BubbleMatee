@@ -35,20 +35,6 @@
 			if (body.error) {
 				let error: Error = body.data.error;
 				let message: string = error.message;
-				switch (error.code) {
-					case 409: {
-						message = 'Username bereits vergeben';
-						break;
-					}
-					case 422: {
-						message = 'Email Adresse bereits vergeben';
-						break;
-					}
-					case 400: {
-						message = 'Fehlerhafte Eingabe';
-						break;
-					}
-				}
 				const t: ToastSettings = {
 					message: message,
 					background: 'variant-filled-error'

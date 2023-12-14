@@ -30,17 +30,6 @@
 				let error: Error = body.data.error; //TODO: error handling messages
 				let message: string = error.message;
 
-				console.log(error.code);
-				switch (error.code) {
-					case 404: {
-						message = 'Code ungültig';
-						break;
-					}
-					case 401: {
-						message = 'Code abgelaufen. Wir haben dir einen neuen Code zugesendet';
-						break;
-					}
-				}
 				const t: ToastSettings = {
 					message: message,
 					background: 'variant-filled-error'
@@ -54,8 +43,6 @@
 			return body;
 		} catch (e) {
 			console.error(e);
-			/* errorState.set(true);
-			errorCode.set('EM-000'); */
 		} finally {
 			loading.set(false);
 		}
