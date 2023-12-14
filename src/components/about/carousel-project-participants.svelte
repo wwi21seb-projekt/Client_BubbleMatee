@@ -82,9 +82,7 @@
 							<Table source={source.table} />
 						</div>
 						<div class="table-container flex sm:hidden">
-							<ListeProjectParticipants
-								source={source.data}
-							></ListeProjectParticipants>
+							<ListeProjectParticipants source={source.data}></ListeProjectParticipants>
 						</div>
 					</div>
 					<span class="divider-vertical h-100" />
@@ -183,7 +181,7 @@
 			width: 9.375rem; /* Reduced size for images and icons */
 			height: 9.375rem;
 			margin-bottom: 10px;
-			margin-left:0px
+			margin-left: 0px;
 		}
 
 		.icon-team {

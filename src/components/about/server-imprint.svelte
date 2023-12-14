@@ -19,8 +19,8 @@
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
 			<span
-			class="bg-gradient-to-br from-warning-600 to-warning-300 bg-clip-text text-transparent box-decoration-clone"
-			>Impressum des Servers</span
+				class="bg-gradient-to-br from-warning-600 to-warning-300 bg-clip-text text-transparent box-decoration-clone"
+				>Impressum des Servers</span
 			>
 		</h2></svelte:fragment
 	>
