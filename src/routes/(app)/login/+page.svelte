@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { PasswordInput, UsernameInput } from '$components';
 	import { isLoggedIn, loading } from '$stores';
+	import { getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -26,17 +27,18 @@
 			if (body.error) {
 				if (body.data.error.code === 'ERR-005') {
 					const t: ToastSettings = {
-						message: body.data.error.Message,
+						message: getErrorMessage(body.data.error.code),
 						background: 'variant-filled-warning'
 					};
 					toastStore.trigger(t);
 					goto('/login/verify');
+				} else {
+					const t: ToastSettings = {
+						message: getErrorMessage(body.data.error.code),
+						background: 'variant-filled-error'
+					};
+					toastStore.trigger(t);
 				}
-				const t: ToastSettings = {
-					message: body.data.error.Message,
-					background: 'variant-filled-error'
-				};
-				toastStore.trigger(t);
 			} else {
 				isLoggedIn.set(true);
 				goto('/myProfile');
