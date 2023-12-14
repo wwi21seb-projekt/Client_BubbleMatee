@@ -158,11 +158,11 @@
 	}
 
 	.tableData {
-		display:flex;
+		display: flex;
 	}
 
-	.tableDataText{
-		display:none;
+	.tableDataText {
+		display: none;
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
@@ -213,11 +213,11 @@
 			text-align: center;
 		}
 		.tableData {
-		display:none;
+			display: none;
 		}
 
-		.tableDataText{
-			display:flex;
+		.tableDataText {
+			display: flex;
 		}
 	}
 </style>
