@@ -3,6 +3,7 @@
 	import { CodeInput, UsernameInput } from '$components';
 	import type { Error } from '$domains';
 	import { currentUser, isLoggedIn, loading } from '$stores';
+	import { getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -28,21 +29,9 @@
 
 			if (body.error) {
 				let error: Error = body.data.error; //TODO: error handling messages
-				let message: string = error.message;
 
-				console.log(error.code);
-				switch (error.code) {
-					case 404: {
-						message = 'Code ungültig';
-						break;
-					}
-					case 401: {
-						message = 'Code abgelaufen. Wir haben dir einen neuen Code zugesendet';
-						break;
-					}
-				}
 				const t: ToastSettings = {
-					message: message,
+					message: getErrorMessage(error.code),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
@@ -54,8 +43,6 @@
 			return body;
 		} catch (e) {
 			console.error(e);
-			/* errorState.set(true);
-			errorCode.set('EM-000'); */
 		} finally {
 			loading.set(false);
 		}

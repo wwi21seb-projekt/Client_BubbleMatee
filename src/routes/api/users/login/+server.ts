@@ -10,10 +10,10 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing login data or an error.
  */
 export const POST: RequestHandler = async ({ fetch, request }) => {
-	console.log(` POST ${PUBLIC_BASE_URL}/api/v1/users/login`);
+	console.log(` POST ${PUBLIC_BASE_URL}/api/users/login`);
 	const requestBody = await request.json();
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/v1/users/login`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		return json({
 			error: true,
 			data: {
-				code: 500,
+				code: '500',
 				message: 'Internal Server Error'
 			}
 		});

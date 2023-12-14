@@ -3,6 +3,7 @@
 	import { UsernameInput } from '$components';
 	import type { Error } from '$domains';
 	import { currentUser, loading } from '$stores';
+	import { getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -22,12 +23,11 @@
 			if (body.error) {
 				const error: Error = body.data.error;
 				const t: ToastSettings = {
-					message: error.message,
+					message: getErrorMessage(error.code),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
 			} else {
-				//TODO: code was snet again
 				const t: ToastSettings = {
 					message: 'Code wurde erneut gesendet',
 					background: 'variant-filled-success'
@@ -39,8 +39,6 @@
 			return body;
 		} catch (e) {
 			console.error(e);
-			/* errorState.set(true);
-			errorCode.set('EM-000'); */
 		} finally {
 			loading.set(false);
 		}

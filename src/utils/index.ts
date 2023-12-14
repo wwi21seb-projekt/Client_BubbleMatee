@@ -16,3 +16,5 @@ export {
 	isValidNickname,
 	isValidUsername
 } from './login/userInfoValidation';
+
+export { getErrorMessage } from './errorMessages/errorMessages';
