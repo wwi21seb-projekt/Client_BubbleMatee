@@ -66,7 +66,7 @@ const errorMessages: Array<Error> = [
  */
 export function getErrorMessage(code: string): string {
 	const error = errorMessages.find((error) => {
-		return error.code == code;
+		return error.code === code;
 	});
 	if (error) {
 		return error.message;
