@@ -6,8 +6,11 @@
 		ProductVideo,
 		CarouselProjectParticipants,
 		MediaButtonsLogo,
-		ServerTeam
+		ServerImprint
 	} from '$components';
+	import type { ErrorResponse, ImprintResponse } from '$domains';
+
+	export let data: ImprintResponse | ErrorResponse;
 </script>
 
 <h1 class="h1">
@@ -28,17 +31,13 @@
 	<!-- Legal Notes -->
 	<LegalNotice />
 	<!-- ... -->
+	<ServerImprint {data} />
 </Accordion>
 
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
 
 <MediaButtonsLogo />
-
-<!-- Separator Line -->
-<hr class="!border-t-8 !border-double" />
-
-<ServerTeam />
 
 <style>
 	/* Definition of CSS variables for recurring values */
