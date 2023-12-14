@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { isMobileDevice } from '$stores';
 	import { Header, NavigationBarMobile, NavigationBarDesktop } from '$components';
+	import { locale } from '../i18n.ts';
 
 	import { initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
@@ -12,8 +13,12 @@
 
 	initializeStores();
 	// Check wether the app is rendered on a mobile device or not.
-	// The Information is stored in $lib/stores/store and can be refferenced from everywhere
+	// Check if the user has already selected a language, if not, the default language is set to english.
 	onMount(() => {
+		let sessionLanguage = window.sessionStorage.getItem('store');
+		if (sessionLanguage) {
+			$locale = sessionLanguage;
+		}
 		$isMobileDevice = window.innerWidth <= 750;
 	});
 </script>
