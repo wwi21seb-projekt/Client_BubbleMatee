@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { PasswordInput, EmailInput } from '$components';
+	import { PasswordInput, UsernameInput } from '$components';
 	import { isLoggedIn, loading } from '$stores';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
 	const toastStore = getToastStore();
 
-	let email: string;
+	let username: string;
 	let password: string;
 
 	const login = async () => {
@@ -18,7 +18,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email: email, password: password })
+				body: JSON.stringify({ username: username, password: password })
 			});
 
 			const body = await response.json();
@@ -44,7 +44,7 @@
 					}
 					case 404: {
 						const t: ToastSettings = {
-							message: 'Email Adresse nicht gefunden',
+							message: 'Username nicht gefunden',
 							background: 'variant-filled-error'
 						};
 						toastStore.trigger(t);
@@ -84,7 +84,7 @@
 		on:submit|preventDefault={handleSubmit}
 		class="m-4 grid justify-items-strech max-w-xs gap-4"
 	>
-		<EmailInput bind:email isSignUp={false} />
+		<UsernameInput bind:username isSignUp={false} />
 		<PasswordInput bind:password isRepeatPassword={false} isSignUp={false} />
 		<button type="submit" class="btn variant-filled-primary mt-2"
 			>{$loading ? `Lädt...` : `Anmelden`}</button
