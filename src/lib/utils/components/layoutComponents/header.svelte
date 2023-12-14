@@ -3,7 +3,8 @@
 </script>
 
 <!-- App Shell -->
-<AppBar>
+<AppBar
+padding=p-0>
 	<svelte:fragment slot="lead">
 		<img class="w-16" src="src/images/layout/logo.png" alt="BubbleMateLogo" />
 	</svelte:fragment>
@@ -14,3 +15,4 @@
 	</h1>
 </AppBar>
 <hr class="!border-t-2" />
+

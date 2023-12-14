@@ -22,6 +22,15 @@ devDependencies:
   '@skeletonlabs/tw-plugin':
     specifier: 0.2.4
     version: 0.2.4(tailwindcss@3.3.6)
+  '@steeze-ui/components':
+    specifier: ^1.2.0
+    version: 1.2.0(svelte@4.2.8)
+  '@steeze-ui/heroicons':
+    specifier: ^2.2.3
+    version: 2.2.3
+  '@steeze-ui/svelte-icon':
+    specifier: ^1.5.0
+    version: 1.5.0(svelte@4.2.8)
   '@sveltejs/adapter-auto':
     specifier: ^2.0.0
     version: 2.1.1(@sveltejs/kit@1.27.7)
@@ -353,18 +362,15 @@ packages:
     resolution: {integrity: sha512-Ii3MrfY/GAIN3OhXNzpCKaLxHQfJF9qvwq/kEJYdqDxeIHa01K8sldugal6TmeeXl+WMvhv9cnVzUTaFFJF09A==}
     dependencies:
       '@floating-ui/utils': 0.1.6
-    dev: false
 
   /@floating-ui/dom@1.5.3:
     resolution: {integrity: sha512-ClAbQnEqJAKCJOEbbLo5IUlZHkNszqhuxS4fHAVxRPXPya6Ysf2G8KypnYcOTpx6I8xcgF9bbHb6g/2KpbV8qA==}
     dependencies:
       '@floating-ui/core': 1.5.2
       '@floating-ui/utils': 0.1.6
-    dev: false
 
   /@floating-ui/utils@0.1.6:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
-    dev: false
 
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
@@ -475,6 +481,30 @@ packages:
       tailwindcss: '>=3.0.0'
     dependencies:
       tailwindcss: 3.3.6
+    dev: true
+
+  /@steeze-ui/components@1.2.0(svelte@4.2.8):
+    resolution: {integrity: sha512-ek7bQpkATRLcmdRXW4nWX6V1ARxssUI5HKwPekuDW3x2MopHLXCGrOxaVgUvdPiInt0ggcKDCYg765zNM7H5Og==}
+    peerDependencies:
+      svelte: '>= ^3.46.3'
+    dependencies:
+      '@floating-ui/dom': 1.5.3
+      '@steeze-ui/heroicons': 2.2.3
+      '@steeze-ui/svelte-icon': 1.5.0(svelte@4.2.8)
+      focus-svelte: 0.3.4
+      svelte: 4.2.8
+    dev: true
+
+  /@steeze-ui/heroicons@2.2.3:
+    resolution: {integrity: sha512-bv4YK375U9TDS50SmJ5VdFy2UmMhgKbJCCbo6IUU3qs2luEj2VX6sQoDy96j8AIKttxMd62ih1j0lZj7CTjIfA==}
+    dev: true
+
+  /@steeze-ui/svelte-icon@1.5.0(svelte@4.2.8):
+    resolution: {integrity: sha512-Y0S7Qk2kO6byzOlD5SQGbOF2ZaKXJgfTkH78QUPcq579wiWMQJ5H14zL4XwtsPJ0DfkoL5qa3WaIdYkWb9A6AA==}
+    peerDependencies:
+      svelte: ^4.0.0
+    dependencies:
+      svelte: 4.2.8
     dev: true
 
   /@sveltejs/adapter-auto@2.1.1(@sveltejs/kit@1.27.7):
@@ -1379,6 +1409,10 @@ packages:
 
   /flatted@3.2.9:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
+    dev: true
+
+  /focus-svelte@0.3.4:
+    resolution: {integrity: sha512-agh0JW3hBb8hI1bjl+YQLQHswqzlxWBtZIX7r8XQt86twX/HST4b0ciI2Y8AuUPM4VRObE1p9UTIvR9CrIRuyw==}
     dev: true
 
   /fraction.js@4.3.7:

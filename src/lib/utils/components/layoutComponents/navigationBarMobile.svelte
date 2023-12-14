@@ -2,21 +2,19 @@
 	import { TabGroup, TabAnchor } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { isLoggedIn } from '$lib/stores/store';
+	import { Check } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 </script>
 
+<hr class="!border-t-1" />
 <TabGroup
-	justify="justify-center"
-	active="variant-filled-primary"
-	hover="hover:variant-soft-primary"
 	flex="flex-1 lg:flex-none"
-	rounded="rounded-tl-container-token rounded-br-container-token rounded-tr-container-token rounded-bl-container-token"
-	border=""
-	class="bg-surface-100-800-token w-full"
+	active=""
 >
 	{#if $isLoggedIn === false}
 		<TabAnchor href="/about" selected={$page.url.pathname === '/about'}>
 			<svelte:fragment slot="lead">
-				<img class="mx-auto" src="/favicon.png" alt="About Us" />
+				<Icon src={Check} class="w-6 h-6" />
 			</svelte:fragment>
 		</TabAnchor>
 		<TabAnchor href="/search" selected={$page.url.pathname === '/search'}>
@@ -30,9 +28,9 @@
 			</svelte:fragment>
 		</TabAnchor>
 	{:else}
-		<TabAnchor href="/" selected={$page.url.pathname === '/'}>
+		<TabAnchor href="/" selected={$page.url.pathname === '/'} title=AAA>
 			<svelte:fragment slot="lead">
-				<img class="mx-auto" src="/favicon.png" alt="Home" />
+				<Icon src={Check} class="mx-auto text-black hover:text-white" />
 			</svelte:fragment>
 		</TabAnchor>
 		<TabAnchor href="/search" selected={$page.url.pathname === '/search'}>
