@@ -12,11 +12,11 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  */
 export const POST: RequestHandler = async ({ fetch, request, params }) => {
 	const username = params.username;
-	console.log(` POST ${PUBLIC_BASE_URL}/api/v1/users/${username}/activate}`);
+	console.log(` POST ${PUBLIC_BASE_URL}/api/users/${username}/activate`);
 	const requestBody = await request.json();
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/v1/users/${username}/activate`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/activate`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -50,10 +50,10 @@ export const POST: RequestHandler = async ({ fetch, request, params }) => {
  */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
 	const username = params.username;
-	console.log(` DELETE ${PUBLIC_BASE_URL}/api/v1/users/${username}/activate`);
+	console.log(` DELETE ${PUBLIC_BASE_URL}/api/users/${username}/activate`);
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/v1/users/${username}/activate`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/activate`, {
 			method: 'DELETE'
 		});
 
