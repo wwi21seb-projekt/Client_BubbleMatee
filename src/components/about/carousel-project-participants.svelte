@@ -19,9 +19,6 @@
 		...person, // Person takes the entire map from personsData
 		table: createTableSource(person.data) // Adds an element through the function
 	}));
-	console.log(tableSources)
-
-
 	// Carousel element
 	let elemCarousel: HTMLDivElement;
 
