@@ -28,3 +28,5 @@ export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 
 //General Components
 export { default as FileInput } from './general/file-input.svelte';
+export { default as Textarea } from './general/textarea.svelte';
+
