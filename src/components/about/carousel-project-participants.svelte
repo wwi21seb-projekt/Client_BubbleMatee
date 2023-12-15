@@ -4,7 +4,7 @@
 	import type { TableSource } from '@skeletonlabs/skeleton';
 	import type { PersonData } from '$domains';
 	import { personsData } from '../../static/components/index.ts';
-	import ListeProjectParticipants from './liste-project-participants.svelte';
+	import { ListProjectParticipants } from '$components';
 
 	// Helper function to create TableSource objects
 	function createTableSource(data: PersonData[]): TableSource {
@@ -77,12 +77,12 @@
 						<div class="image-container items-center">
 							<img class="carousel-image" src={source.src} alt="Bild von Person" loading="lazy" />
 						</div>
-						<!-- Text part of the card -->
+						<!-- Text part of the card - Table for Desktop and List for mobile-->
 						<div class="table-container tableData">
 							<Table source={source.table} />
 						</div>
 						<div class="table-container flex tableDataText">
-							<ListeProjectParticipants source={source.data}></ListeProjectParticipants>
+							<ListProjectParticipants source={source.data} />
 						</div>
 					</div>
 					<span class="divider-vertical h-100" />
