@@ -25,3 +25,6 @@ export { default as UserInfoValidation } from './login/user-info-validation.svel
 //Register Step Components
 export { default as PasswordStep } from './login/steps/password-step.svelte';
 export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
+
+//General Components
+export { default as FileInput } from './general/file-input.svelte';
