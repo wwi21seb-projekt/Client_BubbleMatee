@@ -33,8 +33,3 @@ export { default as PostComponent } from './postComponent/post-component.svelte'
 export { default as Filedropzone } from './postComponent/components/fileInput/filedropzone.svelte';
 export { default as ImageDisplay } from './postComponent/components/fileInput/image-display.svelte';
 export { default as PostButton } from './postComponent/components/post-button.svelte';
-
-
-
-
-

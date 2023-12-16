@@ -3,6 +3,4 @@
 	import { PostComponent } from '$components';
 </script>
 
-<PostComponent/>
-
-
+<PostComponent />

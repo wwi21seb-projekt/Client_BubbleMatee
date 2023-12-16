@@ -6,4 +6,4 @@ export const uploadedImageUrl = writable<string | undefined>(undefined);
 export const isEditing = writable(false);
 export const isFileSelected = writable(false);
 export const isOverlayVisible = writable(false);
-export const postText = writable("");
+export const postText = writable('');

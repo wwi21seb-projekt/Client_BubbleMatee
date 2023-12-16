@@ -14,4 +14,3 @@ export type { Imprint } from './ServerDomains/imprint';
 
 //Upload Restrictions
 export type { UploadRestrictions } from './Post';
-
