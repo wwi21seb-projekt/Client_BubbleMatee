@@ -1,7 +1,13 @@
 <script lang="ts">
 	// Importing the FileDropzone component and upload restrictions
 	import { FileDropzone } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import { getErrorMessage } from '$utils';
+
 	import { uploadRestrictions } from '../../../../static/components/index.ts';
+
+	const toastStore = getToastStore();
 
 	// Importing stores for managing file upload state
 	import { files, isFileUploaded, uploadedImageUrl, isEditing, isFileSelected } from '$stores';
@@ -9,37 +15,51 @@
 	// Local variable to track selected files
 	let localFiles: FileList;
 
-	// Reactively update the files store when localFiles changes
-	$: if (localFiles) {
-		files.set(localFiles);
-	}
-
 	// Handler for file change events
-	function onChangeHandler(e: Event) {
+	function onChangeHandler() {
+		var passedChecks = true;
 		console.log(localFiles.length !== 1);
-		if ($files === null || $files.length !== 1) {
-			alert('Please upload only one file.');
+		if (localFiles.length === null || localFiles.length !== 1) {
+			passedChecks = false;
+			const t: ToastSettings = {
+				message: getErrorMessage('ERR-014'),
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
 			return;
 		}
 
-		$isFileSelected = true; // Sets the flag when a file is selected
-		const file = $files[0];
+		const file = localFiles[0];
 		const validTypes = ['image/jpeg', 'image/webp'];
 		const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB in bytes
 
 		// Checking for valid file type and size
 		if (!validTypes.includes(file.type)) {
-			alert('Only JPG and WebP files are allowed.');
+			passedChecks = false;
+			const t: ToastSettings = {
+				message: getErrorMessage('ERR-015'),
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
 			return;
 		}
 		if (file.size > maxSizeInBytes) {
-			alert('The file must not be larger than 5 MB.');
+			passedChecks = false;
+			const t: ToastSettings = {
+				message: getErrorMessage('ERR-016'),
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
 			return;
 		}
 
-		// Displaying the uploaded file
-		showUploadedFile(file);
-		$isEditing = false;
+		if (passedChecks) {
+			// Displaying the uploaded file
+			showUploadedFile(file);
+			files.set(localFiles);
+			$isEditing = false;
+			$isFileSelected = true; // Sets the flag when a file is selected
+		}
 	}
 
 	// Function to display the uploaded file

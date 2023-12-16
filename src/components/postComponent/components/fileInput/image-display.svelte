@@ -1,28 +1,34 @@
 <script lang="ts">
+	// Importing reactive variables from Svelte store
 	import {
-		isFileUploaded,
-		uploadedImageUrl,
-		isEditing,
-		isFileSelected,
-		isOverlayVisible
+		isFileUploaded, // Tracks if a file has been uploaded
+		uploadedImageUrl, // Stores the URL of the uploaded image
+		isEditing, // Indicates if the user is in editing mode
+		isFileSelected, // Indicates if a file has been selected
+		isOverlayVisible // Tracks the visibility of the overlay on the image
 	} from '$stores';
-
+	// Set a delay in milliseconds (e.g., 500ms = 0.5 seconds)
+	const delay = 50;
+	// Function to start editing (sets editing mode to true)
 	function startEditing() {
 		$isEditing = true;
 	}
 
+	// Function to start editing the image, but only if the overlay is visible
 	function startEditingImage() {
 		if ($isOverlayVisible) {
 			$isEditing = true;
 		}
 	}
 
+	// Function to remove the image (resets related variables)
 	function removeImage() {
 		$isFileUploaded = false;
 		$uploadedImageUrl = undefined;
 		$isFileSelected = false;
 	}
 
+	// Function to remove the image, but only if the overlay is visible
 	function removeImageImage() {
 		if ($isOverlayVisible) {
 			$isFileUploaded = false;
@@ -31,10 +37,14 @@
 		}
 	}
 
+	// Function to make the overlay visible
 	function toggleOverlayVisibilityTrue() {
-		$isOverlayVisible = true;
+		setTimeout(() => {
+			$isOverlayVisible = true;
+		}, delay);
 	}
 
+	// Function to hide the overlay
 	function toggleOverlayVisibilityFalse() {
 		$isOverlayVisible = false;
 	}
@@ -56,7 +66,7 @@
 		</button>
 	</div>
 </div>
-<div class="controls">
+<div class="controls mt-2 controls">
 	<button class="btn btn variant-filled-surface iconButton" on:click={startEditing}
 		><img
 			src="./src/images/icons/edit.png"

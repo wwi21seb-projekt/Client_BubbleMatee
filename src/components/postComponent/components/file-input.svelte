@@ -5,11 +5,13 @@
 	$isEditing = false;
 </script>
 
+<!-- show filedropzone or uploaded Image  -->
 <div class="container">
 	{#if !$isFileUploaded || $isEditing}
+		<!-- show filedropzone -->
 		<Filedropzone />
 	{:else}
-		<!-- svelte-ignore a11y-no-static-element-interactions -->
+		<!-- show uploaded Image  -->
 		<ImageDisplay />
 	{/if}
 </div>

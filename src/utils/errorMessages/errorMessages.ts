@@ -55,6 +55,18 @@ const errorMessages: Array<Error> = [
 	{
 		code: 'ERR-013',
 		message: 'Der Username wurde bereits aktiviert. Bitte logge dich ein.'
+	},
+	{
+		code: 'ERR-014',
+		message: 'Bitte laden Sie nur eine Datei hoch'
+	},
+	{
+		code: 'ERR-015',
+		message: 'Es sind nur die Dateiformate JPG and WebP erlaubt.'
+	},
+	{
+		code: 'ERR-016',
+		message: 'Die Dateigröße darf 5MB nicht überschreiten, deine datei ist zu groß.'
 	}
 ];
 

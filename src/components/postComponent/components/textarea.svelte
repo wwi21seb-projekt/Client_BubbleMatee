@@ -22,11 +22,15 @@
 			  : classNormal;
 
 	// Function to handle input changes, update the text, and adjust the textarea height
-	function handleInput(event: any) {
+	function handleInput(event: Event) {
+		// Assert that event.target is of a specific type, e.g., HTMLTextAreaElement
+		const target = event.target as HTMLTextAreaElement;
+
+		// Now you can use the target with its specific type properties
 		$postText = localPostText;
-		localPostText = event.target.value;
-		event.target.style.height = 'inherit';
-		event.target.style.height = `${event.target.scrollHeight}px`;
+		localPostText = target.value;
+		target.style.height = 'inherit';
+		target.style.height = `${target.scrollHeight}px`;
 	}
 </script>
 
