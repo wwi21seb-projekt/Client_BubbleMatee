@@ -26,7 +26,15 @@ export { default as UserInfoValidation } from './login/user-info-validation.svel
 export { default as PasswordStep } from './login/steps/password-step.svelte';
 export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 
-//General Components
-export { default as FileInput } from './general/file-input.svelte';
-export { default as Textarea } from './general/textarea.svelte';
+//Post Components
+export { default as FileInput } from './postComponent/components/file-input.svelte';
+export { default as Textarea } from './postComponent/components/textarea.svelte';
+export { default as PostComponent } from './postComponent/post-component.svelte';
+export { default as Filedropzone } from './postComponent/components/fileInput/filedropzone.svelte';
+export { default as ImageDisplay } from './postComponent/components/fileInput/image-display.svelte';
+export { default as PostButton } from './postComponent/components/post-button.svelte';
+
+
+
+
 
