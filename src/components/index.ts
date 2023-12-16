@@ -27,4 +27,11 @@ export { default as PasswordStep } from './login/steps/password-step.svelte';
 export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 
 //Register Step Components
-export { default as Post } from './posts/post.svelte';
+export { default as PostCard } from './posts/post-card.svelte';
+export { default as Posts } from './posts/posts.svelte';
+export { default as Comments } from './posts/comments.svelte';
+export { default as PostHeader } from './posts/post-card-elements/post-header.svelte';
+export { default as PostMain } from './posts/post-card-elements/post-main.svelte';
+export { default as postFooter } from './posts/post-card-elements/post-footer.svelte';
+
+

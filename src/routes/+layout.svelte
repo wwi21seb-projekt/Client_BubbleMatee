@@ -1,15 +1,17 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, Toast } from '@skeletonlabs/skeleton';
+	import { AppShell, Toast, Modal } from '@skeletonlabs/skeleton';
 	import { Header, NavigationBarMobile, NavigationBarDesktop } from '$components';
 	import { initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-
+	
+							
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	initializeStores();
 </script>
 
+<Modal />
 <Toast position="t" />
 <!-- Basic Layout of the App -->
 <AppShell>

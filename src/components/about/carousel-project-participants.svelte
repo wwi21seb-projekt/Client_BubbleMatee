@@ -64,7 +64,7 @@
 		<div class="card p-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center">
 			<!-- Button: Left -->
 			<button type="button" class="btn-icon variant-filled" on:click={carouselLeft}>
-				<img src="./src/images/icons/arrow-left.png" alt="DHBW Mannheim Logo" />
+				<img src="./src/images/icons/arrow-left.png" alt="Arrow Left" />
 			</button>
 			<!-- Card consisting of table and image -->
 			<div
@@ -90,7 +90,7 @@
 			</div>
 			<!-- Button: Right -->
 			<button type="button" class="btn-icon variant-filled" on:click={carouselRight}>
-				<img src="./src/images/icons/arrow-right.png" alt="DHBW Mannheim Logo" />
+				<img src="./src/images/icons/arrow-right.png" alt="Arrow Right" />
 			</button>
 		</div>
 	</svelte:fragment>
