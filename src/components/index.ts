@@ -29,9 +29,10 @@ export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 //Register Step Components
 export { default as PostCard } from './posts/post-card.svelte';
 export { default as Posts } from './posts/posts.svelte';
-export { default as Comments } from './posts/comments.svelte';
 export { default as PostHeader } from './posts/post-card-elements/post-header.svelte';
 export { default as PostMain } from './posts/post-card-elements/post-main.svelte';
 export { default as postFooter } from './posts/post-card-elements/post-footer.svelte';
-
-
+export { default as Comments } from './posts/comments/comments.svelte';
+export { default as CommentsHeader } from './posts/comments/comments-header.svelte';
+export { default as CommentElement } from './posts/comments/comment-element.svelte';
+export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';

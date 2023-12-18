@@ -4,14 +4,13 @@
 	import { Header, NavigationBarMobile, NavigationBarDesktop } from '$components';
 	import { initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	
-							
+
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	initializeStores();
 </script>
 
-<Modal />
+<Modal transition="false" height="screen" padding="20px" />
 <Toast position="t" />
 <!-- Basic Layout of the App -->
 <AppShell>
@@ -31,3 +30,9 @@
 	</svelte:fragment>
 	<slot />
 </AppShell>
+
+<style>
+	.modal-transition {
+		padding: 0px;
+	}
+</style>
