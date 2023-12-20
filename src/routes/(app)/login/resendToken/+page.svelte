@@ -58,6 +58,10 @@
 		<button type="submit" class="btn variant-filled-primary">Bestätigen</button>
 	</form>
 	<div class="flex justify-center">
-		<p>Code erhalten? <a class="text-primary-400" href="/login/verify">Code eingeben</a></p>
+		<p>
+			Code erhalten? <a class="dark:text-primary-500 text-secondary-500" href="/login/verify"
+				>Code eingeben</a
+			>
+		</p>
 	</div>
 </main>

@@ -64,7 +64,10 @@
 	</form>
 	<div class="flex justify-center">
 		<p>
-			Keinen Code erhalten? <a class="text-primary-400" href="/login/resendToken">Erneut senden</a>
+			Keinen Code erhalten? <a
+				class="dark:text-primary-500 text-secondary-500"
+				href="/login/resendToken">Erneut senden</a
+			>
 		</p>
 	</div>
 </main>

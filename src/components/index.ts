@@ -25,3 +25,6 @@ export { default as UserInfoValidation } from './login/user-info-validation.svel
 //Register Step Components
 export { default as PasswordStep } from './login/steps/password-step.svelte';
 export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
+
+//Profile Page of a user
+export { default as ProfileHeader } from './profile/profile-header.svelte';
