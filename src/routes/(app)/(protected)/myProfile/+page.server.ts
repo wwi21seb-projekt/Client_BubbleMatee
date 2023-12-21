@@ -1,6 +1,7 @@
 import type { ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { ErrorResponse, UserInfoResponse } from '$domains';
+import { getCurrentUser } from '$utils';
 
 /**
  * Handles the server-side loading for the myProfile page.
@@ -9,7 +10,8 @@ import type { ErrorResponse, UserInfoResponse } from '$domains';
  * @returns The response containing user data or an error.
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
-	const response = await event.fetch(`/api/users/johanna`, {
+	const username: string = getCurrentUser(event.cookies.get('token'));
+	const response = await event.fetch(`/api/users/${username}`, {
 		//TODO: change to currentUser
 		method: 'GET',
 		headers: {

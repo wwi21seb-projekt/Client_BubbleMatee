@@ -19,6 +19,11 @@ const unauthorizedRoutes = [
 	'/api/users/login' // Login API
 ];
 
+/**
+ * Creates a response to reset the cookies and redirect to the login page.
+ *
+ * @returns The response to reset the cookies and redirect to the login page.
+ */
 const resetCookieResponse = () => {
 	const response = new Response('Redirect', { status: 303, headers: { Location: '/login' } });
 	response.headers.set('Set-Cookie', 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
@@ -30,7 +35,13 @@ const resetCookieResponse = () => {
 	return response;
 };
 
-/** @type {import('@sveltejs/kit').Handle} */
+/**
+ * Handles requests to the server.
+ *
+ * @param event The SvelteKit event object.
+ * @param resolve The function to execute the request.
+ * @returns The response containing the data or an error.
+ */
 export const handle = async ({ event, resolve }) => {
 	/**Protection of certain routes.*/
 	/* if (isLoggedIn && event.route.id?.startsWith('/(app)/(protected)')) {
@@ -52,7 +63,7 @@ export const handle = async ({ event, resolve }) => {
 	// 4. If refresh token is not valid, redirect to login page
 
 	// Step 1
-	let token = event.cookies.get('token');
+	const token = event.cookies.get('token');
 	if (token && !tokenExpired(token)) {
 		event.request.headers.set('Authorization', `Bearer ${token}`);
 		const response = await resolve(event);
@@ -93,6 +104,14 @@ export const handle = async ({ event, resolve }) => {
 	return response.status === 401 ? resetCookieResponse() : response;
 };
 
+/**
+ * Handles requests to the server.
+ *
+ * @param event The SvelteKit event object.
+ * @param request The SvelteKit request object.
+ * @param fetch The fetch function for making HTTP requests.
+ * @returns The response containing the data or an error.
+ */
 export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	const url = new URL(request.url);
 	console.log(`Outgoing request: ${request.method} ${url}`);
