@@ -27,3 +27,4 @@
 	}}>Ausloggen Testzwecke</button
 >
 <ProfileHeader {user} />
+<p>{name}</p>
