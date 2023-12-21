@@ -3,9 +3,15 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
+/**
+ * Handles GET requests to get user information.
+ *
+ * @param fetch The fetch function for making HTTP requests.
+ * @param params The parameters extracted from the route.
+ * @returns The response containing user data or an error.
+ */
 export const GET: RequestHandler = async ({ fetch, params }) => {
 	const username = params.username;
-	console.log(` GET ${PUBLIC_BASE_URL}/api/users/${username}`);
 
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}`, {

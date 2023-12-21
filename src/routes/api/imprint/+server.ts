@@ -10,7 +10,6 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing imprint data or an error.
  */
 export const GET: RequestHandler = async ({ fetch }) => {
-	console.log(` GET ${PUBLIC_BASE_URL}/api/imprint`);
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/imprint`, {
 			method: 'GET',
