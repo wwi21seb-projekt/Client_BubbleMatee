@@ -4,7 +4,6 @@
 	import type { UserInfo } from '$domains';
 	import { ProfileHeader } from '$components';
 
-	export let data;
 	let user: UserInfo = {
 		username: 'test_user',
 		nickname: 'test_user_nickname',
