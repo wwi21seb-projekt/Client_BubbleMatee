@@ -26,5 +26,5 @@
 		goto('/login');
 	}}>Ausloggen Testzwecke</button
 >
-<ProfileHeader {user} />
-<p>{name}</p>
+<ProfileHeader {user} {name} />
+<hr class="border-t-2 m-4" />
