@@ -28,3 +28,4 @@ export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 
 //Profile Page of a user
 export { default as ProfileHeader } from './profile/profile-header.svelte';
+export { default as ProfileView } from './profile/profile-view.svelte';

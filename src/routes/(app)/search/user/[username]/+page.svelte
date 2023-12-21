@@ -1,8 +1,7 @@
 <script lang="ts">
-	import type { UserInfo } from '$domains';
 	import { ProfileView } from '$components';
 
-	let user: UserInfo = {
+	let user = {
 		username: 'test_user',
 		nickname: 'test_user_nickname',
 		status:
@@ -13,15 +12,7 @@
 		posts: 23,
 		subscriptionId: ''
 	};
-	let name: string = user.nickname === '' ? user.username : user.nickname;
+	let name = user.nickname === '' ? user.username : user.nickname;
 </script>
 
-<!-- Profile of the App 
-<button
-	class="btn variant-filled-primary"
-	on:click={() => {
-		isLoggedIn.set(false);
-		goto('/login');
-	}}>Ausloggen Testzwecke</button
-> -->
 <ProfileView {user} {name} />

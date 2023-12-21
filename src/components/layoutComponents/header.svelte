@@ -9,13 +9,13 @@
 			<a href="/">
 				<img
 					class="h-10 md:h-16 self-center"
-					src="src/images/layout/logo.png"
+					src="./../../src/images/layout/logo.png"
 					alt="BubbleMateLogo"
 				/>
 			</a>
 			<img
 				class="h-12 md:h-16 self-center"
-				src="src/images/layout/schriftzug.png"
+				src="./../../src/images/layout/schriftzug.png"
 				alt="BubbleMateLogo"
 			/>
 		</div>
