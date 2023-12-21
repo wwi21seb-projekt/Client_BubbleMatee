@@ -21,4 +21,5 @@
 		<div class="place-self-center">Ich folge</div>
 	</div>
 </div>
+<div class="px-4 pb-1 font-semibold">{name}</div>
 <div class="px-4">{user.status}</div>
