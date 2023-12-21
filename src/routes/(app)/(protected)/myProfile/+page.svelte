@@ -1,19 +1,7 @@
 <script lang="ts">
-	import type { UserInfo } from '$domains';
 	import { ProfileView } from '$components';
 
-	let user: UserInfo = {
-		username: 'test_user',
-		nickname: 'test_user_nickname',
-		status:
-			'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquy', //UTF-8, 128 Zeichen
-		profilePictureUrl: '',
-		follower: 123,
-		following: 3467,
-		posts: 23,
-		subscriptionId: ''
-	};
-	let name: string = user.nickname === '' ? user.username : user.nickname;
+	export let data;
 </script>
 
 <!-- Profile of the App 
@@ -24,4 +12,4 @@
 		goto('/login');
 	}}>Ausloggen Testzwecke</button
 > -->
-<ProfileView {user} {name} />
+<ProfileView {data} />

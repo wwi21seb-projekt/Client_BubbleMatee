@@ -6,7 +6,8 @@ export type {
 	ErrorResponse,
 	ImprintResponse,
 	LoginResponse,
-	RegisterResponse
+	RegisterResponse,
+	UserInfoResponse
 } from './ServerResponses';
 
 //Server Domains

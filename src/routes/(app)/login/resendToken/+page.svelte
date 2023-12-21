@@ -3,7 +3,6 @@
 	import { UsernameInput } from '$components';
 	import type { Error } from '$domains';
 	import { currentUser, loading } from '$stores';
-	import { getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -23,7 +22,7 @@
 			if (body.error) {
 				const error: Error = body.data.error;
 				const t: ToastSettings = {
-					message: getErrorMessage(error.code),
+					message: error.message,
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);

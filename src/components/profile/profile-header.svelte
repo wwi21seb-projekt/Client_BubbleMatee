@@ -3,7 +3,7 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let user: UserInfo;
-	export let name: string;
+	let name: string = user.nickname === '' ? user.username : user.nickname;
 </script>
 
 <div class="p-4 grid grid-cols-4 gap-1 font-semibold">

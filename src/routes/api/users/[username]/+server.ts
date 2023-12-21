@@ -3,23 +3,16 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
-/**
- * Handles POST requests for user login.
- *
- * @param fetch The fetch function for making HTTP requests.
- * @param request The SvelteKit request object.
- * @returns The response containing login data or an error.
- */
-export const POST: RequestHandler = async ({ fetch, request }) => {
-	console.log(` POST ${PUBLIC_BASE_URL}/api/users/login`);
-	const requestBody = await request.json();
+export const GET: RequestHandler = async ({ fetch, params }) => {
+	const username = params.username;
+	console.log(` GET ${PUBLIC_BASE_URL}/api/users/${username}`);
+
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/login`, {
-			method: 'POST',
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}`, {
+			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(requestBody)
+			}
 		});
 
 		const body = await response.json();
@@ -33,7 +26,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		return json({
 			error: true,
 			data: {
-				code: '500',
+				code: 500,
 				message: 'Internal Server Error'
 			}
 		});

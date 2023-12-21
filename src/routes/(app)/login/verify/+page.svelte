@@ -3,7 +3,6 @@
 	import { CodeInput, UsernameInput } from '$components';
 	import type { Error } from '$domains';
 	import { currentUser, isLoggedIn, loading } from '$stores';
-	import { getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -31,7 +30,7 @@
 				let error: Error = body.data.error; //TODO: error handling messages
 
 				const t: ToastSettings = {
-					message: getErrorMessage(error.code),
+					message: error.message,
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
