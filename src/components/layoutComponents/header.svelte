@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
+	import { Settings } from '$components';
+	import { AppBar, LightSwitch, modeCurrent, setModeUserPrefers } from '@skeletonlabs/skeleton';
+
+	const handleLightSwitch = () => {
+		setModeUserPrefers($modeCurrent);
+	};
 </script>
 
 <!-- App Shell -->
@@ -21,6 +27,9 @@
 		</div>
 	</svelte:fragment>
 	<svelte:fragment slot="trail">
-		<LightSwitch />
+		<LightSwitch on:click={handleLightSwitch} />
+		{#if $page.url.pathname === '/myProfile'}
+			<Settings />
+		{/if}
 	</svelte:fragment>
 </AppBar>

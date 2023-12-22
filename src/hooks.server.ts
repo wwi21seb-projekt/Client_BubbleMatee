@@ -1,6 +1,8 @@
-import type { HandleFetch } from '@sveltejs/kit';
+import { redirect, type HandleFetch } from '@sveltejs/kit';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { tokenExpired } from '$utils';
+import { isLoggedIn } from '$stores';
+import { get } from 'svelte/store';
 /* import { tokenExpired } from './utils/token/tokenExpired'; */
 
 const unauthorizedRoutes = [
@@ -44,9 +46,9 @@ const resetCookieResponse = () => {
  */
 export const handle = async ({ event, resolve }) => {
 	/**Protection of certain routes.*/
-	/* if (isLoggedIn && event.route.id?.startsWith('/(app)/(protected)')) {
+	if (get(isLoggedIn) && event.route.id?.startsWith('/(app)/(protected)')) {
 		throw redirect(302, '/login');
-	} */
+	}
 
 	console.log(`\tInternal request: ${event.request.method} ${event.url.pathname}, ${Date.now()}}`);
 
