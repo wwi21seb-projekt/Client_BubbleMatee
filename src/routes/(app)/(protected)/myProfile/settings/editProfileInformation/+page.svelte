@@ -40,6 +40,11 @@
 					toastStore.trigger(t);
 				}
 			} else {
+				const t: ToastSettings = {
+					message: 'Profilinformationen erfolgreich geändert!',
+					background: 'variant-filled-success'
+				};
+				toastStore.trigger(t);
 				goto('/myProfile');
 			}
 

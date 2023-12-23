@@ -42,7 +42,7 @@
 			});
 
 			const body = await response.json();
-			console.log(body);
+
 			if (body.error) {
 				let error: Error = body.data.error;
 				const t: ToastSettings = {

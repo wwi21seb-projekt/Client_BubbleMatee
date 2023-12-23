@@ -1,6 +1,8 @@
 import type { ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { ErrorResponse, UserInfoResponse } from '$domains';
+/* import { currentUsername } from '$stores';
+import { get } from 'svelte/store'; */
 import { getCurrentUser } from '$utils';
 
 /**
@@ -11,6 +13,8 @@ import { getCurrentUser } from '$utils';
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const username: string = getCurrentUser(event.cookies.get('token'));
+
+	/* const username: string | null = get(currentUsername); */
 	const response = await event.fetch(`/api/users/${username}`, {
 		method: 'GET',
 		headers: {

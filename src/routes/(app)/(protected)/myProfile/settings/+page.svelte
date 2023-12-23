@@ -2,7 +2,7 @@
 	import ArrowRightIcon from '$images/icons/arrow-right-icon.svelte';
 	import { EditIcon, LogoutIcon, PasswordIcon } from '$images';
 	import { goto } from '$app/navigation';
-	import { isLoggedIn } from '$stores';
+	import { currentUsername, isLoggedIn } from '$stores';
 
 	const handleLogout = async () => {
 		const response = await fetch('/api/users/logout', {
@@ -16,6 +16,7 @@
 
 		if (data.success) {
 			isLoggedIn.set(false);
+			currentUsername.set(null);
 			goto('/login');
 		}
 	};

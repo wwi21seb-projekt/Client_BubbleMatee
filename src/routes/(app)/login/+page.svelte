@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { PasswordInput, UsernameInput } from '$components';
-	import { isLoggedIn } from '$stores';
+	import { currentUsername, isLoggedIn } from '$stores';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -42,6 +42,7 @@
 				}
 			} else {
 				isLoggedIn.set(true);
+				currentUsername.set(username); //TODO: get useranme from token when discussed with other teams
 				goto('/myProfile');
 			}
 

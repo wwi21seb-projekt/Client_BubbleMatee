@@ -1,4 +1,5 @@
 import type { Imprint } from './ServerDomains/imprint';
+import type { Subscription } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 
 export interface Response {
@@ -29,6 +30,11 @@ export interface RegisterResponse extends Response {
 export interface UserInfoResponse extends Response {
 	data: UserInfo;
 }
+
 export interface EditUserInformationResponse extends Response {
 	data: EditUserInfo;
+}
+
+export interface FollowResponse extends Response {
+	data: Subscription;
 }
