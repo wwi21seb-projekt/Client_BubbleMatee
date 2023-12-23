@@ -18,3 +18,7 @@ export {
 } from './login/userInfoValidation';
 
 export { getErrorMessage } from './errorMessages/errorMessages';
+
+export { tokenExpired } from './token/tokenExpired';
+export { getCurrentUser } from './token/getUser';
+export { checkAuth } from './token/checkAuth';

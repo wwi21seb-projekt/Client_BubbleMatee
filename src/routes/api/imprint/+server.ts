@@ -1,5 +1,6 @@
 import type { ErrorResponse, ImprintResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
+import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -9,7 +10,6 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing imprint data or an error.
  */
 export const GET: RequestHandler = async ({ fetch }) => {
-	console.log(` GET ${PUBLIC_BASE_URL}/api/imprint`);
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/imprint`, {
 			method: 'GET',
@@ -24,7 +24,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 			const result = { data: body, error: false };
 			return json(result as ImprintResponse);
 		}
-
+		body.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({

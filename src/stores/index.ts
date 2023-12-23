@@ -1,2 +1,2 @@
-export { authToken, currentUser, isLoggedIn } from './client';
+export { authToken, currentUser, isLoggedIn, currentUsername } from './client';
 export { loading } from './loading';

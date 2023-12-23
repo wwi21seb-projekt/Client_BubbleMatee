@@ -19,3 +19,7 @@ export interface UserInfo {
 	posts: number;
 	subscriptionId: string;
 }
+export interface EditUserInfo {
+	nickname: string;
+	status: string;
+}

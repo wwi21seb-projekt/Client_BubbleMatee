@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { PasswordInput, PasswordValidations } from '$components';
-	import { loading } from '$stores';
 	import {
 		containsBigLetter,
 		containsNumber,
@@ -14,11 +13,12 @@
 
 	export let password: string;
 	export let passwordRepeat: string;
+	export let loading: boolean;
 
 	$: stepLocked = !passwordValid(password) || !passwordsMatch(password, passwordRepeat);
 </script>
 
-<Step locked={stepLocked || $loading}>
+<Step locked={stepLocked || loading}>
 	<svelte:fragment slot="header">
 		<h1
 			class="h1 text-xl text-center font-bold leading-tight tracking-tight md:text-2xl dark:text-white"

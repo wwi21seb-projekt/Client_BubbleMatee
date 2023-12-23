@@ -1,5 +1,6 @@
 import type { ErrorResponse, LoginResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
+import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -8,11 +9,11 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @param fetch The fetch function for making HTTP requests.
  * @param request The SvelteKit request object.
  * @param params The parameters extracted from the route.
+ * @param cookies The cookies of the request.
  * @returns The response containing login data or an error.
  */
-export const POST: RequestHandler = async ({ fetch, request, params }) => {
+export const POST: RequestHandler = async ({ fetch, request, params, cookies }) => {
 	const username = params.username;
-	console.log(` POST ${PUBLIC_BASE_URL}/api/users/${username}/activate`);
 	const requestBody = await request.json();
 
 	try {
@@ -27,8 +28,14 @@ export const POST: RequestHandler = async ({ fetch, request, params }) => {
 		const body = await response.json();
 
 		if (response.ok) {
+			const { token, refreshToken } = body;
+
+			cookies.set('token', token, { path: '/' });
+			cookies.set('refreshToken', refreshToken, { path: '/' });
+
 			return json({ data: body, error: false } as LoginResponse);
 		}
+		body.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
@@ -50,7 +57,6 @@ export const POST: RequestHandler = async ({ fetch, request, params }) => {
  */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
 	const username = params.username;
-	console.log(` DELETE ${PUBLIC_BASE_URL}/api/users/${username}/activate`);
 
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/activate`, {
@@ -64,7 +70,7 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 			data: {
 				error: {
 					code: response.status.toString(),
-					message: response.statusText
+					message: getErrorMessage(response.status.toString())
 				}
 			},
 			error: true

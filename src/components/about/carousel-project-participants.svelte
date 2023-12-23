@@ -5,6 +5,7 @@
 	import type { PersonData } from '$domains';
 	import { personsData } from '../../static/components/index.ts';
 	import { ListProjectParticipants } from '$components';
+	import { ArrowLeftIcon, ArrowRightIcon } from '$images';
 
 	// Helper function to create TableSource objects
 	function createTableSource(data: PersonData[]): TableSource {
@@ -68,21 +69,7 @@
 				class="btn-icon variant-filled-secondary dark:variant-filled-primary"
 				on:click={carouselLeft}
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="1.5"
-					stroke="currentColor"
-					data-slot="icon"
-					class="w-6 h-6"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-					/>
-				</svg>
+				<ArrowLeftIcon />
 			</button>
 			<!-- Card consisting of table and image -->
 			<div
@@ -112,21 +99,7 @@
 				class="btn-icon variant-filled-secondary dark:variant-filled-primary"
 				on:click={carouselRight}
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="1.5"
-					stroke="currentColor"
-					data-slot="icon"
-					class="w-6 h-6"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-					/>
-				</svg>
+				<ArrowRightIcon />
 			</button>
 		</div>
 	</svelte:fragment>
