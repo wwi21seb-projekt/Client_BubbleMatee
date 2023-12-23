@@ -12,7 +12,6 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const username = event.params.username;
 
 	const response = await event.fetch(`/api/users/${username}`, {
-		//TODO: change to currentUser
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

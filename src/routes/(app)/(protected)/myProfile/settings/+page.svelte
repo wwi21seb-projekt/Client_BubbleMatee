@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import ArrowRightIcon from '$images/icons/arrow-right-icon.svelte';
 	import { EditIcon, LogoutIcon, PasswordIcon } from '$images';
 	import { goto } from '$app/navigation';
