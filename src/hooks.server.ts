@@ -121,7 +121,6 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	if (PUBLIC_BASE_URL === url.origin && !unauthorizedRoutes.includes(url.pathname)) {
 		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
 	}
-
 	const response = await fetch(request);
 	return response.status === 401 ? resetCookieResponse() : response;
 };

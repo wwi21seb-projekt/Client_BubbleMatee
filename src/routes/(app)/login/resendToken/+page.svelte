@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { UsernameInput } from '$components';
 	import type { Error } from '$domains';
-	import { currentUser, loading } from '$stores';
+	import { currentUser } from '$stores';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -10,8 +10,10 @@
 
 	let username: string = $currentUser.username;
 
+	let loading: boolean = false;
+
 	const handleSubmit = async () => {
-		loading.set(true);
+		loading = true;
 		try {
 			const response = await fetch(`/api/users/${username}/activate`, {
 				method: 'DELETE'
@@ -39,7 +41,7 @@
 		} catch (e) {
 			console.error(e);
 		} finally {
-			loading.set(false);
+			loading = false;
 		}
 	};
 </script>
@@ -54,7 +56,9 @@
 	>
 		<UsernameInput bind:username />
 
-		<button type="submit" class="btn variant-filled-primary">Bestätigen</button>
+		<button type="submit" class="btn variant-filled-primary" disabled={loading}
+			>{loading ? 'Lädt ...' : 'Bestätigen'}</button
+		>
 	</form>
 	<div class="flex justify-center">
 		<p>

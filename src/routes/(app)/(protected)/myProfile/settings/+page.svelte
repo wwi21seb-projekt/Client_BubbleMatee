@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ArrowRightIcon from '$images/icons/arrow-right-icon.svelte';
-	import { EditIcon, LogoutIcon } from '$images';
+	import { EditIcon, LogoutIcon, PasswordIcon } from '$images';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '$stores';
 
@@ -34,6 +34,16 @@
 					<span class="flex self-center">
 						<span class="badge self-center"><EditIcon /></span>
 						<span class="flex-auto self-center">Profilinformationen bearbeiten</span>
+					</span>
+					<span class="badge self-center"><ArrowRightIcon /></span>
+				</a>
+			</li>
+			<hr class="!border-t-2" />
+			<li>
+				<a href="/myProfile/settings/changePassword" class="flex justify-between">
+					<span class="flex self-center">
+						<span class="badge self-center"><PasswordIcon /></span>
+						<span class="flex-auto self-center">Passwort ändern</span>
 					</span>
 					<span class="badge self-center"><ArrowRightIcon /></span>
 				</a>
