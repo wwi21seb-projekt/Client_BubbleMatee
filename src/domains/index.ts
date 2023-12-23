@@ -1,5 +1,5 @@
 export type { Logo, PersonData, PersonSourceData } from './About';
-export type { User, Tokens, UserInfo } from './ServerDomains/user';
+export type { User, Tokens, UserInfo, EditUserInfo } from './ServerDomains/user';
 export type {
 	Response,
 	Error,
@@ -7,7 +7,8 @@ export type {
 	ImprintResponse,
 	LoginResponse,
 	RegisterResponse,
-	UserInfoResponse
+	UserInfoResponse,
+	EditUserInformationResponse
 } from './ServerResponses';
 
 //Server Domains

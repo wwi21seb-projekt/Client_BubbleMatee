@@ -4,6 +4,7 @@
 	import type { Error, UserInfo } from '$domains';
 
 	export let data;
+
 	let user: UserInfo | null = data.error ? null : data.data;
 	let error: Error | null = data.error ? data.data : null;
 </script>

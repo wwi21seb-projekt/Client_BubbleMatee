@@ -1,5 +1,5 @@
 import type { Imprint } from './ServerDomains/imprint';
-import type { Tokens, User, UserInfo } from './ServerDomains/user';
+import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 
 export interface Response {
 	error: boolean;
@@ -28,4 +28,7 @@ export interface RegisterResponse extends Response {
 
 export interface UserInfoResponse extends Response {
 	data: UserInfo;
+}
+export interface EditUserInformationResponse extends Response {
+	data: EditUserInfo;
 }

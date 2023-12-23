@@ -30,6 +30,7 @@ export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 export { default as ProfileHeader } from './profile/profile-header.svelte';
 export { default as ProfileView } from './profile/profile-view.svelte';
 export { default as Settings } from './profile/settings.svelte';
+export { default as StatusInput } from './profile/status-input.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';
