@@ -106,6 +106,7 @@
 			containsBigLetter={containsBigLetter(newPassword)}
 			containsNumber={containsNumber(newPassword)}
 			oldPasswordEntered={oldPassword !== ''}
+			oldPasswordNeeded={true}
 		/>
 		<button class="btn variant-filled-primary" disabled={stepLocked} on:click={changePassword}
 			>{loading ? 'Lädt...' : 'Passwort ändern'}</button

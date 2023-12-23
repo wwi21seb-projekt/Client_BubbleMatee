@@ -25,9 +25,9 @@
 					token: code
 				})
 			});
-
+			console.log(response.json());
 			const body = await response.json();
-
+			console.log(body);
 			if (body.error) {
 				let error: Error = body.data.error; //TODO: error handling messages
 

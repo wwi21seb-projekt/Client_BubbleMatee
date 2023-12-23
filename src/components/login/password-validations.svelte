@@ -8,11 +8,14 @@
 	export let containsBigLetter: boolean;
 	export let passwordsMatch: boolean;
 	export let passwordValid: boolean;
+	export let oldPasswordNeeded: boolean = false;
 	export let oldPasswordEntered: boolean = true;
 </script>
 
 <ol class="list gap-4">
-	<ErrorMessage message="Altes Passwort eingegeben" isError={!oldPasswordEntered} />
+	{#if oldPasswordNeeded}
+		<ErrorMessage message="Altes Passwort eingegeben" isError={!oldPasswordEntered} />
+	{/if}
 	{#if !passwordValid}
 		<ErrorMessage message="Passwort mindestens 8 Zeichen lang" isError={!passwordLongEnough} />
 		<ErrorMessage message="Kleinbuchstabe verwendet" isError={!containsSmallLetter} />
