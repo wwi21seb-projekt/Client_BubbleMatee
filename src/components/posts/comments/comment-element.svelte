@@ -3,7 +3,9 @@
 	export let comment: string;
 	import { Avatar } from '@skeletonlabs/skeleton';
 	let shortComment: string = comment.substring(0, 200);
-	const toggleFullComment = () => {
+
+	//function to toggle wether the comment is shown fully or not (only for long comments)
+	function toggleFullComment(): void {
 		let shortCommentElement: HTMLElement = document.getElementById(id + '-short-comment')!;
 		let fullCommentelement: HTMLElement | null = document.getElementById(id + '-full-comment')!;
 		let button: HTMLElement | null = document.getElementById(id + '-comment-button')!;
@@ -16,7 +18,7 @@
 			fullCommentelement.style.display = 'block';
 			button.innerText = 'Weniger';
 		}
-	};
+	}
 </script>
 
 <div class="grid grid-cols-[auto_1fr] gap-2">
@@ -26,7 +28,7 @@
 			<p class="text-lg md:text-xl font-bold">Username</p>
 			<small>12.12.2023 17:45 Uhr</small>
 		</header>
-		<div>
+		<div >
 			<p class="text-lg md:text-xl" id={id + '-short-comment'}>{shortComment}</p>
 			<p class="text-lg md:text-xl" id={id + '-full-comment'} style="display:none;">{comment}</p>
 			{#if comment.length > shortComment.length}

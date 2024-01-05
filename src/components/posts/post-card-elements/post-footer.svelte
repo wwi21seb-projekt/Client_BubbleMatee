@@ -1,49 +1,75 @@
 <!--Post-Footer containing buttons for liking an commenting-->
 
 <script lang="ts">
+	//TODO: Datenanbindung der Komponente -> wenn der Endpunkt definiert wurde
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Heart, ChatBubbleLeft } from '@steeze-ui/heroicons';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	import type { ModalComponent, ModalSettings } from '@skeletonlabs/skeleton';
-	import { Comments } from '$components';
-	const modalStore = getModalStore();
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
-	let isLiked = false;
-	let numberOfLikes = 42; // Beispielanzahl der Likes
+	import { Comments } from '$components';
+	import { isLoggedIn } from '$stores';
+
+	const modalStore = getModalStore();
+	const toastStore = getToastStore();
+
+	let isLiked: boolean = false;
+	let numberOfLikes: number = 42; // Beispielanzahl der Likes
 
 	//funktion to toggle the like of the post
-	const toggleLike = () => {
-		isLiked = !isLiked;
-		if (isLiked) {
-			numberOfLikes++;
+	function toggleLike(): void {
+		// Error-Message if the user is not logged in
+		if (!$isLoggedIn) {
+			const t: ToastSettings = {
+				message: 'Melde dich an, um diese Funktion zu nutzen',
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
 		} else {
-			numberOfLikes--;
+			isLiked = !isLiked;
+			if (isLiked) {
+				numberOfLikes++;
+			} else {
+				numberOfLikes--;
+			}
 		}
-	};
+	}
 
 	//function to open the comment section
-	const handleCommentClick = () => {
-		//temporär zum testen
-		const comments = [
-			'barsjdgasdjgkjas barsjdgasdjgkjas barsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
-			'barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj'
-		];
-		const modalComponent: ModalComponent = {
-			ref: Comments,
-			props: { comments: comments }
-		};
-		const modal: ModalSettings = {
-			type: 'component',
-			component: modalComponent,
-			modalClasses: '!bg-red-500'
-		};
-		modalStore.trigger(modal);
-	};
+	function handleCommentClick(): void {
+		// Error-Message if the user is not logged in
+		if (!$isLoggedIn) {
+			const t: ToastSettings = {
+				message: 'Melde dich an, um diese Funktion zu nutzen',
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
+		} else {
+			//temporär zum testen
+			const comments = [
+				'barsjdgasdjgkjas barsjdgasdjgkjas barsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
+				'barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj'
+			];
+			const modalComponent: ModalComponent = {
+				ref: Comments,
+				props: { comments: comments }
+			};
+			const modal: ModalSettings = {
+				type: 'component',
+				component: modalComponent,
+				backdropClasses: '!bg-gradient-to-br from-tertiary-900 to-secondary-900 lg:ml-[calc(56px+12.5vh)] lg:mr-[12.5vh] lg:mt-[74px] lg:rounded-xl',
+				 
+			};
+			modalStore.trigger(modal);
+		}
+	}
 </script>
 
 <div class="flex flex-row items-center space-x-4">
 	<div class="flex flex-col items-center">
 		<button on:click={toggleLike} class="focus:outline-none">
+			<!--Red Heart if the post is liked-->
 			<Icon
 				src={Heart}
 				class={'h-8 font-bold' +
@@ -61,3 +87,9 @@
 		<small class="text-xs">10. Mio</small>
 	</div>
 </div>
+
+<style>
+	.my-custom-class{
+		background-color: red;
+	}
+</style>

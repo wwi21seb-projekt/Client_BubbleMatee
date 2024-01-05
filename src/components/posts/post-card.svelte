@@ -1,18 +1,18 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { PostMain } from '$components';
+	import type { Post } from '$domains';
 	import PostFooter from './post-card-elements/post-footer.svelte';
 	import PostHeader from './post-card-elements/post-header.svelte';
-	export let imageUrl: string;
-	export let text: string;
+	export let post: Post;
 </script>
 
 <div class="card bg-gradient-to-br from-tertiary-900 to-secondary-900 w-full p-4 rounded-xl">
 	<header>
-		<PostHeader />
+		<PostHeader date={post.date} author={post.author} />
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
-	<PostMain {imageUrl} {text} />
+	<PostMain text={post.content} />
 	<hr class="opacity-50 mt-2 mb-2" />
 	<footer>
 		<PostFooter />

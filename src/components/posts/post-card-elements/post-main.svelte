@@ -1,6 +1,8 @@
 <!-- Main post-component containing the posted image and text-->
 <script lang="ts">
-	export let imageUrl: string;
+	//TODO Add image
+	//export let imageUrl: string;
+	let imageUrl = '';
 	export let text: string;
 </script>
 

@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { PaperAirplane, Trash } from '@steeze-ui/heroicons';
-	let newComment = '';
+	let newComment: string = '';
 	//post of a comment
 	const postComment = () => {
 		newComment = '';

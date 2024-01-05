@@ -10,7 +10,7 @@
 	initializeStores();
 </script>
 
-<Modal transition="false" height="screen" padding="20px" />
+<Modal transitions={false} />
 <Toast position="t" />
 <!-- Basic Layout of the App -->
 <AppShell>
@@ -30,9 +30,3 @@
 	</svelte:fragment>
 	<slot />
 </AppShell>
-
-<style>
-	.modal-transition {
-		padding: 0px;
-	}
-</style>

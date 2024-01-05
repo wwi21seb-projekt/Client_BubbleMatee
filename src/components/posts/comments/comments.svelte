@@ -1,17 +1,24 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
+	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { CommentsHeader, CommentElement, CommentsFooter } from '$components';
-	export let comments: string[];
+	export let comments: Array<string>;
+	export let parent
+	console.log(parent)
 </script>
 
 <div
-	class="card bg-gradient-to-br from-tertiary-900 to-secondary-900 w-full sm:w-3/4 md:w-full lg:w-3/4 h-[90vh] p-2 rounded-xl overflow-hidden flex flex-col"
+	class="h-[calc(100vh-32px)] bg-gradient-to-br from-tertiary-900 to-secondary-900 w-full lg:h-[calc(100vh-106px)] lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
 >
-	<header class="sticky top-0">
+	<header>
 		<CommentsHeader />
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
-	<div class="overflow-auto h-full">
+	<div class="overflow-y-auto overflow-x-hidden h-full">
+		{#each comments as comment, index}
+			<CommentElement {comment} id={`comment-${index}`} />
+			<hr class="opacity-50 mt-2 mb-2" />
+		{/each}
 		{#each comments as comment, index}
 			<CommentElement {comment} id={`comment-${index}`} />
 			<hr class="opacity-50 mt-2 mb-2" />
