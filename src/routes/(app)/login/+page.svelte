@@ -72,6 +72,10 @@
 		>
 	</form>
 	<div class="flex justify-center">
-		<p>Noch kein Account? <a class="text-primary-400" href="/login/register">Registrieren</a></p>
+		<p>
+			Noch kein Account? <a class="dark:text-primary-500 text-secondary-500" href="/login/register"
+				>Registrieren</a
+			>
+		</p>
 	</div>
 </main>

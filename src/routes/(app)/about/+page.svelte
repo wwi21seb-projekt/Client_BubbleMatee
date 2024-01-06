@@ -15,7 +15,7 @@
 
 <h1 class="h1">
 	<span
-		class="bg-gradient-to-br from-tertiary-500 to-tertiary-200 bg-clip-text text-transparent box-decoration-clone"
+		class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
 		>ABOUT US</span
 	>
 </h1>

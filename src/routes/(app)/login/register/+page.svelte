@@ -74,6 +74,10 @@
 		<PasswordStep bind:password bind:passwordRepeat />
 	</Stepper>
 	<div class="flex justify-center p-4">
-		<p>Bereits registriert? <a class="text-primary-400" href="/login">Anmelden</a></p>
+		<p>
+			Bereits registriert? <a class="dark:text-primary-500 text-secondary-500" href="/login"
+				>Anmelden</a
+			>
+		</p>
 	</div>
 </main>

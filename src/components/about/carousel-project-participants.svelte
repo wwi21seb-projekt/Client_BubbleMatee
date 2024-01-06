@@ -54,7 +54,7 @@
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
 			<span
-				class="bg-gradient-to-br from-warning-600 to-warning-300 bg-clip-text text-transparent box-decoration-clone"
+				class="bg-gradient-to-br from-warning-900 to-warning-600 dark:from-warning-600 dark:to-warning-300 bg-clip-text text-transparent box-decoration-clone"
 				>Projektbeteiligte</span
 			>
 		</h2></svelte:fragment
@@ -63,8 +63,26 @@
 		<!-- Carousel -->
 		<div class="card p-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center">
 			<!-- Button: Left -->
-			<button type="button" class="btn-icon variant-filled" on:click={carouselLeft}>
-				<img src="./src/images/icons/arrow-left.png" alt="Arrow Left" />
+			<button
+				type="button"
+				class="btn-icon variant-filled-secondary dark:variant-filled-primary"
+				on:click={carouselLeft}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					data-slot="icon"
+					class="w-6 h-6"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+					/>
+				</svg>
 			</button>
 			<!-- Card consisting of table and image -->
 			<div
@@ -89,8 +107,26 @@
 				{/each}
 			</div>
 			<!-- Button: Right -->
-			<button type="button" class="btn-icon variant-filled" on:click={carouselRight}>
-				<img src="./src/images/icons/arrow-right.png" alt="Arrow Right" />
+			<button
+				type="button"
+				class="btn-icon variant-filled-secondary dark:variant-filled-primary"
+				on:click={carouselRight}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					data-slot="icon"
+					class="w-6 h-6"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+					/>
+				</svg>
 			</button>
 		</div>
 	</svelte:fragment>

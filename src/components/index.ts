@@ -36,3 +36,5 @@ export { default as Comments } from './posts/comments/comments.svelte';
 export { default as CommentsHeader } from './posts/comments/comments-header.svelte';
 export { default as CommentElement } from './posts/comments/comment-element.svelte';
 export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
+//Profile Page of a user
+export { default as ProfileHeader } from './profile/profile-header.svelte';
