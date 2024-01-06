@@ -8,7 +8,7 @@
 </script>
 
 <div
-	class="h-[calc(100vh-32px)] from-tertiary-500 to-secondary-500 w-full lg:h-[calc(75vh)] lg:ml-14 lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
+	class="h-[calc(100vh-32px)] bg-gradient-to-br from-tertiary-500 to-secondary-500 w-full lg:h-[calc(75vh)] lg:ml-14 lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
 >
 	<header>
 		<CommentsHeader />
