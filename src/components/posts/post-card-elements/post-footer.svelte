@@ -59,7 +59,7 @@
 				type: 'component',
 				component: modalComponent,
 				backdropClasses:
-					'lg:!bg-gradient-to-br lg:from-transparent lg:to-transparent !bg-gradient-to-br from-tertiary-900 to-secondary-900'
+					'lg:!bg-gradient-to-br lg:from-transparent lg:to-transparent !bg-gradient-to-br from-tertiary-500 to-secondary-500'
 			};
 			modalStore.trigger(modal);
 		}

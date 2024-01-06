@@ -7,7 +7,7 @@
 	export let post: Post;
 </script>
 
-<div class="card bg-gradient-to-br from-tertiary-900 to-secondary-900 w-full p-4 rounded-xl">
+<div class="card bg-gradient-to-br from-tertiary-500 to-secondary-500 w-full p-4 rounded-xl">
 	<header>
 		<PostHeader date={post.date} author={post.author} />
 	</header>

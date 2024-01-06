@@ -24,7 +24,7 @@
 <div class="grid grid-cols-[auto_1fr] gap-2">
 	<Avatar src="src/images/about/jonas.png" width="w-8 md:w-10" />
 	<div class="card p-2 variant-soft rounded-tl-none space-y-2">
-		<header class="flex justify-between items-center">
+		<header class="flex justify-between items-center pr-1">
 			<p class="text-lg md:text-xl font-bold">Username</p>
 			<small>12.12.2023 17:45 Uhr</small>
 		</header>
