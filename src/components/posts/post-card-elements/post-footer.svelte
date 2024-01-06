@@ -58,8 +58,8 @@
 			const modal: ModalSettings = {
 				type: 'component',
 				component: modalComponent,
-				backdropClasses: 'lg:!bg-gradient-to-br lg:from-transparent lg:to-transparent !bg-gradient-to-br from-tertiary-900 to-secondary-900',
-				 
+				backdropClasses:
+					'lg:!bg-gradient-to-br lg:from-transparent lg:to-transparent !bg-gradient-to-br from-tertiary-900 to-secondary-900'
 			};
 			modalStore.trigger(modal);
 		}
@@ -87,6 +87,4 @@
 		<small class="text-xs">10. Mio</small>
 	</div>
 </div>
-<div class="w-[100vw] h-[100vh] absolute hidden">
-
-</div>
+<div class="w-[100vw] h-[100vh] absolute hidden"></div>

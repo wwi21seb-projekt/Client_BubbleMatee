@@ -3,8 +3,8 @@
 	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { CommentsHeader, CommentElement, CommentsFooter } from '$components';
 	export let comments: Array<string>;
-	export let parent
-	console.log(parent)
+	export let parent;
+	console.log(parent);
 </script>
 
 <div

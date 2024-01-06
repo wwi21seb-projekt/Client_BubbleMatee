@@ -28,7 +28,7 @@
 			<p class="text-lg md:text-xl font-bold">Username</p>
 			<small>12.12.2023 17:45 Uhr</small>
 		</header>
-		<div >
+		<div>
 			<p class="text-lg md:text-xl" id={id + '-short-comment'}>{shortComment}</p>
 			<p class="text-lg md:text-xl" id={id + '-full-comment'} style="display:none;">{comment}</p>
 			{#if comment.length > shortComment.length}
