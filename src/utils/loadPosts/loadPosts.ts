@@ -17,7 +17,7 @@ export async function fetchNextPosts(
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data;
-		const  message = getErrorMessage(error.code);
+		const message = getErrorMessage(error.code);
 		throw new ErrorEvent(message);
 	} else {
 		const feedData: Feed = (body as FeedResponse).data;
