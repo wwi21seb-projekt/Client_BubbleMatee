@@ -15,7 +15,6 @@ export async function fetchNextPosts(
 	});
 	const body: ErrorResponse | FeedResponse = await response.json();
 	if (body.error) {
-		console.log(body);
 		//handle Error
 		const error: Error = (body as ErrorResponse).data;
 		const  message = getErrorMessage(error.code);
