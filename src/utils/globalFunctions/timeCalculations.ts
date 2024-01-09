@@ -18,12 +18,12 @@ export function calculatePassedTime(date: Date) {
 
 	// Make decisions on how to represent the time
 	if (differenceInMinutes < 60) {
-		return `${differenceInMinutes} + Minuten`;
+		return `${differenceInMinutes} Minuten`;
 	} else if (differenceInHours < 24) {
-		return `${differenceInHours} + Stunden`;
+		return `${differenceInHours} Stunden`;
 	} else if (differenceInDays < 7) {
-		return `${differenceInDays} + Tagen`;
+		return `${differenceInDays} Tagen`;
 	} else {
-		return `${differenceInWeeks} + Wochen`;
+		return `${differenceInWeeks} Wochen`;
 	}
 }
