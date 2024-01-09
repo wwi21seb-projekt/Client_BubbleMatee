@@ -18,3 +18,6 @@ export {
 } from './login/userInfoValidation';
 
 export { getErrorMessage } from './errorMessages/errorMessages';
+
+export { calculatePassedTime } from './globalFunctions/timeCalculations';
+export { fetchNextPosts } from './loadPosts/loadPosts';

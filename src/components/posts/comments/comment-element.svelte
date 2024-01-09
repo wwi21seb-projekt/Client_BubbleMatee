@@ -22,18 +22,28 @@
 </script>
 
 <div class="grid grid-cols-[auto_1fr] gap-2">
-	<Avatar src="src/images/about/jonas.png" width="w-8 md:w-10" />
-	<div class="card p-2 variant-soft rounded-tl-none space-y-2">
+	<Avatar src="src/images/about/jonas.png" width="w-8 md:w-10 min-w-0" />
+	<div
+		class="card p-2 variant-soft-tertiary dark:variant-soft-surface rounded-tl-none space-y-2 min-w-0"
+	>
 		<header class="flex justify-between items-center pr-1">
-			<p class="text-lg md:text-xl font-bold">Username</p>
-			<small>12.12.2023 17:45 Uhr</small>
+			<p class="text-xl md:text-2xl font-bold">Username</p>
+			<small class="text-sm md:text-base">12.12.2023 17:45 Uhr</small>
 		</header>
 		<div>
-			<p class="text-lg md:text-xl" id={id + '-short-comment'}>{shortComment}</p>
-			<p class="text-lg md:text-xl" id={id + '-full-comment'} style="display:none;">{comment}</p>
+			<p class="text-xl md:text-2xl break-words w-full" id={id + '-short-comment'}>
+				{shortComment}
+			</p>
+			<p
+				class="text-xl md:text-2xl break-words w-full"
+				id={id + '-full-comment'}
+				style="display:none;"
+			>
+				{comment}
+			</p>
 			{#if comment.length > shortComment.length}
 				<button
-					class="text-lg md:text-xl text-gray-400 hover:text-gray-500 focus:text-gray-500"
+					class="text-xl md:text-2xl text-gray-400 hover:text-gray-500 focus:text-gray-500"
 					id={id + '-comment-button'}
 					on:click={toggleFullComment}>Mehr</button
 				>

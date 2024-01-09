@@ -20,9 +20,9 @@
 		{#if !lastPage}
 			<!-- Button to load the next posts -->
 			<button
-				class="mb-2 w-full rounded-t-md rounded-b-[20px] flex flex-col items-center bg-gradient-to-br from-tertiary-500 to-secondary-500
-  hover:bg-gradient-to-br hover:from-tertiary-600 hover:to-secondary-600 focus:outline-none focus:ring focus:border-primary-300
-  focus:bg-gradient-to-br focus:from-tertiary-600 focus:to-secondary-600"
+				class="mb-2 w-full rounded-t-md rounded-b-[20px] flex flex-col items-center bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600
+  				dark:hover:from-tertiary-600 dark:hover:to-secondary-600 hover:from-primary-500 hover:to-primary-700 focus:outline-none focus:ring focus:border-primary-300
+  				dark:focus:from-tertiary-600 dark:focus:to-secondary-600 focus:from-primary-5000 focus:to-primary-700"
 				on:click={loadMorePosts}
 			>
 				<span class="font-bold text-lg"> Mehr Laden </span>

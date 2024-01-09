@@ -11,3 +11,9 @@ export interface Author {
 	nickname: string;
 	profilePictureUrl: string;
 }
+
+export interface PostData {
+	posts: Array<Post>;
+	lastPostId: string;
+	overallRecords: number;
+}

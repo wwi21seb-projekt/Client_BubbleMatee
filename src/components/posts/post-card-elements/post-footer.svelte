@@ -48,7 +48,7 @@
 		} else {
 			//temporär zum testen
 			const comments = [
-				'barsjdgasdjgkjas barsjdgasdjgkjas barsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
+				'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
 				'barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj'
 			];
 			const modalComponent: ModalComponent = {
@@ -59,7 +59,7 @@
 				type: 'component',
 				component: modalComponent,
 				backdropClasses:
-					'lg:!bg-gradient-to-br lg:from-transparent lg:to-transparent !bg-gradient-to-br from-tertiary-500 to-secondary-500'
+					'bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 lg:dark:from-transparent lg:darkto-transparent lg:from-transparent lg:to-transparent'
 			};
 			modalStore.trigger(modal);
 		}
@@ -72,19 +72,18 @@
 			<!--Red Heart if the post is liked-->
 			<Icon
 				src={Heart}
-				class={'h-8 font-bold' +
+				class={'h-8 md:h-10 font-bold' +
 					(isLiked
 						? ' fill-red-500 stroke-none hover:fill-red-700'
-						: ' fill-none stroke-white hover:stroke-gray-400')}
+						: ' fill-none stroke-black dark:stroke-white hover:stroke-gray-400')}
 			/>
 		</button>
-		<small class="text-xs">{numberOfLikes}</small>
+		<small class="text-xs md:text-sm">{numberOfLikes}</small>
 	</div>
 	<div class="flex flex-col items-center">
 		<button on:click={handleCommentClick} class="focus:outline-none">
-			<Icon src={ChatBubbleLeft} class="h-8 font-bold hover:stroke-gray-400" />
+			<Icon src={ChatBubbleLeft} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
 		</button>
-		<small class="text-xs">10. Mio</small>
+		<small class="text-xs md:text-sm">10. Mio</small>
 	</div>
 </div>
-<div class="w-[100vw] h-[100vh] absolute hidden"></div>

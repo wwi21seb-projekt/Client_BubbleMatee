@@ -7,7 +7,7 @@
 </script>
 
 <!-- Scroll for mobile-->
-<div class="card grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden">
+<div class="card grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full">
 	<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 pb-2 overflow-x-auto">
 		{#if imageUrl !== ''}
 			<div class="shrink-0 w-[100%] snap-start rounded">
@@ -18,9 +18,9 @@
 			<span class="divider-vertical h-full" />
 		{/if}
 		{#if text !== ''}
-			<div class="shrink-0 w-[100%] snap-start p-4 flex items-center rounded">
-				<article class="text-xl">
-					<p>{text}</p>
+			<div class="shrink-0 w-[100%] snap-start p-4 flex items-center rounded w-full">
+				<article class="text-xl w-full">
+					<p class="break-words w-full">{text}</p>
 				</article>
 			</div>
 		{/if}
@@ -39,8 +39,8 @@
 	{/if}
 	{#if text !== ''}
 		<div class="w-1/2 flex items-center">
-			<article class="text-2xl">
-				<p>{text}</p>
+			<article class="text-2xl w-full">
+				<p class="break-words w-full">{text}</p>
 			</article>
 		</div>
 	{/if}

@@ -1,5 +1,5 @@
 export type { Logo, PersonData, PersonSourceData } from './About';
-export type { Post, Author } from './Post';
+export type { Post, Author, PostData } from './Post';
 
 export type { User, Tokens, UserInfo } from './ServerDomains/user';
 export type {
