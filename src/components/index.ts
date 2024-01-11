@@ -31,6 +31,7 @@ export { default as ProfileHeader } from './profile/profile-header.svelte';
 export { default as ProfileView } from './profile/profile-view.svelte';
 export { default as Settings } from './profile/settings.svelte';
 export { default as StatusInput } from './profile/status-input.svelte';
+export { default as ProfileInformationValidations } from './profile/profile-information-validations.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';

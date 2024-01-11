@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let status: string;
+	export let amountOfLettersAllowedInStatus: number;
 </script>
 
 <label>
@@ -10,7 +11,7 @@
 		placeholder="Hallo, ich bin neu hier!"
 		bind:value={status}
 		rows="5"
-		maxLength="128"
+		maxLength={amountOfLettersAllowedInStatus}
 	/>
 	<!-- TODO: change to length when decicion of all teams is made -->
 </label>

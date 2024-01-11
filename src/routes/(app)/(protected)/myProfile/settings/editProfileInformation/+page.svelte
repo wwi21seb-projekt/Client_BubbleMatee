@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { ErrorAlert, NicknameInput } from '$components';
+	import { ErrorAlert, NicknameInput, ProfileInformationValidations } from '$components';
 	import StatusInput from '$components/profile/status-input.svelte';
 	import type { UserInfo, Error } from '$domains';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
@@ -17,6 +17,8 @@
 	let loading: boolean = false;
 
 	$: informationChanged = nicknameInput !== user?.nickname || statusInput !== user?.status;
+
+	const amountOfLettersAllowedInStatus: number = 128;
 
 	const handleSave = async () => {
 		loading = true;
@@ -64,7 +66,10 @@
 		</div>
 		<div class="grid justify-items-strech max-w-xs gap-4">
 			<NicknameInput bind:nickname={nicknameInput} />
-			<StatusInput bind:status={statusInput} />
+			<StatusInput bind:status={statusInput} {amountOfLettersAllowedInStatus} />
+			<ProfileInformationValidations
+				statusInputAmountOfLettersLeft={amountOfLettersAllowedInStatus - statusInput.length}
+			/>
 			<button
 				class="btn variant-filled-primary"
 				disabled={loading || !informationChanged}
