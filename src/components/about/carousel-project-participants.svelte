@@ -221,6 +221,7 @@
 		.table-container {
 			text-align: center;
 		}
+
 		.tableData {
 			display: none;
 		}
