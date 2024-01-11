@@ -1,10 +1,5 @@
 <script lang="ts">
-	import {
-		AccordionItem,
-		tableMapperValues,
-		Table,
-		type TableSource
-	} from '@skeletonlabs/skeleton';
+	import { tableMapperValues, Table, type TableSource } from '@skeletonlabs/skeleton';
 	import type { PersonData } from '$domains';
 	import { personsData } from '../../static/components/index.ts';
 	import { ListProjectParticipants } from '$components';
