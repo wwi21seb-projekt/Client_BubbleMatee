@@ -6,17 +6,16 @@ import { get } from 'svelte/store';
 /* import { tokenExpired } from './utils/token/tokenExpired'; */
 
 const unauthorizedRoutes = [
-	'/', // Home page
-	'/login', // Login page
-	'/login/register', // Register page
-	'/login/resendToken', // Resend Token page
-	'/login/verify', // Verify page
-	'/about', // About page
-	'/search', // Search page
-	'/search/user/%', // Username page
-	'/api/imprint', // Inprint API
-	'/api/%', // UserInfo API
-	'/api/%/activate', // Verify API
+	'/',
+	'/login',
+	'/login/register',
+	'/login/resendToken',
+	'/login/verify',
+	'/about',
+	'/search',
+	'/search/user/.*', // Username page
+	'/api/imprint',
+	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API
 	'/api/users/login' // Login API
 ];
@@ -53,7 +52,14 @@ export const handle = async ({ event, resolve }) => {
 	console.log(`\tInternal request: ${event.request.method} ${event.url.pathname}, ${Date.now()}}`);
 
 	// Unauthorized routes: Just let them pass through
-	if (unauthorizedRoutes.includes(event.url.pathname)) {
+	const isUnauthorizedRoute = (url: string) => {
+		return unauthorizedRoutes.some((route) => {
+			const pattern = new RegExp(`^${route}$`);
+			return pattern.test(url);
+		});
+	};
+
+	if (isUnauthorizedRoute(event.url.pathname)) {
 		const response = await resolve(event);
 		return response;
 	}
