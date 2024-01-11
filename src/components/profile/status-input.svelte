@@ -13,5 +13,4 @@
 		rows="5"
 		maxLength={amountOfLettersAllowedInStatus}
 	/>
-	<!-- TODO: change to length when decicion of all teams is made -->
 </label>

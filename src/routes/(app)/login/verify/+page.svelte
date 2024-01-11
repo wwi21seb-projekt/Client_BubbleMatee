@@ -29,7 +29,7 @@
 			const body = await response.json();
 
 			if (body.error) {
-				let error: Error = body.data.error; //TODO: error handling messages
+				let error: Error = body.data.error; //TODOS: error handling messages
 
 				const t: ToastSettings = {
 					message: error.message,

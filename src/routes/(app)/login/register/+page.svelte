@@ -41,7 +41,6 @@
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
-				//TODO: navigate back to tep 1
 			} else {
 				currentUser.set({
 					email: body.data.email,

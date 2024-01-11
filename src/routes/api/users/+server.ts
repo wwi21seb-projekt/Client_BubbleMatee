@@ -60,7 +60,7 @@ export const PATCH: RequestHandler = async ({ fetch, request }) => {
 		const body = await response.json();
 
 		if (response.ok) {
-			return json({ data: body, error: false } as RegisterResponse); //TODO: Change to ChangePasswordResponse
+			return json({ data: body, error: false } as RegisterResponse);
 		}
 		body.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
@@ -96,7 +96,7 @@ export const PUT: RequestHandler = async ({ fetch, request }) => {
 		const body = await response.json();
 
 		if (response.ok) {
-			return json({ data: body, error: false } as EditUserInformationResponse); //TODO: Change to EditUserInormationResponse
+			return json({ data: body, error: false } as EditUserInformationResponse);
 		}
 		body.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);

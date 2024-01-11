@@ -42,7 +42,7 @@
 				}
 			} else {
 				isLoggedIn.set(true);
-				currentUsername.set(username); //TODO: get useranme from token when discussed with other teams
+				currentUsername.set(username); //TODOS: get useranme from token when discussed with other teams
 				goto('/myProfile');
 			}
 
