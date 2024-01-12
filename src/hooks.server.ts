@@ -67,8 +67,7 @@ export const handle = async ({ event, resolve }) => {
 	// Authorized routes:
 	// 1. Check if the token is valid
 	// 2. If token is not valid, check if the refresh token is valid
-	// 3. If refresh token is valid, refresh the token and execute the request
-	// 4. If refresh token is not valid, redirect to login page
+	// 3. If refresh token is not valid, redirect to login page
 
 	// Step 1
 	const token = event.cookies.get('token');
@@ -82,31 +81,9 @@ export const handle = async ({ event, resolve }) => {
 	// Step 2
 	const refreshToken = event.cookies.get('refreshToken');
 	if (!refreshToken || tokenExpired(refreshToken)) {
-		// Step 4
+		// Step 3
 		return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
 	}
-
-	/* 	// Step 3
-	const refreshTokenResponse = await fetch(`${PUBLIC_BASE_URL}/api/v1/users/refresh`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ refreshToken })
-	}); 
-
-	if (!refreshTokenResponse.ok) {
-		// Delete the cookies and redirect to login page
-		return resetCookieResponse();
-	}
-
-	const { token: newToken, refreshToken: newRefreshToken } = await refreshTokenResponse.json();
-
-	event.cookies.set('token', newToken, { path: '/' });
-	event.cookies.set('refreshToken', newRefreshToken, { path: '/' });
-
-	token = newToken;
-	event.request.headers.set('Authorization', `Bearer ${token}`); */
 
 	const response = await resolve(event);
 	return response.status === 401 ? resetCookieResponse() : response;
