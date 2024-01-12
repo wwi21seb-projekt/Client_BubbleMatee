@@ -1,7 +1,9 @@
 export type { Logo, PersonData, PersonSourceData } from './About';
+
 export type { Post, Author, PostData } from './Post';
 
-export type { User, Tokens, UserInfo } from './ServerDomains/user';
+export type { User, Tokens, UserInfo, EditUserInfo } from './ServerDomains/user';
+export type { Subscription } from './ServerDomains/subscription';
 export type {
 	Response,
 	Error,
@@ -9,7 +11,10 @@ export type {
 	ImprintResponse,
 	FeedResponse,
 	LoginResponse,
-	RegisterResponse
+	RegisterResponse,
+	UserInfoResponse,
+	EditUserInformationResponse,
+	FollowResponse
 } from './ServerResponses';
 
 //Server Domains

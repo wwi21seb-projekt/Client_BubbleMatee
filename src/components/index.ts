@@ -9,6 +9,7 @@ export { default as LegalNotice } from './about/legal-notice.svelte';
 export { default as ProductVideo } from './about/product-video.svelte';
 export { default as ProjectDocumentation } from './about/project-documentation.svelte';
 export { default as CarouselProjectParticipants } from './about/carousel-project-participants.svelte';
+export { default as CarouselElement } from './about/carousel.svelte';
 export { default as MediaButtonsLogo } from './about/media-buttons-logo.svelte';
 export { default as ListProjectParticipants } from './about/list-project-participants.svelte';
 
@@ -38,3 +39,10 @@ export { default as CommentElement } from './posts/comments/comment-element.svel
 export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
 //Profile Page of a user
 export { default as ProfileHeader } from './profile/profile-header.svelte';
+export { default as ProfileView } from './profile/profile-view.svelte';
+export { default as Settings } from './profile/settings.svelte';
+export { default as StatusInput } from './profile/status-input.svelte';
+export { default as ProfileInformationValidations } from './profile/profile-information-validations.svelte';
+
+//General Components
+export { default as ErrorAlert } from './general/error-alert.svelte';

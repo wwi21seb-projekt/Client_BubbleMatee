@@ -21,3 +21,6 @@ export { getErrorMessage } from './errorMessages/errorMessages';
 
 export { calculatePassedTime } from './globalFunctions/timeCalculations';
 export { fetchNextPosts } from './loadPosts/loadPosts';
+export { tokenExpired } from './token/tokenExpired';
+export { getCurrentUser } from './token/getUser';
+export { checkAuth } from './token/checkAuth';
