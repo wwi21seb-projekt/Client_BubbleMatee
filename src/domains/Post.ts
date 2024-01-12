@@ -15,6 +15,6 @@ export interface Author {
 //interface, that is needed to manage the loading of the next posts
 export interface PostData {
 	posts: Array<Post>;
-	lastPostId: string;
+	lastPostId?: string;
 	overallRecords: number;
 }

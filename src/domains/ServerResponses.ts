@@ -1,5 +1,6 @@
 import type { Imprint } from './ServerDomains/imprint';
 import type { Feed } from './ServerDomains/feed';
+import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 
@@ -30,6 +31,10 @@ export interface RegisterResponse extends Response {
 
 export interface FeedResponse extends Response {
 	data: Feed;
+}
+
+export interface UserFeedResponse extends Response {
+	data: UserFeed;
 }
 
 export interface UserInfoResponse extends Response {

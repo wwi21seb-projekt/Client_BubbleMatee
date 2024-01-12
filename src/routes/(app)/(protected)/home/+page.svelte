@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Posts } from '$components';
 	import type { Post } from '$domains';
-	import { fetchNextPosts } from '$utils';
+	import { fetchNextPostsFeed } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import { globalConfig } from '$utils';
@@ -19,10 +19,10 @@
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
 		try {
-			const data = await fetchNextPosts(lastPostID, globalConfig.limit, 'personal');
+			const data = await fetchNextPostsFeed(lastPostID, globalConfig.limit, 'personal');
 			posts = posts.concat(data.posts);
 			lastPage = posts.length === data.overallRecords;
-			lastPostID = data.lastPostId;
+			lastPostID = data.lastPostId!;
 		} catch (error) {
 			if (error instanceof ErrorEvent) {
 				const t: ToastSettings = {
