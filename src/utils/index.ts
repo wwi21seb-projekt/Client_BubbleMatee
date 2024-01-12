@@ -1,3 +1,5 @@
+import { globalConfig } from './config';
+
 export {
 	determineIconType,
 	containsBigLetter,
@@ -24,3 +26,4 @@ export { fetchNextPosts } from './loadPosts/loadPosts';
 export { tokenExpired } from './token/tokenExpired';
 export { getCurrentUser } from './token/getUser';
 export { checkAuth } from './token/checkAuth';
+export { globalConfig } from './config.ts';

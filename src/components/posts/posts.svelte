@@ -17,8 +17,8 @@
 				<PostCard {post}></PostCard>
 			{/each}
 		{/if}
+		<!-- Button to load the next posts - is invisible, if there are no more posts-->
 		{#if !lastPage}
-			<!-- Button to load the next posts -->
 			<button
 				class="mb-2 w-full rounded-t-md rounded-b-[20px] flex flex-col items-center bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600
   				dark:hover:from-tertiary-600 dark:hover:to-secondary-600 hover:from-primary-500 hover:to-primary-700 focus:outline-none focus:ring focus:border-primary-300

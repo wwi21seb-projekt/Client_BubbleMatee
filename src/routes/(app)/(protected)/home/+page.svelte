@@ -4,9 +4,9 @@
 	import { fetchNextPosts } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
+	import { globalConfig } from '$utils';
 	// lastPostID -> The ID of the last Post -> is needed to load the next posts
 	let lastPostID: string = '0';
-	let limit: string = '10';
 	let lastPage: boolean = true;
 	let posts: Array<Post> = new Array<Post>();
 	const toastStore = getToastStore();
@@ -17,21 +17,21 @@
 	});
 
 	//function that can be called from the post component to trigger the loading of more posts
-	function loadMorePosts() {
-		//TODO: Where can we set the limit globally?
-		fetchNextPosts(lastPostID, limit, 'personal')
-			.then((data) => {
-				posts = posts.concat(data.posts);
-				lastPage = posts.length === data.overallRecords;
-				lastPostID = data.lastPostId;
-			})
-			.catch((error) => {
+	async function loadMorePosts() {
+		try {
+			const data = await fetchNextPosts(lastPostID, globalConfig.limit, 'personal');
+			posts = posts.concat(data.posts);
+			lastPage = posts.length === data.overallRecords;
+			lastPostID = data.lastPostId;
+		} catch (error) {
+			if (error instanceof ErrorEvent) {
 				const t: ToastSettings = {
 					message: error.type,
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
-			});
+			}
+		}
 	}
 </script>
 

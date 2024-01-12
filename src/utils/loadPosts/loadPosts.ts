@@ -1,8 +1,15 @@
 import type { Error, ErrorResponse, Feed, FeedResponse, Post, PostData } from '$domains';
 import { getErrorMessage } from '$utils';
 
-//function to fetch more posts
-export async function fetchNextPosts(
+/**
+ * Loads the next posts from the feed endpoint
+ *
+ * @param lastPostID - the ID of the last Post that has already been fetched
+ * @param limit - the maximum number of posts that should be fetched
+ * @param type - Feed-Type: global or personal
+ * @returns a PostData-Object consisting of an Array with the next post and additional information needed to load the next page
+ * @throws an error: type = Error code
+ */ export async function fetchNextPosts(
 	lastPostID: string,
 	limit: string,
 	type: string

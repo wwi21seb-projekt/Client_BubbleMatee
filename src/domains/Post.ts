@@ -12,6 +12,7 @@ export interface Author {
 	profilePictureUrl: string;
 }
 
+//interface, that is needed to manage the loading of the next posts
 export interface PostData {
 	posts: Array<Post>;
 	lastPostId: string;

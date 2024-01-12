@@ -1,5 +1,5 @@
 /**
- * Checks the validity of password-related input.
+ * Calculates the time that has passed since a specific date
  *
  * @param date DateTime in UTC.
  * @returns String with time that has passed in Minutes/ Hours/ Days or Weeks

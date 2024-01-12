@@ -1,3 +1,5 @@
+<!--Header of the comment modal. Contains a back-button and a headline -->
+
 <script>
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ArrowLeft } from '@steeze-ui/heroicons';

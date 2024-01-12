@@ -30,6 +30,8 @@ export interface RegisterResponse extends Response {
 
 export interface FeedResponse extends Response {
 	data: Feed;
+}
+
 export interface UserInfoResponse extends Response {
 	data: UserInfo;
 }
