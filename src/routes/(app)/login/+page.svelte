@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { PasswordInput, UsernameInput } from '$components';
-	import { isLoggedIn, loading } from '$stores';
-	import { getErrorMessage } from '$utils';
+	import { currentUsername, isLoggedIn } from '$stores';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -11,8 +10,10 @@
 	let username: string;
 	let password: string;
 
+	let loading: boolean = false;
+
 	const login = async () => {
-		loading.set(true);
+		loading = true;
 		try {
 			const response = await fetch('/api/users/login', {
 				method: 'POST',
@@ -27,20 +28,21 @@
 			if (body.error) {
 				if (body.data.error.code === 'ERR-005') {
 					const t: ToastSettings = {
-						message: getErrorMessage(body.data.error.code),
+						message: body.data.error.message,
 						background: 'variant-filled-warning'
 					};
 					toastStore.trigger(t);
 					goto('/login/verify');
 				} else {
 					const t: ToastSettings = {
-						message: getErrorMessage(body.data.error.code),
+						message: body.data.error.message,
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
 				}
 			} else {
 				isLoggedIn.set(true);
+				currentUsername.set(username); //TODOS: get useranme from token when discussed with other teams
 				goto('/myProfile');
 			}
 
@@ -48,7 +50,7 @@
 		} catch (e) {
 			console.error(e);
 		} finally {
-			loading.set(false);
+			loading = false;
 		}
 	};
 
@@ -67,8 +69,8 @@
 	>
 		<UsernameInput bind:username isSignUp={false} />
 		<PasswordInput bind:password isRepeatPassword={false} isSignUp={false} />
-		<button type="submit" class="btn variant-filled-primary mt-2"
-			>{$loading ? `Lädt...` : `Anmelden`}</button
+		<button type="submit" class="btn variant-filled-primary mt-2" disabled={loading}
+			>{loading ? `Lädt...` : `Anmelden`}</button
 		>
 	</form>
 	<div class="flex justify-center">

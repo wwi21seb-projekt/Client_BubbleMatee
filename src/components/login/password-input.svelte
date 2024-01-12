@@ -8,12 +8,13 @@
 	export let isSignUp: boolean;
 	export let passwordsMatch: boolean = false;
 	export let passwordValid: boolean = false;
+	export let label: string = isRepeatPassword ? 'Wiederhole Passwort' : 'Passwort:';
 
 	$: isValid = determineIconType(passwordsMatch, isRepeatPassword, passwordValid);
 </script>
 
 <label>
-	<span>{isRepeatPassword ? 'Wiederhole Passwort' : 'Passwort:'}</span>
+	<span>{label}</span>
 	<div class="input-group input-group-divider grid-cols-[1fr_auto]">
 		<input
 			class="input"

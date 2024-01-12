@@ -2,8 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { UserInfoStep, PasswordStep } from '$components';
 	import type { Error } from '$domains';
-	import { currentUser, loading } from '$stores';
-	import { getErrorMessage } from '$utils';
+	import { currentUser } from '$stores';
 	import { Stepper, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -15,8 +14,10 @@
 	let username: string;
 	let nickname: string;
 
+	let loading: boolean = false;
+
 	const handleSubmit = async () => {
-		loading.set(true);
+		loading = true;
 		try {
 			const response = await fetch('/api/users', {
 				method: 'POST',
@@ -36,11 +37,10 @@
 			if (body.error) {
 				let error: Error = body.data.error;
 				const t: ToastSettings = {
-					message: getErrorMessage(error.code),
+					message: error.message,
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
-				//TODO: navigate back to tep 1
 			} else {
 				currentUser.set({
 					email: body.data.email,
@@ -54,7 +54,7 @@
 		} catch (e) {
 			console.error(e);
 		} finally {
-			loading.set(false);
+			loading = false;
 		}
 	};
 </script>
@@ -67,11 +67,11 @@
 		buttonBackLabel="Zurück"
 		buttonNextLabel="Weiter"
 		stepTerm="Schritt"
-		buttonCompleteLabel={$loading ? 'Lädt...' : 'Registrieren'}
+		buttonCompleteLabel={loading ? 'Lädt...' : 'Registrieren'}
 		on:complete={handleSubmit}
 	>
 		<UserInfoStep bind:email bind:nickname bind:username />
-		<PasswordStep bind:password bind:passwordRepeat />
+		<PasswordStep bind:password bind:passwordRepeat {loading} />
 	</Stepper>
 	<div class="flex justify-center p-4">
 		<p>
