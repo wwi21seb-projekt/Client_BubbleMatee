@@ -1,5 +1,3 @@
-import { globalConfig } from './config/config';
-
 export {
 	determineIconType,
 	containsBigLetter,
