@@ -33,8 +33,8 @@ async function processFilesInFolder(folderPath, abortAt200Lines, excludedFolder)
 
 					if (abortAt200Lines) {
 						console.error('Aborted processing files due to line limit.');
-						// deepsource-disable-line JS-0263
-						process.exit(1);
+
+						process.exit(1); // skipcq: JS-0263
 					}
 				}
 			} else if (stats.isDirectory()) {
