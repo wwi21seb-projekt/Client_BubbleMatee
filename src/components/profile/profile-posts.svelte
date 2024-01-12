@@ -14,11 +14,10 @@
 		loadMorePosts();
 	});
 
-
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
 		try {
-			const data = await fetchNextPostsUser(`${posts.length}`, globalConfig.limit, user );
+			const data = await fetchNextPostsUser(`${posts.length}`, globalConfig.limit, user);
 			posts = posts.concat(data.posts);
 			lastPage = posts.length === data.overallRecords;
 		} catch (error) {
