@@ -1,8 +1,6 @@
 export type { Logo, PersonData, PersonSourceData } from './About';
-
 export type { Post, Author, PostData } from './Post';
-
-export type { User, Tokens, UserInfo, EditUserInfo } from './ServerDomains/user';
+export type { User, Tokens, UserInfo, EditUserInfo, UserSearchItem } from './ServerDomains/user';
 export type { Subscription } from './ServerDomains/subscription';
 export type {
 	Response,
@@ -14,7 +12,8 @@ export type {
 	RegisterResponse,
 	UserInfoResponse,
 	EditUserInformationResponse,
-	FollowResponse
+	FollowResponse,
+	UserSearchResponse
 } from './ServerResponses';
 
 //Server Domains
