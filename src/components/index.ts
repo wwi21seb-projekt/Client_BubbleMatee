@@ -27,12 +27,23 @@ export { default as UserInfoValidation } from './login/user-info-validation.svel
 export { default as PasswordStep } from './login/steps/password-step.svelte';
 export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 
+//Register Step Components
+export { default as PostCard } from './posts/post-card.svelte';
+export { default as Posts } from './posts/posts.svelte';
+export { default as PostHeader } from './posts/post-card-elements/post-header.svelte';
+export { default as PostMain } from './posts/post-card-elements/post-main.svelte';
+export { default as postFooter } from './posts/post-card-elements/post-footer.svelte';
+export { default as Comments } from './posts/comments/comments.svelte';
+export { default as CommentsHeader } from './posts/comments/comments-header.svelte';
+export { default as CommentElement } from './posts/comments/comment-element.svelte';
+export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
 //Profile Page of a user
 export { default as ProfileHeader } from './profile/profile-header.svelte';
 export { default as ProfileView } from './profile/profile-view.svelte';
 export { default as Settings } from './profile/settings.svelte';
 export { default as StatusInput } from './profile/status-input.svelte';
 export { default as ProfileInformationValidations } from './profile/profile-information-validations.svelte';
+export { default as ProfilePosts } from './profile/profile-posts.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';

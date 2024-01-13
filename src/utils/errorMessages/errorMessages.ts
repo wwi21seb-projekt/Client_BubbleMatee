@@ -55,6 +55,10 @@ const errorMessages: Array<Error> = [
 	{
 		code: 'ERR-013',
 		message: 'Der Username wurde bereits aktiviert. Bitte logge dich ein.'
+	},
+	{
+		code: 'ERR-014',
+		message: 'Um deinen persönlichen Feed zu sehen, musst du dich zunächst einloggen.'
 	}
 ];
 
