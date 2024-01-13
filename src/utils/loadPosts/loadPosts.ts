@@ -24,7 +24,7 @@ import { getErrorMessage } from '$utils';
 	limit: string,
 	type: string
 ): Promise<PostData> {
-	const lastPostIDString = lastPostID == '' ? '' : `postId=${lastPostID}&`;
+	const lastPostIDString = lastPostID === '' ? '' : `postId=${lastPostID}&`;
 	const response = await fetch(`/api/feed?${lastPostIDString}limit=${limit}&feedType=${type}`, {
 		method: 'GET',
 		headers: {
