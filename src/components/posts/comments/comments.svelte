@@ -16,7 +16,6 @@
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
 		{#each comments as comment, index}
 			<CommentElement {comment} id={`comment-${index}`} />
-			<hr class="opacity-50 mt-2 mb-2" />
 		{/each}
 	</div>
 	<footer>

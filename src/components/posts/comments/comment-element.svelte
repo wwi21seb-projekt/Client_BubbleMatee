@@ -12,7 +12,7 @@
 </script>
 
 <!--Grid with two columns. The left Column contains the profile picture and the right the comment-->
-<div class="grid grid-cols-[auto_1fr] gap-2">
+<div class="grid grid-cols-[auto_1fr] gap-2 m-2">
 	<!--Left column-->
 	<Avatar src="src/images/about/jonas.png" width="w-8 md:w-10 min-w-0" />
 	<!--right column-->
