@@ -6,7 +6,7 @@
 </script>
 
 <!-- Scroll for mobile - component is hidden on desktop (md:hidden)-->
-<div class="card grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full">
+<div class="card grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full my-2">
 	<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 pb-2 overflow-x-auto">
 		<!--Show an image, if the post has one-->
 		{#if imageUrl !== ''}
