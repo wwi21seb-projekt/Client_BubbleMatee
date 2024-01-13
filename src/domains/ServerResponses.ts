@@ -1,6 +1,6 @@
 import type { Imprint } from './ServerDomains/imprint';
 import type { Subscription } from './ServerDomains/subscription';
-import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
+import type { EditUserInfo, Tokens, User, UserInfo, UserSearchItem } from './ServerDomains/user';
 
 export interface Response {
 	error: boolean;
@@ -37,4 +37,15 @@ export interface EditUserInformationResponse extends Response {
 
 export interface FollowResponse extends Response {
 	data: Subscription;
+}
+
+export interface UserSearchResponse extends Response {
+	data: {
+		records: UserSearchItem[];
+		pagination: {
+			offset: 0;
+			limit: 0;
+			records: 0;
+		};
+	};
 }

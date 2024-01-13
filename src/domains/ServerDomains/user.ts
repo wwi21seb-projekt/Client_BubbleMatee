@@ -9,6 +9,12 @@ export interface User {
 	email: string;
 }
 
+export interface UserSearchItem {
+	username: string;
+	nickname: string;
+	profilePictureUrl: string;
+}
+
 export interface UserInfo {
 	username: string;
 	nickname: string;
