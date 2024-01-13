@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import { globalConfig } from '$utils';
 	// lastPostID -> The ID of the last Post -> is needed to load the next posts
-	let lastPostID: string = '0';
+	let lastPostID: string = '';
 	let lastPage: boolean = true;
 	let posts: Array<Post> = new Array<Post>();
 	const toastStore = getToastStore();

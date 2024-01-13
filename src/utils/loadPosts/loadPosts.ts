@@ -24,7 +24,8 @@ import { getErrorMessage } from '$utils';
 	limit: string,
 	type: string
 ): Promise<PostData> {
-	const response = await fetch(`/api/feed?postId=${lastPostID}&limit=${limit}&feedType=${type}`, {
+	const lastPostIDString = lastPostID == '' ? '' : `postId=${lastPostID}&`;
+	const response = await fetch(`/api/feed?${lastPostIDString}limit=${limit}&feedType=${type}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -55,7 +56,7 @@ import { getErrorMessage } from '$utils';
 }
 
 /**
- * Loads the next posts from the feed endpoint
+ * Loads the next posts from the user-feed endpoint
  *
  * @param lastPostID - the ID of the last Post that has already been fetched
  * @param limit - the maximum number of posts that should be fetched
