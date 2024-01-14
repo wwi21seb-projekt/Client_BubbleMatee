@@ -35,4 +35,10 @@
 	}
 </script>
 
+<h1 class="h1 m-4">
+	<span
+		class="flex justify-center bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
+		>Globale Trending Posts</span
+	>
+</h1>
 <Posts {posts} {loadMorePosts} {lastPage}></Posts>
