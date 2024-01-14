@@ -12,8 +12,6 @@ const unauthorizedRoutes = [
 	'/login/resendToken',
 	'/login/verify',
 	'/about',
-	'/search',
-	'/search/user/.*', // Username page
 	'/api/imprint',
 	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API

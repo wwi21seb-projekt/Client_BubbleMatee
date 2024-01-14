@@ -2,15 +2,16 @@
 	import { DevicePhoneMobile, MagnifyingGlass, User } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Tab, TabGroup, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { UserSearchItem } from '$domains';
+	import type { Author } from '$domains';
 	import { goto } from '$app/navigation';
+	import { PostTab, UserTab } from '$components';
 
 	let toastStore = getToastStore();
 
 	let searchTerm: string = '';
 	let tabSet: number = 0;
 	let isError: boolean = false;
-	let users: Array<UserSearchItem> = [];
+	let users: Array<Author> = [];
 	let posts = [];
 
 	const POSTTAB = 0;
@@ -69,7 +70,7 @@
 			class="variant-filled-secondary hover:variant-soft-primary"
 			on:click={handleSearch}
 			disabled={searchTerm.length === 0}
-			>Submit
+			>Suchen
 		</button>
 	</div>
 </div>
@@ -97,16 +98,9 @@
 		<!-- Tab Panels --->
 		<svelte:fragment slot="panel">
 			{#if tabSet === POSTTAB}
-				<p>Post suche kommt noch</p>
+				<PostTab />
 			{:else if tabSet === USERTAB}
-				{#if !isError}
-					{#each users as user}
-						<p>{user.username}</p>
-					{/each}
-				{:else}
-					<p>Es ist ein Fehler aufgetreten</p>
-				{/if}
-				<p>Test</p>
+				<UserTab {users} {isError} />
 			{/if}
 		</svelte:fragment>
 	</TabGroup>
