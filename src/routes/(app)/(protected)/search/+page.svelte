@@ -4,16 +4,28 @@
 	import { Tab, TabGroup, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import type { Author } from '$domains';
 	import { goto } from '$app/navigation';
-	import { PostTab, UserTab } from '$components';
+	import { PostTab, Posts, UserTab } from '$components';
+	import type { Post } from '$domains';
+	import { fetchNextPostsFeed } from '$utils';
+	import { globalConfig } from '$utils';
+	import { onMount } from 'svelte';
 
-	let toastStore = getToastStore();
-
+	const toastStore = getToastStore();
 	let searchTerm: string = '';
 	let tabSet: number = 0;
 	let isError: boolean = false;
-	let users: Array<Author> = [];
-	let posts = [];
 
+	let userSearch: Array<Author> = [];
+	let postSearch = [];
+
+	let lastPostID: string = '';
+	let lastPage: boolean = true;
+	let posts: Array<Post> = new Array<Post>();
+
+	//load the first posts directly
+	onMount(() => {
+		loadMorePosts();
+	});
 	const POSTTAB = 0;
 	const USERTAB = 1;
 
@@ -46,18 +58,38 @@
 	};
 
 	async function handleSearch() {
-		if (tabSet === POSTTAB) {
+		if (tabSet === POSTTAB && searchTerm.length > 0) {
 			//post search via hashtags needs to be implemented
-			console.log('Post search');
-			posts.push({ id: 1, title: 'Test' });
-			users = [];
-		} else if (tabSet === USERTAB) {
+			userSearch = [];
+			postSearch.push(searchTerm);
+		} else if (tabSet === USERTAB && searchTerm.length > 0) {
 			goto(`/search?username=${searchTerm}&offset=0&limit=10`);
 			const response = await getUsers(searchTerm, 0, 10);
 			//const body = await response.json();
 			console.log(response);
-			users = response.data.records;
-			posts = [];
+			userSearch = response.data.records;
+			postSearch = [];
+		} else {
+			userSearch = [];
+			postSearch = [];
+		}
+	}
+
+	//function that can be called from the post component to trigger the loading of more posts
+	async function loadMorePosts() {
+		try {
+			const data = await fetchNextPostsFeed(lastPostID, globalConfig.limit, 'global');
+			posts = posts.concat(data.posts);
+			lastPage = posts.length === data.overallRecords;
+			lastPostID = data.lastPostId!;
+		} catch (error) {
+			if (error instanceof ErrorEvent) {
+				const t: ToastSettings = {
+					message: error.type,
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			}
 		}
 	}
 </script>
@@ -75,7 +107,7 @@
 	</div>
 </div>
 
-{#if posts.length > 0 || users.length > 0}
+{#if postSearch.length > 0 || userSearch.length > 0}
 	<TabGroup
 		justify="flex justify-center"
 		active="variant-filled-primary"
@@ -100,8 +132,10 @@
 			{#if tabSet === POSTTAB}
 				<PostTab />
 			{:else if tabSet === USERTAB}
-				<UserTab {users} {isError} />
+				<UserTab users={userSearch} {isError} />
 			{/if}
 		</svelte:fragment>
 	</TabGroup>
+{:else}
+	<Posts {posts} {loadMorePosts} {lastPage} />
 {/if}
