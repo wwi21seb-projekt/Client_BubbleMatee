@@ -2,7 +2,8 @@ import type { Imprint } from './ServerDomains/imprint';
 import type { Feed } from './ServerDomains/feed';
 import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription } from './ServerDomains/subscription';
-import type { EditUserInfo, Tokens, User, UserInfo, UserSearchItem } from './ServerDomains/user';
+import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
+import type { Author } from './Post';
 
 export interface Response {
 	error: boolean;
@@ -51,7 +52,7 @@ export interface FollowResponse extends Response {
 
 export interface UserSearchResponse extends Response {
 	data: {
-		records: UserSearchItem[];
+		records: Author[];
 		pagination: {
 			offset: 0;
 			limit: 0;
