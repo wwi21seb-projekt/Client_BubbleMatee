@@ -1,7 +1,7 @@
 <script lang="ts">
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
 	import { derived } from 'svelte/store';
-	import { isFileSelected, postText, files, currentUser, loading } from '$stores';
+	import { isFileSelected, postText, currentUser, loading } from '$stores';
 	// import { goto } from '$app/navigation'; //Maybe used later for pagenavigation
 	import type { Error } from '$domains';
 	import { getErrorMessage } from '$utils';
