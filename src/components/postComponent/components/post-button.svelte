@@ -115,15 +115,6 @@
 	<img src="./src/images/icons/paper-plane.png" alt="Icon zum Posten" class="iconImage" />
 	<span>Posten</span>
 </button>
-<div>
-	<h1>Post Details</h1>
-	<p><strong>Post ID:</strong> {mockData.postId}</p>
-	<p><strong>Author Username:</strong> {mockData.author.username}</p>
-	<p><strong>Author Nickname:</strong> {mockData.author.nickname}</p>
-	<p><strong>Author Profile Picture:</strong> {mockData.author.profilePictureUrl}</p>
-	<p><strong>Creation Date:</strong> {mockData.creationDate}</p>
-	<p><strong>Content:</strong> {mockData.content}</p>
-</div>
 
 <style>
 	:root {

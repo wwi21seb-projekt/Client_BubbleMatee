@@ -4,12 +4,12 @@
 
 <h1 class="h1">
 	<span
-		class="bg-gradient-to-br from-tertiary-500 to-tertiary-200 bg-clip-text text-transparent box-decoration-clone"
+		class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
 		>Beitrag teilen</span
 	>
 </h1>
 
-<hr class="separator" />
+<hr class="!border-t-8 !border-double" />
 
 <div class="content">
 	<Textarea />
@@ -37,9 +37,5 @@
 
 	.h1:hover {
 		transform: scale(1.1);
-	}
-
-	.separator {
-		border-top: 0.5rem double;
 	}
 </style>

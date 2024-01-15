@@ -52,4 +52,3 @@ export { default as ProfilePosts } from './profile/profile-posts.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';
-

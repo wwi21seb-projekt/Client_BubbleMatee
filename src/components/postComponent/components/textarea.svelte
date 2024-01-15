@@ -6,7 +6,7 @@
 	const maxChars = 256;
 
 	// CSS class names for different text states
-	const classNormal = 'text-surface-50';
+	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';
 	const classWarning = 'text-warning-500';
 	const classMaxReached = 'text-error-500';
 
