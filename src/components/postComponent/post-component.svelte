@@ -1,5 +1,5 @@
 <script>
-	import { FileInput, Textarea, PostButton } from '$components';
+	import { Textarea, PostButton } from '$components';
 </script>
 
 <h1 class="h1">
@@ -12,7 +12,6 @@
 <hr class="separator" />
 
 <div class="content">
-	<FileInput />
 	<Textarea />
 	<PostButton />
 </div>

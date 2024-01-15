@@ -19,16 +19,6 @@
 			$isFileSelected || Boolean(removeWhitespaceAndNewlines($postText))
 	);
 
-	// Function to convert a file to a Base64 encoded string for image handling
-	async function convertFileToBase64(file: File): Promise<string> {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.onload = () => resolve(reader.result as string);
-			reader.onerror = reject;
-			reader.readAsDataURL(file);
-		});
-	}
-
 	// Initialization of toast notifications store
 	const toastStore = getToastStore();
 
@@ -44,7 +34,6 @@
 		author: Author;
 		creationDate: string;
 		content: string;
-		imageBase64: string;
 	};
 
 	// Initializing mock data for demonstration or testing purposes
@@ -52,8 +41,7 @@
 		postId: '',
 		author: { username: '', nickname: '', profilePictureUrl: '' },
 		creationDate: '',
-		content: '',
-		imageBase64: ''
+		content: ''
 	};
 	// Define an interface that matches the structure of the data you expect in `body`
 	interface MockDataBody {
@@ -66,7 +54,6 @@
 			};
 			creationDate?: string;
 			content?: string;
-			imageBase64?: string;
 		};
 	}
 	// Function to update the mock data based on the response body
@@ -77,7 +64,6 @@
 		}
 		mockData.creationDate = body.data.creationDate ?? mockData.creationDate;
 		mockData.content = body.data.content ?? mockData.content;
-		mockData.imageBase64 = body.data.imageBase64 ?? mockData.imageBase64;
 	}
 
 	// Asynchronous function to handle the post action, including API calls and error handling
@@ -85,18 +71,12 @@
 		if ($inputValid) {
 			loading.set(true);
 			try {
-				let imageBase64 = '';
-				if ($isFileSelected && $files && $files.length > 0) {
-					imageBase64 = await convertFileToBase64($files[0]);
-				}
-
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
 						text: $postText,
-						image: imageBase64,
 						user: $currentUser.username
 					})
 				});
@@ -143,7 +123,6 @@
 	<p><strong>Author Profile Picture:</strong> {mockData.author.profilePictureUrl}</p>
 	<p><strong>Creation Date:</strong> {mockData.creationDate}</p>
 	<p><strong>Content:</strong> {mockData.content}</p>
-	<img src={mockData.imageBase64} alt="Gesendetes Bild" class="sendedPicture" />
 </div>
 
 <style>
