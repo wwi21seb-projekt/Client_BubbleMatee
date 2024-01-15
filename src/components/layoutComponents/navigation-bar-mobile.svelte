@@ -22,9 +22,9 @@
 					src={Home}
 					class={'mx-auto h-10' +
 						($page.url.pathname.startsWith('/home')
-							? ' text-primary-500 stroke-2'
-							: ' text-white stroke-1') +
-						' hover:text-primary-700  hover:stroke-2'}
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
 				/>
 			</svelte:fragment>
 		</TabAnchor>
@@ -36,9 +36,9 @@
 				src={MagnifyingGlass}
 				class={'mx-auto h-10' +
 					($page.url.pathname.startsWith('/search')
-						? ' text-primary-500 stroke-2'
-						: ' text-white stroke-1') +
-					' hover:text-primary-700  hover:stroke-2'}
+						? ' text-secondary-500 dark:text-primary-500 stroke-2'
+						: ' text-primary-900 dark:text-primary-100 stroke-1') +
+					' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
 			/>
 		</svelte:fragment>
 	</TabAnchor>
@@ -50,9 +50,9 @@
 					src={PlusCircle}
 					class={'mx-auto h-10 ' +
 						($page.url.pathname.startsWith('/post')
-							? ' text-primary-500 stroke-2'
-							: ' text-white stroke-1') +
-						' hover:text-primary-700  hover:stroke-2'}
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
 				/>
 			</svelte:fragment>
 		</TabAnchor>
@@ -64,9 +64,9 @@
 				src={InformationCircle}
 				class={'mx-auto h-10 ' +
 					($page.url.pathname.startsWith('/about')
-						? ' text-primary-500 stroke-2'
-						: ' text-white stroke-1') +
-					' hover:text-primary-700  hover:stroke-2'}
+						? ' text-secondary-500 dark:text-primary-500 stroke-2'
+						: ' text-primary-900 dark:text-primary-100 stroke-1') +
+					' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
 			/>
 		</svelte:fragment>
 	</TabAnchor>
@@ -78,9 +78,9 @@
 					src={ArrowRightOnRectangle}
 					class={'mx-auto h-10 ' +
 						($page.url.pathname.startsWith('/login')
-							? ' text-primary-500 stroke-2'
-							: ' text-white stroke-1') +
-						' hover:text-primary-700  hover:stroke-2'}
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
 				/>
 			</svelte:fragment>
 		</TabAnchor>
@@ -92,9 +92,9 @@
 					src={UserCircle}
 					class={'mx-auto h-10 ' +
 						($page.url.pathname.startsWith('/myProfile')
-							? ' text-primary-500 stroke-2'
-							: ' text-white stroke-1') +
-						' hover:text-primary-700  hover:stroke-2'}
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
 				/>
 			</svelte:fragment>
 		</TabAnchor>

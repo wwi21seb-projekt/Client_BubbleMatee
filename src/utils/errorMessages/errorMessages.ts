@@ -66,7 +66,7 @@ const errorMessages: Array<Error> = [
 	},
 	{
 		code: 'ERR-016',
-		message: 'Die Dateigröße darf 5MB nicht überschreiten, deine datei ist zu groß.'
+		message: 'Um deinen persönlichen Feed zu sehen, musst du dich zunächst einloggen.'
 	}
 ];
 

@@ -18,3 +18,11 @@ export {
 } from './login/userInfoValidation';
 
 export { getErrorMessage } from './errorMessages/errorMessages';
+
+export { calculatePassedTime } from './globalFunctions/timeCalculations';
+export { fetchNextPostsFeed } from './loadPosts/loadPosts';
+export { fetchNextPostsUser } from './loadPosts/loadPosts';
+export { tokenExpired } from './token/tokenExpired';
+export { getCurrentUser } from './token/getUser';
+export { checkAuth } from './token/checkAuth';
+export { globalConfig } from './config/config';

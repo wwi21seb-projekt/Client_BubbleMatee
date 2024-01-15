@@ -8,3 +8,18 @@ export interface User {
 	nickname: string;
 	email: string;
 }
+
+export interface UserInfo {
+	username: string;
+	nickname: string;
+	status: string;
+	profilePictureUrl: string;
+	follower: number;
+	following: number;
+	posts: number;
+	subscriptionId: string;
+}
+export interface EditUserInfo {
+	nickname: string;
+	status: string;
+}

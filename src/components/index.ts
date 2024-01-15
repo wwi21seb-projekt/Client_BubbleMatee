@@ -9,6 +9,7 @@ export { default as LegalNotice } from './about/legal-notice.svelte';
 export { default as ProductVideo } from './about/product-video.svelte';
 export { default as ProjectDocumentation } from './about/project-documentation.svelte';
 export { default as CarouselProjectParticipants } from './about/carousel-project-participants.svelte';
+export { default as CarouselElement } from './about/carousel.svelte';
 export { default as MediaButtonsLogo } from './about/media-buttons-logo.svelte';
 export { default as ListProjectParticipants } from './about/list-project-participants.svelte';
 
@@ -30,3 +31,25 @@ export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 export { default as Textarea } from './postComponent/components/textarea.svelte';
 export { default as PostComponent } from './postComponent/post-component.svelte';
 export { default as PostButton } from './postComponent/components/post-button.svelte';
+
+//Register Step Components
+export { default as PostCard } from './posts/post-card.svelte';
+export { default as Posts } from './posts/posts.svelte';
+export { default as PostHeader } from './posts/post-card-elements/post-header.svelte';
+export { default as PostMain } from './posts/post-card-elements/post-main.svelte';
+export { default as postFooter } from './posts/post-card-elements/post-footer.svelte';
+export { default as Comments } from './posts/comments/comments.svelte';
+export { default as CommentsHeader } from './posts/comments/comments-header.svelte';
+export { default as CommentElement } from './posts/comments/comment-element.svelte';
+export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
+//Profile Page of a user
+export { default as ProfileHeader } from './profile/profile-header.svelte';
+export { default as ProfileView } from './profile/profile-view.svelte';
+export { default as Settings } from './profile/settings.svelte';
+export { default as StatusInput } from './profile/status-input.svelte';
+export { default as ProfileInformationValidations } from './profile/profile-information-validations.svelte';
+export { default as ProfilePosts } from './profile/profile-posts.svelte';
+
+//General Components
+export { default as ErrorAlert } from './general/error-alert.svelte';
+

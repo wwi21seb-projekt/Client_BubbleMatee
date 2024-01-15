@@ -20,7 +20,8 @@ const config = {
 			$components: './src/components',
 			$stores: './src/stores',
 			$utils: './src/utils',
-			$domains: './src/domains'
+			$domains: './src/domains',
+			$images: './src/images'
 		}
 	}
 };
