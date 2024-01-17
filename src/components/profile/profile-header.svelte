@@ -101,9 +101,9 @@
 	};
 </script>
 
-<div class="p-4 grid grid-cols-4 gap-0 font-semibold">
-	<div class="flex flex-col self-center justify-center">
-		<Avatar initials={name.charAt(0)} background="bg-surface-300" width="w-22 lg:w-18 xl:w-16  " />
+<div class="py-4 grid grid-cols-4 gap-0 font-semibold px-8">
+	<div class="flex flex-col self-center justify-center w-22">
+		<Avatar src="src/images/icons/person.png" />
 	</div>
 	<div class="flex flex-col self-center">
 		<div class="place-self-center">{user.posts}</div>
@@ -118,8 +118,8 @@
 		<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
 	</div>
 </div>
-<div class="px-4 pb-1 font-semibold">{name}</div>
-<div class="w-full px-4 flex flex-col md:flex-row justify-center md:justify-between">
+<div class="px-8 pb-1 font-semibold">{name}</div>
+<div class="w-full px-8 flex flex-col md:flex-row justify-center md:justify-between">
 	<div class="pb-4 md:pb-0 md:pr-4">{user.status}</div>
 	{#if !isOwnUser}
 		<button class={setFollowButtonClass()} on:click={handleButtonClick}
