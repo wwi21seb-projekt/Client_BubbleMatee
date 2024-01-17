@@ -20,3 +20,4 @@ export type {
 export type { Imprint } from './ServerDomains/imprint';
 export type { Feed } from './ServerDomains/feed';
 export type { UserFeed } from './ServerDomains/userFeed';
+export type { TokenPayload } from './ServerDomains/token';

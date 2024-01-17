@@ -26,8 +26,9 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 		});
 
 		const body = await response.json();
+		console.log(body);
 
-		if (response.ok) {
+		if (response.ok && response.status !== 208) {
 			const { token, refreshToken } = body;
 
 			cookies.set('token', token, { path: '/' });

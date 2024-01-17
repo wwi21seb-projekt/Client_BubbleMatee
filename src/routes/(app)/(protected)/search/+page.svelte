@@ -66,7 +66,6 @@
 			goto(`/search?username=${searchTerm}&offset=0&limit=10`);
 			const response = await getUsers(searchTerm, 0, 10);
 			//const body = await response.json();
-			console.log(response);
 			userSearch = response.data.records;
 			postSearch = [];
 		} else {
