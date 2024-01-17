@@ -27,6 +27,11 @@ export { default as UserInfoValidation } from './login/user-info-validation.svel
 export { default as PasswordStep } from './login/steps/password-step.svelte';
 export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 
+//Post Components
+export { default as Textarea } from './postComponent/components/textarea.svelte';
+export { default as PostComponent } from './postComponent/post-component.svelte';
+export { default as PostButton } from './postComponent/components/post-button.svelte';
+
 //Register Step Components
 export { default as PostCard } from './posts/post-card.svelte';
 export { default as Posts } from './posts/posts.svelte';
