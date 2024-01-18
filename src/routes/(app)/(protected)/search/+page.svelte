@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { DevicePhoneMobile, MagnifyingGlass, User } from '@steeze-ui/heroicons';
+	import { page } from '$app/stores';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Tab, TabGroup, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { Author } from '$domains';
+	import type { Author, SearchParams } from '$domains';
 	import { goto } from '$app/navigation';
 	import { PostTab, Posts, UserTab } from '$components';
 	import type { Post } from '$domains';
@@ -12,7 +13,7 @@
 
 	const toastStore = getToastStore();
 	let searchTerm: string = '';
-	let tabSet: number = 0;
+	let tabSet: number;
 	let isError: boolean = false;
 
 	let userSearch: Array<Author> = [];
@@ -21,10 +22,24 @@
 	let lastPostID: string = '';
 	let lastPage: boolean = true;
 	let posts: Array<Post> = new Array<Post>();
+	let urlProps: SearchParams;
 
 	//load the first posts directly
 	onMount(() => {
 		loadMorePosts();
+		const urlParams = new URLSearchParams(window.location.search);
+		urlProps = {
+			username: urlParams.get('username') !== null ? urlParams.get('username') : '',
+			offset: urlParams.get('offset') !== null ? urlParams.get('offset') : '0'
+		};
+
+		if (urlProps.username) {
+			searchTerm = urlProps.username;
+			tabSet = USERTAB;
+			searchUsers();
+		} else {
+			tabSet = POSTTAB;
+		}
 	});
 	const POSTTAB = 0;
 	const USERTAB = 1;
@@ -57,18 +72,21 @@
 		}
 	};
 
+	async function searchUsers() {
+		goto(`/search?username=${searchTerm}&offset=${urlProps.offset}&limit=${globalConfig.limit}`);
+		const response = await getUsers(searchTerm, 0, 10);
+		//const body = await response.json();
+		userSearch = response.data.records;
+		postSearch = [];
+	}
+
 	async function handleSearch() {
 		if (tabSet === POSTTAB && searchTerm.length > 0) {
 			//post search via hashtags needs to be implemented
 			userSearch = [];
 			postSearch.push(searchTerm);
 		} else if (tabSet === USERTAB && searchTerm.length > 0) {
-			goto(`/search?username=${searchTerm}&offset=0&limit=10`);
-			const response = await getUsers(searchTerm, 0, 10);
-			//const body = await response.json();
-			console.log(response);
-			userSearch = response.data.records;
-			postSearch = [];
+			searchUsers();
 		} else {
 			userSearch = [];
 			postSearch = [];
@@ -94,8 +112,10 @@
 	}
 </script>
 
-<div class="m-4">
-	<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+<div class="m-4 flex justify-center">
+	<div
+		class="input-group input-group-divider grid-cols-[auto_1fr_auto] w-full sm:w-3/4 md:w-full lg:w-3/4"
+	>
 		<Icon src={MagnifyingGlass} class="w-8" />
 		<input type="search" placeholder="Suchen..." bind:value={searchTerm} on:change={handleSearch} />
 		<button
