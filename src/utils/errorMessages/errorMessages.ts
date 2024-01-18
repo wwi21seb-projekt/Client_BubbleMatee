@@ -58,6 +58,14 @@ const errorMessages: Array<Error> = [
 	},
 	{
 		code: 'ERR-014',
+		message: 'Bitte laden Sie nur eine Datei hoch'
+	},
+	{
+		code: 'ERR-015',
+		message: 'Es sind nur die Dateiformate JPG and WebP erlaubt.'
+	},
+	{
+		code: 'ERR-016',
 		message: 'Um deinen persönlichen Feed zu sehen, musst du dich zunächst einloggen.'
 	}
 ];

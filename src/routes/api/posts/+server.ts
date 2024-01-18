@@ -1,20 +1,19 @@
-import type { ErrorResponse, FollowResponse } from '$domains';
+import type { ErrorResponse, RegisterResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
- * Handles POST requests to follow a user.
+ * Handles POST requests for user registration.
  *
  * @param fetch The fetch function for making HTTP requests.
- * @param request The incoming request object.
- * @returns The response containing follow data or an error.
+ * @param request The SvelteKit request object.
+ * @returns The response containing registration data or an error.
  */
 export const POST: RequestHandler = async ({ fetch, request }) => {
+	console.log(` POST ${PUBLIC_BASE_URL}/api/posts`);
 	const requestBody = await request.json();
-
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscription`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/posts`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -25,15 +24,14 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		const body = await response.json();
 
 		if (response.ok) {
-			return json({ data: body, error: false } as FollowResponse);
+			return json({ data: body, error: false } as RegisterResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
 			error: true,
 			data: {
-				code: 500,
+				code: '500',
 				message: 'Internal Server Error'
 			}
 		});

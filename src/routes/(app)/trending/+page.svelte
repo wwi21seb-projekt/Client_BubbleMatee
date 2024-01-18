@@ -35,10 +35,13 @@
 	}
 </script>
 
-<h1 class="h1 m-4">
+<h1 class="h1 flex justify-center m-4">
 	<span
-		class="flex justify-center bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
-		>Globale Trending Posts</span
+		class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
+		>GLOBALE TRENDING POSTS</span
 	>
 </h1>
+<!-- Separator Line -->
+<hr class="!border-t-8 !border-double" />
+
 <Posts {posts} {loadMorePosts} {lastPage}></Posts>

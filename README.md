@@ -56,18 +56,24 @@ Beschreibung der test np11y
 sowie struktur des Projektes selbst
 
 ## Change backend-server
-To change the bacend server change the content of the `.env` file to 
+
+To change the bacend server change the content of the `.env` file to
+
 ```env
 PUBLIC_BASE_URL=http://localhost:3000
 
 ```
-or 
+
+or
+
 ```env
 PUBLIC_BASE_URL=https://server-beta.de
 
 ```
-or 
+
+or
+
 ```env
-PUBLIC_BASE_URL=https://alpha.c930.net
+PUBLIC_BASE_URL=https://server-alpha.tech
 
 ```

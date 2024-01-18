@@ -1,3 +1,8 @@
+export interface UploadRestrictions {
+	type: string;
+	value: string;
+}
+
 //Interface with the data that the post component needs
 export interface Post {
 	postId: string;

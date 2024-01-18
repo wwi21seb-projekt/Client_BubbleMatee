@@ -93,7 +93,6 @@ export const handle = async ({ event, resolve }) => {
 	const refreshToken = event.cookies.get('refreshToken');
 	if (!refreshToken || tokenExpired(refreshToken)) {
 		// Step 3
-		console.log('Refresh token is valid');
 		return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
 	}
 
@@ -116,7 +115,8 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	if (PUBLIC_BASE_URL === url.origin && !isUnauthorizedRoute(url.pathname, request.method)) {
 		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
 	}
+
 	const response = await fetch(request);
-	console.log(`\tResponse: ${response.status} ${response.statusText}`);
+	console.log(`\tResponse: ${response.status} ${response.statusText}`); // skipcq: JS-A1004
 	return response.status === 401 ? resetCookieResponse() : response;
 };
