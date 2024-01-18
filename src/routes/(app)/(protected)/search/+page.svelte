@@ -131,7 +131,7 @@
 	}
 </script>
 
-<div class="p-4 flex justify-center sticky top-0 z-40">
+<div class="flex justify-center sticky top-0 z-40 p-4">
 	<div
 		class="input-group input-group-divider grid-cols-[auto_1fr_auto] w-full sm:w-3/4 md:w-full lg:w-3/4"
 	>
@@ -147,34 +147,38 @@
 </div>
 
 {#if postSearch.length > 0 || userSearch.length > 0}
-	<TabGroup
-		justify="flex justify-center"
-		active="variant-filled-primary"
-		hover="hover:variant-soft-primary"
-		flex="flex-1 lg:flex-none"
-		class="m-4"
-	>
-		<Tab on:change={handleSearch} bind:group={tabSet} name="tab1" value={POSTTAB}>
-			<div class="flex justify-center grid grid-col">
-				<Icon class="w-8" src={DevicePhoneMobile} />
-				<span>Posts</span>
-			</div>
-		</Tab>
-		<Tab on:change={handleSearch} bind:group={tabSet} name="tab2" value={USERTAB}>
-			<div class="flex justify-center grid grid-col">
-				<Icon class="flex justify-center w-8" src={User} />
-				<span>Nutzer</span>
-			</div>
-		</Tab>
-		<!-- Tab Panels --->
-		<svelte:fragment slot="panel">
-			{#if tabSet === POSTTAB}
-				<PostTab />
-			{:else if tabSet === USERTAB}
-				<UserTab loadMore={loadMoreUsers} users={userSearch} {isError} {hasMorePages} />
-			{/if}
-		</svelte:fragment>
-	</TabGroup>
+	<div class="flex justify-center">
+		<div class="p-4 w-full sm:w-3/4 md:w-full lg:w-3/4">
+			<TabGroup
+				justify="justify-center"
+				active="variant-filled-primary"
+				hover="hover:variant-soft-primary"
+				flex="flex-1 lg:flex-none "
+				class="m-4"
+			>
+				<Tab on:change={handleSearch} bind:group={tabSet} name="tab1" value={POSTTAB}>
+					<div class="flex justify-center grid grid-col">
+						<Icon class="w-8" src={DevicePhoneMobile} />
+						<span>Posts</span>
+					</div>
+				</Tab>
+				<Tab on:change={handleSearch} bind:group={tabSet} name="tab2" value={USERTAB}>
+					<div class="flex justify-center grid grid-col">
+						<Icon class="flex justify-center w-8" src={User} />
+						<span>Nutzer</span>
+					</div>
+				</Tab>
+				<!-- Tab Panels --->
+				<svelte:fragment slot="panel">
+					{#if tabSet === POSTTAB}
+						<PostTab />
+					{:else if tabSet === USERTAB}
+						<UserTab loadMore={loadMoreUsers} users={userSearch} {isError} {hasMorePages} />
+					{/if}
+				</svelte:fragment>
+			</TabGroup>
+		</div>
+	</div>
 {:else}
 	<Posts {posts} {loadMorePosts} {lastPage} />
 {/if}
