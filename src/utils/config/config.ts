@@ -1,3 +1,3 @@
 export const globalConfig = {
-	limit: '10'
+	limit: '2'
 };

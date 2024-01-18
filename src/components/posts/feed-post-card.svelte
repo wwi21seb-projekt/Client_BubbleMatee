@@ -1,9 +1,9 @@
 <!--Component for a single post-->
 <script lang="ts">
-	import { PostMain } from '$components';
+	import { FeedPostMain } from '$components';
 	import type { Post } from '$domains';
-	import PostFooter from './post-card-elements/post-footer.svelte';
-	import PostHeader from './post-card-elements/post-header.svelte';
+	import PostFooter from './feed-post-card-elements/feed-post-footer.svelte';
+	import PostHeader from './feed-post-card-elements/feed-post-header.svelte';
 	export let post: Post;
 </script>
 
@@ -15,7 +15,7 @@
 		<header>
 			<PostHeader date={post.date} author={post.author} />
 		</header>
-		<PostMain text={post.content} />
+		<FeedPostMain text={post.content} />
 		<footer>
 			<PostFooter />
 		</footer>

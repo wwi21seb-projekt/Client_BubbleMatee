@@ -101,29 +101,43 @@
 	};
 </script>
 
-<div class="py-4 grid grid-cols-4 gap-0 font-semibold px-8">
-	<div class="flex flex-col self-center justify-center w-22">
-		<Avatar src="/src/images/icons/person.png" />
+<div class="flex w-full justify-center items-center">
+	<div class="w-full px-4 pt-2 sm:w-3/4 md:w-full lg:w-3/4 align-self">
+		<div class="w-full !border rounded-lg border-surface-600">
+			<div class="grid grid-cols-4 gap-0 font-semibold p-4">
+				<div class="flex flex-col self-center justify-center w-full">
+					<Avatar src="/src/images/icons/person.png" />
+				</div>
+				<div class="flex flex-col self-center !border-r !border-l border-surface-600">
+					<div class="place-self-center">{user.posts}</div>
+					<div class="place-self-center text-[11px] sm:text-base">Posts</div>
+				</div>
+				<div class="flex flex-col self-center !border-r border-surface-600">
+					<div class="place-self-center">{user.follower}</div>
+					<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
+				</div>
+				<div class="flex flex-col self-center">
+					<div class="place-self-center">{user.following}</div>
+					<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
+				</div>
+			</div>
+			<hr class="border-t-2 m-2" />
+			<div class="flex flex-row items-center">
+				<h3 class="pl-4 pr-2 font-bold text-xl md:text-2xl">{name}</h3>
+				<span class="inline-block h-auto w-px self-stretch bg-surface-600" />
+				<small class="pl-2 text-lg md:text-xl">{user.nickname}</small>
+			</div>
+
+			<div class="w-full px-4 pb-2 flex flex-col md:flex-row justify-center md:justify-between">
+				<small class="text- md:text-lg">{user.status}</small>
+				{#if !isOwnUser}
+					<button class={setFollowButtonClass()} on:click={handleButtonClick}
+						>{setFollowButtonText()}</button
+					>
+				{/if}
+			</div>
+		</div>
+		<!-- Separator Line -->
+		<hr class="!border-t-2 !border-double mt-4" />
 	</div>
-	<div class="flex flex-col self-center">
-		<div class="place-self-center">{user.posts}</div>
-		<div class="place-self-center text-[11px] sm:text-base">Posts</div>
-	</div>
-	<div class="flex flex-col self-center">
-		<div class="place-self-center">{user.follower}</div>
-		<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
-	</div>
-	<div class="flex flex-col self-center">
-		<div class="place-self-center">{user.following}</div>
-		<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
-	</div>
-</div>
-<div class="px-8 pb-1 font-semibold">{name}</div>
-<div class="w-full px-8 flex flex-col md:flex-row justify-center md:justify-between">
-	<div class="pb-4 md:pb-0 md:pr-4">{user.status}</div>
-	{#if !isOwnUser}
-		<button class={setFollowButtonClass()} on:click={handleButtonClick}
-			>{setFollowButtonText()}</button
-		>
-	{/if}
 </div>
