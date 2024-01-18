@@ -9,5 +9,5 @@ import { loadUser } from '$utils';
  * @returns The response containing user data or an error.
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
-	return loadUser(event);
+	return await loadUser(event);
 };
