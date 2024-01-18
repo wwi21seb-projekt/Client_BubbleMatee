@@ -72,7 +72,7 @@
 					($page.url.pathname.startsWith('/trending')
 						? ' text-secondary-500 dark:text-primary-500 stroke-2'
 						: ' text-primary-900 dark:text-primary-100 stroke-1') +
-					' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Trends</span
+					' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Erkunden</span
 			>
 		</AppRailAnchor>
 		<hr class="!border-t-1" />
