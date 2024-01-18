@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { getUserInfoColors, getUserInfoIcons, isValidUsername } from '$utils';
-	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	export let username: string = '';
@@ -8,16 +7,10 @@
 
 	$: usernameColor = getUserInfoColors(username, isValidUsername);
 	$: usernameIcon = getUserInfoIcons(username, isValidUsername);
-
-	const popupHoverUsername: PopupSettings = {
-		event: 'hover',
-		target: 'popupHoverUsername',
-		placement: 'top'
-	};
 </script>
 
 <label>
-	<span>Username:</span>
+	<span>Nutzname:</span>
 	<div class="input-group input-group-divider grid-cols-[1fr_auto]">
 		<input
 			class="input"
@@ -30,7 +23,7 @@
 			maxLength="20"
 		/>
 		{#if isSignUp && usernameIcon}
-			<button class="[&>*]:pointer-events-none" use:popup={popupHoverUsername}>
+			<button class="[&>*]:pointer-events-none">
 				<Icon class="{usernameColor} w-6" src={usernameIcon} />
 			</button>
 		{/if}
