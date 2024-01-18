@@ -18,6 +18,9 @@ export type {
 
 //Server Domains
 export type { Imprint } from './ServerDomains/imprint';
+
+//Upload Restrictions
+export type { UploadRestrictions } from './Post';
 export type { Feed } from './ServerDomains/feed';
 export type { UserFeed } from './ServerDomains/userFeed';
 export type { TokenPayload } from './ServerDomains/token';
