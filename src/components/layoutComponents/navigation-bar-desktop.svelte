@@ -35,27 +35,48 @@
 			>
 		</AppRailAnchor>
 		<hr class="!border-t-1" />
-	{/if}
-	<AppRailAnchor href="/search">
-		<svelte:fragment slot="lead">
-			<Icon
-				src={MagnifyingGlass}
-				class={'mx-auto ' +
+		<AppRailAnchor href="/search">
+			<svelte:fragment slot="lead">
+				<Icon
+					src={MagnifyingGlass}
+					class={'mx-auto ' +
+						($page.url.pathname.startsWith('/search')
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}
+				/>
+			</svelte:fragment>
+			<span
+				class={'' +
 					($page.url.pathname.startsWith('/search')
 						? ' text-secondary-500 dark:text-primary-500 stroke-2'
 						: ' text-primary-900 dark:text-primary-100 stroke-1') +
-					' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}
-			/>
-		</svelte:fragment>
-		<span
-			class={'' +
-				($page.url.pathname.startsWith('/search')
-					? ' text-secondary-500 dark:text-primary-500 stroke-2'
-					: ' text-primary-900 dark:text-primary-100 stroke-1') +
-				' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Suchen</span
-		>
-	</AppRailAnchor>
-	<hr class="!border-t-1" />
+					' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Suchen</span
+			>
+		</AppRailAnchor>
+		<hr class="!border-t-1" />
+	{:else}
+		<AppRailAnchor href="/trending">
+			<svelte:fragment slot="lead">
+				<Icon
+					src={MagnifyingGlass}
+					class={'mx-auto ' +
+						($page.url.pathname.startsWith('/trending')
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}
+				/>
+			</svelte:fragment>
+			<span
+				class={'' +
+					($page.url.pathname.startsWith('/trending')
+						? ' text-secondary-500 dark:text-primary-500 stroke-2'
+						: ' text-primary-900 dark:text-primary-100 stroke-1') +
+					' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Erkunden</span
+			>
+		</AppRailAnchor>
+		<hr class="!border-t-1" />
+	{/if}
 	{#if $isLoggedIn}
 		<AppRailAnchor href="/post">
 			<svelte:fragment slot="lead">

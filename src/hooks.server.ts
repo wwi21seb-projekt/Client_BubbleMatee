@@ -3,7 +3,6 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { tokenExpired } from '$utils';
 import { isLoggedIn } from '$stores';
 import { get } from 'svelte/store';
-/* import { tokenExpired } from './utils/token/tokenExpired'; */
 
 const unauthorizedRoutes = [
 	'/',
@@ -12,8 +11,8 @@ const unauthorizedRoutes = [
 	'/login/resendToken',
 	'/login/verify',
 	'/about',
-	'/search',
-	'/search/user/.*', // Username page
+	'/trending',
+	'/api/feed',
 	'/api/imprint',
 	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API

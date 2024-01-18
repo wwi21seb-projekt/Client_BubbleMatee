@@ -29,19 +29,33 @@
 			</svelte:fragment>
 		</TabAnchor>
 		<hr class="!border-t-1" />
+		<TabAnchor href="/search">
+			<svelte:fragment slot="lead">
+				<Icon
+					src={MagnifyingGlass}
+					class={'mx-auto h-10' +
+						($page.url.pathname.startsWith('/search')
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
+				/>
+			</svelte:fragment>
+		</TabAnchor>
+		<hr class="!border-t-1" />
+	{:else}
+		<TabAnchor href="/trending">
+			<svelte:fragment slot="lead">
+				<Icon
+					src={MagnifyingGlass}
+					class={'mx-auto h-10' +
+						($page.url.pathname.startsWith('/trending')
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
+				/>
+			</svelte:fragment>
+		</TabAnchor>
 	{/if}
-	<TabAnchor href="/search">
-		<svelte:fragment slot="lead">
-			<Icon
-				src={MagnifyingGlass}
-				class={'mx-auto h-10' +
-					($page.url.pathname.startsWith('/search')
-						? ' text-secondary-500 dark:text-primary-500 stroke-2'
-						: ' text-primary-900 dark:text-primary-100 stroke-1') +
-					' hover:text-secondary-500 hover:dark:text-primary-500  hover:stroke-2'}
-			/>
-		</svelte:fragment>
-	</TabAnchor>
 	<hr class="!border-t-1" />
 	{#if $isLoggedIn}
 		<TabAnchor href="/post">
