@@ -74,6 +74,6 @@ PUBLIC_BASE_URL=https://server-beta.de
 or
 
 ```env
-PUBLIC_BASE_URL=https://alpha.c930.net
+PUBLIC_BASE_URL=https://server-alpha.tech
 
 ```
