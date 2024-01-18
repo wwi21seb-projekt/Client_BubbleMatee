@@ -117,8 +117,6 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	}
 
 	const response = await fetch(request);
-	if (PUBLIC_BASE_URL === url.origin) {
-		console.log(`\tResponse: ${response.status} ${response.statusText}`);
-	}
+	console.log(`\tResponse: ${response.status} ${response.statusText}`); // skipcq: JS-A1004
 	return response.status === 401 ? resetCookieResponse() : response;
 };
