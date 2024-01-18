@@ -23,3 +23,8 @@ export interface EditUserInfo {
 	nickname: string;
 	status: string;
 }
+
+export interface SearchParams {
+	username: string | null;
+	offset: string | null;
+}
