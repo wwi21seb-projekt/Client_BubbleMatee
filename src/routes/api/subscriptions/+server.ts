@@ -14,7 +14,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 	const requestBody = await request.json();
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscription`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -30,6 +30,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
+		console.error(exception);
 		return json({
 			error: true,
 			data: {

@@ -93,7 +93,6 @@ export const handle = async ({ event, resolve }) => {
 	const refreshToken = event.cookies.get('refreshToken');
 	if (!refreshToken || tokenExpired(refreshToken)) {
 		// Step 3
-		console.log('Refresh token is valid');
 		return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
 	}
 

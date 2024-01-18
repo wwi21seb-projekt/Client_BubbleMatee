@@ -24,7 +24,7 @@
 	const subscribe = async () => {
 		loading = true;
 		try {
-			const response = await fetch('/api/subscription', {
+			const response = await fetch('/api/subscriptions', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -54,7 +54,7 @@
 	const unsubscribe = async () => {
 		loading = true;
 		try {
-			const response = await fetch(`/api/subscription/${user.subscriptionId}`, {
+			const response = await fetch(`/api/subscriptions/${user.subscriptionId}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'
@@ -103,7 +103,7 @@
 
 <div class="py-4 grid grid-cols-4 gap-0 font-semibold px-8">
 	<div class="flex flex-col self-center justify-center w-22">
-		<Avatar src="src/images/icons/person.png" />
+		<Avatar src="/src/images/icons/person.png" />
 	</div>
 	<div class="flex flex-col self-center">
 		<div class="place-self-center">{user.posts}</div>

@@ -12,7 +12,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
 	const subscriptionId = params.subscriptionId;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscription/${subscriptionId}`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions/${subscriptionId}`, {
 			method: 'DELETE'
 		});
 
