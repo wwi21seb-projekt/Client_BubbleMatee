@@ -1,4 +1,5 @@
-import { jwtDecode, type JwtPayload } from 'jwt-decode';
+import type { TokenPayload } from '$domains';
+import { jwtDecode } from 'jwt-decode';
 
 /**
  * Checks if the token has expired.
@@ -7,7 +8,7 @@ import { jwtDecode, type JwtPayload } from 'jwt-decode';
  * @returns Whether the token has expired.
  */
 export function tokenExpired(token: string) {
-	const decodedToken: JwtPayload = jwtDecode<JwtPayload>(token);
+	const decodedToken: TokenPayload = jwtDecode<TokenPayload>(token);
 	const currentTime = Math.floor(Date.now() / 1000);
 
 	return decodedToken.exp && decodedToken.exp < currentTime;

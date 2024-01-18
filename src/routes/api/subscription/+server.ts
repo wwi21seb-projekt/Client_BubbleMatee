@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		if (response.ok) {
 			return json({ data: body, error: false } as FollowResponse);
 		}
-		body.message = getErrorMessage(body.code);
+		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({

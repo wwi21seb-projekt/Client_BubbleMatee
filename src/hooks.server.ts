@@ -36,6 +36,24 @@ const resetCookieResponse = () => {
 };
 
 /**
+ * Checks if the route is unauthorized.
+ *
+ * @param pathname The path of the route.
+ * @param method The HTTP method of the request.
+ * @returns True if the route is unauthorized, false otherwise.
+ */
+const isUnauthorizedRoute = (pathname: string, method: string) => {
+	if (pathname !== '/api/users' || method === 'POST') {
+		return unauthorizedRoutes.some((route) => {
+			const pattern = new RegExp(`^${route}$`);
+			return pattern.test(pathname);
+		});
+	} else {
+		return false;
+	}
+};
+
+/**
  * Handles requests to the server.
  *
  * @param event The SvelteKit event object.
@@ -51,14 +69,8 @@ export const handle = async ({ event, resolve }) => {
 	console.log(`\tInternal request: ${event.request.method} ${event.url.pathname}, ${Date.now()}}`);
 
 	// Unauthorized routes: Just let them pass through
-	const isUnauthorizedRoute = (url: string) => {
-		return unauthorizedRoutes.some((route) => {
-			const pattern = new RegExp(`^${route}$`);
-			return pattern.test(url);
-		});
-	};
 
-	if (isUnauthorizedRoute(event.url.pathname)) {
+	if (isUnauthorizedRoute(event.url.pathname, event.request.method)) {
 		const response = await resolve(event);
 		return response;
 	}
@@ -81,6 +93,7 @@ export const handle = async ({ event, resolve }) => {
 	const refreshToken = event.cookies.get('refreshToken');
 	if (!refreshToken || tokenExpired(refreshToken)) {
 		// Step 3
+		console.log('Refresh token is valid');
 		return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
 	}
 
@@ -100,9 +113,10 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	const url = new URL(request.url);
 	console.log(`Outgoing request: ${request.method} ${url}`);
 
-	if (PUBLIC_BASE_URL === url.origin && !unauthorizedRoutes.includes(url.pathname)) {
+	if (PUBLIC_BASE_URL === url.origin && !isUnauthorizedRoute(url.pathname, request.method)) {
 		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
 	}
 	const response = await fetch(request);
+	console.log(`\tResponse: ${response.status} ${response.statusText}`);
 	return response.status === 401 ? resetCookieResponse() : response;
 };

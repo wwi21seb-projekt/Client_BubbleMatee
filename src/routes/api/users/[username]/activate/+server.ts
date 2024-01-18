@@ -26,7 +26,6 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 		});
 
 		const body = await response.json();
-		console.log(body);
 
 		if (response.ok && response.status !== 208) {
 			const { token, refreshToken } = body;
@@ -36,7 +35,7 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 
 			return json({ data: body, error: false } as LoginResponse);
 		}
-		body.message = getErrorMessage(body.code);
+		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
