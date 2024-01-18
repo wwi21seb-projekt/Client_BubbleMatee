@@ -13,7 +13,8 @@ export type {
 	UserInfoResponse,
 	EditUserInformationResponse,
 	FollowResponse,
-	UserSearchResponse
+	UserSearchResponse,
+	UserSearch
 } from './ServerResponses';
 
 //Server Domains

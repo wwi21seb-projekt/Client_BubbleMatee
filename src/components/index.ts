@@ -54,6 +54,7 @@ export { default as ProfilePosts } from './profile/profile-posts.svelte';
 export { default as UserComponent } from './search/user-component.svelte';
 export { default as UserTab } from './search/user-tab.svelte';
 export { default as PostTab } from './search/post-tab.svelte';
+export { default as LoadMoreComponent } from './search/load-more-component.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';

@@ -51,12 +51,14 @@ export interface FollowResponse extends Response {
 }
 
 export interface UserSearchResponse extends Response {
-	data: {
-		records: Author[];
-		pagination: {
-			offset: 0;
-			limit: 0;
-			records: 0;
-		};
+	data: UserSearch;
+}
+
+export interface UserSearch {
+	records: Author[];
+	pagination: {
+		offset: 0;
+		limit: 0;
+		records: 0;
 	};
 }

@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { Author } from '$domains';
-	import { UserComponent } from '$components';
+	import { LoadMoreComponent, UserComponent } from '$components';
 	import { goto } from '$app/navigation';
 
 	export let users: Array<Author>;
 	export let isError: boolean;
+	export let loadMore: () => void;
+	export let hasMorePages: boolean;
 
 	function onUserClick(user: Author) {
 		goto(`/search/user/${user.username}`);
@@ -21,6 +23,9 @@
 			</div>
 		</button>
 	{/each}
+	{#if hasMorePages}
+		<LoadMoreComponent {loadMore} />
+	{/if}
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}
