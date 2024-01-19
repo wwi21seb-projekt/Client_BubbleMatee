@@ -5,6 +5,7 @@
 	export let post: Post;
 	export let deletePost: (postId: string) => void;
 
+	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
 		deletePost(post.postId);
 	}

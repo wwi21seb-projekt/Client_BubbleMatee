@@ -7,7 +7,8 @@
 	import type { Post } from '$domains';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
-
+	
+	//function to delete a post. Is passed to and called from each induciduall post-card-component
 	async function deletePost(postId: string) {
 		try {
 			const response = await fetch(`/api/posts/${postId}`, {
@@ -17,6 +18,7 @@
 				}
 			});
 			const body = await response.json();
+			//show error if unsuccesfull
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
@@ -25,7 +27,9 @@
 					};
 					toastStore.trigger(t);
 				}
+			//show confirmation if succesfull
 			} else {
+				//delete from local array
 				posts = posts.filter((post) => post.postId !== postId);
 				const t: ToastSettings = {
 					message: 'Der Beitrag wurde gelöscht',
