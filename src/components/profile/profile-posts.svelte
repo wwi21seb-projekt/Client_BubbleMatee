@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Posts } from '$components';
+	import { Feed } from '$components';
 	import type { Post, UserInfo } from '$domains';
 	import { fetchNextPostsUser } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
@@ -32,4 +32,4 @@
 	}
 </script>
 
-<Posts {posts} {loadMorePosts} {lastPage}></Posts>
+<Feed {posts} {loadMorePosts} {lastPage}></Feed>

@@ -32,12 +32,12 @@ export { default as Textarea } from './postComponent/components/textarea.svelte'
 export { default as PostComponent } from './postComponent/post-component.svelte';
 export { default as PostButton } from './postComponent/components/post-button.svelte';
 
-//Register Step Components
-export { default as PostCard } from './posts/post-card.svelte';
-export { default as Posts } from './posts/posts.svelte';
-export { default as PostHeader } from './posts/post-card-elements/post-header.svelte';
-export { default as PostMain } from './posts/post-card-elements/post-main.svelte';
-export { default as postFooter } from './posts/post-card-elements/post-footer.svelte';
+//Feed Components
+export { default as FeedPostCard } from './posts/feed-post-card.svelte';
+export { default as Feed } from './posts/feed.svelte';
+export { default as FeedPostHeader } from './posts/feed-post-card-elements/feed-post-header.svelte';
+export { default as FeedPostMain } from './posts/feed-post-card-elements/feed-post-main.svelte';
+export { default as FeedPostFooter } from './posts/feed-post-card-elements/feed-post-footer.svelte';
 export { default as Comments } from './posts/comments/comments.svelte';
 export { default as CommentsHeader } from './posts/comments/comments-header.svelte';
 export { default as CommentElement } from './posts/comments/comment-element.svelte';
