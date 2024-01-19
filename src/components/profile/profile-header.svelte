@@ -171,7 +171,7 @@
 			<div
 				class="w-full px-4 flex flex-col md:flex-row justify-center md:justify-between items-center"
 			>
-				<small class="text-base md:text-lg break-words w-full">
+				<small class="text-base md:text-lg break-words w-full md:w-3/4">
 					{user.status}
 				</small>
 				<!--Show the Follow-Button next to the status, if the user has a status-->
