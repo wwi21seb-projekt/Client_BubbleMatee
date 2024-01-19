@@ -1,4 +1,5 @@
 <script lang="ts">
+
 	import { Textarea, PostButton } from '$components';
 </script>
 

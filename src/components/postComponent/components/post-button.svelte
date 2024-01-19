@@ -2,10 +2,11 @@
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
 	import { derived } from 'svelte/store';
 	import { isFileSelected, postText, loading } from '$stores';
-	// import { goto } from '$app/navigation'; //Maybe used later for pagenavigation
+	import { goto } from '$app/navigation'; //Maybe used later for pagenavigation
 	import type { Error } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+
 
 	// Helper function to remove whitespace and newlines from a string
 	function removeWhitespaceAndNewlines(text: string): string {
@@ -90,8 +91,13 @@
 					});
 				} else {
 					updateMockDataFromBody(body);
-					// Navigation command after successful post (currently commented out)
-					// goto('');
+					// Navigation command after successful post
+					goto(`/myProfile`);
+					toastStore.trigger({
+						message: 'Post erfolgreich',
+						background: 'variant-filled-success'
+					});
+		
 				}
 
 				return body;
