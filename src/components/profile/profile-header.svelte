@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { UserInfo } from '$domains';
-	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { Avatar, getModalStore, getToastStore, type ModalComponent, type ModalSettings, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { currentUsername } from '$stores';
 	import { page } from '$app/stores';
 	import { invalidateAll } from '$app/navigation';
 
 	const toastStore = getToastStore();
+	const modalStore = getModalStore();
 
 	export let user: UserInfo;
 
@@ -16,7 +17,7 @@
 	let loading: boolean = false;
 
 	$: setFollowButtonClass = () => {
-		let result: string = 'btn w-full md:max-w-xs ';
+		let result: string = 'btn w-full mt-2 md:max-w-xs mx-4';
 		isSubscriber ? (result += ' variant-ghost-primary') : (result += ' variant-filled-primary');
 		return result;
 	};
@@ -99,20 +100,38 @@
 			return 'Abonnieren';
 		}
 	};
+
+	function handlePictureClick(): void {
+		user.profilePictureUrl
+			const modalComponent: ModalComponent = {
+				ref: Avatar,
+				
+				props: { src: (user.profilePictureUrl ? user.profilePictureUrl : '/src/images/icons/person.png'),
+				width: "w-1/2 sm:w-1/3 md:w-1/6" }
+			};
+			const modal: ModalSettings = {
+				type: 'component',
+				component: modalComponent,
+				backdropClasses:
+					'bg-transparent'
+			};
+			modalStore.trigger(modal);
+	}
 </script>
 
 <div class="flex w-full justify-center items-center">
 	<div class="w-full px-4 pt-2 sm:w-3/4 md:w-full lg:w-3/4 align-self">
-		<div class="w-full !border rounded-lg border-surface-600">
+		<div class="w-full ">
 			<div class="grid grid-cols-4 gap-0 font-semibold p-4">
 				<div class="flex flex-col self-center justify-center w-full">
-					<Avatar src="/src/images/icons/person.png" />
+					<Avatar border="hover:border-2 hover:!border-surface-600"
+							cursor="cursor-pointer" src={user.profilePictureUrl ? user.profilePictureUrl : '/src/images/icons/person.png'} on:click={handlePictureClick}/>
 				</div>
-				<div class="flex flex-col self-center !border-r !border-l border-surface-600">
+				<div class="flex flex-col self-center">
 					<div class="place-self-center">{user.posts}</div>
 					<div class="place-self-center text-[11px] sm:text-base">Posts</div>
 				</div>
-				<div class="flex flex-col self-center !border-r border-surface-600">
+				<div class="flex flex-col self-center">
 					<div class="place-self-center">{user.follower}</div>
 					<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
 				</div>
@@ -121,16 +140,26 @@
 					<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
 				</div>
 			</div>
-			<hr class="border-t-2 m-2" />
-			<div class="flex flex-row items-center">
-				<h3 class="pl-4 pr-2 font-bold text-xl md:text-2xl">{name}</h3>
+			<div class="flex flex-col md:flex-row justify-center md:justify-between items-center px-4">
+				<div class="flex flex-row items-center w-full">
+				<h3 class="pr-2 font-bold text-xl md:text-2xl">{name}</h3>
+				{#if user.nickname}
 				<span class="inline-block h-auto w-px self-stretch bg-surface-600" />
 				<small class="pl-2 text-lg md:text-xl">{user.nickname}</small>
+				{/if}
+				</div>
+				{#if !isOwnUser && !user.status}
+					<button class={setFollowButtonClass()} on:click={handleButtonClick}
+						>{setFollowButtonText()}</button
+					>
+				{/if}
 			</div>
 
-			<div class="w-full px-4 pb-2 flex flex-col md:flex-row justify-center md:justify-between">
-				<small class="text- md:text-lg">{user.status}</small>
-				{#if !isOwnUser}
+			<div class="w-full px-4 flex flex-col md:flex-row justify-center md:justify-between items-center">
+				<small class="text-base md:text-lg break-words w-full">
+					{user.status}
+				</small>			
+				{#if !isOwnUser && user.status}
 					<button class={setFollowButtonClass()} on:click={handleButtonClick}
 						>{setFollowButtonText()}</button
 					>
@@ -138,6 +167,6 @@
 			</div>
 		</div>
 		<!-- Separator Line -->
-		<hr class="!border-t-2 !border-double mt-4" />
+		<hr class="!border-t-2 !border-double mt-4 mx-4" />
 	</div>
 </div>
