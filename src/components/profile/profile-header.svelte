@@ -11,6 +11,8 @@
 	import { currentUsername } from '$stores';
 	import { page } from '$app/stores';
 	import { invalidateAll } from '$app/navigation';
+	import { Comments } from '$components';
+	import FollowerList from './follower-list.svelte';
 
 	const toastStore = getToastStore();
 	const modalStore = getModalStore();
@@ -118,10 +120,34 @@
 				width: 'w-1/2 sm:w-1/3 md:w-1/6'
 			}
 		};
+
 		const modal: ModalSettings = {
 			type: 'component',
 			component: modalComponent,
 			backdropClasses: 'bg-transparent'
+		};
+		modalStore.trigger(modal);
+	}
+
+	const comments = [
+		'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
+		'barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
+		'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
+		'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj'
+	];
+
+	function openFollowerlist(isFollowerlist: boolean): void {
+		const title: string = isFollowerlist ? 'Abonenntenliste' : 'Abonniertenliste';
+		console.log(title);
+		const modalComponent: ModalComponent = {
+			ref: FollowerList,
+			props: { title: title }
+		};
+		const modal: ModalSettings = {
+			type: 'component',
+			component: modalComponent,
+			backdropClasses:
+				'bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 lg:dark:from-transparent lg:darkto-transparent lg:from-transparent lg:to-transparent'
 		};
 		modalStore.trigger(modal);
 	}
@@ -143,14 +169,18 @@
 					<div class="place-self-center">{user.posts}</div>
 					<div class="place-self-center text-[11px] sm:text-base">Posts</div>
 				</div>
-				<div class="flex flex-col self-center">
-					<div class="place-self-center">{user.follower}</div>
-					<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
-				</div>
-				<div class="flex flex-col self-center">
-					<div class="place-self-center">{user.following}</div>
-					<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
-				</div>
+				<button on:click={() => openFollowerlist(true)}>
+					<div class="flex flex-col self-center">
+						<div class="place-self-center">{user.follower}</div>
+						<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
+					</div>
+				</button>
+				<button on:click={() => openFollowerlist(false)}>
+					<div class="flex flex-col self-center">
+						<div class="place-self-center">{user.following}</div>
+						<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
+					</div>
+				</button>
 			</div>
 			<!--Show the Follow-Button next to the username, if the user has no status-->
 			<div class="flex flex-col md:flex-row justify-center md:justify-between items-center px-4">

@@ -2,14 +2,21 @@
 	import type { Author } from '$domains';
 	import { LoadMoreComponent, UserComponent } from '$components';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { getModalStore } from '@skeletonlabs/skeleton';
 
 	export let users: Array<Author>;
-	export let isError: boolean;
-	export let loadMore: () => void;
-	export let hasMorePages: boolean;
+	export let isError: boolean = false;
+	console.log(users);
+	export let loadMore: () => void = () => {};
+	export let hasMorePages: boolean = false;
+	const modalStore = getModalStore();
 
 	function onUserClick(user: Author) {
-		goto(`/search/user/${user.username}`);
+		const basepath = $page.url.pathname;
+		const tabPath = basepath.split('/')[1];
+		goto(`/${tabPath}/user/${user.username}`);
+		modalStore.close();
 	}
 </script>
 

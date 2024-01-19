@@ -39,7 +39,7 @@ export { default as FeedPostHeader } from './posts/feed-post-card-elements/feed-
 export { default as FeedPostMain } from './posts/feed-post-card-elements/feed-post-main.svelte';
 export { default as FeedPostFooter } from './posts/feed-post-card-elements/feed-post-footer.svelte';
 export { default as Comments } from './posts/comments/comments.svelte';
-export { default as CommentsHeader } from './posts/comments/comments-header.svelte';
+export { default as CommentsHeader } from './layoutComponents/modal-header.svelte';
 export { default as CommentElement } from './posts/comments/comment-element.svelte';
 export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
 //Profile Page of a user
@@ -49,6 +49,7 @@ export { default as Settings } from './profile/settings.svelte';
 export { default as StatusInput } from './profile/status-input.svelte';
 export { default as ProfileInformationValidations } from './profile/profile-information-validations.svelte';
 export { default as ProfilePosts } from './profile/profile-posts.svelte';
+export { default as FollowerList } from './profile/follower-list.svelte';
 
 //Search components
 export { default as UserComponent } from './search/user-component.svelte';

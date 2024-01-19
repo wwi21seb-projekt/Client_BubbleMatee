@@ -7,7 +7,6 @@
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
-
 	// Helper function to remove whitespace and newlines from a string
 	function removeWhitespaceAndNewlines(text: string): string {
 		return text.replace(/\s+/g, '');
@@ -97,7 +96,6 @@
 						message: 'Post erfolgreich',
 						background: 'variant-filled-success'
 					});
-		
 				}
 
 				return body;
