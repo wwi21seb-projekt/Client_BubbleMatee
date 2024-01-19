@@ -25,7 +25,7 @@
 	//if the post belongs to the active user, he has the option to delete it
 	let isOwnUser: boolean =
 		$page.params.username === $currentUsername || $page.url.pathname === '/myProfile';
-	
+
 	const popupClick: PopupSettings = {
 		event: 'click',
 		target: 'popupClick',
