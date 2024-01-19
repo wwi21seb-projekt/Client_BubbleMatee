@@ -24,7 +24,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 			const result = { data: body, error: false };
 			return json(result as ImprintResponse);
 		}
-		body.message = getErrorMessage(body.code);
+		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({

@@ -1,4 +1,5 @@
-import { jwtDecode, type JwtPayload } from 'jwt-decode';
+import type { TokenPayload } from '$domains';
+import { jwtDecode } from 'jwt-decode';
 
 /**
  * Gets the current user from the token.
@@ -10,11 +11,11 @@ export function getCurrentUser(token: string | undefined): string {
 	if (token === undefined) {
 		return '';
 	}
-	const decodedToken: JwtPayload = jwtDecode<JwtPayload>(token);
+	const decodedToken: TokenPayload = jwtDecode<TokenPayload>(token);
 
-	const userId = decodedToken.sub;
-	if (userId === undefined) {
+	const username = decodedToken.username;
+	if (username === undefined) {
 		return '';
 	}
-	return userId;
+	return username;
 }

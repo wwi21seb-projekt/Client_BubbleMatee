@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { getUserInfoColors, isValidEmail, getUserInfoIcons } from '$utils';
-	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	export let email: string = '';
@@ -8,12 +7,6 @@
 
 	$: emailColor = getUserInfoColors(email, isValidEmail);
 	$: emailIcon = getUserInfoIcons(email, isValidEmail);
-
-	const popupHoverEmail: PopupSettings = {
-		event: 'hover',
-		target: 'popupHoverEmail',
-		placement: 'top'
-	};
 </script>
 
 <label>
@@ -30,9 +23,9 @@
 			maxLength="128"
 		/>
 		{#if isSignUp && emailIcon}
-			<button class="[&>*]:pointer-events-none" use:popup={popupHoverEmail}>
+			<div class="[&>*]:pointer-events-none">
 				<Icon class="{emailColor} w-6" src={emailIcon} />
-			</button>
+			</div>
 		{/if}
 	</div>
 </label>

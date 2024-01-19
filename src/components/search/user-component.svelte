@@ -8,9 +8,7 @@
 <div class="flex items-center">
 	<!--If the User has no profile picture show an anonymos picture-->
 	<Avatar
-		src={author.profilePictureUrl === ''
-			? '/src/images/icons/person.png'
-			: author.profilePictureUrl}
+		src={author.profilePictureUrl ? author.profilePictureUrl : '/src/images/icons/person.png'}
 		height="auto"
 	/>
 	<!--Name and Nickname - textsize is enlarged on desktop-->

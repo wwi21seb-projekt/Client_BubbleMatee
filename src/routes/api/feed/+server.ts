@@ -10,7 +10,6 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing feed data or an error.
  */
 export const GET: RequestHandler = async ({ fetch, url }) => {
-	console.log(` GET ${PUBLIC_BASE_URL}/api/feed${url.search}`);
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/feed${url.search}`, {
 			method: 'GET',

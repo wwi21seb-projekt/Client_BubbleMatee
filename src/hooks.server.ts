@@ -12,7 +12,7 @@ const unauthorizedRoutes = [
 	'/login/verify',
 	'/about',
 	'/trending',
-	'/api/feed',
+	'/api/feed.*feedType=global',
 	'/api/imprint',
 	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API
@@ -36,6 +36,25 @@ const resetCookieResponse = () => {
 };
 
 /**
+ * Checks if the route is unauthorized.
+ *
+ * @param pathname The path of the route.
+ * @param method The HTTP method of the request.
+ * @returns True if the route is unauthorized, false otherwise.
+ */
+const isUnauthorizedRoute = (pathname: string, method: string) => {
+	if (pathname !== '/api/users' || method === 'POST') {
+		const result = unauthorizedRoutes.some((route) => {
+			const pattern = new RegExp(`^${route}$`);
+			return pattern.test(pathname);
+		});
+		return result;
+	} else {
+		return false;
+	}
+};
+
+/**
  * Handles requests to the server.
  *
  * @param event The SvelteKit event object.
@@ -43,22 +62,24 @@ const resetCookieResponse = () => {
  * @returns The response containing the data or an error.
  */
 export const handle = async ({ event, resolve }) => {
+	const isLoggedInLocal: boolean = get(isLoggedIn);
+	/**Rerouting to startpage*/
+	if (event.route.id && event.route.id === '/') {
+		if (get(isLoggedIn)) {
+			throw redirect(302, '/home');
+		} else {
+			throw redirect(302, '/about');
+		}
+	}
 	/**Protection of certain routes.*/
-	if (get(isLoggedIn) && event.route.id?.startsWith('/(app)/(protected)')) {
+	if (isLoggedInLocal && event.route.id?.startsWith('/(app)/(protected)')) {
 		throw redirect(302, '/login');
 	}
 
 	console.log(`\tInternal request: ${event.request.method} ${event.url.pathname}, ${Date.now()}}`);
 
 	// Unauthorized routes: Just let them pass through
-	const isUnauthorizedRoute = (url: string) => {
-		return unauthorizedRoutes.some((route) => {
-			const pattern = new RegExp(`^${route}$`);
-			return pattern.test(url);
-		});
-	};
-
-	if (isUnauthorizedRoute(event.url.pathname)) {
+	if (isUnauthorizedRoute(event.url.pathname + event.url.search, event.request.method)) {
 		const response = await resolve(event);
 		return response;
 	}
@@ -99,10 +120,13 @@ export const handle = async ({ event, resolve }) => {
 export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	const url = new URL(request.url);
 	console.log(`Outgoing request: ${request.method} ${url}`);
-
-	if (PUBLIC_BASE_URL === url.origin && !unauthorizedRoutes.includes(url.pathname)) {
+	if (
+		PUBLIC_BASE_URL === url.origin &&
+		!isUnauthorizedRoute(url.pathname + url.search, request.method)
+	) {
 		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
 	}
 	const response = await fetch(request);
+	console.log(`\tResponse: ${response.status} ${response.statusText}`); // skipcq: JS-A1004
 	return response.status === 401 ? resetCookieResponse() : response;
 };

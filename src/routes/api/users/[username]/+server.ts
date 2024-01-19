@@ -26,7 +26,7 @@ export const GET: RequestHandler = async ({ fetch, params }) => {
 		if (response.ok) {
 			return json({ data: body, error: false } as LoginResponse);
 		}
-		body.message = getErrorMessage(body.code);
+		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({

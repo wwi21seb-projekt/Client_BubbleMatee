@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Posts } from '$components';
+	import { Feed } from '$components';
 	import type { Post } from '$domains';
 	import { fetchNextPostsFeed } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
@@ -43,7 +43,7 @@
 </h1>
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
-<Posts {posts} {loadMorePosts} {lastPage}></Posts>
+<Feed {posts} {loadMorePosts} {lastPage}></Feed>
 
 <style>
 	/* Definition of CSS variables for recurring values */

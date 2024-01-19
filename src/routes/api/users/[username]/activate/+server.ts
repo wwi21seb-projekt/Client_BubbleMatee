@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 
 		const body = await response.json();
 
-		if (response.ok) {
+		if (response.ok && response.status !== 208) {
 			const { token, refreshToken } = body;
 
 			cookies.set('token', token, { path: '/' });
@@ -35,7 +35,7 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 
 			return json({ data: body, error: false } as LoginResponse);
 		}
-		body.message = getErrorMessage(body.code);
+		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({

@@ -1,8 +1,8 @@
 <script lang="ts">
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
 	import { derived } from 'svelte/store';
-	import { isFileSelected, postText, currentUser, loading } from '$stores';
-	// import { goto } from '$app/navigation'; //Maybe used later for pagenavigation
+	import { isFileSelected, postText, loading } from '$stores';
+	import { goto } from '$app/navigation';
 	import type { Error } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
@@ -76,8 +76,7 @@
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
-						text: $postText,
-						user: $currentUser.username
+						content: $postText
 					})
 				});
 
@@ -91,8 +90,12 @@
 					});
 				} else {
 					updateMockDataFromBody(body);
-					// Navigation command after successful post (currently commented out)
-					// goto('');
+					// Navigation command after successful post
+					goto(`/myProfile`);
+					toastStore.trigger({
+						message: 'Post erfolgreich',
+						background: 'variant-filled-success'
+					});
 				}
 
 				return body;
@@ -108,7 +111,7 @@
 
 <button
 	type="button"
-	class="btn btn variant-filled-primary mt-2 buttonPost"
+	class="btn variant-filled-primary mt-2 buttonPost"
 	disabled={!$inputValid}
 	on:click={handlePost}
 >

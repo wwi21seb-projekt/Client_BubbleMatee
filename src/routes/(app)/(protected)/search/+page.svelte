@@ -4,7 +4,7 @@
 	import { Tab, TabGroup, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import type { Author, SearchParams, UserSearch } from '$domains';
 	import { goto } from '$app/navigation';
-	import { PostTab, Posts, UserTab } from '$components';
+	import { PostTab, Feed, UserTab } from '$components';
 	import type { Post } from '$domains';
 	import { fetchNextPostsFeed } from '$utils';
 	import { globalConfig } from '$utils';
@@ -180,5 +180,5 @@
 		</div>
 	</div>
 {:else}
-	<Posts {posts} {loadMorePosts} {lastPage} />
+	<Feed {posts} {loadMorePosts} {lastPage} />
 {/if}
