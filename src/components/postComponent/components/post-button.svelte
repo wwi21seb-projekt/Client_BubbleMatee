@@ -2,7 +2,7 @@
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
 	import { derived } from 'svelte/store';
 	import { isFileSelected, postText, loading } from '$stores';
-	import { goto } from '$app/navigation'; //Maybe used later for pagenavigation
+	import { goto } from '$app/navigation';
 	import type { Error } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
@@ -111,7 +111,7 @@
 
 <button
 	type="button"
-	class="btn btn variant-filled-primary mt-2 buttonPost"
+	class="btn variant-filled-primary mt-2 buttonPost"
 	disabled={!$inputValid}
 	on:click={handlePost}
 >

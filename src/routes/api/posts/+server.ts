@@ -10,7 +10,6 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing registration data or an error.
  */
 export const POST: RequestHandler = async ({ fetch, request }) => {
-	console.log(` POST ${PUBLIC_BASE_URL}/api/posts`);
 	const requestBody = await request.json();
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/posts`, {
