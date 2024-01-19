@@ -57,17 +57,14 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 				'Content-Type': 'application/json'
 			}
 		});
-		console.log(response);
 		const body = await response.json();
-		
+
 		if (response.ok) {
 			const result = { data: body, error: false };
 			return json(result as SubscriptionListResponse);
 		}
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
-		console.log(exception);
-		
 		return json({
 			error: true,
 			data: {
@@ -77,4 +74,3 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 		} as ErrorResponse);
 	}
 };
-

@@ -7,21 +7,21 @@ export interface Subscription {
 	following: string;
 }
 
-export interface SubscriptionList{
-    records: [
-        {
-            subscriptionId: string,
-            subscriptionDate: string,
-            user: {
-                username: string,
-                nickname: string,
-                profilePictureUrl : string
-            }
-        }
-    ],
-    pagination: {
-        offset: number,
-        limit: number,
-        records : number
-    }
+export interface SubscriptionList {
+	records: [
+		{
+			subscriptionId: string;
+			subscriptionDate: string;
+			user: {
+				username: string;
+				nickname: string;
+				profilePictureUrl: string;
+			};
+		}
+	];
+	pagination: {
+		offset: number;
+		limit: number;
+		records: number;
+	};
 }

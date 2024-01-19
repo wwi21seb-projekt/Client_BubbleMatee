@@ -35,7 +35,6 @@
 			}
 		);
 		const body: ErrorResponse | SubscriptionListResponse = await response.json();
-		console.log(body);
 		if (body.error) {
 			//handle Error
 			const error: Error = (body as ErrorResponse).data;
