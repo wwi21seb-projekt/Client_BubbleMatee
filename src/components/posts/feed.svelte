@@ -5,6 +5,40 @@
 	export let lastPage: boolean;
 	import { LoadMoreComponent, FeedPostCard } from '$components';
 	import type { Post } from '$domains';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	const toastStore = getToastStore()
+
+	async function deletePost(postId: string) {
+		try {
+			const response = await fetch(`/api/posts/${postId}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}});
+			const body = await response.json();
+			if (body.error) {
+				if (body.data.error) {
+					const t: ToastSettings = {
+						message: body.data.error.message,
+						background: 'variant-filled-error'
+					};
+					toastStore.trigger(t);
+				}
+			}
+			else{
+				posts = posts.filter(post => post.postId !== postId);
+				const t: ToastSettings = {
+						message: "Der Beitrag wurde gelöscht",
+						background: 'variant-filled-success'
+					};
+					toastStore.trigger(t);
+			}
+			return body;
+		} catch (e) {
+			console.error(e);
+		} 
+	};
+
 </script>
 
 <div class="flex w-full justify-center items-center">
@@ -12,7 +46,7 @@
 	<div class="w-full sm:w-3/4 md:w-full lg:w-3/4">
 		{#if posts}
 			{#each posts as post}
-				<FeedPostCard {post}></FeedPostCard>
+				<PostCard {post} deletePost={deletePost}></PostCard>
 			{/each}
 		{/if}
 		<!-- Button to load the next posts - is invisible, if there are no more posts-->

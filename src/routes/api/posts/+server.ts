@@ -3,7 +3,7 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
- * Handles POST requests for user registration.
+ * Handles POST requests for creating a new post.
  *
  * @param fetch The fetch function for making HTTP requests.
  * @param request The SvelteKit request object.
