@@ -6,10 +6,10 @@
 	import { getModalStore } from '@skeletonlabs/skeleton';
 
 	export let users: Array<Author>;
-	export let isError: boolean = false;
+	export let isError: boolean;
 	console.log(users);
-	export let loadMore: () => void = () => {};
-	export let hasMorePages: boolean = false;
+	export let loadMore: () => void;
+	export let hasMorePages: boolean;
 	const modalStore = getModalStore();
 
 	function onUserClick(user: Author) {

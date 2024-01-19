@@ -6,3 +6,22 @@ export interface Subscription {
 	follower: string;
 	following: string;
 }
+
+export interface SubscriptionList{
+    records: [
+        {
+            subscriptionId: string,
+            subscriptionDate: string,
+            user: {
+                username: string,
+                nickname: string,
+                profilePictureUrl : string
+            }
+        }
+    ],
+    pagination: {
+        offset: number,
+        limit: number,
+        records : number
+    }
+}

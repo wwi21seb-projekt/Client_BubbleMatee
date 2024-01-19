@@ -1,13 +1,64 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
 	//TODO: Datenanbindung wenn der Endpunkt definiert ist
-	import { CommentsHeader, UserTab } from '$components';
-	import type { Author } from '$domains';
-	const Testuser: Author[] = [
-		{ nickname: 'lemeamk§', profilePictureUrl: '', username: '1' },
-		{ nickname: 'lemeamk§2', profilePictureUrl: '', username: '12' }
-	];
-	export let title: string;
+	import { ModalHeader, UserTab } from '$components';
+	import { globalConfig } from '$utils';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+
+	import type {
+		Author,
+		ErrorResponse,
+		SubscriptionListResponse,
+		Error,
+		SubscriptionList
+	} from '$domains';
+	import { getErrorMessage } from '$utils';
+	import { onMount } from 'svelte';
+	onMount(async () => {
+		loadMore();
+	});
+	let users: Array<Author> = [];
+	export let isFollowerlist: boolean;
+	const title: string = isFollowerlist ? 'Abonenntenliste' : 'Abonniertenliste';
+	const type: string = isFollowerlist ? 'followers' : 'following';
+	let hasMorePages: boolean = false;
+	let isError: boolean = false;
+	const toastStore = getToastStore();
+	async function loadMore() {
+		const response = await fetch(
+			`/api/subscriptions?type=${type}&offset=${users.length}&limit=${globalConfig.limit}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}
+		);
+		const body: ErrorResponse | SubscriptionListResponse = await response.json();
+		console.log(body);
+		if (body.error) {
+			//handle Error
+			const error: Error = (body as ErrorResponse).data;
+			const message = getErrorMessage(error.code);
+			isError = true;
+			// Toast
+			toastStore.trigger({
+				message: getErrorMessage(error.code),
+				background: 'variant-filled-error'
+			});
+		} else {
+			const subscriptionData: SubscriptionList = (body as SubscriptionListResponse).data;
+			//map the feed-data to a Post-Array with new Posts
+			const newUsers: Array<Author> = subscriptionData.records.map((record) => ({
+				nickname: record.user.nickname,
+				profilePictureUrl: record.user.profilePictureUrl,
+				username: record.user.username
+			}));
+			users = users.concat(newUsers);
+			hasMorePages = users.length < subscriptionData.pagination.records;
+			isError = false;
+		}
+	}
 </script>
 
 <!--Contains a header the main comment part, a list with all comments and a footer with a textarea to write comments-->
@@ -15,10 +66,10 @@
 	class="h-[calc(100vh-32px)] bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full lg:h-[calc(75vh)] lg:ml-14 lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
 >
 	<header>
-		<CommentsHeader {title} />
+		<ModalHeader {title} />
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		<UserTab users={Testuser} />
+		<UserTab {users} {loadMore} {isError} {hasMorePages} />
 	</div>
 </div>

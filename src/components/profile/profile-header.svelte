@@ -137,11 +137,9 @@
 	];
 
 	function openFollowerlist(isFollowerlist: boolean): void {
-		const title: string = isFollowerlist ? 'Abonenntenliste' : 'Abonniertenliste';
-		console.log(title);
 		const modalComponent: ModalComponent = {
 			ref: FollowerList,
-			props: { title: title }
+			props: { isFollowerlist: isFollowerlist }
 		};
 		const modal: ModalSettings = {
 			type: 'component',

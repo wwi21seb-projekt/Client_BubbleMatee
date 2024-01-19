@@ -2,6 +2,7 @@
 export { default as NavigationBarDesktop } from './layoutComponents/navigation-bar-desktop.svelte';
 export { default as NavigationBarMobile } from './layoutComponents/navigation-bar-mobile.svelte';
 export { default as Header } from './layoutComponents/header.svelte';
+export { default as ModalHeader } from './layoutComponents/modal-header.svelte';
 
 //About Components
 export { default as ServerImprint } from './about/server-imprint.svelte';
@@ -39,7 +40,6 @@ export { default as FeedPostHeader } from './posts/feed-post-card-elements/feed-
 export { default as FeedPostMain } from './posts/feed-post-card-elements/feed-post-main.svelte';
 export { default as FeedPostFooter } from './posts/feed-post-card-elements/feed-post-footer.svelte';
 export { default as Comments } from './posts/comments/comments.svelte';
-export { default as CommentsHeader } from './layoutComponents/modal-header.svelte';
 export { default as CommentElement } from './posts/comments/comment-element.svelte';
 export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
 //Profile Page of a user
