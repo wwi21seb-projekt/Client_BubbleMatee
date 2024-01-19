@@ -17,7 +17,6 @@
 
 	export let user: UserInfo;
 
-	let name: string = user.nickname === '' ? user.username : user.nickname;
 	let isOwnUser: boolean =
 		$page.params.username === $currentUsername || $page.url.pathname === '/myProfile';
 	$: isSubscriber = Boolean(user.subscriptionId && user.subscriptionId.trim().length);
@@ -155,7 +154,7 @@
 			<!--Show the Follow-Button next to the username, if the user has no status-->
 			<div class="flex flex-col md:flex-row justify-center md:justify-between items-center px-4">
 				<div class="flex flex-row items-center w-full">
-					<h3 class="pr-2 font-bold text-xl md:text-2xl">{name}</h3>
+					<h3 class="pr-2 font-bold text-xl md:text-2xl">{user.username}</h3>
 					{#if user.nickname}
 						<span class="inline-block h-auto w-px self-stretch bg-surface-600" />
 						<small class="pl-2 text-lg md:text-xl">{user.nickname}</small>
