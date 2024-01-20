@@ -8,7 +8,7 @@ import type {
 	UserFeed,
 	UserInfo
 } from '$domains';
-import type { FeedSearch, UserFeedResponse } from '$domains/ServerResponses';
+import type { UserFeedResponse } from '$domains/ServerResponses';
 import { getErrorMessage } from '$utils';
 
 /**
@@ -101,7 +101,6 @@ import { getErrorMessage } from '$utils';
 	}
 }
 
-
 /**
  * Loads the posts by searchterm
  *
@@ -128,7 +127,7 @@ export async function searchPostByHashtag(searchQuery: string, offset: number, l
 		//map the feed-data to a Post-Array with new Posts
 		const mappedRecords = body.data.records.map((record: Post) => ({
 			...record,
-			creationDate: new Date(record.creationDate),
+			creationDate: new Date(record.creationDate)
 		}));
 		body.data.records = mappedRecords;
 		return body;

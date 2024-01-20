@@ -34,7 +34,6 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 	}
 };
 
-
 /**
  * Handles POST requests for user registration.
  *

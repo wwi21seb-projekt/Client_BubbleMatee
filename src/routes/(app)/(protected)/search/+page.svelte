@@ -45,11 +45,12 @@
 	const USERTAB = 1;
 
 	const getSearch = async (searchQuery: string, offset: number, limit: string) => {
-		let body: any;
 		if (tabSet === POSTTAB) {
-			return (body = await searchPostByHashtag(searchQuery, offset, limit));
+			const body = await searchPostByHashtag(searchQuery, offset, limit);
+			return body;
 		} else {
-			return (body = await loadSearchedUser(searchQuery, offset, limit));
+			const body = await loadSearchedUser(searchQuery, offset, limit);
+			return body;
 		}
 	};
 
