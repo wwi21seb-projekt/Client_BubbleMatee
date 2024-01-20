@@ -8,7 +8,7 @@ import type {
 	UserFeed,
 	UserInfo
 } from '$domains';
-import type { UserFeedResponse } from '$domains/ServerResponses';
+import type { FeedSearch, UserFeedResponse } from '$domains/ServerResponses';
 import { getErrorMessage } from '$utils';
 
 /**
@@ -43,7 +43,7 @@ import { getErrorMessage } from '$utils';
 		const newPosts: Array<Post> = feedData.records.map((record) => ({
 			postId: record.postId,
 			author: record.author,
-			date: new Date(record.creationDate),
+			creationDate: new Date(record.creationDate),
 			content: record.content
 		}));
 		const postdata: PostData = {
@@ -90,7 +90,7 @@ import { getErrorMessage } from '$utils';
 				nickname: user.nickname,
 				profilePictureUrl: user.profilePictureUrl
 			},
-			date: new Date(record.creationDate),
+			creationDate: new Date(record.creationDate),
 			content: record.content
 		}));
 		const postdata: PostData = {
@@ -98,5 +98,39 @@ import { getErrorMessage } from '$utils';
 			overallRecords: feedData.pagination.records
 		};
 		return postdata;
+	}
+}
+
+
+/**
+ * Loads the posts by searchterm
+ *
+ * @param searchQuery - searchterm for hashtags
+ * @param limit - the maximum number of posts that should be fetched
+ * @param offset - start of the page
+ * @returns a PostData-Object consisting of an Array with the next post and additional information needed to load the next page
+ * @throws an error: type = Error code */
+export async function searchPostByHashtag(searchQuery: string, offset: number, limit: string) {
+	const response = await fetch(`/api/posts?q=${searchQuery}&offset=${offset}&limit=${limit}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+
+	const body = await response.json();
+	if (body.error) {
+		//handle Error
+		const error: Error = (body as ErrorResponse).data;
+		const message = getErrorMessage(error.code);
+		throw new ErrorEvent(message);
+	} else {
+		//map the feed-data to a Post-Array with new Posts
+		const mappedRecords = body.data.records.map((record: Post) => ({
+			...record,
+			creationDate: new Date(record.creationDate),
+		}));
+		body.data.records = mappedRecords;
+		return body;
 	}
 }

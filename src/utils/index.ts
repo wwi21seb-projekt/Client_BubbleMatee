@@ -20,8 +20,8 @@ export {
 export { getErrorMessage } from './errorMessages/errorMessages';
 
 export { calculatePassedTime } from './globalFunctions/timeCalculations';
-export { fetchNextPostsFeed, fetchNextPostsUser } from './apiRequest/loadPosts';
-export { loadUser } from './apiRequest/loadUser';
+export { fetchNextPostsFeed, fetchNextPostsUser, searchPostByHashtag } from './apiRequest/loadPosts';
+export { loadUser, loadSearchedUser } from './apiRequest/loadUser';
 export { tokenExpired } from './token/tokenExpired';
 export { getCurrentUser } from './token/getUser';
 export { checkAuth } from './token/checkAuth';

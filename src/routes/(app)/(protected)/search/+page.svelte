@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { DevicePhoneMobile, MagnifyingGlass, User } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Tab, TabGroup, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { Author, SearchParams, UserSearch } from '$domains';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import type { Author, FeedSearch, SearchParams, UserSearch } from '$domains';
 	import { goto } from '$app/navigation';
-	import { PostTab, Feed, UserTab } from '$components';
+	import { Feed, SearchTabs, SearchBar } from '$components';
 	import type { Post } from '$domains';
-	import { fetchNextPostsFeed } from '$utils';
+	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag } from '$utils';
 	import { globalConfig } from '$utils';
 	import { onMount } from 'svelte';
 
@@ -16,19 +14,20 @@
 	let isError: boolean = false;
 
 	let userSearch: Array<Author> = [];
-	let postSearch = [];
+	let postSearch: Array<Post> = [];
 
 	let lastPostID: string = '';
 	let lastPage: boolean = true;
+	let isSearch: boolean = false;
 	let posts: Array<Post> = new Array<Post>();
 	let urlProps: SearchParams;
-	let hasMorePages: boolean = false;
 
 	//load the first posts directly
 	onMount(async () => {
 		loadMorePosts();
 		const urlParams = new URLSearchParams(window.location.search);
 		urlProps = {
+			q: urlParams.get('q') ? urlParams.get('q') : '',
 			username: urlParams.get('username') ? urlParams.get('username') : '',
 			offset: 0
 		};
@@ -45,31 +44,12 @@
 	const POSTTAB = 0;
 	const USERTAB = 1;
 
-	const getUsers = async (searchQuery: string, offset: number, limit: string) => {
-		const response = await fetch(
-			`/api/users?username=${searchQuery}&offset=${offset}&limit=${limit}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}
-		);
-
-		const body = await response.json();
-
-		if (body.error) {
-			if (body.data.error) {
-				const t: ToastSettings = {
-					message: body.data.error.message,
-					background: 'variant-filled-error'
-				};
-				toastStore.trigger(t);
-			}
-			isError = true;
+	const getSearch = async (searchQuery: string, offset: number, limit: string) => {
+		let body: any;
+		if (tabSet === POSTTAB) {
+			return (body = await searchPostByHashtag(searchQuery, offset, limit));
 		} else {
-			isError = false;
-			return body;
+			return (body = await loadSearchedUser(searchQuery, offset, limit));
 		}
 	};
 
@@ -80,11 +60,34 @@
 			handleUsers({ ...response, records: [...userSearch, ...response.records] });
 		}
 	}
+	async function loadMorePostsSearch() {
+		if (urlProps.offset !== null) {
+			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
+			const response = await searchHashtags();
+			handleHashtags({ ...response, records: [...postSearch, ...response.records] });
+		}
+	}
+
+	async function searchHashtags() {
+		goto(`/search?q=${searchTerm}`);
+		const response = await getSearch(searchTerm, urlProps.offset, globalConfig.limit);
+		return response.data;
+	}
 
 	async function searchUsers() {
 		goto(`/search?username=${searchTerm}`);
-		const response = await getUsers(searchTerm, urlProps.offset, globalConfig.limit);
+		const response = await getSearch(searchTerm, urlProps.offset, globalConfig.limit);
 		return response.data;
+	}
+
+	async function handleHashtags(response: FeedSearch) {
+		userSearch = [];
+		postSearch = response.records;
+		if (urlProps.offset !== null) {
+			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
+				? (lastPage = false)
+				: (lastPage = true);
+		}
 	}
 
 	async function handleUsers(response: UserSearch) {
@@ -92,23 +95,23 @@
 		postSearch = [];
 		if (urlProps.offset !== null) {
 			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
-				? (hasMorePages = true)
-				: (hasMorePages = false);
+				? (lastPage = false)
+				: (lastPage = true);
 		}
 	}
 
 	async function handleSearch() {
 		urlProps.offset = 0;
 		if (tabSet === POSTTAB && searchTerm.length > 0) {
-			//post search via hashtags needs to be implemented
-			userSearch = [];
-			postSearch.push(searchTerm);
+			isSearch = true;
+			const response: FeedSearch = await searchHashtags();
+			handleHashtags(response);
 		} else if (tabSet === USERTAB && searchTerm.length > 0) {
+			isSearch = true;
 			const response: UserSearch = await searchUsers();
 			handleUsers(response);
 		} else {
-			userSearch = [];
-			postSearch = [];
+			isSearch = false;
 		}
 	}
 
@@ -132,52 +135,23 @@
 </script>
 
 <div class="flex justify-center sticky top-0 z-40 p-4">
-	<div
-		class="input-group input-group-divider grid-cols-[auto_1fr_auto] w-full sm:w-3/4 md:w-full lg:w-3/4"
-	>
-		<Icon src={MagnifyingGlass} class="w-8" />
-		<input type="search" placeholder="Suchen..." bind:value={searchTerm} on:change={handleSearch} />
-		<button
-			class="variant-filled-secondary hover:variant-soft-primary"
-			on:click={handleSearch}
-			disabled={searchTerm.length === 0}
-			>Suchen
-		</button>
-	</div>
+	<SearchBar {handleSearch} bind:searchTerm />
 </div>
 
-{#if postSearch.length > 0 || userSearch.length > 0}
+{#if isSearch}
 	<div class="flex justify-center">
-		<div class="p-4 w-full sm:w-3/4 md:w-full lg:w-3/4">
-			<TabGroup
-				justify="justify-center"
-				active="variant-filled-primary"
-				hover="hover:variant-soft-primary"
-				flex="flex-1 lg:flex-none "
-				class="m-4"
-			>
-				<Tab on:change={handleSearch} bind:group={tabSet} name="tab1" value={POSTTAB}>
-					<div class="flex justify-center grid grid-col">
-						<Icon class="w-8" src={DevicePhoneMobile} />
-						<span>Posts</span>
-					</div>
-				</Tab>
-				<Tab on:change={handleSearch} bind:group={tabSet} name="tab2" value={USERTAB}>
-					<div class="flex justify-center grid grid-col">
-						<Icon class="flex justify-center w-8" src={User} />
-						<span>Nutzer</span>
-					</div>
-				</Tab>
-				<!-- Tab Panels --->
-				<svelte:fragment slot="panel">
-					{#if tabSet === POSTTAB}
-						<PostTab />
-					{:else if tabSet === USERTAB}
-						<UserTab loadMore={loadMoreUsers} users={userSearch} {isError} {hasMorePages} />
-					{/if}
-				</svelte:fragment>
-			</TabGroup>
-		</div>
+		<SearchTabs
+			bind:tabSet
+			{handleSearch}
+			{loadMoreUsers}
+			{loadMorePostsSearch}
+			{POSTTAB}
+			{USERTAB}
+			{lastPage}
+			{isError}
+			{postSearch}
+			{userSearch}
+		/>
 	</div>
 {:else}
 	<Feed {posts} {loadMorePosts} {lastPage} />

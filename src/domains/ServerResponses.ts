@@ -3,7 +3,7 @@ import type { Feed } from './ServerDomains/feed';
 import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
-import type { Author } from './Post';
+import type { Author, Post } from './Post';
 
 export interface Response {
 	error: boolean;
@@ -56,6 +56,15 @@ export interface UserSearchResponse extends Response {
 
 export interface UserSearch {
 	records: Author[];
+	pagination: {
+		offset: 0;
+		limit: 0;
+		records: 0;
+	};
+}
+
+export interface FeedSearch {
+	records: Post[];
 	pagination: {
 		offset: 0;
 		limit: 0;

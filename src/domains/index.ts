@@ -14,7 +14,8 @@ export type {
 	EditUserInformationResponse,
 	FollowResponse,
 	UserSearchResponse,
-	UserSearch
+	UserSearch,
+	FeedSearch
 } from './ServerResponses';
 
 //Server Domains

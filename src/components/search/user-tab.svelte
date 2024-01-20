@@ -6,7 +6,7 @@
 	export let users: Array<Author>;
 	export let isError: boolean;
 	export let loadMore: () => void;
-	export let hasMorePages: boolean;
+	export let lastPage: boolean;
 
 	function onUserClick(user: Author) {
 		goto(`/search/user/${user.username}`);
@@ -23,7 +23,7 @@
 			</div>
 		</button>
 	{/each}
-	{#if hasMorePages}
+	{#if !lastPage}
 		<LoadMoreComponent {loadMore} />
 	{/if}
 {:else}

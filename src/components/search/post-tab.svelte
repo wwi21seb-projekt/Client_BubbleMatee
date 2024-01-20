@@ -1,1 +1,19 @@
-<p>Post suche kommt noch</p>
+<script lang="ts">
+	import type { Post } from '$domains';
+	import { Feed, LoadMoreComponent } from '$components';
+
+	export let posts: Array<Post>;
+	export let isError: boolean;
+	export let loadMore: () => void;
+	export let lastPage: boolean;
+</script>
+
+{#if !isError}
+	<Feed {posts} loadMorePosts={loadMore} {lastPage} />
+
+	{#if !lastPage}
+		<LoadMoreComponent {loadMore} />
+	{/if}
+{:else}
+	<p>Es ist ein Fehler aufgetreten</p>
+{/if}
