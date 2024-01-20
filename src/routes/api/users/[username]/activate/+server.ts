@@ -35,7 +35,6 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 
 			return json({ data: body, error: false } as LoginResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({

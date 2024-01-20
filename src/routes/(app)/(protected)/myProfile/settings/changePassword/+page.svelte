@@ -6,11 +6,13 @@
 		containsNumber,
 		containsSmallLetter,
 		containsSpecialCharacter,
+		getErrorMessage,
 		passwordLongEnough,
 		passwordValid,
 		passwordsMatch
 	} from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import type { Error } from '$domains';
 
 	const toastStore = getToastStore();
 
@@ -46,7 +48,7 @@
 			if (body.error) {
 				let error: Error = body.data.error;
 				const t: ToastSettings = {
-					message: error.message,
+					message: getErrorMessage(error.code),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);

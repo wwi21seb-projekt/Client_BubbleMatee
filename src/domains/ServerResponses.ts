@@ -14,8 +14,12 @@ export interface Error {
 	message: string;
 }
 
+export interface ErrorObject {
+	error: Error;
+}
+
 export interface ErrorResponse extends Response {
-	data: Error;
+	data: ErrorObject;
 }
 
 export interface ImprintResponse extends Response {

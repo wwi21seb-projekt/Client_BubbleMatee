@@ -6,7 +6,7 @@ import { get } from 'svelte/store';
 
 const unauthorizedRoutes = [
 	'/',
-	'/login',
+	'/login.*',
 	'/login/register',
 	'/login/resendToken',
 	'/login/verify',
@@ -16,24 +16,9 @@ const unauthorizedRoutes = [
 	'/api/imprint',
 	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API
-	'/api/users/login' // Login API
+	'/api/users/login', // Login API
+	'/api/users/logout' // Logout API
 ];
-
-/**
- * Creates a response to reset the cookies and redirect to the login page.
- *
- * @returns The response to reset the cookies and redirect to the login page.
- */
-const resetCookieResponse = () => {
-	const response = new Response('Redirect', { status: 303, headers: { Location: '/login' } });
-	response.headers.set('Set-Cookie', 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
-	response.headers.set(
-		'Set-Cookie',
-		'refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT'
-	);
-
-	return response;
-};
 
 /**
  * Checks if the route is unauthorized.
@@ -62,6 +47,11 @@ const isUnauthorizedRoute = (pathname: string, method: string) => {
  * @returns The response containing the data or an error.
  */
 export const handle = async ({ event, resolve }) => {
+	console.log(
+		`\tInternal request: ${event.request.method} ${
+			event.url.pathname + event.url.search
+		}, ${Date.now()}}`
+	);
 	const isLoggedInLocal: boolean = get(isLoggedIn);
 	/**Rerouting to startpage*/
 	if (event.route.id && event.route.id === '/') {
@@ -73,10 +63,8 @@ export const handle = async ({ event, resolve }) => {
 	}
 	/**Protection of certain routes.*/
 	if (isLoggedInLocal && event.route.id?.startsWith('/(app)/(protected)')) {
-		throw redirect(302, '/login');
+		throw redirect(302, '/login?redirect=1');
 	}
-
-	console.log(`\tInternal request: ${event.request.method} ${event.url.pathname}, ${Date.now()}}`);
 
 	// Unauthorized routes: Just let them pass through
 	if (isUnauthorizedRoute(event.url.pathname + event.url.search, event.request.method)) {
@@ -88,25 +76,59 @@ export const handle = async ({ event, resolve }) => {
 	// 1. Check if the token is valid
 	// 2. If token is not valid, check if the refresh token is valid
 	// 3. If refresh token is not valid, redirect to login page
+	// 4. If refresh token is valid, refresh the token and execute the request
 
 	// Step 1
-	const token = event.cookies.get('token');
+	let token = event.cookies.get('token');
 	if (token && !tokenExpired(token)) {
 		event.request.headers.set('Authorization', `Bearer ${token}`);
 		const response = await resolve(event);
 
+		if (response.status === 401) {
+			throw redirect(302, '/login?redirect=1');
+		}
 		return response;
 	}
 
+	console.log('Token expired');
 	// Step 2
 	const refreshToken = event.cookies.get('refreshToken');
 	if (!refreshToken || tokenExpired(refreshToken)) {
 		// Step 3
-		return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
+		console.log('Refresh token expired');
+		throw redirect(302, '/login?redirect=1');
 	}
 
+	// Step 4
+	console.log('Refreshing token...');
+	const refreshTokenResponse = await fetch(`${PUBLIC_BASE_URL}/api/users/refresh`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ refreshToken })
+	});
+
+	if (!refreshTokenResponse.ok) {
+		// Delete the cookies and redirect to login page
+		console.log('Refresh token invalid');
+		throw redirect(302, '/login?redirect=1');
+	}
+
+	console.log('Token refreshed');
+	const { token: newToken, refreshToken: newRefreshToken } = await refreshTokenResponse.json();
+
+	event.cookies.set('token', newToken, { path: '/' });
+	event.cookies.set('refreshToken', newRefreshToken, { path: '/' });
+
+	token = newToken;
+	event.request.headers.set('Authorization', `Bearer ${token}`);
+
 	const response = await resolve(event);
-	return response.status === 401 ? resetCookieResponse() : response;
+	if (response.status === 401) {
+		throw redirect(302, '/login?redirect=1');
+	}
+	return response;
 };
 
 /**
@@ -128,5 +150,6 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	}
 	const response = await fetch(request);
 	console.log(`\tResponse: ${response.status} ${response.statusText}`); // skipcq: JS-A1004
-	return response.status === 401 ? resetCookieResponse() : response;
+	let result = response;
+	return result;
 };

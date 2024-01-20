@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { PasswordInput, UsernameInput } from '$components';
 	import { currentUsername, isLoggedIn } from '$stores';
+	import { getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
 
 	const toastStore = getToastStore();
 
@@ -11,6 +14,30 @@
 	let password: string;
 
 	let loading: boolean = false;
+
+	const isRedirect = $page.url.searchParams.get('redirect');
+	if (isRedirect) {
+		if (isRedirect === '1') {
+			const t: ToastSettings = {
+				message: 'Bitte melde dich an, um fortzufahren.',
+				background: 'variant-filled-warning'
+			};
+			toastStore.trigger(t);
+		}
+		isLoggedIn.set(false);
+		currentUsername.set('');
+	}
+
+	onMount(() => {
+		if (isRedirect) {
+			fetch('/api/users/logout', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+	});
 
 	const login = async () => {
 		loading = true;
@@ -28,7 +55,7 @@
 			if (body.error) {
 				if (body.data.error.code === 'ERR-005') {
 					const t: ToastSettings = {
-						message: body.data.error.message,
+						message: getErrorMessage(body.data.error.code),
 						background: 'variant-filled-warning'
 					};
 					toastStore.trigger(t);

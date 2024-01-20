@@ -6,7 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { PostTab, Feed, UserTab } from '$components';
 	import type { Post } from '$domains';
-	import { fetchNextPostsFeed } from '$utils';
+	import { fetchNextPostsFeed, getErrorMessage } from '$utils';
 	import { globalConfig } from '$utils';
 	import { onMount } from 'svelte';
 
@@ -61,7 +61,7 @@
 		if (body.error) {
 			if (body.data.error) {
 				const t: ToastSettings = {
-					message: body.data.error.message,
+					message: getErrorMessage(body.data.error.code),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);

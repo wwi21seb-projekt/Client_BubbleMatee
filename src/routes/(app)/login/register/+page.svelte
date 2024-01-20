@@ -3,6 +3,7 @@
 	import { UserInfoStep, PasswordStep } from '$components';
 	import type { Error } from '$domains';
 	import { currentUser } from '$stores';
+	import { getErrorMessage } from '$utils';
 	import { Stepper, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -37,7 +38,7 @@
 			if (body.error) {
 				let error: Error = body.data.error;
 				const t: ToastSettings = {
-					message: error.message,
+					message: getErrorMessage(body.data.error.code),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);

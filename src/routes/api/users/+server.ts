@@ -5,7 +5,6 @@ import type {
 	UserSearchResponse
 } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -31,7 +30,6 @@ export const GET: RequestHandler = async ({ fetch, request }) => {
 		if (response.ok) {
 			return json({ data: body, error: false } as UserSearchResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
@@ -67,7 +65,6 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		if (response.ok) {
 			return json({ data: body, error: false } as RegisterResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
@@ -103,7 +100,6 @@ export const PATCH: RequestHandler = async ({ fetch, request }) => {
 		}
 
 		const body = await response.json();
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
@@ -141,7 +137,6 @@ export const PUT: RequestHandler = async ({ fetch, request }) => {
 		if (response.ok) {
 			return json({ data: body, error: false } as EditUserInformationResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({

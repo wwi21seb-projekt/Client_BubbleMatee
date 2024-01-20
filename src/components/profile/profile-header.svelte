@@ -11,6 +11,7 @@
 	import { currentUsername } from '$stores';
 	import { page } from '$app/stores';
 	import { invalidateAll } from '$app/navigation';
+	import { getErrorMessage } from '$utils';
 
 	const toastStore = getToastStore();
 	const modalStore = getModalStore();
@@ -44,7 +45,7 @@
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
-						message: body.data.error.message,
+						message: getErrorMessage(body.data.error.code),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
@@ -74,7 +75,7 @@
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
-						message: body.data.error.message,
+						message: getErrorMessage(body.data.error.code),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
