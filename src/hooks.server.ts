@@ -150,6 +150,5 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	}
 	const response = await fetch(request);
 	console.log(`\tResponse: ${response.status} ${response.statusText}`); // skipcq: JS-A1004
-	let result = response;
-	return result;
+	return response;
 };

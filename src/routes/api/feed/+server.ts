@@ -1,8 +1,6 @@
-import { goto } from '$app/navigation';
 import type { ErrorResponse, FeedResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { resolve } from 'path';
 
 /**
  * Handles GET requests to retrieve imprint information.
@@ -30,8 +28,10 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 		return json({
 			error: true,
 			data: {
-				code: '500',
-				message: 'Internal Server Error'
+				error: {
+					code: '500',
+					message: 'Internal Server Error'
+				}
 			}
 		} as ErrorResponse);
 	}
