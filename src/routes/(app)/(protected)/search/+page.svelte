@@ -1,16 +1,20 @@
 <script lang="ts">
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { Author, FeedSearch, SearchParams, UserSearch } from '$domains';
+	import type { Author, ErrorResponse, FeedSearch, SearchParams, UserSearch } from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
 	import type { Post } from '$domains';
 	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag } from '$utils';
 	import { globalConfig } from '$utils';
 	import { onMount } from 'svelte';
+	import ChipComponent from '$components/search/chip-component.svelte';
 
 	const toastStore = getToastStore();
+	const POSTTAB = 0;
+	const USERTAB = 1;
+
 	let searchTerm: string = '';
-	let tabSet: number;
+	let tabSet: number = POSTTAB;
 	let isError: boolean = false;
 
 	let userSearch: Array<Author> = [];
@@ -18,7 +22,7 @@
 
 	let lastPostID: string = '';
 	let lastPage: boolean = true;
-	let isSearch: boolean = false;
+	let isSearch: boolean = userSearch.length > 0 || postSearch.length > 0;
 	let posts: Array<Post> = new Array<Post>();
 	let urlProps: SearchParams;
 
@@ -35,21 +39,21 @@
 		if (urlProps.username) {
 			searchTerm = urlProps.username;
 			tabSet = USERTAB;
-			const response: UserSearch = await searchUsers();
-			handleUsers(response);
-		} else {
+		} else if (urlProps.q) {
+			searchTerm = urlProps.q;
 			tabSet = POSTTAB;
 		}
+		handleSearch();
 	});
-	const POSTTAB = 0;
-	const USERTAB = 1;
 
 	const getSearch = async (searchQuery: string, offset: number, limit: string) => {
 		if (tabSet === POSTTAB) {
 			const body = await searchPostByHashtag(searchQuery, offset, limit);
+			isError = body.error;
 			return body;
 		} else {
 			const body = await loadSearchedUser(searchQuery, offset, limit);
+			isError = body.error;
 			return body;
 		}
 	};
@@ -101,18 +105,31 @@
 		}
 	}
 
-	async function handleSearch() {
+	export async function handleSearch() {
 		urlProps.offset = 0;
-		if (tabSet === POSTTAB && searchTerm.length > 0) {
-			isSearch = true;
-			const response: FeedSearch = await searchHashtags();
-			handleHashtags(response);
-		} else if (tabSet === USERTAB && searchTerm.length > 0) {
-			isSearch = true;
-			const response: UserSearch = await searchUsers();
-			handleUsers(response);
-		} else {
-			isSearch = false;
+		try {
+			if (tabSet === POSTTAB && searchTerm.length > 0) {
+				isSearch = true;
+				const response: FeedSearch | ErrorResponse = await searchHashtags();
+
+				handleHashtags(response as FeedSearch);
+			} else if (tabSet === USERTAB && searchTerm.length > 0) {
+				isSearch = true;
+				const response: UserSearch | ErrorResponse = await searchUsers();
+				handleUsers(response as UserSearch);
+			} else {
+				isSearch = false;
+				goto('/search');
+			}
+		} catch (error) {
+			if (error instanceof ErrorEvent) {
+				const t: ToastSettings = {
+					message: error.type,
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			}
+			isError = true;
 		}
 	}
 
@@ -135,11 +152,18 @@
 	}
 </script>
 
-<div class="flex justify-center sticky top-0 z-40 p-4">
+<div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
 	<SearchBar {handleSearch} bind:searchTerm />
 </div>
 
 {#if isSearch}
+	<div
+		class="flex justify-center sticky p-4 z-40 bg-surface-50 dark:bg-surface-900"
+		style="top: 4.6rem"
+	>
+		<ChipComponent message={`Sucherergebnisse für ${searchTerm}`} />
+	</div>
+
 	<div class="flex justify-center">
 		<SearchTabs
 			bind:tabSet

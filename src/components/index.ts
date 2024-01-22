@@ -57,6 +57,7 @@ export { default as PostTab } from './search/post-tab.svelte';
 export { default as LoadMoreComponent } from './search/load-more-component.svelte';
 export { default as SearchBar } from './search/search-bar.svelte';
 export { default as SearchTabs } from './search/search-tabs.svelte';
+export { default as ChipComponent } from './search/chip-component.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';

@@ -18,13 +18,13 @@
 	export let lastPage: boolean;
 </script>
 
-<div class="p-4 w-full sm:w-3/4 md:w-full lg:w-3/4">
+<div class="p-4 w-full sm:w-3/4 md:w-full lg:w-3/4 z-10">
 	<TabGroup
 		justify="justify-center"
 		active="variant-filled-primary"
 		hover="hover:variant-soft-primary"
 		flex="flex-1 lg:flex-none "
-		class="m-4 sticky top-0 z-40 "
+		class="m-4"
 	>
 		<Tab on:change={handleSearch} bind:group={tabSet} name="tab1" value={POSTTAB}>
 			<div class="flex justify-center grid grid-col">
