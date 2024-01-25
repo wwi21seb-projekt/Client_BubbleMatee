@@ -59,6 +59,7 @@
 			const currenPath = $page.url.pathname.split('/')[1];
 			goto(`/${currenPath}/user/${author.username}`);
 		}}
+		disabled={$page.data.data?.username && $page.data.data.username === author.username}
 	>
 		<UserComponent {author} />
 	</button>

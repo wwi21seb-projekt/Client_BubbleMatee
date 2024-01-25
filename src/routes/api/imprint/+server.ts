@@ -1,6 +1,5 @@
 import type { ErrorResponse, ImprintResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -24,14 +23,15 @@ export const GET: RequestHandler = async ({ fetch }) => {
 			const result = { data: body, error: false };
 			return json(result as ImprintResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
 			error: true,
 			data: {
-				code: '500',
-				message: 'Internal Server Error'
+				error: {
+					code: '500',
+					message: 'Internal Server Error'
+				}
 			}
 		} as ErrorResponse);
 	}

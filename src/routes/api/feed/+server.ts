@@ -24,11 +24,14 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 		}
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
+		console.error(exception);
 		return json({
 			error: true,
 			data: {
-				code: '500',
-				message: 'Internal Server Error'
+				error: {
+					code: '500',
+					message: 'Internal Server Error'
+				}
 			}
 		} as ErrorResponse);
 	}

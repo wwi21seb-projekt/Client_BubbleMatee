@@ -1,5 +1,5 @@
+import type { ErrorResponse, SubscriptionListResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -23,7 +23,7 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 			data: {
 				error: {
 					code: response.status.toString(),
-					message: getErrorMessage(response.status.toString())
+					message: ''
 				}
 			},
 			error: true
@@ -36,5 +36,41 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 				message: 'Internal Server Error'
 			}
 		});
+	}
+};
+
+/**
+ * Handles GET requests to retrieve subscription information.
+ *
+ * @param fetch The fetch function for making HTTP requests.
+ * @param url The requested URL containing the search parameters.
+ * @returns The response containing feed data or an error.
+ */
+export const GET: RequestHandler = async ({ fetch, url, params }) => {
+	const username = params.subscriptionId;
+	try {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions/${username + url.search}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		const body = await response.json();
+
+		if (response.ok) {
+			const result = { data: body, error: false };
+			return json(result as SubscriptionListResponse);
+		}
+		return json({ data: body, error: true } as ErrorResponse);
+	} catch (exception) {
+		return json({
+			error: true,
+			data: {
+				error: {
+					code: '500',
+					message: 'Internal Server Error'
+				}
+			}
+		} as ErrorResponse);
 	}
 };
