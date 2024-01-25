@@ -16,6 +16,7 @@ export type {
 	FollowResponse,
 	UserSearchResponse,
 	UserSearch,
+	FeedSearch,
 	SubscriptionListResponse
 } from './ServerResponses';
 

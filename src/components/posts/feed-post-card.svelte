@@ -17,7 +17,7 @@
 		class="card bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
 	>
 		<header>
-			<FeedPostHeader date={post.date} author={post.author} deletePost={deleteThisPost} />
+			<PostHeader date={post.creationDate} author={post.author} />
 		</header>
 		<FeedPostMain text={post.content} />
 		<footer>
