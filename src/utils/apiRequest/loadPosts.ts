@@ -120,7 +120,7 @@ export async function searchPostByHashtag(searchQuery: string, offset: number, l
 	const body = await response.json();
 	if (body.error) {
 		//handle Error
-		const error: Error = (body as ErrorResponse).data;
+		const error: Error = (body as ErrorResponse).data.error;
 		const message = getErrorMessage(error.code);
 		throw new ErrorEvent(message);
 	} else {

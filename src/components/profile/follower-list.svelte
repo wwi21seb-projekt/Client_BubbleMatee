@@ -21,7 +21,7 @@
 	const type: string = isFollowerlist ? 'followers' : 'following';
 
 	let users: Array<Author> = [];
-	let hasMorePages: boolean = false;
+	let lastPage: boolean = false;
 	let isError: boolean = false;
 
 	onMount(async () => {
@@ -57,7 +57,7 @@
 				username: record.user.username
 			}));
 			users = users.concat(newUsers);
-			hasMorePages = users.length < subscriptionData.pagination.records;
+			lastPage = users.length >= subscriptionData.pagination.records;
 			isError = false;
 		}
 	}
@@ -72,6 +72,6 @@
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		<UserTab {users} {loadMore} {isError} {hasMorePages} />
+		<UserTab {users} {loadMore} {isError} {lastPage} />
 	</div>
 </div>
