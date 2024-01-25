@@ -5,7 +5,7 @@
 	import { PostMenu, UserComponent } from '$components';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { EllipsisVertical,  } from '@steeze-ui/heroicons';
+	import { EllipsisVertical } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import { currentUsername } from '$stores';
