@@ -9,6 +9,9 @@
 	let posts: Array<Post> = new Array<Post>();
 	const toastStore = getToastStore();
 	export let user: UserInfo;
+	function notifyDeletedPost(): void {
+		user.posts = user.posts - 1;
+	}
 	//load the first posts directly
 	onMount(() => {
 		loadMorePosts();
@@ -32,4 +35,4 @@
 	}
 </script>
 
-<Feed {posts} {loadMorePosts} {lastPage}></Feed>
+<Feed {posts} {loadMorePosts} {lastPage} {notifyDeletedPost}></Feed>

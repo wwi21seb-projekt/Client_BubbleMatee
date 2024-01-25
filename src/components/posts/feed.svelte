@@ -4,6 +4,7 @@
 	export let loadMorePosts: () => void;
 	export let lastPage: boolean;
 	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4';
+	export let notifyDeletedPost: (() => void) | null = null;
 	import { LoadMoreComponent, FeedPostCard } from '$components';
 	import type { Post } from '$domains';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
@@ -37,6 +38,9 @@
 					background: 'variant-filled-success'
 				};
 				toastStore.trigger(t);
+				if (notifyDeletedPost) {
+					notifyDeletedPost();
+				}
 			}
 			return body;
 		} catch (e) {
