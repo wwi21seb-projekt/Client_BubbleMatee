@@ -16,6 +16,9 @@
 	let loading: boolean = false;
 
 	const isRedirect = $page.url.searchParams.get('redirect');
+	//isRedirekt = '1' -> redirect to login page from server side
+	//isRedirekt = '2' -> redirect to login page from client side, toast alreday shown
+
 	if (isRedirect) {
 		if (isRedirect === '1') {
 			const t: ToastSettings = {
