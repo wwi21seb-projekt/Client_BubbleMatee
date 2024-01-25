@@ -4,8 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
 	import type { Post } from '$domains';
-	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag } from '$utils';
-	import { globalConfig } from '$utils';
+	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag, globalConfig } from '$utils';
 	import { onMount } from 'svelte';
 	import ChipComponent from '$components/search/chip-component.svelte';
 
@@ -88,21 +87,17 @@
 	async function handleHashtags(response: FeedSearch) {
 		userSearch = [];
 		postSearch = response.records;
-		if (urlProps.offset !== null) {
-			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
-				? (lastPage = false)
-				: (lastPage = true);
-		}
+		urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
+			? (lastPage = false)
+			: (lastPage = true);
 	}
 
 	async function handleUsers(response: UserSearch) {
 		userSearch = response.records;
 		postSearch = [];
-		if (urlProps.offset !== null) {
-			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
-				? (lastPage = false)
-				: (lastPage = true);
-		}
+		urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
+			? (lastPage = false)
+			: (lastPage = true);
 	}
 
 	export async function handleSearch() {
@@ -167,12 +162,12 @@
 	<div class="flex justify-center">
 		<SearchTabs
 			bind:tabSet
+			bind:lastPage
 			{handleSearch}
 			{loadMoreUsers}
 			{loadMorePostsSearch}
 			{POSTTAB}
 			{USERTAB}
-			{lastPage}
 			{isError}
 			{postSearch}
 			{userSearch}

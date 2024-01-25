@@ -10,10 +10,6 @@
 
 {#if !isError}
 	<Feed {posts} loadMorePosts={loadMore} {lastPage} />
-
-	{#if !lastPage}
-		<LoadMoreComponent {loadMore} />
-	{/if}
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}
