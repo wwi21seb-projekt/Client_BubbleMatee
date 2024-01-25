@@ -4,6 +4,7 @@
 	import { ModalHeader, UserTab } from '$components';
 	import { globalConfig } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import type { UserInfo } from '$domains';
 
 	import type {
 		Author,
@@ -18,6 +19,8 @@
 		loadMore();
 	});
 	let users: Array<Author> = [];
+	export let user: UserInfo;
+
 	export let isFollowerlist: boolean;
 	const title: string = isFollowerlist ? 'Abonenntenliste' : 'Abonniertenliste';
 	const type: string = isFollowerlist ? 'followers' : 'following';
@@ -26,7 +29,7 @@
 	const toastStore = getToastStore();
 	async function loadMore() {
 		const response = await fetch(
-			`/api/subscriptions?type=${type}&offset=${users.length}&limit=${globalConfig.limit}`,
+			`/api/subscriptions/:${user.username}?type=${type}&offset=${users.length}&limit=${globalConfig.limit}`,
 			{
 				method: 'GET',
 				headers: {
