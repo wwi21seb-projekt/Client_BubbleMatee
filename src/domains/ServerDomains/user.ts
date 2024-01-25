@@ -25,6 +25,7 @@ export interface EditUserInfo {
 }
 
 export interface SearchParams {
+	q: string | null;
 	username: string | null;
 	offset: number;
 }

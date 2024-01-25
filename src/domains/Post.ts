@@ -7,7 +7,7 @@ export interface UploadRestrictions {
 export interface Post {
 	postId: string;
 	author: Author;
-	date: Date;
+	creationDate: Date;
 	content: string;
 }
 
