@@ -1,6 +1,5 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
-	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { ModalHeader, UserTab } from '$components';
 	import { globalConfig } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
@@ -38,7 +37,6 @@
 		if (body.error) {
 			//handle Error
 			const error: Error = (body as ErrorResponse).data;
-			const message = getErrorMessage(error.code);
 			isError = true;
 			// Toast
 			toastStore.trigger({

@@ -8,7 +8,7 @@
 		modalStore.close();
 	};
 	const modalStore = getModalStore();
-	export let title: String = '';
+	export let title: string = '';
 </script>
 
 <div class="flex">
