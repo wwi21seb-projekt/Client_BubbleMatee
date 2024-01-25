@@ -44,6 +44,7 @@ export { default as CommentElement } from './posts/comments/comment-element.svel
 export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
 //Profile Page of a user
 export { default as ProfileHeader } from './profile/profile-header.svelte';
+export { default as ProfileHeaderBottom } from './profile/profile-header-bottom.svelte';
 export { default as ProfileView } from './profile/profile-view.svelte';
 export { default as Settings } from './profile/settings.svelte';
 export { default as StatusInput } from './profile/status-input.svelte';
