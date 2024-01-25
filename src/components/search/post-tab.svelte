@@ -9,7 +9,7 @@
 </script>
 
 {#if !isError}
-	<Feed {posts} loadMorePosts={loadMore} {lastPage} />
+	<Feed classString={'w-full'} {posts} loadMorePosts={loadMore} {lastPage} />
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}

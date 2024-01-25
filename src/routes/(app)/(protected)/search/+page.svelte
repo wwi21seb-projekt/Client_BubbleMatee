@@ -13,6 +13,7 @@
 	const USERTAB = 1;
 
 	let searchTerm: string = '';
+	let chipString: string = '';
 	let tabSet: number = POSTTAB;
 	let isError: boolean = false;
 
@@ -71,7 +72,6 @@
 			handleHashtags({ ...response, records: [...postSearch, ...response.records] });
 		}
 	}
-
 	async function searchHashtags() {
 		goto(`/search?q=${searchTerm}`);
 		const response = await getSearch(searchTerm, urlProps.offset, globalConfig.limit);
@@ -102,6 +102,7 @@
 
 	export async function handleSearch() {
 		urlProps.offset = 0;
+		chipString = searchTerm;
 		try {
 			if (tabSet === POSTTAB && searchTerm.length > 0) {
 				isSearch = true;
@@ -156,7 +157,7 @@
 		class="flex justify-center sticky p-4 z-40 bg-surface-50 dark:bg-surface-900"
 		style="top: 4.6rem"
 	>
-		<ChipComponent message={`Sucherergebnisse für ${searchTerm}`} />
+		<ChipComponent message={`Sucherergebnisse für ${chipString}`} />
 	</div>
 
 	<div class="flex justify-center">
