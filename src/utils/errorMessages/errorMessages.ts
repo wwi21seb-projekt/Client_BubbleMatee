@@ -1,3 +1,4 @@
+import { goto } from '$app/navigation';
 import type { Error } from '$domains';
 
 const errorMessages: Array<Error> = [
@@ -58,7 +59,8 @@ const errorMessages: Array<Error> = [
 	},
 	{
 		code: 'ERR-014',
-		message: 'Bitte laden Sie nur eine Datei hoch'
+		message:
+			'Die Anfrage ist nicht authorisiert. Bitte melde dich mit deinem Account an und versuche es erneut.'
 	},
 	{
 		code: 'ERR-015',
@@ -77,6 +79,7 @@ const errorMessages: Array<Error> = [
  * @returns The error message.
  */
 export function getErrorMessage(code: string): string {
+	handleUnauthorized(code);
 	const error = errorMessages.find((error) => {
 		return error.code === code;
 	});
@@ -84,4 +87,15 @@ export function getErrorMessage(code: string): string {
 		return error.message;
 	}
 	return 'Ein unbekannter Fehler ist aufgetreten. Bitte versuche es später erneut.';
+}
+
+/**
+ * Handles unauthorized requests.
+ *
+ * @param code The error code.
+ */
+function handleUnauthorized(code: string) {
+	if (code === 'ERR-014') {
+		goto('/login?redirect=2');
+	}
 }

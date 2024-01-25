@@ -5,6 +5,7 @@ export type { Subscription } from './ServerDomains/subscription';
 export type {
 	Response,
 	Error,
+	ErrorObject,
 	ErrorResponse,
 	ImprintResponse,
 	FeedResponse,

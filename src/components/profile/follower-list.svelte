@@ -41,7 +41,7 @@
 		const body: ErrorResponse | SubscriptionListResponse = await response.json();
 		if (body.error) {
 			//handle Error
-			const error: Error = (body as ErrorResponse).data;
+			const error: Error = (body as ErrorResponse).data.error;
 			isError = true;
 			// Toast
 			toastStore.trigger({

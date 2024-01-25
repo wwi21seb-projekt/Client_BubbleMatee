@@ -1,6 +1,5 @@
 import type { ErrorResponse, SubscriptionListResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -24,7 +23,7 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 			data: {
 				error: {
 					code: response.status.toString(),
-					message: getErrorMessage(response.status.toString())
+					message: ''
 				}
 			},
 			error: true
@@ -67,8 +66,10 @@ export const GET: RequestHandler = async ({ fetch, url, params }) => {
 		return json({
 			error: true,
 			data: {
-				code: '500',
-				message: 'Internal Server Error'
+				error: {
+					code: '500',
+					message: 'Internal Server Error'
+				}
 			}
 		} as ErrorResponse);
 	}
