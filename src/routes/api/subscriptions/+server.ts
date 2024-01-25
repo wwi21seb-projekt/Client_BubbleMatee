@@ -1,6 +1,5 @@
 import type { ErrorResponse, FollowResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -27,7 +26,6 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		if (response.ok) {
 			return json({ data: body, error: false } as FollowResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		console.error(exception);

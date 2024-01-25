@@ -2,15 +2,18 @@
 	import { goto } from '$app/navigation';
 	import { ErrorAlert, NicknameInput, ProfileInformationValidations } from '$components';
 	import StatusInput from '$components/profile/status-input.svelte';
-	import type { UserInfo, Error } from '$domains';
+	import type { UserInfo, ErrorObject } from '$domains';
+	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
 
 	let toastStore = getToastStore();
 
 	export let data;
 
-	let user: UserInfo | null = data.error ? null : (data.data as UserInfo);
-	let error: Error | null = data.error ? (data.data as Error) : null;
+	let user = data.error ? null : (data.data as UserInfo);
+	let error = data.error ? (data.data as ErrorObject).error : null;
+	let errorMessage: string;
 
 	let nicknameInput: string = user?.nickname as string;
 	let statusInput: string = user?.status as string;
@@ -19,6 +22,10 @@
 	$: informationChanged = nicknameInput !== user?.nickname || statusInput !== user?.status;
 
 	const amountOfLettersAllowedInStatus: number = 128;
+
+	onMount(() => {
+		errorMessage = error ? getErrorMessage(error.code) : '';
+	});
 
 	const handleSave = async () => {
 		loading = true;
@@ -36,7 +43,7 @@
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
-						message: body.data.error.message,
+						message: getErrorMessage(body.data.error.code),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
@@ -77,6 +84,6 @@
 			>
 		</div>
 	{:else if error}
-		<ErrorAlert message={error.message} />
+		<ErrorAlert message={errorMessage} />
 	{/if}
 </main>

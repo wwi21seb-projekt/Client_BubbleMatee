@@ -1,7 +1,7 @@
 import type { Imprint } from './ServerDomains/imprint';
 import type { Feed } from './ServerDomains/feed';
 import type { UserFeed } from './ServerDomains/userFeed';
-import type { Subscription } from './ServerDomains/subscription';
+import type { Subscription, SubscriptionList } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 import type { Author, Post } from './Post';
 
@@ -14,8 +14,12 @@ export interface Error {
 	message: string;
 }
 
+export interface ErrorObject {
+	error: Error;
+}
+
 export interface ErrorResponse extends Response {
-	data: Error;
+	data: ErrorObject;
 }
 
 export interface ImprintResponse extends Response {
@@ -70,4 +74,8 @@ export interface FeedSearch {
 		limit: 0;
 		records: 0;
 	};
+}
+
+export interface SubscriptionListResponse extends Response {
+	data: SubscriptionList;
 }

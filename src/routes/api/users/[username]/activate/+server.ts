@@ -1,6 +1,5 @@
 import type { ErrorResponse, LoginResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
@@ -35,7 +34,6 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 
 			return json({ data: body, error: false } as LoginResponse);
 		}
-		body.error.message = getErrorMessage(body.code);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
@@ -66,11 +64,12 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 		if (response.ok) {
 			return json({ data: {}, error: false });
 		}
+
 		return json({
 			data: {
 				error: {
 					code: response.status.toString(),
-					message: getErrorMessage(response.status.toString())
+					message: ''
 				}
 			},
 			error: true
