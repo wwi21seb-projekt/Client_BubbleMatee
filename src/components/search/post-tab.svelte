@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Post } from '$domains';
-	import { Feed, LoadMoreComponent } from '$components';
+	import { Feed } from '$components';
 
 	export let posts: Array<Post>;
 	export let isError: boolean;
