@@ -3,8 +3,6 @@
 	import { ModalHeader, UserTab } from '$components';
 	import { globalConfig } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
-	import type { UserInfo } from '$domains';
-
 	import type {
 		Author,
 		ErrorResponse,
@@ -14,21 +12,25 @@
 	} from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { onMount } from 'svelte';
+
+	export let username: string;
+	export let isFollowerlist: boolean;
+
+	const toastStore = getToastStore();
+	const title: string = isFollowerlist ? 'Abonenntenliste' : 'Abonniertenliste';
+	const type: string = isFollowerlist ? 'followers' : 'following';
+
+	let users: Array<Author> = [];
+	let hasMorePages: boolean = false;
+	let isError: boolean = false;
+
 	onMount(async () => {
 		loadMore();
 	});
-	let users: Array<Author> = [];
-	export let user: UserInfo;
 
-	export let isFollowerlist: boolean;
-	const title: string = isFollowerlist ? 'Abonenntenliste' : 'Abonniertenliste';
-	const type: string = isFollowerlist ? 'followers' : 'following';
-	let hasMorePages: boolean = false;
-	let isError: boolean = false;
-	const toastStore = getToastStore();
 	async function loadMore() {
 		const response = await fetch(
-			`/api/subscriptions/:${user.username}?type=${type}&offset=${users.length}&limit=${globalConfig.limit}`,
+			`/api/subscriptions/${username}?type=${type}&offset=${users.length}&limit=${globalConfig.limit}`,
 			{
 				method: 'GET',
 				headers: {

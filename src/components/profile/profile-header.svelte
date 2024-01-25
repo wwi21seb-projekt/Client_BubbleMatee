@@ -32,7 +32,7 @@
 	function openFollowerlist(isFollowerlist: boolean): void {
 		const modalComponent: ModalComponent = {
 			ref: FollowerList,
-			props: { isFollowerlist: isFollowerlist }
+			props: { isFollowerlist: isFollowerlist, username: user.username }
 		};
 		const modal: ModalSettings = {
 			type: 'component',

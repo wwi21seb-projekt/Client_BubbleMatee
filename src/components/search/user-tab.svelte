@@ -7,7 +7,6 @@
 
 	export let users: Array<Author>;
 	export let isError: boolean;
-	console.log(users);
 	export let loadMore: () => void;
 	export let hasMorePages: boolean;
 	const modalStore = getModalStore();
