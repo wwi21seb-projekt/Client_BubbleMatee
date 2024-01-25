@@ -1,7 +1,7 @@
 import type { Imprint } from './ServerDomains/imprint';
 import type { Feed } from './ServerDomains/feed';
 import type { UserFeed } from './ServerDomains/userFeed';
-import type { Subscription } from './ServerDomains/subscription';
+import type { Subscription, SubscriptionList } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 import type { Author } from './Post';
 
@@ -65,4 +65,8 @@ export interface UserSearch {
 		limit: 0;
 		records: 0;
 	};
+}
+
+export interface SubscriptionListResponse extends Response {
+	data: SubscriptionList;
 }

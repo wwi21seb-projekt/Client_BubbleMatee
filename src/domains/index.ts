@@ -15,7 +15,8 @@ export type {
 	EditUserInformationResponse,
 	FollowResponse,
 	UserSearchResponse,
-	UserSearch
+	UserSearch,
+	SubscriptionListResponse
 } from './ServerResponses';
 
 //Server Domains
@@ -26,3 +27,4 @@ export type { UploadRestrictions } from './Post';
 export type { Feed } from './ServerDomains/feed';
 export type { UserFeed } from './ServerDomains/userFeed';
 export type { TokenPayload } from './ServerDomains/token';
+export type { SubscriptionList } from './ServerDomains/subscription';
