@@ -1,4 +1,5 @@
 <script>
+	import { VideoMarketing } from '$images';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
@@ -6,7 +7,7 @@
 <AccordionItem>
 	<svelte:fragment slot="lead"
 		><img
-			src="./src/images/about/video-marketing.png"
+			src={VideoMarketing}
 			alt="icon für den Inhalt des Produktvideos"
 			class="video-icon"
 		/></svelte:fragment

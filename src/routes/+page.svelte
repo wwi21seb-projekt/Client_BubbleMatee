@@ -1,3 +1,7 @@
+<script>
+	import { Text } from '$images';
+</script>
+
 <!-- Welcome-Page of the App -->
 <div class="flex flex-col justify-center items-center h-full">
 	<h1 class="h1">
@@ -7,11 +11,7 @@
 		>
 	</h1>
 	<div class="items-center">
-		<img
-			class="img w-10/12 md:w-1/2 md:hover:w-7/12 mx-auto"
-			src="src/images/layout/schriftzug.png"
-			alt="BubbleMateLogo"
-		/>
+		<img class="img w-10/12 md:w-1/2 md:hover:w-7/12 mx-auto" src={Text} alt="BubbleMateLogo" />
 	</div>
 </div>
 
