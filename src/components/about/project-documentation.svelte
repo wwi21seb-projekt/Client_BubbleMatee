@@ -1,11 +1,12 @@
 <script>
+	import { Folders } from '$images';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
 <AccordionItem>
 	<svelte:fragment slot="lead"
 		><img
-			src="./src/images/about/folders.png"
+			src={Folders}
 			alt="icon für den Inhalt der Projektdokumentation"
 			class="icon-folders"
 		/></svelte:fragment

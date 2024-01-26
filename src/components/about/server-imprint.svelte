@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ErrorResponse, ImprintResponse } from '$domains';
+	import { Imprint } from '$images';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 
 	export let data: ImprintResponse | ErrorResponse;
@@ -10,11 +11,7 @@
 
 <AccordionItem>
 	<svelte:fragment slot="lead"
-		><img
-			src="./src/images/about/imprint.png"
-			alt="(icon-imprint)"
-			class="icon-imprint"
-		/></svelte:fragment
+		><img src={Imprint} alt="(icon-imprint)" class="icon-imprint" /></svelte:fragment
 	>
 	<svelte:fragment slot="summary"
 		><h2 class="h2">
