@@ -24,7 +24,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Set Environment Variables
-        run: echo "PUBLIC_BASE_URL=your_public_base_url" >> $GITHUB_ENV
+        run: echo "PUBLIC_BASE_URL=http://localhost:3000" >> $GITHUB_ENV
 
       - name: Run Build
         run: pnpm build
