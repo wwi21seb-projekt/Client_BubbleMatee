@@ -1,9 +1,28 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader } from '$components';
-	import type { Post } from '$domains';
+	import type { LocationPlace, Post } from '$domains';
+	import { fetchLocation } from '$utils';
 	export let post: Post;
 	export let deletePost: (postId: string) => void;
+	let locationPlace: LocationPlace;
+	const getLocation = async () => {
+  		try {
+			const result = await fetchLocation(post.location.longitude, post.location.latitude);
+			locationPlace = result;
+  		} catch (error) {
+		// If there is an Error -> dont show location
+   	 	console.error('Fehler beim Abrufen des Orts:', error);
+		}
+	};
+
+	//load location only if the post has one
+	console.log(post.location.longitude)
+	if(post.location.longitude !== "")
+	{ 
+		console.log("GET")
+		getLocation();
+	}
 
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
@@ -18,6 +37,15 @@
 	>
 		<header>
 			<FeedPostHeader date={post.creationDate} author={post.author} deletePost={deleteThisPost} />
+			 {#if locationPlace}
+				{#if locationPlace.country === ""}
+				<span>{`Lon:${locationPlace.longitude}`}</span>
+				<span>{`Lat:${locationPlace.latitude}`}</span>
+				{:else}
+				<span>{`Land:${locationPlace.country}`}</span>
+				<span>{`Stadt:${locationPlace.city}`}</span>
+				{/if}
+			 {/if}
 		</header>
 		<FeedPostMain text={post.content} />
 		<footer>

@@ -3,7 +3,7 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
- * Handles GET requests to retrieve imprint information.
+ * Handles GET requests to retrieve global or personal feed.
  *
  * @param fetch The fetch function for making HTTP requests.
  * @param url The requested URL containing the search parameters.
