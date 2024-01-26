@@ -3,7 +3,7 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
- * Handles GET requests to retrieve imprint information.
+ * Handles GET requests to retrieve posts.
  *
  * @param fetch The fetch function for making HTTP requests.
  * @param url The requested URL containing the search parameters.
@@ -37,8 +37,7 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 };
 
 /**
- * Handles POST requests for user registration.
- *
+ * Handles POST requests for creating a new post.
  * @param fetch The fetch function for making HTTP requests.
  * @param request The SvelteKit request object.
  * @returns The response containing registration data or an error.

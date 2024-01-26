@@ -42,6 +42,7 @@ export { default as FeedPostFooter } from './posts/feed-post-card-elements/feed-
 export { default as Comments } from './posts/comments/comments.svelte';
 export { default as CommentElement } from './posts/comments/comment-element.svelte';
 export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
+export { default as PostMenu } from './posts/feed-post-card-elements/post-menu-component.svelte';
 //Profile Page of a user
 export { default as ProfileHeader } from './profile/profile-header.svelte';
 export { default as ProfileHeaderBottom } from './profile/profile-header-bottom.svelte';

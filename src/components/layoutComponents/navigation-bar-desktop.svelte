@@ -13,7 +13,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 </script>
 
-<AppRail class="p-1" hover="" active="" width="w-16">
+<AppRail class="p-1" hover="" active="" width="w-20">
 	{#if $isLoggedIn}
 		<AppRailAnchor class="mt-20" href="/home">
 			<svelte:fragment slot="lead">

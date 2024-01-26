@@ -61,13 +61,13 @@
 					<div class="place-self-center text-[11px] sm:text-base">Posts</div>
 				</div>
 				<button on:click={() => openFollowerlist(true)}>
-					<div class="flex flex-col self-center">
+					<div class="flex flex-col self-center hover:text-gray-400">
 						<div class="place-self-center">{user.follower}</div>
 						<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
 					</div>
 				</button>
 				<button on:click={() => openFollowerlist(false)}>
-					<div class="flex flex-col self-center">
+					<div class="flex flex-col self-center hover:text-gray-400">
 						<div class="place-self-center">{user.following}</div>
 						<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
 					</div>
