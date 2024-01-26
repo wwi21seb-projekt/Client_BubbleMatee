@@ -32,6 +32,7 @@ export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 export { default as Textarea } from './postComponent/components/textarea.svelte';
 export { default as PostComponent } from './postComponent/post-component.svelte';
 export { default as PostButton } from './postComponent/components/post-button.svelte';
+export { default as PostGeolocation } from './postComponent/components/post-geolocation.svelte';
 
 //Feed Components
 export { default as FeedPostCard } from './posts/feed-post-card.svelte';
