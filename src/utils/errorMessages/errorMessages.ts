@@ -34,7 +34,8 @@ const errorMessages: Array<Error> = [
 	},
 	{
 		code: 'ERR-008',
-		message: 'Der Code ist nicht korrekt. Bitte überprüfe deine Eingaben und versuche es erneut.'
+		message:
+			'Die Eingaben sind nicht korrekt. Bitte überprüfe deine Eingaben und versuche es erneut.'
 	},
 	{
 		code: 'ERR-009',
@@ -55,7 +56,7 @@ const errorMessages: Array<Error> = [
 	},
 	{
 		code: 'ERR-013',
-		message: 'Der Username wurde bereits aktiviert. Bitte logge dich ein.'
+		message: 'Der User wurde bereits aktiviert. Bitte logge dich ein.'
 	},
 	{
 		code: 'ERR-014',
@@ -64,11 +65,29 @@ const errorMessages: Array<Error> = [
 	},
 	{
 		code: 'ERR-015',
-		message: 'Es sind nur die Dateiformate JPG and WebP erlaubt.'
+		message: 'Du folgst dieser Person nicht. Überpfüfe deine Eingaben und versuche es erneut'
 	},
 	{
 		code: 'ERR-016',
-		message: 'Um deinen persönlichen Feed zu sehen, musst du dich zunächst einloggen.'
+		message: 'Du folgst dieser Person bereits. Überpfüfe deine Eingaben und versuche es erneut.'
+	},
+	{
+		code: 'ERR-017',
+		message: 'Du kannst dir selbst nicht folgen. Überpfüfe deine Eingaben und versuche es erneut.'
+	},
+	{
+		code: 'ERR-018',
+		message:
+			'Du kannst nur deine eigenen Abonnenments verwalten. Überpfüfe deine Eingaben und versuche es erneut.'
+	},
+	{
+		code: 'ERR-019',
+		message:
+			'Du kannst nur deine eigenen Posts verwalten. Überpfüfe deine Eingaben und versuche es erneut.'
+	},
+	{
+		code: 'ERR-020',
+		message: 'Der Post wurde nicht gefunden. Bitte überprüfe deine Eingaben und versuche es erneut.'
 	}
 ];
 
