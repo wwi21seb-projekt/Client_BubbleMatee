@@ -2,11 +2,6 @@
 	"name": "my-skeleton-app",
 	"version": "0.0.1",
 	"private": true,
-	"engines": {
-		"node": "^20.9.0",
-		"pnpm": "^8.6.0"
-	},
-	"packageManager": "pnpm@8.6.7",
 	"scripts": {
 		"dev": "vite dev --host",
 		"build": "vite build",
@@ -26,7 +21,6 @@
 		"@skeletonlabs/skeleton": "2.5.1",
 		"@skeletonlabs/tw-plugin": "0.2.4",
 		"@sveltejs/adapter-auto": "^2.1.1",
-		"@sveltejs/adapter-vercel": "^5.1.0",
 		"@sveltejs/kit": "^1.30.3",
 		"@tailwindcss/forms": "0.5.7",
 		"@tailwindcss/typography": "0.5.10",
