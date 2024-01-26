@@ -71,12 +71,24 @@
 		if ($inputValid) {
 			loading.set(true);
 			try {
+				// Extrahieren der Längen- und Breitengrade aus der coords Variable
+				const longitude = coords.length > 0 ? coords[0] : '';
+				const latitude = coords.length > 0 ? coords[1] : '';
+				const accuracy = '100'; // oder ein Standardwert, falls gewünscht
+
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
-						content: $postText
+						content: $postText,
+						location: {
+							//optional
+							// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
+							longitude: longitude,
+							latitude: latitude,
+							accuracy: accuracy
+						}
 					})
 				});
 
@@ -107,8 +119,90 @@
 			}
 		}
 	};
+
+	import Geolocation from 'svelte-geolocation';
+
+	let coords: [number, number];
+	let getPosition = false;
+	let isLocationActivated = false;
+	let buttonDisabled = false;
+
+	const buttonLoadingText = 'Geolocation wird geladen';
+	const buttonActivationText = 'Geolocation Aktivieren';
+	const buttonActivatedText = 'Geolocation aktiviert';
+	let buttonGeolocationText = buttonActivationText;
+
+	// State management for button
+	function updateButtonState(status: 'loading' | 'activated' | 'deactivated') {
+		switch (status) {
+			case 'loading':
+				buttonGeolocationText = buttonLoadingText;
+				buttonDisabled = true;
+				break;
+			case 'activated':
+				buttonGeolocationText = buttonActivatedText;
+				buttonDisabled = false;
+				isLocationActivated = true;
+				console.log(coords);
+				break;
+			case 'deactivated':
+				buttonGeolocationText = buttonActivationText;
+				buttonDisabled = false;
+				isLocationActivated = false;
+				break;
+		}
+	}
+
+	// Toast notifications
+	function showToast(message: string, background: string) {
+		toastStore.trigger({
+			message,
+			background
+		});
+	}
+
+	// Handle button click
+	function handleButtonClick() {
+		// Überprüfen, ob der Standort bereits aktiviert ist
+		if (isLocationActivated) {
+			// Wenn ja, deaktivieren Sie den Standort
+			getPosition = false; // Geolocation stoppen
+			updateButtonState('deactivated');
+			showToast('Geo-Location deaktiviert.', 'variant-filled-error');
+		} else {
+			// Wenn nicht, aktivieren Sie den Standort
+			getPosition = true; // Geolocation starten
+			updateButtonState('loading');
+		}
+	}
 </script>
 
+<button
+	class={isLocationActivated ? 'btn variant-filled-success mt-2' : 'btn variant-filled-error mt-2'}
+	disabled={buttonDisabled}
+	on:click={handleButtonClick}
+>
+	{buttonGeolocationText}
+</button>
+
+<Geolocation {getPosition} bind:coords let:loading let:success let:error let:notSupported>
+	{#if notSupported}
+		{showToast('Ihr Browser unterstützt die Geolocation-API nicht.', 'variant-filled-error')}
+		{updateButtonState('deactivated')}
+	{:else}
+		{#if loading}
+			{showToast('Geo-Location wird geladen', 'variant-filled-success')}
+		{/if}
+		{#if success}
+			{showToast('Geo-Location erfolgreich ermittelt', 'variant-filled-success')}
+			{updateButtonState('activated')}
+		{/if}
+		{#if error}
+			{showToast(`Geo-Location Fehler: ${error.message}`, 'variant-filled-error')}
+			{updateButtonState('deactivated')}
+		{/if}
+	{/if}
+</Geolocation>
 <button
 	type="button"
 	class="btn variant-filled-primary mt-2 buttonPost"
