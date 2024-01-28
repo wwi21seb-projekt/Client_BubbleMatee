@@ -6,8 +6,8 @@
 </script>
 
 <!-- Scroll for mobile - component is hidden on desktop (md:hidden)-->
-<div class="card grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full my-2">
-	<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 pb-2 overflow-x-auto">
+<div class="grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full my-2">
+	<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 overflow-x-auto">
 		<!--Show an image, if the post has one-->
 		{#if imageUrl !== ''}
 			<div class="shrink-0 w-[100%] snap-start rounded">
@@ -22,7 +22,7 @@
 		<!--Show text, if the post has text-->
 
 		{#if text !== ''}
-			<div class="shrink-0 w-full snap-start p-4 flex items-center rounded w-full">
+			<div class="shrink-0 w-full snap-start px-4 py-2 flex items-center rounded w-full">
 				<article class="text-xl w-full">
 					<p class="break-words w-full text-center">{text}</p>
 				</article>
@@ -45,7 +45,7 @@
 	{/if}
 	<!--Show text, if the post has text-->
 	{#if text !== ''}
-		<div class="w-1/2 flex items-center justify-center">
+		<div class="w-1/2 flex items-center justify-center px-4 py-2">
 			<article class="text-2xl">
 				<p class="break-words">{text}</p>
 			</article>
