@@ -5,7 +5,7 @@ on:
     branches: ['main']
 env:
   PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
-  PRIVATE_GEO_API_KEY: ${{ vars.PRIVATE_GEO_API_KEY }}
+  PRIVATE_GEO_API_KEY: ${{ secrets.PRIVATE_GEO_API_KEY }}
 
 
 jobs:
