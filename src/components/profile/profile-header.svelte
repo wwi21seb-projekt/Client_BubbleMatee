@@ -7,6 +7,7 @@
 		type ModalSettings
 	} from '@skeletonlabs/skeleton';
 	import { FollowerList, ProfileHeaderBottom } from '$components';
+	import { Person } from '$images';
 
 	const modalStore = getModalStore();
 
@@ -16,7 +17,7 @@
 		const modalComponent: ModalComponent = {
 			ref: Avatar,
 			props: {
-				src: user.profilePictureUrl ? user.profilePictureUrl : '/src/images/icons/person.png',
+				src: user.profilePictureUrl ? user.profilePictureUrl : Person,
 				width: 'w-1/2 sm:w-1/3 md:w-1/6'
 			}
 		};
@@ -52,7 +53,7 @@
 					<Avatar
 						border="hover:border-2 hover:!border-surface-600"
 						cursor="cursor-pointer"
-						src={user.profilePictureUrl ? user.profilePictureUrl : '/src/images/icons/person.png'}
+						src={user.profilePictureUrl ? user.profilePictureUrl : Person}
 						on:click={handlePictureClick}
 					/>
 				</div>

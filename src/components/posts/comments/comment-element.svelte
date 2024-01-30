@@ -1,5 +1,6 @@
 <!--Comment-Element for the comment-Modal-Window. Shows one comment with the user and the text-->
 <script lang="ts">
+	import { Jonas } from '$images';
 	export let id: string;
 	export let comment: string;
 	import { Avatar } from '@skeletonlabs/skeleton';
@@ -14,7 +15,7 @@
 <!--Grid with two columns. The left Column contains the profile picture and the right the comment-->
 <div class="grid grid-cols-[auto_1fr] gap-2 m-2">
 	<!--Left column-->
-	<Avatar src="src/images/about/jonas.png" width="w-8 md:w-10 min-w-0" />
+	<Avatar src={Jonas} width="w-8 md:w-10 min-w-0" />
 	<!--right column-->
 	<div
 		class="card p-2 variant-soft-tertiary dark:variant-soft-surface rounded-tl-none space-y-2 min-w-0"
