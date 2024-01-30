@@ -97,8 +97,8 @@ const errorMessages: Array<Error> = [
  * @param code The error code.
  * @returns The error message.
  */
-export function getErrorMessage(code: string): string {
-	handleUnauthorized(code);
+export function getErrorMessage(code: string, hasNoToast: boolean = false): string {
+	handleUnauthorized(code, hasNoToast);
 	const error = errorMessages.find((error) => {
 		return error.code === code;
 	});
@@ -112,9 +112,12 @@ export function getErrorMessage(code: string): string {
  * Handles unauthorized requests.
  *
  * @param code The error code.
+ * @param hasNoToast Whether the error should be displayed as a toast.
  */
-function handleUnauthorized(code: string) {
-	if (code === 'ERR-014') {
+function handleUnauthorized(code: string, hasNoToast: boolean) {
+	if (code === 'ERR-014' && !hasNoToast) {
 		goto('/login?redirect=2');
+	} else if (code === 'ERR-014' && hasNoToast) {
+		goto('/login?redirect=1');
 	}
 }

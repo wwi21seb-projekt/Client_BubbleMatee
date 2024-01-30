@@ -62,10 +62,10 @@
 						background: 'variant-filled-warning'
 					};
 					toastStore.trigger(t);
-					goto('/login/verify');
+					goto('/login/verify?username=' + username);
 				} else {
 					const t: ToastSettings = {
-						message: body.data.error.message,
+						message: getErrorMessage(body.data.error.code),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);

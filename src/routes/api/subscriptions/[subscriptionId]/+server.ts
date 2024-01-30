@@ -19,21 +19,16 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 		if (response.ok) {
 			return json({ data: {}, error: false });
 		}
-		return json({
-			data: {
-				error: {
-					code: response.status.toString(),
-					message: ''
-				}
-			},
-			error: true
-		});
+		const body = await response.json();
+		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
 			error: true,
 			data: {
-				code: '500',
-				message: 'Internal Server Error'
+				error: {
+					code: '500',
+					message: 'Internal Server Error'
+				}
 			}
 		});
 	}

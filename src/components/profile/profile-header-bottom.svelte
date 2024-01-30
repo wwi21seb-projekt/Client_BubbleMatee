@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import type { UserInfo } from '$domains';
 	import { currentUsername } from '$stores';
+	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	export let user: UserInfo;
@@ -44,15 +45,14 @@
 			const body = await response.json();
 
 			if (body.error) {
-				if (body.data.error) {
-					const t: ToastSettings = {
-						message: body.data.error.message,
-						background: 'variant-filled-error'
-					};
-					toastStore.trigger(t);
-				}
+				const t: ToastSettings = {
+					message: getErrorMessage(body.data.error.code),
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			} else {
+				await invalidateAll();
 			}
-			return body;
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -74,15 +74,14 @@
 			const body = await response.json();
 
 			if (body.error) {
-				if (body.data.error) {
-					const t: ToastSettings = {
-						message: body.data.error.message,
-						background: 'variant-filled-error'
-					};
-					toastStore.trigger(t);
-				}
+				const t: ToastSettings = {
+					message: getErrorMessage(body.data.error.code),
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			} else {
+				await invalidateAll();
 			}
-			return body;
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -95,7 +94,6 @@
 		} else {
 			await subscribe();
 		}
-		await invalidateAll();
 	};
 </script>
 

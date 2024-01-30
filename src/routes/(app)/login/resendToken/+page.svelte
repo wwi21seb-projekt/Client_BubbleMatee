@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { UsernameInput } from '$components';
 	import type { Error } from '$domains';
-	import { currentUser } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
 	const toastStore = getToastStore();
 
-	let username: string = $currentUser.username;
+	let username: string = $page.url.searchParams.get('username')?.toString() ?? '';
 
 	let loading: boolean = false;
 
@@ -24,9 +24,16 @@
 
 			if (body.error) {
 				const error: Error = body.data.error;
+				let errorColor: string = 'variant-filled-error';
+
+				if (error.code === 'ERR-013') {
+					goto('/login');
+					errorColor = 'variant-filled-warning';
+				}
+
 				const t: ToastSettings = {
 					message: getErrorMessage(error.code),
-					background: 'variant-filled-error'
+					background: errorColor
 				};
 				toastStore.trigger(t);
 			} else {
@@ -35,7 +42,7 @@
 					background: 'variant-filled-success'
 				};
 				toastStore.trigger(t);
-				goto('/login/verify');
+				goto(`/login/verify${getUsernameSearchParams()}`);
 			}
 
 			return body;
@@ -45,6 +52,9 @@
 			loading = false;
 		}
 	};
+	function getUsernameSearchParams(): string {
+		return username ? `?username=${username}` : '';
+	}
 </script>
 
 <main class="p-4 h-full grid grid-cols-1 place-content-center justify-items-center">

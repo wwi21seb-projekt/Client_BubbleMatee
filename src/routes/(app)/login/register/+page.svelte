@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { UserInfoStep, PasswordStep } from '$components';
-	import { currentUser } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { Stepper, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
@@ -41,12 +40,7 @@
 				};
 				toastStore.trigger(t);
 			} else {
-				currentUser.set({
-					email: body.data.email,
-					username: body.data.username,
-					nickname: body.data.nickname
-				});
-				goto('/login/verify');
+				goto('/login/verify?username=' + body.data.username);
 			}
 
 			return body;
