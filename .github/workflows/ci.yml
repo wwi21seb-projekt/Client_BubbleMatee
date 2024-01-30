@@ -5,6 +5,7 @@ on:
     branches: ['main']
 env:
   PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+  PRIVATE_GEO_API_KEY: ${{ vars.PRIVATE_GEO_API_KEY }}
 
 
 jobs:
@@ -25,9 +26,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Set Environment Variables
-        run: echo "PRIVATE_GEO_API_KEY=http://localhost:3000" >> $GITHUB_ENV
 
       - name: Run Build
         run: pnpm build
