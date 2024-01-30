@@ -53,7 +53,7 @@
 				<button on:click={handleLogout} class="flex justify-between w-full">
 					<span class="flex self-center">
 						<span class="badge self-center"><LogoutIcon /></span>
-						<span class="flex-auto self-center">Ausloggen</span>
+						<span class="flex-auto self-center">Abmelden</span>
 					</span>
 					<span class="badge self-center"><ArrowRightIcon /></span>
 				</button>
