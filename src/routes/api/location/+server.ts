@@ -9,8 +9,8 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing location data or an error. Note that we only search for cities. If the coordinates are in the middle of the ocean, nothing is returned
  */
 export const GET: RequestHandler = async ({ fetch, url }) => {
-	const long: string = url.searchParams.get('long')!;
-	const lat: string = url.searchParams.get('lat')!;
+	const long: string | null = url.searchParams.get('long');
+	const lat: string | null = url.searchParams.get('lat');
 
 	try {
 		const response = await fetch(
@@ -27,7 +27,6 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 
 		if (response.ok) {
 			//if there are results -> return them
-			console.log(body.features.length > 0);
 			if (body.features.length > 0) {
 				return json({
 					error: false,

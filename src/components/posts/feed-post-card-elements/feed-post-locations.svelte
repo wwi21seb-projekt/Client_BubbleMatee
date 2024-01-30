@@ -2,6 +2,7 @@
 <script lang="ts">
 	import type { LocationPlace, Location } from '$domains';
 	import { fetchLocation } from '$utils';
+	import { Pin } from '$images';
 	export let location: Location;
 
 	let locationPlace: LocationPlace;
@@ -22,7 +23,7 @@
 		class="chip variant-soft-secondary hover:variant-filled-secondary dark:variant-soft-primary darkhover:variant-filled-primary flex flex-row justify-center items-center text-base md:text-lg rounded-xl px-5 py-1 mb-1"
 		href={`https://www.google.com/maps/search/?api=1&query=${location.latitude}%2C${location.longitude}`}
 	>
-		<img src="./src/images/icons/pin.png" alt="Icon für Location" class="w-6 md:w-6 pr-1" />
+		<img src={Pin} alt="Icon für Location" class="w-6 md:w-6 pr-1" />
 		{#if !locationPlace || locationPlace.country === ''}
 			<span>{`(${location.latitude},${location.longitude})`}</span>
 		{:else}
