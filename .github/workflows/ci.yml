@@ -24,7 +24,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Set Environment Variables
-        run: echo "PUBLIC_BASE_URL=http://localhost:3000" >> $GITHUB_ENV
+        run: echo "PRIVATE_GEO_API_KEY=http://localhost:3000" >> $GITHUB_ENV
 
       - name: Run Build
         run: pnpm build
