@@ -1,4 +1,4 @@
-import type { Location } from "$domains";
+import type { Location } from '$domains';
 
 //Interface for the data that the server sends for a user feed-request
 export interface UserFeed {
@@ -7,7 +7,7 @@ export interface UserFeed {
 			postId: string;
 			creationDate: Date;
 			content: string;
-			location: Location
+			location: Location;
 		}
 	];
 	pagination: {

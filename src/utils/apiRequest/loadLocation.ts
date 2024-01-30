@@ -1,9 +1,4 @@
-import type {
-	Error,
-	ErrorResponse,
-    LocationPlace,
-    LocationResponse
-} from '$domains';
+import type { Error, ErrorResponse, LocationPlace, LocationResponse } from '$domains';
 import { getErrorMessage } from '$utils';
 
 /**
@@ -13,12 +8,9 @@ import { getErrorMessage } from '$utils';
  * @param lat - latitude
  * @returns a LocationPlace-Object consisting of an Array with all relevant location data
  * @throws an error: type = Error code
- * 
- */ 
-export async function fetchLocation(
-	long: string,
-	lat: string,
-): Promise<LocationPlace> {
+ *
+ */
+export async function fetchLocation(long: string, lat: string): Promise<LocationPlace> {
 	const response = await fetch(`/api/location?long=${long}&lat=${lat}`, {
 		method: 'GET',
 		headers: {
@@ -32,7 +24,7 @@ export async function fetchLocation(
 		const message = getErrorMessage(error.code);
 		throw new ErrorEvent(message);
 	} else {
-        const data: LocationPlace = body.data as LocationPlace
-		return data
+		const data: LocationPlace = body.data as LocationPlace;
+		return data;
 	}
 }

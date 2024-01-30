@@ -1,12 +1,12 @@
-import type { Author, Location } from "$domains";
+import type { Author, Location } from '$domains';
 
 //Interface for the data that the server sends for a feed-request
 export interface Feed {
 	records: [
 		{
 			postId: string;
-			author: Author
-			location : Location
+			author: Author;
+			location: Location;
 			creationDate: Date;
 			content: string;
 		}

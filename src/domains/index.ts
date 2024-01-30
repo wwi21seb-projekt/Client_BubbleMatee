@@ -18,7 +18,7 @@ export type {
 	UserSearch,
 	FeedSearch,
 	SubscriptionListResponse,
-	LocationResponse,
+	LocationResponse
 } from './ServerResponses';
 
 //Server Domains

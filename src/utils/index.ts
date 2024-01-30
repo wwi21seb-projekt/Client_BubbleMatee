@@ -25,9 +25,7 @@ export {
 	fetchNextPostsUser,
 	searchPostByHashtag
 } from './apiRequest/loadPosts';
-export {
-	fetchLocation,
-} from './apiRequest/loadLocation';
+export { fetchLocation } from './apiRequest/loadLocation';
 export { loadUser, loadSearchedUser } from './apiRequest/loadUser';
 export { tokenExpired } from './token/tokenExpired';
 export { getCurrentUser } from './token/getUser';

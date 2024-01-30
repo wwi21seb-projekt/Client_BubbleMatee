@@ -1,7 +1,7 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
-	import type {Post } from '$domains';
+	import type { Post } from '$domains';
 	export let post: Post;
 	export let deletePost: (postId: string) => void;
 	//function to delete this post -> calls a passed function
@@ -19,13 +19,13 @@
 			<FeedPostHeader date={post.creationDate} author={post.author} deletePost={deleteThisPost} />
 		</header>
 		<main class="card w-full !bg-transparent my-2">
-		<FeedPostMain text={post.content} />
-		{#if post.location.longitude !== ""}
-			<FeedPostLocation location={post.location} />
-		{/if}
+			<FeedPostMain text={post.content} />
+			{#if post.location.longitude !== ''}
+				<FeedPostLocation location={post.location} />
+			{/if}
 		</main>
 		<footer>
-		<FeedPostFooter />
+			<FeedPostFooter />
 		</footer>
 	</div>
 </div>

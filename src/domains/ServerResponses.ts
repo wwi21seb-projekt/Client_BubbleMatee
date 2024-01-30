@@ -18,7 +18,6 @@ export interface ErrorObject {
 	error: Error;
 }
 
-
 export interface ErrorResponse extends Response {
 	data: ErrorObject;
 }
@@ -26,7 +25,6 @@ export interface ErrorResponse extends Response {
 export interface ImprintResponse extends Response {
 	data: Imprint;
 }
-
 
 export interface LoginResponse extends Response {
 	data: Tokens;
