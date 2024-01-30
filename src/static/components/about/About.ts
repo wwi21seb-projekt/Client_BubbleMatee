@@ -1,23 +1,24 @@
 import type { Logo, PersonSourceData } from '$domains';
+import { Aidan, Dhbw, Instagram, Johanna, Jonas, Paul, Professor, Twitter } from '$images';
 
 // Creating a collection of logos
 export const logos: Logo[] = [
 	{
 		name: 'DHBW Mannheim',
 		url: 'https://www.mannheim.dhbw.de/startseite',
-		src: './src/images/about/DHBW.jpg',
+		src: Dhbw,
 		description: 'DHBW Mannheim Logo'
 	},
 	{
 		name: 'Instagram',
 		url: 'https://www.instagram.com/',
-		src: './src/images/about/Instagram.png',
+		src: Instagram,
 		description: 'Instagram Logo'
 	},
 	{
 		name: 'Twitter',
 		url: 'https://twitter.com/?lang=de',
-		src: './src/images/about/x.avif',
+		src: Twitter,
 		description: 'Twitter Logo'
 	}
 	// Add more logos here...
@@ -26,7 +27,7 @@ export const logos: Logo[] = [
 // Central data source for all persons
 export const personsData: PersonSourceData[] = [
 	{
-		src: './src/images/about/Professor.png',
+		src: Professor,
 		data: [
 			{ position: 1, description: 'Name', value: 'Herr Dr. Prof Eichberg' },
 			{ position: 2, description: 'Rolle', value: 'Projektbegleiter' },
@@ -35,7 +36,7 @@ export const personsData: PersonSourceData[] = [
 		]
 	},
 	{
-		src: './src/images/about/Paul.png',
+		src: Paul,
 		data: [
 			{ position: 1, description: 'Name', value: 'Paul Bahde' },
 			{ position: 2, description: 'Martriktelnummer', value: '5584368' },
@@ -44,7 +45,7 @@ export const personsData: PersonSourceData[] = [
 		]
 	},
 	{
-		src: './src/images/about/Jonas.png',
+		src: Jonas,
 		data: [
 			{ position: 1, description: 'Name', value: 'Jonas Braun' },
 			{ position: 2, description: 'Martriktelnummer', value: '6813146' },
@@ -53,7 +54,7 @@ export const personsData: PersonSourceData[] = [
 		]
 	},
 	{
-		src: './src/images/about/Johanna.png',
+		src: Johanna,
 		data: [
 			{ position: 1, description: 'Name', value: 'Johanna Deike' },
 			{ position: 2, description: 'Martriktelnummer', value: 'xxxxxx' },
@@ -62,7 +63,7 @@ export const personsData: PersonSourceData[] = [
 		]
 	},
 	{
-		src: './src/images/about/Aidan.png',
+		src: Aidan,
 		data: [
 			{ position: 1, description: 'Name', value: 'Aidan Zimmer' },
 			{ position: 2, description: 'Martriktelnummer', value: 'xxxxxxxx' },
