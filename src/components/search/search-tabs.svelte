@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { PostTab, UserTab } from '$components';
-	import type { Author, Post } from '$domains';
+	import type { Author, Follower, Post } from '$domains';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import { DevicePhoneMobile, User } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -12,7 +12,7 @@
 	export let loadMoreUsers: () => Promise<void>;
 	export let loadMorePostsSearch: () => Promise<void>;
 	export let postSearch: Array<Post>;
-	export let userSearch: Array<Author>;
+	export let userSearch: Array<Follower>;
 	export let tabSet: number;
 	export let isError: boolean;
 	export let lastPage: boolean;

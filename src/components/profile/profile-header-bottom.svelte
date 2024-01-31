@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import type { UserInfo } from '$domains';
 	import { currentUsername } from '$stores';
+	import { subscribe, unsubscribe } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	export let user: UserInfo;
@@ -30,72 +31,24 @@
 		}
 	};
 
-	const subscribe = async () => {
-		loading = true;
-		try {
-			const response = await fetch('/api/subscriptions', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ following: user.username })
-			});
-
-			const body = await response.json();
-
-			if (body.error) {
-				if (body.data.error) {
-					const t: ToastSettings = {
-						message: body.data.error.message,
-						background: 'variant-filled-error'
-					};
-					toastStore.trigger(t);
-				}
-			}
-			return body;
-		} catch (e) {
-			console.error(e);
-		} finally {
-			loading = false;
-		}
-	};
-
-	const unsubscribe = async () => {
-		loading = true;
-		try {
-			const response = await fetch(`/api/subscriptions/${user.subscriptionId}`, {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ following: user.username })
-			});
-
-			const body = await response.json();
-
-			if (body.error) {
-				if (body.data.error) {
-					const t: ToastSettings = {
-						message: body.data.error.message,
-						background: 'variant-filled-error'
-					};
-					toastStore.trigger(t);
-				}
-			}
-			return body;
-		} catch (e) {
-			console.error(e);
-		} finally {
-			loading = false;
-		}
-	};
 	const handleButtonClick = async () => {
+		let body;
 		if (isSubscriber) {
-			await unsubscribe();
+			body = await unsubscribe(user.subscriptionId, user.username);
 		} else {
-			await subscribe();
+			body = await subscribe(user.username);
 		}
 		await invalidateAll();
+
+		if (body.error) {
+			if (body.data.error) {
+				const t: ToastSettings = {
+					message: body.data.error.message,
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			}
+		}
 	};
 </script>
 

@@ -8,20 +8,18 @@ export interface Subscription {
 }
 
 export interface SubscriptionList {
-	records: [
-		{
-			subscriptionId: string;
-			subscriptionDate: string;
-			user: {
-				username: string;
-				nickname: string;
-				profilePictureUrl: string;
-			};
-		}
-	];
+	records: Array<Follower>;
 	pagination: {
 		offset: number;
 		limit: number;
 		records: number;
 	};
+}
+
+export interface Follower {
+	followerId: string,
+	followingId: string,
+	nickname: string,
+	profilePictureUrl: string,
+	username: string
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { Author, ErrorResponse, FeedSearch, SearchParams, UserSearch } from '$domains';
+	import type { ErrorResponse, FeedSearch, Follower, SearchParams, UserSearch } from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
 	import type { Post } from '$domains';
@@ -17,7 +17,7 @@
 	let tabSet: number = POSTTAB;
 	let isError: boolean = false;
 
-	let userSearch: Array<Author> = [];
+	let userSearch: Array<Follower> = [];
 	let postSearch: Array<Post> = [];
 
 	let lastPostID: string = '';
@@ -93,7 +93,13 @@
 	}
 
 	async function handleUsers(response: UserSearch) {
-		userSearch = response.records;
+		userSearch = response.records.map((record) => ({
+			followerId: '',
+			followingId: '',
+			nickname: record.nickname,
+			profilePictureUrl: record.profilePictureUrl,
+			username: record.username
+		}));
 		postSearch = [];
 		urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
 			? (lastPage = false)
