@@ -7,9 +7,6 @@ import { get } from 'svelte/store';
 const unauthorizedRoutes = [
 	'/',
 	'/login.*',
-	'/login/register',
-	'/login/resendToken',
-	'/login/verify',
 	'/about',
 	'/trending',
 	'/api/feed.*feedType=global',

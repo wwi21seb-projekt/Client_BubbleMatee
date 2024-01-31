@@ -48,7 +48,7 @@
 			if (body.error) {
 				let error: Error = body.data.error;
 				const t: ToastSettings = {
-					message: getErrorMessage(error.code),
+					message: getErrorMessage(error.code, false),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);

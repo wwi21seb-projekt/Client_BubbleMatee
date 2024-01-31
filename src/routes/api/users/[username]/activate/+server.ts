@@ -61,19 +61,11 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 			method: 'DELETE'
 		});
 
-		if (response.ok) {
+		if (response.ok && response.status !== 208) {
 			return json({ data: {}, error: false });
 		}
-
-		return json({
-			data: {
-				error: {
-					code: response.status.toString(),
-					message: ''
-				}
-			},
-			error: true
-		});
+		const body = await response.json();
+		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
 			error: true,

@@ -8,7 +8,7 @@
 		PlusCircle,
 		InformationCircle,
 		UserCircle,
-		ArrowRightOnRectangle
+		ArrowRightEndOnRectangle
 	} from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 </script>
@@ -125,7 +125,7 @@
 		<AppRailAnchor href="/login">
 			<svelte:fragment slot="lead">
 				<Icon
-					src={ArrowRightOnRectangle}
+					src={ArrowRightEndOnRectangle}
 					class={'mx-auto ' +
 						($page.url.pathname.startsWith('/login')
 							? ' text-secondary-500 dark:text-primary-500 stroke-2'
