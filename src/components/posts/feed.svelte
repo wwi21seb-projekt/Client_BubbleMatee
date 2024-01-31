@@ -7,6 +7,7 @@
 	export let notifyDeletedPost: (() => void) | null = null;
 	import { LoadMoreComponent, FeedPostCard } from '$components';
 	import type { Post } from '$domains';
+	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
 
@@ -24,7 +25,7 @@
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
-						message: body.data.error.message,
+						message: getErrorMessage(body.data.error.code, false),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { PostTab, UserTab } from '$components';
-	import type { Author, Follower, Post } from '$domains';
+	import type { Error, Follower, Post } from '$domains';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import { DevicePhoneMobile, User } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -15,6 +15,7 @@
 	export let userSearch: Array<Follower>;
 	export let tabSet: number;
 	export let isError: boolean;
+	export let error: Error;
 	export let lastPage: boolean;
 </script>
 
@@ -41,9 +42,9 @@
 		<!-- Tab Panels --->
 		<svelte:fragment slot="panel">
 			{#if tabSet === POSTTAB}
-				<PostTab loadMore={loadMorePostsSearch} posts={postSearch} {isError} {lastPage} />
+				<PostTab loadMore={loadMorePostsSearch} posts={postSearch} {isError} {error} {lastPage} />
 			{:else if tabSet === USERTAB}
-				<UserTab loadMore={loadMoreUsers} users={userSearch} {isError} {lastPage} />
+				<UserTab loadMore={loadMoreUsers} users={userSearch} {isError} {error} {lastPage} />
 			{/if}
 		</svelte:fragment>
 	</TabGroup>

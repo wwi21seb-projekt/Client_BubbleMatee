@@ -60,7 +60,7 @@ sowie struktur des Projektes selbst
 To change the bacend server change the content of the `.env` file to
 
 ```env
-PUBLIC_BASE_URL=http://localhost:3000
+PUBLIC_BASE_URL=http://0.0.0.0:3000
 
 ```
 

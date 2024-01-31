@@ -35,7 +35,7 @@ import { getErrorMessage } from '$utils';
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
-		const message = getErrorMessage(error.code);
+		const message = getErrorMessage(error.code, false);
 		throw new ErrorEvent(message);
 	} else {
 		const feedData: Feed = (body as FeedResponse).data;
@@ -78,7 +78,7 @@ import { getErrorMessage } from '$utils';
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
-		const message = getErrorMessage(error.code);
+		const message = getErrorMessage(error.code, false);
 		throw new ErrorEvent(message);
 	} else {
 		const feedData: UserFeed = (body as UserFeedResponse).data;
@@ -121,7 +121,7 @@ export async function searchPostByHashtag(searchQuery: string, offset: number, l
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
-		const message = getErrorMessage(error.code);
+		const message = getErrorMessage(error.code, false);
 		throw new ErrorEvent(message);
 	} else {
 		//map the feed-data to a Post-Array with new Posts

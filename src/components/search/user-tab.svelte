@@ -1,14 +1,15 @@
 <script lang="ts">
-	import type { Author, FollowResponse, Follower } from '$domains';
+	import type { Author, Error, FollowResponse, Follower } from '$domains';
 	import { LoadMoreComponent, UserComponent } from '$components';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { getModalStore, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import { subscribe, unsubscribe } from '$utils';
+	import { subscribe, unsubscribe, getErrorMessage } from '$utils';
 	import { currentUsername } from '$stores';
 
 	export let users: Array<Follower>;
 	export let isError: boolean;
+	export let error: Error;
 	export let loadMore: () => void;
 	export let lastPage: boolean;
 	export let isFollowerlist: boolean = false;
@@ -103,6 +104,8 @@
 	{#if !lastPage}
 		<LoadMoreComponent {loadMore} />
 	{/if}
+{:else if error}
+	<p>{getErrorMessage(error.code, true)}</p>
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}

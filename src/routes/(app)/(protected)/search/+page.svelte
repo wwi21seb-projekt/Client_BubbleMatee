@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { ErrorResponse, FeedSearch, Follower, SearchParams, UserSearch } from '$domains';
+	import type {
+		Error,
+		ErrorResponse,
+		FeedSearch,
+		Follower,
+		SearchParams,
+		UserSearch
+	} from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
 	import type { Post } from '$domains';
@@ -16,6 +23,7 @@
 	let chipString: string = '';
 	let tabSet: number = POSTTAB;
 	let isError: boolean = false;
+	let error: Error;
 
 	let userSearch: Array<Follower> = [];
 	let postSearch: Array<Post> = [];
@@ -50,10 +58,12 @@
 		if (tabSet === POSTTAB) {
 			const body = await searchPostByHashtag(searchQuery, offset, limit);
 			isError = body.error;
+			error = body.data.error;
 			return body;
 		} else {
 			const body = await loadSearchedUser(searchQuery, offset, limit);
 			isError = body.error;
+			error = body.data.error;
 			return body;
 		}
 	};
@@ -176,6 +186,7 @@
 			{POSTTAB}
 			{USERTAB}
 			{isError}
+			{error}
 			{postSearch}
 			{userSearch}
 		/>

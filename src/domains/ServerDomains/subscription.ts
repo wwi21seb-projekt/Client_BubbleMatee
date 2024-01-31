@@ -17,9 +17,9 @@ export interface SubscriptionList {
 }
 
 export interface Follower {
-	followerId: string,
-	followingId: string,
-	nickname: string,
-	profilePictureUrl: string,
-	username: string
+	followerId: string;
+	followingId: string;
+	nickname: string;
+	profilePictureUrl: string;
+	username: string;
 }

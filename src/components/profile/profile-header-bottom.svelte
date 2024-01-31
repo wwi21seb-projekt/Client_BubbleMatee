@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import type { UserInfo } from '$domains';
 	import { currentUsername } from '$stores';
-	import { subscribe, unsubscribe } from '$utils';
+	import { subscribe, unsubscribe, getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	export let user: UserInfo;
@@ -38,16 +38,17 @@
 		} else {
 			body = await subscribe(user.username);
 		}
-		await invalidateAll();
 
 		if (body.error) {
 			if (body.data.error) {
 				const t: ToastSettings = {
-					message: body.data.error.message,
+					message: getErrorMessage(body.data.error.code, false),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
 			}
+		} else {
+			await invalidateAll();
 		}
 	};
 </script>
