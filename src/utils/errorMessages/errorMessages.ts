@@ -97,7 +97,7 @@ const errorMessages: Array<Error> = [
  * @param code The error code.
  * @returns The error message.
  */
-export function getErrorMessage(code: string, hasNoToast: boolean = false): string {
+export function getErrorMessage(code: string, hasNoToast: boolean): string {
 	handleUnauthorized(code, hasNoToast);
 	const error = errorMessages.find((error) => {
 		return error.code === code;

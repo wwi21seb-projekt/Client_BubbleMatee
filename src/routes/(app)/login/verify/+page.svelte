@@ -40,7 +40,7 @@
 				}
 
 				const t: ToastSettings = {
-					message: getErrorMessage(error.code),
+					message: getErrorMessage(error.code, false),
 					background: errorColor
 				};
 				toastStore.trigger(t);

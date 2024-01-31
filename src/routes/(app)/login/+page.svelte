@@ -58,14 +58,14 @@
 			if (body.error) {
 				if (body.data.error.code === 'ERR-005') {
 					const t: ToastSettings = {
-						message: getErrorMessage(body.data.error.code),
+						message: getErrorMessage(body.data.error.code, false),
 						background: 'variant-filled-warning'
 					};
 					toastStore.trigger(t);
 					goto('/login/verify?username=' + username);
 				} else {
 					const t: ToastSettings = {
-						message: getErrorMessage(body.data.error.code),
+						message: getErrorMessage(body.data.error.code, false),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);

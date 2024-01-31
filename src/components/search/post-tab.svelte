@@ -13,7 +13,7 @@
 {#if !isError}
 	<Feed classString={'w-full'} {posts} loadMorePosts={loadMore} {lastPage} />
 {:else if error}
-	<p>{getErrorMessage(error.code)}</p>
+	<p>{getErrorMessage(error.code, false)}</p>
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}

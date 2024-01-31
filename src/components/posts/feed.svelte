@@ -25,7 +25,7 @@
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
-						message: getErrorMessage(body.data.error.code),
+						message: getErrorMessage(body.data.error.code, false),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
