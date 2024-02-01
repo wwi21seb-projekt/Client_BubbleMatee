@@ -3,11 +3,11 @@
 	import { ModalHeader, UserTab } from '$components';
 	import { globalConfig } from '$utils';
 	import type {
-		Author,
 		ErrorResponse,
 		SubscriptionListResponse,
 		Error,
-		SubscriptionList
+		SubscriptionList,
+		Follower
 	} from '$domains';
 	import { onMount } from 'svelte';
 
@@ -17,7 +17,7 @@
 	const title: string = isFollowerlist ? 'Abonnentenliste' : 'Abonniertenliste';
 	const type: string = isFollowerlist ? 'followers' : 'following';
 
-	let users: Array<Author> = [];
+	let users: Array<Follower> = [];
 	let lastPage: boolean = false;
 	let isError: boolean = false;
 	let error: Error;
@@ -44,12 +44,7 @@
 		} else {
 			const subscriptionData: SubscriptionList = (body as SubscriptionListResponse).data;
 			//map the feed-data to a Post-Array with new Posts
-			const newUsers: Array<Author> = subscriptionData.records.map((record) => ({
-				nickname: record.user.nickname,
-				profilePictureUrl: record.user.profilePictureUrl,
-				username: record.user.username
-			}));
-			users = users.concat(newUsers);
+			users = users.concat(subscriptionData.records);
 			lastPage = users.length >= subscriptionData.pagination.records;
 			isError = false;
 		}
@@ -65,6 +60,6 @@
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		<UserTab {users} {loadMore} {isError} {error} {lastPage} />
+		<UserTab {users} {loadMore} {error} {isError} {lastPage} isFollowerlist={true} />
 	</div>
 </div>

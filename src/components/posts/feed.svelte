@@ -58,7 +58,7 @@
 				<FeedPostCard {post} {deletePost}></FeedPostCard>
 			{/each}
 		{:else}
-			<p>Keine Posts gefunden</p>
+			<p class="flex justify-center">Keine Posts gefunden</p>
 		{/if}
 		<!-- Button to load the next posts - is invisible, if there are no more posts-->
 		{#if !lastPage}
