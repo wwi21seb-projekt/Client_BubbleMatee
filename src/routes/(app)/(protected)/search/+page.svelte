@@ -15,20 +15,16 @@
 	import { onMount } from 'svelte';
 	import ChipComponent from '$components/search/chip-component.svelte';
 	import { loading } from '$stores';
-
 	const toastStore = getToastStore();
 	const POSTTAB = 0;
 	const USERTAB = 1;
-
 	let searchTerm: string = '';
 	let chipString: string = '';
 	let tabSet: number = POSTTAB;
 	let isError: boolean = false;
 	let error: Error;
-
 	let userSearch: Array<Author> = [];
 	let postSearch: Array<Post> = [];
-
 	let lastPostID: string = '';
 	let lastPage: boolean = true;
 	let isSearch: boolean = userSearch.length > 0 || postSearch.length > 0;
