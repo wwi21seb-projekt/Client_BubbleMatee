@@ -15,7 +15,7 @@
 	}
 
 	// Derived Svelte store to determine if the input is valid (either a file is selected or text is entered after whitespace removal)
-	const inputValid = derived(
+	const INPUT_VALID = derived(
 		[isFileSelected, postText],
 		([$isFileSelected, $postText]) =>
 			$isFileSelected || Boolean(removeWhitespaceAndNewlines($postText))
@@ -41,7 +41,7 @@
 	};
 
 	// Initializing mock data for demonstration or testing purposes
-	const mockData: MockData = {
+	const MOCK_DATA: MockData = {
 		postId: '',
 		author: { username: '', nickname: '', profilePictureUrl: '' },
 		creationDate: '',
@@ -62,23 +62,23 @@
 	}
 	// Function to update the mock data based on the response body
 	function updateMockDataFromBody(body: MockDataBody): void {
-		if (body.data.postId) mockData.postId = body.data.postId;
+		if (body.data.postId) MOCK_DATA.postId = body.data.postId;
 		if (body.data.author) {
-			mockData.author = { ...mockData.author, ...body.data.author };
+			MOCK_DATA.author = { ...MOCK_DATA.author, ...body.data.author };
 		}
-		mockData.creationDate = body.data.creationDate ?? mockData.creationDate;
-		mockData.content = body.data.content ?? mockData.content;
+		MOCK_DATA.creationDate = body.data.creationDate ?? MOCK_DATA.creationDate;
+		MOCK_DATA.content = body.data.content ?? MOCK_DATA.content;
 	}
 
 	// Asynchronous function to handle the post action, including API calls and error handling
 	const handlePost = async () => {
-		if ($inputValid) {
+		if ($INPUT_VALID) {
 			loading.set(true);
 			try {
 				// Extrahieren der Längen- und Breitengrade aus der coords Variable
-				const longitude = coords[0];
-				const latitude = coords[1];
-				const accuracy = 100; // oder ein Standardwert, falls gewünscht
+				const LONGITUDE = coords[0];
+				const LATITUDE = coords[1];
+				const ACCURACY = 0; // oder ein Standardwert, falls gewünscht
 
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
@@ -89,18 +89,18 @@
 						location: {
 							//optional
 							// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
-							longitude: longitude,
-							latitude: latitude,
-							accuracy: accuracy
+							longitude: LONGITUDE,
+							latitude: LATITUDE,
+							accuracy: ACCURACY
 						}
 					})
 				});
 				const body = await response.json();
 				// Handling potential errors from the response
 				if (body.error) {
-					const error: Error = body.data.error;
+					const ERROR: Error = body.data.error;
 					toastStore.trigger({
-						message: getErrorMessage(error.code, false),
+						message: getErrorMessage(ERROR.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {
@@ -128,7 +128,7 @@
 <button
 	type="button"
 	class="btn variant-filled-primary mt-2 buttonPost"
-	disabled={!$inputValid}
+	disabled={!$INPUT_VALID}
 	on:click={handlePost}
 >
 	<img src={PaperPlane} alt="Icon zum Posten" class="iconImage" />
