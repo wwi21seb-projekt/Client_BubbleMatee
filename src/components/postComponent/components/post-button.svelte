@@ -100,7 +100,7 @@
 				if (body.error) {
 					const error: Error = body.data.error;
 					toastStore.trigger({
-						message: getErrorMessage(error.code),
+						message: getErrorMessage(error.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {

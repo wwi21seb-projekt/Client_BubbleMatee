@@ -11,9 +11,9 @@
 	$: user = data.error ? null : (data.data as UserInfo);
 	$: error = data.error ? (data.data as ErrorObject) : null;
 
-	let errorMessage: string;
+	let errorMessage: string = '';
 	onMount(() => {
-		errorMessage = error ? getErrorMessage(error.error.code) : '';
+		errorMessage = error ? getErrorMessage(error.error.code, true) : '';
 	});
 </script>
 
@@ -21,5 +21,7 @@
 	<ProfileHeader bind:user />
 	<ProfilePosts bind:user></ProfilePosts>
 {:else if error}
-	<ErrorAlert message={errorMessage} />
+	<main class="p-4 h-full grid grid-cols-1 place-content-center justify-items-center">
+		<ErrorAlert message={errorMessage} />
+	</main>
 {/if}

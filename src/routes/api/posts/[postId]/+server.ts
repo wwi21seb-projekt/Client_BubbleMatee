@@ -1,5 +1,5 @@
+import type { ErrorResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { getErrorMessage } from '$utils';
 import { json, type RequestHandler } from '@sveltejs/kit';
 /**
  * Handles DELETE requests to delete a post.
@@ -18,21 +18,16 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 		if (response.ok) {
 			return json({ data: {}, error: false });
 		}
-		return json({
-			data: {
-				error: {
-					code: response.status.toString(),
-					message: getErrorMessage(response.status.toString())
-				}
-			},
-			error: true
-		});
+		const body = await response.json();
+		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		return json({
 			error: true,
 			data: {
-				code: '500',
-				message: 'Internal Server Error'
+				error: {
+					code: '500',
+					message: 'Internal Server Error'
+				}
 			}
 		});
 	}

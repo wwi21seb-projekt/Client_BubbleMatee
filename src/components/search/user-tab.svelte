@@ -1,12 +1,14 @@
 <script lang="ts">
-	import type { Author } from '$domains';
+	import type { Author, Error } from '$domains';
 	import { LoadMoreComponent, UserComponent } from '$components';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { getErrorMessage } from '$utils';
 
 	export let users: Array<Author>;
 	export let isError: boolean;
+	export let error: Error;
 	export let loadMore: () => void;
 	export let lastPage: boolean;
 	const modalStore = getModalStore();
@@ -32,6 +34,8 @@
 	{#if !lastPage}
 		<LoadMoreComponent {loadMore} />
 	{/if}
+{:else if error}
+	<p>{getErrorMessage(error.code, true)}</p>
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}
