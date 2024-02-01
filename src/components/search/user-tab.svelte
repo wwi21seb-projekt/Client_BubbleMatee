@@ -26,7 +26,9 @@
 
 	$: setFollowButtonClass = (user: Follower) => {
 		let result: string = 'btn m-4';
-		user.followingId ? (result += ' variant-ghost-primary') : (result += ' variant-filled-primary');
+		user.followingId
+			? (result += ' variant-ghost-secondary dark:variant-ghost-primary')
+			: (result += ' variant-filled-secondary dark:variant-filled-primary');
 		return result;
 	};
 
