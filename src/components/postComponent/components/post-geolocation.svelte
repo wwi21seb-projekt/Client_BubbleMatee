@@ -14,6 +14,27 @@
 	const buttonLoadingText = 'Standort wird geladen';
 	const buttonActivationText = 'Standort teilen';
 	const buttonActivatedText = 'Standort nicht teilen';
+	//HighAccuracy für Standortermittlung
+	let options = {
+		/**
+		 * @type {boolean}
+		 * @default false
+		 */
+		enableHighAccuracy: true,
+
+		/**
+		 * @type {number}
+		 * @default Infinity
+		 */
+		timeout: 5000, // milliseconds
+
+		/**
+		 * @type {number}
+		 * @default 0
+		 */
+		maximumAge: 60 * 60 * 1000, // milliseconds
+  	};
+
 	let buttonGeolocationText = buttonActivationText;
 
 	// State management for button
@@ -79,7 +100,7 @@
 	}
 </script>
 
-<Geolocation {getPosition} bind:coords let:loading let:success let:error let:notSupported>
+<Geolocation {getPosition} options="{options}" bind:coords let:loading let:success let:error let:notSupported>
 	{#if notSupported}
 		{showToast('Dein Browser unterstützt die Geolocation-API nicht.', 'variant-filled-error')}
 		{updateButtonState('deactivated')}
