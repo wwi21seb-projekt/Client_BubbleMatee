@@ -1,15 +1,12 @@
 <script lang="ts">
 	import { CarouselElement } from '$components';
+	import { Team } from '$images';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
 <AccordionItem open>
 	<svelte:fragment slot="lead"
-		><img
-			src="./src/images/about/team.png"
-			alt="Bild von allen Teammitgliedern"
-			class="icon-team"
-		/></svelte:fragment
+		><img src={Team} alt="Bild von allen Teammitgliedern" class="icon-team" /></svelte:fragment
 	>
 	<svelte:fragment slot="summary"
 		><h2 class="h2">

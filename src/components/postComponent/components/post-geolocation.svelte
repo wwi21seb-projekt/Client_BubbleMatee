@@ -20,20 +20,17 @@
 				buttonGeolocationText = buttonLoadingText;
 				buttonDisabled = true;
 				return '';
-				break;
 			case 'activated':
 				buttonGeolocationText = buttonActivatedText;
 				buttonDisabled = false;
 				isLocationActivated = true;
 				return '';
-				break;
 			case 'deactivated':
 				buttonGeolocationText = buttonActivationText;
 				buttonDisabled = false;
 				isLocationActivated = false;
 				coords = [-1, -1];
 				return '';
-				break;
 		}
 	}
 

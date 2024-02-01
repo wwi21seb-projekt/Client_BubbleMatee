@@ -7,6 +7,7 @@
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { PostGeolocation } from '$components';
+	import { PaperPlane } from '$images';
 
 	// Helper function to remove whitespace and newlines from a string
 	function removeWhitespaceAndNewlines(text: string): string {
@@ -131,7 +132,7 @@
 	disabled={!$inputValid}
 	on:click={handlePost}
 >
-	<img src="./src/images/icons/paper-plane.png" alt="Icon zum Posten" class="iconImage" />
+	<img src={PaperPlane} alt="Icon zum Posten" class="iconImage" />
 	<span>Posten</span>
 </button>
 
