@@ -76,8 +76,8 @@
 			loading.set(true);
 			try {
 				// Extrahieren der Längen- und Breitengrade aus der coords Variable
-				const longitude = coords.length > 0 ? coords[0] : '';
-				const latitude = coords.length > 0 ? coords[1] : '';
+				const longitude = coords[0];
+				const latitude = coords[1];
 				const accuracy = 100; // oder ein Standardwert, falls gewünscht
 
 				// Making a POST request to the server with the user input
