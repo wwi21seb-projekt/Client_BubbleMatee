@@ -76,9 +76,12 @@
 			loading.set(true);
 			try {
 				// Extrahieren der Längen- und Breitengrade aus der coords Variable
-				const longitude = coords[0];
-				const latitude = coords[1];
-				const accuracy = 100; // oder ein Standardwert, falls gewünscht
+				const LONGITUDE = coords[0];
+				const LATITUDE = coords[1];
+				const ACCURACY =  0; // oder ein Standardwert, falls gewünscht
+
+				// Prüfen, ob die Koordinaten gültig sind
+				const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
 
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
@@ -86,21 +89,21 @@
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
 						content: $postText,
-						location: {
+						location: ARE_COORDS_VALID ? {
 							//optional
 							// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
-							longitude: longitude,
-							latitude: latitude,
-							accuracy: accuracy
-						}
+							longitude: LONGITUDE,
+							latitude: LATITUDE,
+							accuracy: ACCURACY
+						} : null
 					})
 				});
 				const body = await response.json();
 				// Handling potential errors from the response
 				if (body.error) {
-					const error: Error = body.data.error;
+					const ERROR: Error = body.data.error;
 					toastStore.trigger({
-						message: getErrorMessage(error.code, false),
+						message: getErrorMessage(ERROR.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {
