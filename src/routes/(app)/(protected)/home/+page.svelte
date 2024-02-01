@@ -33,8 +33,9 @@
 				};
 				toastStore.trigger(t);
 			}
+		} finally {
+			$loading = false;
 		}
-		$loading = false;
 	}
 </script>
 
