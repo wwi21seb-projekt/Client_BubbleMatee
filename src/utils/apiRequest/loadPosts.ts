@@ -44,7 +44,8 @@ import { getErrorMessage } from '$utils';
 			postId: record.postId,
 			author: record.author,
 			creationDate: new Date(record.creationDate),
-			content: record.content
+			content: record.content,
+			location: record.location
 		}));
 		const postdata: PostData = {
 			posts: newPosts,
@@ -91,7 +92,8 @@ import { getErrorMessage } from '$utils';
 				profilePictureUrl: user.profilePictureUrl
 			},
 			creationDate: new Date(record.creationDate),
-			content: record.content
+			content: record.content,
+			location: record.location
 		}));
 		const postdata: PostData = {
 			posts: newPosts,

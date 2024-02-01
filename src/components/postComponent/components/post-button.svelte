@@ -6,6 +6,7 @@
 	import type { Error } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { PostGeolocation } from '$components';
 	import { PaperPlane } from '$images';
 
 	// Helper function to remove whitespace and newlines from a string
@@ -22,6 +23,8 @@
 
 	// Initialization of toast notifications store
 	const toastStore = getToastStore();
+
+	let coords: [number, number];
 
 	// Type definitions for Author and MockData to ensure type safety
 	type Author = {
@@ -72,21 +75,37 @@
 		if ($inputValid) {
 			loading.set(true);
 			try {
+				// Extrahieren der Längen- und Breitengrade aus der coords Variable
+				const LONGITUDE = coords[0];
+				const LATITUDE = coords[1];
+				const ACCURACY = 0; // oder ein Standardwert, falls gewünscht
+
+				// Prüfen, ob die Koordinaten gültig sind
+				const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
+
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
-						content: $postText
+						content: $postText,
+						location: ARE_COORDS_VALID
+							? {
+									//optional
+									// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
+									longitude: LONGITUDE,
+									latitude: LATITUDE,
+									accuracy: ACCURACY
+								}
+							: null
 					})
 				});
-
 				const body = await response.json();
 				// Handling potential errors from the response
 				if (body.error) {
-					const error: Error = body.data.error;
+					const ERROR: Error = body.data.error;
 					toastStore.trigger({
-						message: getErrorMessage(error.code, false),
+						message: getErrorMessage(ERROR.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {
@@ -110,9 +129,10 @@
 	};
 </script>
 
+<PostGeolocation bind:coords />
 <button
 	type="button"
-	class="btn variant-filled-primary mt-2 buttonPost"
+	class="btn variant-filled-primary mt-4 buttonPost"
 	disabled={!$inputValid}
 	on:click={handlePost}
 >

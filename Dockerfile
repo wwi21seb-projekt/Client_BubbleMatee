@@ -24,7 +24,7 @@ COPY . .
 RUN npm run build
 
 # Der Port, auf dem der Container laufen soll
-EXPOSE 5173
+EXPOSE 4173
 
 # Starten der App
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "preview"]

@@ -1,12 +1,15 @@
 <!-- List component that contains multiple posts.  -->
 <script lang="ts">
 	export let posts: Array<Post>;
-	export let loadMorePosts: () => void;
+	export let loadMorePosts: () => Promise<void>;
 	export let lastPage: boolean;
 	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4';
 	export let notifyDeletedPost: (() => void) | null = null;
-	import { LoadMoreComponent, FeedPostCard } from '$components';
+	export let nothingFoundMessage: string | null;
+	export let nothingFoundSubMessage: string | null;
+	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
 	import type { Post } from '$domains';
+	import { loading } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
@@ -54,11 +57,16 @@
 	<!--Switch the width on different devices-->
 	<div class={classString}>
 		{#if posts.length > 0}
-			{#each posts as post}
+			{#each posts as post (post.postId)}
 				<FeedPostCard {post} {deletePost}></FeedPostCard>
 			{/each}
-		{:else}
-			<p class="flex justify-center">Keine Posts gefunden</p>
+		{:else if !$loading}
+			<div class=" mx-4">
+				<NothingFoundComponent
+					message={nothingFoundMessage ? nothingFoundMessage : 'Keine Post gefunden'}
+					submessage={nothingFoundSubMessage ? nothingFoundSubMessage : null}
+				/>
+			</div>
 		{/if}
 		<!-- Button to load the next posts - is invisible, if there are no more posts-->
 		{#if !lastPage}

@@ -9,12 +9,26 @@ export interface Post {
 	author: Author;
 	creationDate: Date;
 	content: string;
+	location: Location | null;
 }
 
 export interface Author {
 	username: string;
 	nickname: string;
 	profilePictureUrl: string;
+}
+
+export interface Location {
+	longitude: string;
+	latitude: string;
+	accuracy: number;
+}
+
+export interface LocationPlace {
+	longitude: string;
+	latitude: string;
+	country: string;
+	city: string;
 }
 
 //interface, that is needed to manage the loading of the next posts

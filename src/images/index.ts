@@ -16,6 +16,7 @@ import TextLogo from './layout/logoMitSchriftzug.png';
 import Text from './layout/schriftzug.png';
 import PaperPlane from './icons/paper-plane.png';
 import Person from './icons/person.png';
+import Pin from './icons/pin.png';
 
 export { default as SettingIcon } from './icons/setting-icon.svelte';
 export { default as EditIcon } from './icons/edit-icon.svelte';
@@ -42,5 +43,6 @@ export {
 	TextLogo,
 	Text,
 	PaperPlane,
-	Person
+	Person,
+	Pin
 };

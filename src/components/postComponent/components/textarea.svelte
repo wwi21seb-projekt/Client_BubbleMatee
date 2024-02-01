@@ -36,7 +36,7 @@
 
 <div class="container">
 	<textarea
-		class="textarea {classtext}"
+		class="textarea !bg-surface-300 dark:!bg-surface-700 {classtext}"
 		rows="3"
 		placeholder="Bitte geben sie hier ihren Post mit maximal 256 Zeichen ein."
 		maxlength={maxChars}

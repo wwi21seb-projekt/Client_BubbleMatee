@@ -32,12 +32,15 @@ export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
 export { default as Textarea } from './postComponent/components/textarea.svelte';
 export { default as PostComponent } from './postComponent/post-component.svelte';
 export { default as PostButton } from './postComponent/components/post-button.svelte';
+export { default as PostGeolocation } from './postComponent/components/post-geolocation.svelte';
 
 //Feed Components
 export { default as FeedPostCard } from './posts/feed-post-card.svelte';
 export { default as Feed } from './posts/feed.svelte';
 export { default as FeedPostHeader } from './posts/feed-post-card-elements/feed-post-header.svelte';
 export { default as FeedPostMain } from './posts/feed-post-card-elements/feed-post-main.svelte';
+export { default as FeedPostLocation } from './posts/feed-post-card-elements/feed-post-locations.svelte';
+
 export { default as FeedPostFooter } from './posts/feed-post-card-elements/feed-post-footer.svelte';
 export { default as Comments } from './posts/comments/comments.svelte';
 export { default as CommentElement } from './posts/comments/comment-element.svelte';
@@ -64,3 +67,4 @@ export { default as ChipComponent } from './search/chip-component.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';
+export { default as NothingFoundComponent } from './general/nothing-found-component.svelte';

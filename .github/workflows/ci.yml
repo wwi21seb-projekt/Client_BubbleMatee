@@ -3,6 +3,9 @@ name: Continous Integration
 on:
   pull_request:
     branches: ['main']
+env:
+  PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+  PRIVATE_GEO_API_KEY: ${{ secrets.PRIVATE_GEO_API_KEY }}
 
 jobs:
   verify:
@@ -22,9 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Set Environment Variables
-        run: echo "PUBLIC_BASE_URL=http://localhost:3000" >> $GITHUB_ENV
 
       - name: Run Build
         run: pnpm build

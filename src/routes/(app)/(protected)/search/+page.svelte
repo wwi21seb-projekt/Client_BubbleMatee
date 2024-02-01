@@ -14,26 +14,22 @@
 	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag, globalConfig } from '$utils';
 	import { onMount } from 'svelte';
 	import ChipComponent from '$components/search/chip-component.svelte';
-
+	import { loading } from '$stores';
 	const toastStore = getToastStore();
 	const POSTTAB = 0;
 	const USERTAB = 1;
-
 	let searchTerm: string = '';
 	let chipString: string = '';
 	let tabSet: number = POSTTAB;
 	let isError: boolean = false;
 	let error: Error;
-
 	let userSearch: Array<Follower> = [];
 	let postSearch: Array<Post> = [];
-
 	let lastPostID: string = '';
 	let lastPage: boolean = true;
 	let isSearch: boolean = userSearch.length > 0 || postSearch.length > 0;
 	let posts: Array<Post> = new Array<Post>();
 	let urlProps: SearchParams;
-
 	//load the first posts directly
 	onMount(async () => {
 		loadMorePosts();
@@ -67,7 +63,6 @@
 			return body;
 		}
 	};
-
 	async function loadMoreUsers() {
 		if (urlProps.offset !== null) {
 			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
@@ -76,11 +71,13 @@
 		}
 	}
 	async function loadMorePostsSearch() {
+		$loading = true;
 		if (urlProps.offset !== null) {
 			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
 			const response = await searchHashtags();
 			handleHashtags({ ...response, records: [...postSearch, ...response.records] });
 		}
+		$loading = false;
 	}
 	async function searchHashtags() {
 		goto(`/search?q=${searchTerm}`);
@@ -115,7 +112,6 @@
 			? (lastPage = false)
 			: (lastPage = true);
 	}
-
 	export async function handleSearch() {
 		urlProps.offset = 0;
 		chipString = searchTerm;
@@ -144,9 +140,9 @@
 			isError = true;
 		}
 	}
-
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
+		$loading = true;
 		try {
 			const data = await fetchNextPostsFeed(lastPostID, globalConfig.limit, 'global');
 			posts = posts.concat(data.posts);
@@ -160,6 +156,8 @@
 				};
 				toastStore.trigger(t);
 			}
+		} finally {
+			$loading = false;
 		}
 	}
 </script>
@@ -167,7 +165,6 @@
 <div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
 	<SearchBar {handleSearch} bind:searchTerm />
 </div>
-
 {#if isSearch}
 	<div
 		class="flex justify-center sticky p-4 z-40 bg-surface-50 dark:bg-surface-900"
@@ -175,7 +172,6 @@
 	>
 		<ChipComponent message={`Sucherergebnisse für ${chipString}`} />
 	</div>
-
 	<div class="flex justify-center">
 		<SearchTabs
 			bind:tabSet
@@ -192,5 +188,11 @@
 		/>
 	</div>
 {:else}
-	<Feed {posts} {loadMorePosts} {lastPage} />
+	<Feed
+		{posts}
+		{loadMorePosts}
+		{lastPage}
+		nothingFoundMessage={'Keine Post gefunden'}
+		nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
+	/>
 {/if}

@@ -3,7 +3,7 @@ import type { Feed } from './ServerDomains/feed';
 import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription, SubscriptionList } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
-import type { Author, Post } from './Post';
+import type { Author, LocationPlace, Post } from './Post';
 
 export interface Response {
 	error: boolean;
@@ -40,6 +40,10 @@ export interface FeedResponse extends Response {
 
 export interface UserFeedResponse extends Response {
 	data: UserFeed;
+}
+
+export interface LocationResponse extends Response {
+	data: LocationPlace;
 }
 
 export interface UserInfoResponse extends Response {
