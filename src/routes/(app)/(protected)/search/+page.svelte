@@ -30,7 +30,6 @@
 	let isSearch: boolean = userSearch.length > 0 || postSearch.length > 0;
 	let posts: Array<Post> = new Array<Post>();
 	let urlProps: SearchParams;
-
 	//load the first posts directly
 	onMount(async () => {
 		loadMorePosts();
@@ -162,6 +161,7 @@
 		}
 	}
 </script>
+
 <div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
 	<SearchBar {handleSearch} bind:searchTerm />
 </div>
