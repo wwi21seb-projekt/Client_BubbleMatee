@@ -10,6 +10,7 @@
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
 	import type { Post } from '$domains';
 	import { loading } from '$stores';
+	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
 
@@ -27,7 +28,7 @@
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
-						message: body.data.error.message,
+						message: getErrorMessage(body.data.error.code, false),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);

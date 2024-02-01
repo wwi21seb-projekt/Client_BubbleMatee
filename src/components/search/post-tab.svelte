@@ -1,10 +1,12 @@
 <script lang="ts">
-	import type { Post } from '$domains';
+	import type { Error, Post } from '$domains';
 	import { Feed } from '$components';
+	import { getErrorMessage } from '$utils';
 
 	export let posts: Array<Post>;
 	export let isError: boolean;
 	export let loadMore: () => Promise<void>;
+	export let error: Error;
 	export let lastPage: boolean;
 </script>
 
@@ -17,6 +19,8 @@
 		nothingFoundMessage={'Keine passenden Post gefunden'}
 		nothingFoundSubMessage={'Sei der erste, der diesen Hashtag verwendet!'}
 	/>
+{:else if error}
+	<p>{getErrorMessage(error.code, false)}</p>
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}

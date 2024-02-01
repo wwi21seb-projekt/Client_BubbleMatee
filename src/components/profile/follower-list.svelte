@@ -2,7 +2,6 @@
 <script lang="ts">
 	import { ModalHeader, UserTab } from '$components';
 	import { globalConfig } from '$utils';
-	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type {
 		Author,
 		ErrorResponse,
@@ -10,19 +9,18 @@
 		Error,
 		SubscriptionList
 	} from '$domains';
-	import { getErrorMessage } from '$utils';
 	import { onMount } from 'svelte';
 
 	export let username: string;
 	export let isFollowerlist: boolean;
 
-	const toastStore = getToastStore();
-	const title: string = isFollowerlist ? 'Abonenntenliste' : 'Abonniertenliste';
+	const title: string = isFollowerlist ? 'Abonnentenliste' : 'Abonniertenliste';
 	const type: string = isFollowerlist ? 'followers' : 'following';
 
 	let users: Array<Author> = [];
 	let lastPage: boolean = false;
 	let isError: boolean = false;
+	let error: Error;
 
 	onMount(async () => {
 		loadMore();
@@ -41,13 +39,8 @@
 		const body: ErrorResponse | SubscriptionListResponse = await response.json();
 		if (body.error) {
 			//handle Error
-			const error: Error = (body as ErrorResponse).data.error;
+			error = (body as ErrorResponse).data.error;
 			isError = true;
-			// Toast
-			toastStore.trigger({
-				message: getErrorMessage(error.code),
-				background: 'variant-filled-error'
-			});
 		} else {
 			const subscriptionData: SubscriptionList = (body as SubscriptionListResponse).data;
 			//map the feed-data to a Post-Array with new Posts
@@ -72,6 +65,6 @@
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		<UserTab {users} {loadMore} {isError} {lastPage} />
+		<UserTab {users} {loadMore} {isError} {error} {lastPage} />
 	</div>
 </div>

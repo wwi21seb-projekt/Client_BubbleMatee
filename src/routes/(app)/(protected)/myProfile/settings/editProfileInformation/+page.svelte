@@ -24,7 +24,7 @@
 	const amountOfLettersAllowedInStatus: number = 128;
 
 	onMount(() => {
-		errorMessage = error ? getErrorMessage(error.code) : '';
+		errorMessage = error ? getErrorMessage(error.code, false) : '';
 	});
 
 	const handleSave = async () => {
@@ -43,7 +43,7 @@
 			if (body.error) {
 				if (body.data.error) {
 					const t: ToastSettings = {
-						message: getErrorMessage(body.data.error.code),
+						message: getErrorMessage(body.data.error.code, false),
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
