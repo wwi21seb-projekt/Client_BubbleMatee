@@ -17,9 +17,9 @@
 	//calculate the time that has passend since the post in weeks/ days/ hours or minutes
 	let dateString: string = calculatePassedTime(date);
 	//if the post belongs to the active user, he has the option to delete it
-	let isOwnUser: boolean =
-		$page.params.username === $currentUsername || $page.url.pathname === '/myProfile';
-
+	let isOwnUser: boolean = author.username === $currentUsername;
+	let canNavigate: boolean =
+		$page.params.username === author.username || $page.url.pathname === '/myProfile';
 	const popupClick: PopupSettings = {
 		event: 'click',
 		target: 'popupClick',
@@ -30,12 +30,12 @@
 <div class="flex items-center justify-between">
 	<!--Element shows the profile picture, username, nickname and the time that has passed since the post-->
 	<button
-		class={`${isOwnUser ? '' : 'hover:text-gray-400'}`}
+		class={`${canNavigate ? '' : 'hover:text-gray-400'}`}
 		on:click={() => {
 			const currenPath = $page.url.pathname.split('/')[1];
 			goto(`/${currenPath}/user/${author.username}`);
 		}}
-		disabled={isOwnUser}
+		disabled={canNavigate}
 	>
 		<UserComponent {author} />
 	</button>

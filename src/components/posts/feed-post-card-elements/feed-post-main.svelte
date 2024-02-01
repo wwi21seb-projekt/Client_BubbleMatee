@@ -46,8 +46,8 @@
 	<!--Show text, if the post has text-->
 	{#if text !== ''}
 		<div class="w-1/2 flex items-center justify-center px-4 py-2">
-			<article class="text-2xl">
-				<p class="break-words">{text}</p>
+			<article class="text-2xl w-full">
+				<p class="break-words w-full text-center">{text}</p>
 			</article>
 		</div>
 	{/if}

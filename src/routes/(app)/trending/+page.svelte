@@ -5,6 +5,7 @@
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import { globalConfig } from '$utils';
+	import { loading } from '$stores';
 	// lastPostID -> The ID of the last Post -> is needed to load the next posts
 	let lastPostID: string = '';
 	let lastPage: boolean = true;
@@ -18,6 +19,7 @@
 
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
+		$loading = true;
 		try {
 			const data = await fetchNextPostsFeed(lastPostID, globalConfig.limit, 'global');
 			posts = posts.concat(data.posts);
@@ -31,6 +33,8 @@
 				};
 				toastStore.trigger(t);
 			}
+		} finally {
+			$loading = false;
 		}
 	}
 </script>
@@ -44,7 +48,13 @@
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
 
-<Feed {posts} {loadMorePosts} {lastPage}></Feed>
+<Feed
+	{posts}
+	{loadMorePosts}
+	{lastPage}
+	nothingFoundMessage={'Keine Post gefunden'}
+	nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
+></Feed>
 
 <style>
 	/* Definition of CSS variables for recurring values */

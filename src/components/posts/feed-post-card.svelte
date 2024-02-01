@@ -20,7 +20,7 @@
 		</header>
 		<main class="card w-full !bg-transparent my-2">
 			<FeedPostMain text={post.content} />
-			{#if post.location.longitude !== ''}
+			{#if post.location}
 				<FeedPostLocation location={post.location} />
 			{/if}
 		</main>

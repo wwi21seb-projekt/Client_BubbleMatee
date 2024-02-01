@@ -7,7 +7,7 @@ export interface UserFeed {
 			postId: string;
 			creationDate: Date;
 			content: string;
-			location: Location;
+			location: Location | null;
 		}
 	];
 	pagination: {

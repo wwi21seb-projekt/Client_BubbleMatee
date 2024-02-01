@@ -77,6 +77,6 @@
 			<ProfileHeaderBottom {user} />
 		</div>
 		<!-- Separator Line -->
-		<hr class="!border-t-2 !border-double mt-4 mx-4" />
+		<hr class="!border-t-2 !border-double mt-4 mx-4 mb-2" />
 	</div>
 </div>

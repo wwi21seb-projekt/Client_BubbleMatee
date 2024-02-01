@@ -66,3 +66,4 @@ export { default as ChipComponent } from './search/chip-component.svelte';
 
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';
+export { default as NothingFoundComponent } from './general/nothing-found-component.svelte';

@@ -6,7 +6,7 @@ export interface Feed {
 		{
 			postId: string;
 			author: Author;
-			location: Location;
+			location: Location | null;
 			creationDate: Date;
 			content: string;
 		}

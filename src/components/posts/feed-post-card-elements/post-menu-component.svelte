@@ -27,7 +27,7 @@
 </script>
 
 <div class="w-full">
-	<div class="dark:bg-surface-900 bg-surface-200 p-2">
+	<div class="dark:bg-surface-900 bg-surface-200 p-2 rounded-xl">
 		<!--title -->
 		<h3 class="m-2 font-bold text-2xl md:text-3xl w-full text-center">Optionen</h3>
 		<hr class="!border-t-8 !border-double" />

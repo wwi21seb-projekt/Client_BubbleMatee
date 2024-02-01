@@ -27,7 +27,7 @@
 		{#if !locationPlace || locationPlace.country === ''}
 			<span>{`(${location.latitude},${location.longitude})`}</span>
 		{:else}
-			<span>{`${locationPlace.city},${locationPlace.country}`}</span>
+			<span>{`${locationPlace.city}, ${locationPlace.country}`}</span>
 		{/if}
 	</a>
 </div>

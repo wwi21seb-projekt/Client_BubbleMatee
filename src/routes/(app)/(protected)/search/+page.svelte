@@ -7,6 +7,7 @@
 	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag, globalConfig } from '$utils';
 	import { onMount } from 'svelte';
 	import ChipComponent from '$components/search/chip-component.svelte';
+	import { loading } from '$stores';
 
 	const toastStore = getToastStore();
 	const POSTTAB = 0;
@@ -66,11 +67,13 @@
 		}
 	}
 	async function loadMorePostsSearch() {
+		$loading = true;
 		if (urlProps.offset !== null) {
 			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
 			const response = await searchHashtags();
 			handleHashtags({ ...response, records: [...postSearch, ...response.records] });
 		}
+		$loading = false;
 	}
 	async function searchHashtags() {
 		goto(`/search?q=${searchTerm}`);
@@ -131,6 +134,7 @@
 
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
+		$loading = true;
 		try {
 			const data = await fetchNextPostsFeed(lastPostID, globalConfig.limit, 'global');
 			posts = posts.concat(data.posts);
@@ -144,6 +148,8 @@
 				};
 				toastStore.trigger(t);
 			}
+		} finally {
+			$loading = false;
 		}
 	}
 </script>
@@ -175,5 +181,11 @@
 		/>
 	</div>
 {:else}
-	<Feed {posts} {loadMorePosts} {lastPage} />
+	<Feed
+		{posts}
+		{loadMorePosts}
+		{lastPage}
+		nothingFoundMessage={'Keine Post gefunden'}
+		nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
+	/>
 {/if}

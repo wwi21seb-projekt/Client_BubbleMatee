@@ -9,7 +9,7 @@ export interface Post {
 	author: Author;
 	creationDate: Date;
 	content: string;
-	location: Location;
+	location: Location | null;
 }
 
 export interface Author {

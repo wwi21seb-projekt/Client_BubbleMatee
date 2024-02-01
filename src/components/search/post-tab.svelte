@@ -4,12 +4,19 @@
 
 	export let posts: Array<Post>;
 	export let isError: boolean;
-	export let loadMore: () => void;
+	export let loadMore: () => Promise<void>;
 	export let lastPage: boolean;
 </script>
 
 {#if !isError}
-	<Feed classString={'w-full'} {posts} loadMorePosts={loadMore} {lastPage} />
+	<Feed
+		classString={'w-full'}
+		{posts}
+		loadMorePosts={loadMore}
+		{lastPage}
+		nothingFoundMessage={'Keine passenden Post gefunden'}
+		nothingFoundSubMessage={'Sei der erste, der diesen Hashtag verwendet!'}
+	/>
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}
