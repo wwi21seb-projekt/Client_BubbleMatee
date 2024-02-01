@@ -32,8 +32,8 @@
 		 * @type {number}
 		 * @default 0
 		 */
-		maximumAge: 60 * 60 * 1000, // milliseconds
-  	};
+		maximumAge: 60 * 60 * 1000 // milliseconds
+	};
 
 	let buttonGeolocationText = buttonActivationText;
 
@@ -100,7 +100,7 @@
 	}
 </script>
 
-<Geolocation {getPosition} options="{options}" bind:coords let:loading let:success let:error let:notSupported>
+<Geolocation {getPosition} {options} bind:coords let:loading let:success let:error let:notSupported>
 	{#if notSupported}
 		{showToast('Dein Browser unterstützt die Geolocation-API nicht.', 'variant-filled-error')}
 		{updateButtonState('deactivated')}

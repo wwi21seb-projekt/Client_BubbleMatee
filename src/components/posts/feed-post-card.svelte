@@ -16,7 +16,12 @@
 		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
 	>
 		<header>
-			<FeedPostHeader date={post.creationDate} author={post.author} deletePost={deleteThisPost} />
+			<FeedPostHeader
+				date={post.creationDate}
+				author={post.author}
+				deletePost={deleteThisPost}
+				{post}
+			/>
 		</header>
 		<main class="card w-full !bg-transparent my-2">
 			<FeedPostMain text={post.content} />

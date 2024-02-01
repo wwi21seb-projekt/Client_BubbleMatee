@@ -57,7 +57,7 @@
 	<!--Switch the width on different devices-->
 	<div class={classString}>
 		{#if posts.length > 0}
-			{#each posts as post}
+			{#each posts as post (post.postId)}
 				<FeedPostCard {post} {deletePost}></FeedPostCard>
 			{/each}
 		{:else if !$loading}

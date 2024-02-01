@@ -78,7 +78,7 @@
 				// Extrahieren der Längen- und Breitengrade aus der coords Variable
 				const LONGITUDE = coords[0];
 				const LATITUDE = coords[1];
-				const ACCURACY =  0; // oder ein Standardwert, falls gewünscht
+				const ACCURACY = 0; // oder ein Standardwert, falls gewünscht
 
 				// Prüfen, ob die Koordinaten gültig sind
 				const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
@@ -89,13 +89,15 @@
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
 						content: $postText,
-						location: ARE_COORDS_VALID ? {
-							//optional
-							// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
-							longitude: LONGITUDE,
-							latitude: LATITUDE,
-							accuracy: ACCURACY
-						} : null
+						location: ARE_COORDS_VALID
+							? {
+									//optional
+									// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
+									longitude: LONGITUDE,
+									latitude: LATITUDE,
+									accuracy: ACCURACY
+								}
+							: null
 					})
 				});
 				const body = await response.json();

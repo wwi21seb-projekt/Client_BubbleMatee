@@ -1,6 +1,6 @@
 <!--Header component for a post. Containing the userinformation and a date.-->
 <script lang="ts">
-	import type { Author } from '$domains';
+	import type { Author, Post } from '$domains';
 	import { calculatePassedTime } from '$utils';
 	import { PostMenu, UserComponent } from '$components';
 	import { goto } from '$app/navigation';
@@ -13,6 +13,7 @@
 	export let date: Date;
 	export let author: Author;
 	export let deletePost: () => void;
+	export let post: Post;
 
 	//calculate the time that has passend since the post in weeks/ days/ hours or minutes
 	let dateString: string = calculatePassedTime(date);
@@ -22,7 +23,7 @@
 		$page.params.username === author.username || $page.url.pathname === '/myProfile';
 	const popupClick: PopupSettings = {
 		event: 'click',
-		target: 'popupClick',
+		target: 'popupClick-' + post.postId,
 		placement: 'left'
 	};
 </script>
@@ -53,6 +54,6 @@
 </div>
 
 <!--Options-Popup -> All the options a user has to change or delete his own post (for the moment he con only delete it)-->
-<div class="w-1/2 sm:w-1/3 md:w-1/4" data-popup="popupClick">
+<div class="w-1/2 sm:w-1/3 md:w-1/4" data-popup="popupClick-{post.postId}">
 	<PostMenu {deletePost} />
 </div>
