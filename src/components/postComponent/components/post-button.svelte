@@ -94,7 +94,6 @@
 						}
 					})
 				});
-				console.log(response.body);
 				const body = await response.json();
 				// Handling potential errors from the response
 				if (body.error) {
