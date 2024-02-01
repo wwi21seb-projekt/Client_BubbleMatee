@@ -21,7 +21,7 @@ export async function fetchLocation(long: string, lat: string): Promise<Location
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
-		const message = getErrorMessage(error.code);
+		const message = getErrorMessage(error.code, false);
 		throw new ErrorEvent(message);
 	} else {
 		const data: LocationPlace = body.data as LocationPlace;
