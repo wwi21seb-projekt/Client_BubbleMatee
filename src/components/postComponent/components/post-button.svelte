@@ -15,7 +15,7 @@
 	}
 
 	// Derived Svelte store to determine if the input is valid (either a file is selected or text is entered after whitespace removal)
-	const INPUT_VALID = derived(
+	const isInputValid = derived(
 		[isFileSelected, postText],
 		([$isFileSelected, $postText]) =>
 			$isFileSelected || Boolean(removeWhitespaceAndNewlines($postText))
@@ -72,7 +72,7 @@
 
 	// Asynchronous function to handle the post action, including API calls and error handling
 	const handlePost = async () => {
-		if ($INPUT_VALID) {
+		if ($isInputValid) {
 			loading.set(true);
 			try {
 				// Extrahieren der Längen- und Breitengrade aus der coords Variable
@@ -98,9 +98,9 @@
 				const body = await response.json();
 				// Handling potential errors from the response
 				if (body.error) {
-					const ERROR: Error = body.data.error;
+					const error: Error = body.data.error;
 					toastStore.trigger({
-						message: getErrorMessage(ERROR.code, false),
+						message: getErrorMessage(error.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {
@@ -128,7 +128,7 @@
 <button
 	type="button"
 	class="btn variant-filled-primary mt-2 buttonPost"
-	disabled={!$INPUT_VALID}
+	disabled={!$isInputValid}
 	on:click={handlePost}
 >
 	<img src={PaperPlane} alt="Icon zum Posten" class="iconImage" />

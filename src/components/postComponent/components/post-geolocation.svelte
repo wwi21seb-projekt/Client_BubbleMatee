@@ -2,56 +2,55 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import Geolocation from 'svelte-geolocation';
 
-	export let coords: [number, number] = [-1, -1];
+	export let coords: [number, number];
 	let getPosition = false;
 	let isLocationActivated = false;
 	let buttonDisabled = false;
-	let status: 'loading' | 'activated' | 'deactivated' = 'deactivated';
-
-	const TOAST_STORE = getToastStore();
-	const BUTTON_LOADING_TEXT = 'Standort wird geladen';
-	const BUTTON_ACTIVATION_TEXT = 'Standort Aktivieren';
-	const BUTTON_ACTIVATED_TEXT = 'Standort aktiviert';
+	const toastStore = getToastStore();
+	const BUTTON_LOADING_TEXT = 'Geolocation wird geladen';
+	const BUTTON_ACTIVATION_TEXT = 'Geolocation Aktivieren';
+	const BUTTON_ACTIVATED_TEXT = 'Geolocation aktiviert';
 	let buttonGeolocationText = BUTTON_ACTIVATION_TEXT;
-
-	// Reactive statement for button state
-	$: {
+	// State management for button
+	function updateButtonState(status: 'loading' | 'activated' | 'deactivated'): string {
 		switch (status) {
 			case 'loading':
 				buttonGeolocationText = BUTTON_LOADING_TEXT;
 				buttonDisabled = true;
-				break;
+				return '';
 			case 'activated':
 				buttonGeolocationText = BUTTON_ACTIVATED_TEXT;
 				buttonDisabled = false;
 				isLocationActivated = true;
-				break;
+				return '';
 			case 'deactivated':
 				buttonGeolocationText = BUTTON_ACTIVATION_TEXT;
 				buttonDisabled = false;
 				isLocationActivated = false;
 				coords = [-1, -1];
-				break;
+				return '';
 		}
 	}
-
-	// Toast notifications as a reactive statement
-	$: showToast = (message: string, background: string) => {
-		TOAST_STORE.trigger({
+	// Toast notifications
+	function showToast(message: string, background: string): string {
+		toastStore.trigger({
 			message,
 			background
 		});
-	};
-
+		return '';
+	}
 	// Handle button click
 	function handleButtonClick() {
+		// Überprüfen, ob der Standort bereits aktiviert ist
 		if (isLocationActivated) {
-			getPosition = false; // Stop Geolocation
-			status = 'deactivated';
-			showToast('Standort deaktiviert.', 'variant-filled-warning');
+			// Wenn ja, deaktivieren Sie den Standort
+			getPosition = false; // Geolocation stoppen
+			updateButtonState('deactivated');
+			showToast('Geo-Location deaktiviert.', 'variant-filled-warning');
 		} else {
-			getPosition = true; // Start Geolocation
-			status = 'loading';
+			// Wenn nicht, aktivieren Sie den Standort
+			getPosition = true; // Geolocation starten
+			updateButtonState('loading');
 		}
 	}
 </script>
@@ -68,19 +67,19 @@
 
 <Geolocation {getPosition} bind:coords let:loading let:success let:error let:notSupported>
 	{#if notSupported}
-		{showToast('Ihr Browser unterstützt die Standort-API nicht.', 'variant-filled-error')}
-		{(status = 'deactivated')}
+		{showToast('Ihr Browser unterstützt die Geolocation-API nicht.', 'variant-filled-error')}
+		{updateButtonState('deactivated')}
 	{:else}
 		{#if loading}
-			{showToast('Standort wird geladen', 'variant-filled-success')}
+			{showToast('Geo-Location wird geladen', 'variant-filled-success')}
 		{/if}
 		{#if success}
-			{showToast('Standort erfolgreich ermittelt', 'variant-filled-success')}
-			{(status = 'activated')}
+			{showToast('Geo-Location erfolgreich ermittelt', 'variant-filled-success')}
+			{updateButtonState('activated')}
 		{/if}
 		{#if error}
-			{showToast(`Standort Fehler: ${error.message}`, 'variant-filled-error')}
-			{(status = 'deactivated')}
+			{showToast(`Geo-Location Fehler: ${error.message}`, 'variant-filled-error')}
+			{updateButtonState('deactivated')}
 		{/if}
 	{/if}
 </Geolocation>
