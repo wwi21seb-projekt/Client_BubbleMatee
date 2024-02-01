@@ -78,7 +78,7 @@
 				// Extrahieren der Längen- und Breitengrade aus der coords Variable
 				const longitude = coords.length > 0 ? coords[0] : '';
 				const latitude = coords.length > 0 ? coords[1] : '';
-				const accuracy = '100'; // oder ein Standardwert, falls gewünscht
+				const accuracy = 100; // oder ein Standardwert, falls gewünscht
 
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
@@ -95,7 +95,6 @@
 						}
 					})
 				});
-
 				const body = await response.json();
 				// Handling potential errors from the response
 				if (body.error) {
