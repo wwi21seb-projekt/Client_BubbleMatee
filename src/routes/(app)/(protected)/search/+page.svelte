@@ -64,7 +64,6 @@
 			return body;
 		}
 	};
-
 	async function loadMoreUsers() {
 		if (urlProps.offset !== null) {
 			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
@@ -114,7 +113,6 @@
 			? (lastPage = false)
 			: (lastPage = true);
 	}
-
 	export async function handleSearch() {
 		urlProps.offset = 0;
 		chipString = searchTerm;
@@ -143,7 +141,6 @@
 			isError = true;
 		}
 	}
-
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
 		$loading = true;
@@ -165,11 +162,9 @@
 		}
 	}
 </script>
-
 <div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
 	<SearchBar {handleSearch} bind:searchTerm />
 </div>
-
 {#if isSearch}
 	<div
 		class="flex justify-center sticky p-4 z-40 bg-surface-50 dark:bg-surface-900"
@@ -177,7 +172,6 @@
 	>
 		<ChipComponent message={`Sucherergebnisse für ${chipString}`} />
 	</div>
-
 	<div class="flex justify-center">
 		<SearchTabs
 			bind:tabSet
