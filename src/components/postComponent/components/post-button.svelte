@@ -127,7 +127,7 @@
 <PostGeolocation bind:coords />
 <button
 	type="button"
-	class="btn variant-filled-primary mt-2 buttonPost"
+	class="btn variant-filled-primary mt-4 buttonPost"
 	disabled={!$inputValid}
 	on:click={handlePost}
 >
