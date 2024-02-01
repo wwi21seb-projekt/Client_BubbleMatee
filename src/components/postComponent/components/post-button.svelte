@@ -6,6 +6,7 @@
 	import type { Error } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { PostGeolocation } from '$components';
 	import { PaperPlane } from '$images';
 
 	// Helper function to remove whitespace and newlines from a string
@@ -22,6 +23,8 @@
 
 	// Initialization of toast notifications store
 	const toastStore = getToastStore();
+
+	let coords: [number, number];
 
 	// Type definitions for Author and MockData to ensure type safety
 	type Author = {
@@ -72,15 +75,26 @@
 		if ($inputValid) {
 			loading.set(true);
 			try {
+				// Extrahieren der Längen- und Breitengrade aus der coords Variable
+				const longitude = coords[0];
+				const latitude = coords[1];
+				const accuracy = 100; // oder ein Standardwert, falls gewünscht
+
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
-						content: $postText
+						content: $postText,
+						location: {
+							//optional
+							// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
+							longitude: longitude,
+							latitude: latitude,
+							accuracy: accuracy
+						}
 					})
 				});
-
 				const body = await response.json();
 				// Handling potential errors from the response
 				if (body.error) {
@@ -110,6 +124,7 @@
 	};
 </script>
 
+<PostGeolocation bind:coords />
 <button
 	type="button"
 	class="btn variant-filled-primary mt-2 buttonPost"
