@@ -44,13 +44,14 @@ Follow these steps to set up your environment:
    # PRIVATE_GEO_API_KEY = https://myprojects.geoapify.com/projects
    ```
 
-5. ### **npm run build**
+5. ### **npm process**
 
-Run following command:
+Run following commands:
 
-```bash
+   ```bash
+   npm install
    npm run build
-```
+   ```
 
 5. ### 🐳 **Execute Docker Command**
 
