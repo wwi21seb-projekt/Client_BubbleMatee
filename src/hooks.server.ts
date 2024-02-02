@@ -46,7 +46,8 @@ const isUnauthorizedRoute = (pathname: string, method: string) => {
  */
 export const handle = async ({ event, resolve }) => {
 	console.log(
-		`\tInternal request: ${event.request.method} ${event.url.pathname + event.url.search
+		`\tInternal request: ${event.request.method} ${
+			event.url.pathname + event.url.search
 		}, ${Date.now()}}`
 	);
 	const isLoggedInLocal: boolean = get(isLoggedIn);
