@@ -25,8 +25,32 @@ Follow these steps to set up your environment:
    ```bash
    [command] path/to/repository/Client_BubbleMatee/
    ```
+4. ### **Create a .env File in this Directory**
 
-4. ### 🐳 **Execute Docker Command**
+   In this Folder is a .env.exammple File, which describes how to setup your .env File:
+
+   ```bash
+   # Copy the content of this file to a local created .env file
+   # Select your base URL
+   #PUBLIC_BASE_URL=https://server-alpha.tech
+   #PUBLIC_BASE_URL=http://0.0.0.0:3000
+   #PUBLIC_BASE_URL=https://server-beta.de
+
+   # Add an API Key for the Geoapify
+   
+   # If you have access you can get the API Key from: https://github.com/wwi21seb-projekt/Client_BubbleMatee/settings/environments/2136678618/edit
+   # Otherwise get an API KEY from: https://myprojects.geoapify.com/projects
+   # PRIVATE_GEO_API_KEY = https://myprojects.geoapify.com/projects
+   ```
+ 5. ###  **npm run build**
+
+   Run following command:
+
+   ```bash
+      npm run build
+   ```
+
+5. ### 🐳 **Execute Docker Command**
 
    Within the directory, initiate the Docker environment by running:
 
@@ -36,7 +60,7 @@ Follow these steps to set up your environment:
 
    Please wait, it requires time.
 
-5. ### 🌐 **Access Webpage**
+6. ### 🌐 **Access Webpage**
 
    Once Docker has successfully started the services, open your web browser and go to:
 
