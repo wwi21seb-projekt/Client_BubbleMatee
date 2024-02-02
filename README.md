@@ -44,7 +44,7 @@ Follow these steps to set up your environment:
    # PRIVATE_GEO_API_KEY = https://myprojects.geoapify.com/projects
    ```
 
-6. ### **npm run build**
+5. ### **npm run build**
 
 Run following command:
 
@@ -68,15 +68,9 @@ Run following command:
 
    ```
 
-   http://localhost:5173/
+   http://localhost:4173/
    or
-   http://192.168.16.2:5173/
+   http://192.168.16.2:4173/
    ```
 
    This URL will lead you to the webpage hosted locally on your machine.
-
-## **Repository-Description**
-
-Notizen: Projektstruktur
-Beschreibung der test np11y
-sowie struktur des Projektes selbst
