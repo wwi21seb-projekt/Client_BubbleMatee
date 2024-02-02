@@ -14,7 +14,8 @@ const unauthorizedRoutes = [
 	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API
 	'/api/users/login', // Login API
-	'/api/users/logout' // Logout API
+	'/api/users/logout', // Logout API
+	'/api/location.*' //Location API
 ];
 
 /**
@@ -45,8 +46,7 @@ const isUnauthorizedRoute = (pathname: string, method: string) => {
  */
 export const handle = async ({ event, resolve }) => {
 	console.log(
-		`\tInternal request: ${event.request.method} ${
-			event.url.pathname + event.url.search
+		`\tInternal request: ${event.request.method} ${event.url.pathname + event.url.search
 		}, ${Date.now()}}`
 	);
 	const isLoggedInLocal: boolean = get(isLoggedIn);
