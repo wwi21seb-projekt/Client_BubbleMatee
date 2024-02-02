@@ -41,18 +41,19 @@ Follow these steps to set up your environment:
 
    # If you have access you can get the API Key from: https://github.com/wwi21seb-projekt/Client_BubbleMatee/settings/environments/2136678618/edit
    # Otherwise get an API KEY from: https://myprojects.geoapify.com/projects
-   # PRIVATE_GEO_API_KEY = https://myprojects.geoapify.com/projects
+   #PRIVATE_GEO_API_KEY=https://myprojects.geoapify.com/projects
    ```
 
 5. ### **npm run build**
 
-Run following command:
+   Run following commands:
 
-```bash
-   npm run build
-```
+   ```bash
+      npm i
+      npm run build
+   ```
 
-5. ### 🐳 **Execute Docker Command**
+6. ### 🐳 **Execute Docker Command**
 
    Within the directory, initiate the Docker environment by running:
 
@@ -62,7 +63,7 @@ Run following command:
 
    Please wait, it requires time.
 
-6. ### 🌐 **Access Webpage**
+7. ### 🌐 **Access Webpage**
 
    Once Docker has successfully started the services, open your web browser and go to:
 
