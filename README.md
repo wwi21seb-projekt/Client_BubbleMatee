@@ -26,7 +26,33 @@ Follow these steps to set up your environment:
    [command] path/to/repository/Client_BubbleMatee/
    ```
 
-4. ### 🐳 **Execute Docker Command**
+4. ### **Create a .env File in this Directory**
+
+   In this Folder is a .env.exammple File, which describes how to setup your .env File:
+
+   ```bash
+   # Copy the content of this file to a local created .env file
+   # Select your backend -Server
+   #PUBLIC_BASE_URL=https://server-alpha.tech
+   #PUBLIC_BASE_URL=http://0.0.0.0:3000
+   #PUBLIC_BASE_URL=https://server-beta.de
+
+   # Add an API Key for the Geoapify
+
+   # If you have access you can get the API Key from: https://github.com/wwi21seb-projekt/Client_BubbleMatee/settings/environments/2136678618/edit
+   # Otherwise get an API KEY from: https://myprojects.geoapify.com/projects
+   # PRIVATE_GEO_API_KEY = https://myprojects.geoapify.com/projects
+   ```
+
+5. ### **npm run build**
+
+Run following command:
+
+```bash
+   npm run build
+```
+
+5. ### 🐳 **Execute Docker Command**
 
    Within the directory, initiate the Docker environment by running:
 
@@ -36,44 +62,15 @@ Follow these steps to set up your environment:
 
    Please wait, it requires time.
 
-5. ### 🌐 **Access Webpage**
+6. ### 🌐 **Access Webpage**
 
    Once Docker has successfully started the services, open your web browser and go to:
 
    ```
 
-   http://localhost:5173/
+   http://localhost:4173/
    or
-   http://192.168.16.2:5173/
+   http://192.168.16.2:4173/
    ```
 
    This URL will lead you to the webpage hosted locally on your machine.
-
-## **Repository-Description**
-
-Notizen: Projektstruktur
-Beschreibung der test np11y
-sowie struktur des Projektes selbst
-
-## Change backend-server
-
-To change the bacend server change the content of the `.env` file to
-
-```env
-PUBLIC_BASE_URL=http://0.0.0.0:3000
-
-```
-
-or
-
-```env
-PUBLIC_BASE_URL=https://server-beta.de
-
-```
-
-or
-
-```env
-PUBLIC_BASE_URL=https://server-alpha.tech
-
-```
