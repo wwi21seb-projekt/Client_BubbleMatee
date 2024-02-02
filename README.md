@@ -5,6 +5,7 @@
 Before starting, ensure the following is completed:
 
 - **Docker Installation**: Verify that Docker is correctly installed on your system.
+- **NPM Installation**: Verify that NPM is correctly installed on your system.
 
 ## 🚀 **Workflow Steps**
 
@@ -46,13 +47,13 @@ Follow these steps to set up your environment:
 
 5. ### **npm run build**
 
-Run following command:
+   Run following command:
+   
+   ```bash
+      npm run build
+   ```
 
-```bash
-   npm run build
-```
-
-5. ### 🐳 **Execute Docker Command**
+6. ### 🐳 **Execute Docker Command**
 
    Within the directory, initiate the Docker environment by running:
 
@@ -62,7 +63,7 @@ Run following command:
 
    Please wait, it requires time.
 
-6. ### 🌐 **Access Webpage**
+7. ### 🌐 **Access Webpage**
 
    Once Docker has successfully started the services, open your web browser and go to:
 
