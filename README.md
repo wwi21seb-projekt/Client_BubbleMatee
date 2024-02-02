@@ -48,10 +48,10 @@ Follow these steps to set up your environment:
 
 Run following commands:
 
-   ```bash
-   npm install
-   npm run build
-   ```
+```bash
+npm install
+npm run build
+```
 
 5. ### 🐳 **Execute Docker Command**
 
