@@ -32,7 +32,7 @@ Follow these steps to set up your environment:
 
    ```bash
    # Copy the content of this file to a local created .env file
-   # Select your base URL
+   # Select your backend -Server
    #PUBLIC_BASE_URL=https://server-alpha.tech
    #PUBLIC_BASE_URL=http://0.0.0.0:3000
    #PUBLIC_BASE_URL=https://server-beta.de
@@ -44,7 +44,7 @@ Follow these steps to set up your environment:
    # PRIVATE_GEO_API_KEY = https://myprojects.geoapify.com/projects
    ```
 
-5. ### **npm run build**
+6. ### **npm run build**
 
 Run following command:
 
@@ -80,26 +80,3 @@ Run following command:
 Notizen: Projektstruktur
 Beschreibung der test np11y
 sowie struktur des Projektes selbst
-
-## Change backend-server
-
-To change the bacend server change the content of the `.env` file to
-
-```env
-PUBLIC_BASE_URL=http://0.0.0.0:3000
-
-```
-
-or
-
-```env
-PUBLIC_BASE_URL=https://server-beta.de
-
-```
-
-or
-
-```env
-PUBLIC_BASE_URL=https://server-alpha.tech
-
-```
