@@ -96,7 +96,7 @@
 									longitude: LONGITUDE,
 									latitude: LATITUDE,
 									accuracy: ACCURACY
-							  }
+								}
 							: null
 					})
 				});
