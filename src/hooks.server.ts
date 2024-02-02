@@ -14,7 +14,8 @@ const unauthorizedRoutes = [
 	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API
 	'/api/users/login', // Login API
-	'/api/users/logout' // Logout API
+	'/api/users/logout', // Logout API
+	'/api/location.*' //Location API
 ];
 
 /**
