@@ -71,7 +71,7 @@ Adhere to these instructions to configure your environment:
    - Server Beta
 
    ```
-   http://192.168.16.2:4172/
+   http://localhost:4172/
    ```
 
    Additionally, the website is accessible at:

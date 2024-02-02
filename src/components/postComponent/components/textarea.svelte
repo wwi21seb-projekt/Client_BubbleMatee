@@ -18,8 +18,8 @@
 		localPostText.length > maxChars - charsWarning && localPostText.length < maxChars
 			? classWarning
 			: localPostText.length >= maxChars
-				? classMaxReached
-				: classNormal;
+			  ? classMaxReached
+			  : classNormal;
 
 	// Function to handle input changes, update the text, and adjust the textarea height
 	function handleInput(event: Event) {
