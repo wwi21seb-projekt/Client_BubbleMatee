@@ -2,16 +2,44 @@
 <script lang="ts">
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
 	import type { Post } from '$domains';
+	import { isLoggedIn } from '$stores';
 	export let post: Post;
 	export let deletePost: (postId: string) => void;
+	export let likePost: (postId: string) => void;
+	export let unlikePost: (postId: string) => void;
+
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
 		deletePost(post.postId);
 	}
+
+	//function to delete this post -> calls a passed function
+	function likeThisPost(): void {
+		likePost(post.postId);
+	}
+
+	//function to delete this post -> calls a passed function
+	function unlikeThisPost(): void {
+		unlikePost(post.postId);
+	}
+
+	function toggleLike() {
+		if (isLoggedIn)
+		{
+		if (post.liked)
+		{
+			unlikeThisPost()
+		}
+		else{
+			likeThisPost()
+		}
+	}
+	}
 </script>
 
 <!--Component contains the header (Username/ Profile Picture etc/ the main post psrt (image/ text) and the footer (Likes and comments))-->
-<div class="m-4">
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div on:dblclick={toggleLike} class="m-4">
 	<div
 		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
 	>
@@ -30,7 +58,11 @@
 			{/if}
 		</main>
 		<footer>
-			<FeedPostFooter />
+			<FeedPostFooter
+			post= {post}
+			likePost={likeThisPost}
+			unlikePost={unlikeThisPost}
+			/>
 		</footer>
 	</div>
 </div>

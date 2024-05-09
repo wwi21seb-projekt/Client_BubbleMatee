@@ -45,7 +45,9 @@ import { getErrorMessage } from '$utils';
 			author: record.author,
 			creationDate: new Date(record.creationDate),
 			content: record.content,
-			location: record.location
+			location: record.location,
+			likes: record.likes,
+			liked: record.liked
 		}));
 		const postdata: PostData = {
 			posts: newPosts,
@@ -93,7 +95,9 @@ import { getErrorMessage } from '$utils';
 			},
 			creationDate: new Date(record.creationDate),
 			content: record.content,
-			location: record.location
+			location: record.location,
+			likes: record.likes,
+			liked: record.liked
 		}));
 		const postdata: PostData = {
 			posts: newPosts,

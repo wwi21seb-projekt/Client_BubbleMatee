@@ -10,6 +10,8 @@ export interface Post {
 	creationDate: Date;
 	content: string;
 	location: Location | null;
+	likes: number;
+	liked: boolean
 }
 
 export interface Author {

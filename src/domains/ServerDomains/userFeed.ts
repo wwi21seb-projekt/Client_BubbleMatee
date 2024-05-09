@@ -8,6 +8,8 @@ export interface UserFeed {
 			creationDate: Date;
 			content: string;
 			location: Location | null;
+			likes: number;
+			liked: boolean
 		}
 	];
 	pagination: {

@@ -9,6 +9,8 @@ export interface Feed {
 			location: Location | null;
 			creationDate: Date;
 			content: string;
+			likes: number;
+			liked: boolean
 		}
 	];
 	pagination: {

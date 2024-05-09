@@ -9,11 +9,13 @@
 	import { Comments } from '$components';
 	import { isLoggedIn } from '$stores';
 	import { goto } from '$app/navigation';
+	import type { Post } from '$domains';
+
 
 	const modalStore = getModalStore();
-
-	let isLiked: boolean = false;
-	let numberOfLikes: number = 42; // Beispielanzahl der Likes
+	export let post: Post;
+	export let likePost: () => void;
+	export let unlikePost: () => void;
 
 	//funktion to toggle the like of the post
 	function toggleLike(): void {
@@ -21,11 +23,10 @@
 		if (!$isLoggedIn) {
 			goto('/login?redirect=1');
 		} else {
-			isLiked = !isLiked;
-			if (isLiked) {
-				numberOfLikes++;
+			if (post.liked) {
+				unlikePost()
 			} else {
-				numberOfLikes--;
+				likePost()
 			}
 		}
 	}
@@ -66,12 +67,12 @@
 			<Icon
 				src={Heart}
 				class={'h-8 md:h-10 font-bold' +
-					(isLiked
+					(post.liked
 						? ' fill-red-500 stroke-none hover:fill-red-700'
 						: ' fill-none stroke-black dark:stroke-white hover:stroke-gray-400 dark:hover:stroke-gray-400')}
 			/>
 		</button>
-		<small class="text-xs md:text-sm">{numberOfLikes}</small>
+		<small class="text-xs md:text-sm">{post.likes}</small>
 	</div>
 	<!--Comment-button-->
 

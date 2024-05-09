@@ -51,6 +51,69 @@
 			console.error(e);
 		}
 	}
+
+
+	//function to unlike a post. Is passed to and called from each induciduall post-card-component
+	async function unlikePost(postId: string) {
+		try {
+			const response = await fetch(`/api/posts/${postId}/likes`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			//show error if unsuccesfull
+			if (body.error) {
+				if (body.data.error) {
+					const t: ToastSettings = {
+						message: getErrorMessage(body.data.error.code, false),
+						background: 'variant-filled-error'
+					};
+					toastStore.trigger(t);
+				}
+			} else {
+				const post = posts.filter((post) => post.postId === postId)[0];
+				post.liked = false
+				post.likes = post.likes -1;
+				posts = posts
+			}
+			return body;
+		} catch (e) {
+			console.error(e);
+		}
+	}
+
+	//function to like a post. Is passed to and called from each induciduall post-card-component
+	async function likePost(postId: string) {
+		try {
+			const response = await fetch(`/api/posts/${postId}/likes`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			//show error if unsuccesfull
+			if (body.error) {
+				if (body.data.error) {
+					const t: ToastSettings = {
+						message: getErrorMessage(body.data.error.code, false),
+						background: 'variant-filled-error'
+					};
+					toastStore.trigger(t);
+				}
+			} else {
+				const post = posts.filter((post) => post.postId === postId)[0];
+				post.liked = true
+				post.likes = post.likes +1;
+				posts = posts
+			}
+			return body;
+		} catch (e) {
+			console.error(e);
+		}
+	}
 </script>
 
 <div class="flex w-full justify-center items-center">
@@ -58,7 +121,7 @@
 	<div class={classString}>
 		{#if posts.length > 0}
 			{#each posts as post (post.postId)}
-				<FeedPostCard {post} {deletePost}></FeedPostCard>
+				<FeedPostCard {post} {deletePost} {likePost} {unlikePost}></FeedPostCard>
 			{/each}
 		{:else if !$loading}
 			<div class=" mx-4">
