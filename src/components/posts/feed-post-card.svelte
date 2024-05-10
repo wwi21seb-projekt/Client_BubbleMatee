@@ -1,7 +1,7 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
-	import type { Post } from '$domains';
+	import type { Comment, Post } from '$domains';
 	import { isLoggedIn } from '$stores';
 	export let post: Post;
 	export let deletePost: (postId: string) => void;
@@ -34,7 +34,26 @@
 			likeThisPost()
 		}
 	}
+}
+	let comments: Array<Comment> = new Array<Comment>();
+	function loadMoreComments(): void
+	{
+		console.log("LOAS")
+		const exampleComment: Comment = {
+		commentId: Math.floor(Math.random() * 1000) + 1,
+		content: "Das ist ein Beispielkommentar.",
+		author: {
+			username: "Max Mustermann",
+			nickname: "max.mustermann",
+			profilePictureUrl: ""
+		},
+		creationDate: new Date()
+		
+		};
+		comments = comments.concat(exampleComment)
+		console.log(comments)
 	}
+	
 </script>
 
 <!--Component contains the header (Username/ Profile Picture etc/ the main post psrt (image/ text) and the footer (Likes and comments))-->
@@ -59,9 +78,12 @@
 		</main>
 		<footer>
 			<FeedPostFooter
-			post= {post}
-			likePost={likeThisPost}
-			unlikePost={unlikeThisPost}
+				post= {post}
+				likePost={likeThisPost}
+				unlikePost={unlikeThisPost}
+				comments={comments}
+				loadMoreComments={loadMoreComments}
+
 			/>
 		</footer>
 	</div>

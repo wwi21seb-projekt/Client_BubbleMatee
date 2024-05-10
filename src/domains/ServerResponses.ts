@@ -4,6 +4,7 @@ import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription, SubscriptionList } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 import type { Author, LocationPlace, Post } from './Post';
+import type { Comment } from './ServerDomains/comments';
 
 export interface Response {
 	error: boolean;
@@ -82,4 +83,8 @@ export interface FeedSearch {
 
 export interface SubscriptionListResponse extends Response {
 	data: SubscriptionList;
+}
+
+export interface CommentResponse extends Response {
+	data: Comment;
 }

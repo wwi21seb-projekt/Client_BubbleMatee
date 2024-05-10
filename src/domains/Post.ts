@@ -39,3 +39,15 @@ export interface PostData {
 	lastPostId?: string;
 	overallRecords: number;
 }
+
+export interface Comment {
+	commentId: number;
+	content: string;
+	author: Author;
+	creationDate: Date
+}
+
+export interface CommentData {
+	comments: Array<Comment>;
+	overallRecords: number
+}

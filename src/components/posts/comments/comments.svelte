@@ -2,7 +2,10 @@
 <script lang="ts">
 	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { ModalHeader, CommentElement, CommentsFooter } from '$components';
-	export let comments: Array<string>;
+	import type { Comment } from '$domains';
+	export let loadMoreComments: () => void;
+	export let comments: Array<Comment>
+	
 </script>
 
 <!--Contains a header the main comment part, a list with all comments and a footer with a textarea to write comments-->
@@ -14,11 +17,14 @@
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		{#each comments as comment, index}
-			<CommentElement {comment} id={`comment-${index}`} />
+		{#each comments as comment}
+			<CommentElement comment={comment.content} id={`comment-${comment.commentId}`} />
 		{/each}
 	</div>
 	<footer>
 		<CommentsFooter />
+		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadMoreComments}>
+			Load More Comments
+		  </button>
 	</footer>
 </div>

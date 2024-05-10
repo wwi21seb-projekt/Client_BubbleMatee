@@ -10,7 +10,7 @@
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
 	import type { Post } from '$domains';
 	import { loading } from '$stores';
-	import { getErrorMessage } from '$utils';
+	import { getErrorMessage, globalConfig } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
 
@@ -114,6 +114,9 @@
 			console.error(e);
 		}
 	}
+
+	
+
 </script>
 
 <div class="flex w-full justify-center items-center">

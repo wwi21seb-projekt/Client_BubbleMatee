@@ -9,13 +9,17 @@
 	import { Comments } from '$components';
 	import { isLoggedIn } from '$stores';
 	import { goto } from '$app/navigation';
-	import type { Post } from '$domains';
+	import type { Post, Comment } from '$domains';
+	import { load } from '../../../routes/(app)/about/proxy+page.server';
+
 
 
 	const modalStore = getModalStore();
 	export let post: Post;
 	export let likePost: () => void;
 	export let unlikePost: () => void;
+	export let loadMoreComments: () => void;
+	export let comments: Array<Comment>
 
 	//funktion to toggle the like of the post
 	function toggleLike(): void {
@@ -37,16 +41,14 @@
 		if (!$isLoggedIn) {
 			goto('/login?redirect=1');
 		} else {
-			//temporär zum testen
-			const comments = [
-				'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
-				'barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
-				'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
-				'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj'
-			];
+			if ( comments.length < 1 )
+			{
+				//loadMoreComments()
+			}
+			console.log(comments)
 			const modalComponent: ModalComponent = {
 				ref: Comments,
-				props: { comments: comments }
+				props: { comments: comments}
 			};
 			const modal: ModalSettings = {
 				type: 'component',
