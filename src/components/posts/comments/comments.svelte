@@ -1,11 +1,15 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
 	//TODO: Datenanbindung wenn der Endpunkt definiert ist
-	import { ModalHeader, CommentElement, CommentsFooter } from '$components';
-	import type { Comment } from '$domains';
-	export let loadMoreComments: () => void;
-	export let comments: Array<Comment>
-	
+	import { ModalHeader, CommentElement, CommentsFooter, LoadMoreComponent } from '$components';
+	import type { Comment, CommentData } from '$domains';
+	export let loadMoreComments: () => any;
+	export let commentData: CommentData;
+	async function load()
+	{
+		commentData = await loadMoreComments()
+		console.log(commentData)
+	}
 </script>
 
 <!--Contains a header the main comment part, a list with all comments and a footer with a textarea to write comments-->
@@ -17,14 +21,18 @@
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		{#each comments as comment}
-			<CommentElement comment={comment.content} id={`comment-${comment.commentId}`} />
+		{#each commentData.comments as comment}
+			<CommentElement comment={comment} id={`comment-${comment.commentId}`} />
 		{/each}
+		{#if (commentData.overallRecords > commentData.comments.length)}
+		<div class="ml-12 md:ml-14 mr-2 mt-2">
+			<LoadMoreComponent loadMore={load} />
+		</div>
+		{/if}
 	</div>
 	<footer>
 		<CommentsFooter />
-		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadMoreComments}>
-			Load More Comments
-		  </button>
+		
+
 	</footer>
 </div>

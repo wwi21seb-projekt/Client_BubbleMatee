@@ -8,7 +8,7 @@
 	export let nothingFoundMessage: string | null;
 	export let nothingFoundSubMessage: string | null;
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
-	import type { Post } from '$domains';
+	import type { Comment, CommentResponse, ErrorResponse, Post } from '$domains';
 	import { loading } from '$stores';
 	import { getErrorMessage, globalConfig } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
@@ -115,6 +115,21 @@
 		}
 	}
 
+	async function loadMoreComments(postId: string, offset: number) {
+		try {
+			const response = await fetch(`/api/posts/${postId}/comments?offset=${offset}&limit=${globalConfig.limit}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+	const body: ErrorResponse | CommentResponse = await response.json();
+	return body
+	
+	} catch (e) {
+		console.error(e);
+	}
+	}
 	
 
 </script>
@@ -124,7 +139,7 @@
 	<div class={classString}>
 		{#if posts.length > 0}
 			{#each posts as post (post.postId)}
-				<FeedPostCard {post} {deletePost} {likePost} {unlikePost}></FeedPostCard>
+				<FeedPostCard {post} {deletePost} {likePost} {unlikePost} {loadMoreComments}></FeedPostCard>
 			{/each}
 		{:else if !$loading}
 			<div class=" mx-4">

@@ -1,12 +1,17 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
-	import type { Comment, Post } from '$domains';
+	import type { Comment, CommentData, Post } from '$domains';
 	import { isLoggedIn } from '$stores';
+	import { getErrorMessage } from '$utils';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	export let post: Post;
 	export let deletePost: (postId: string) => void;
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
+	export let loadMoreComments: (postId: string, offset: number) => any;
+	const toastStore = getToastStore();
+
 
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
@@ -36,22 +41,39 @@
 	}
 }
 	let comments: Array<Comment> = new Array<Comment>();
-	function loadMoreComments(): void
+	let commentData: CommentData = {
+			comments: comments,
+			overallRecords: 1
+		}	
+	async function loadMoreCommentsForThisPost()
 	{
-		console.log("LOAS")
-		const exampleComment: Comment = {
-		commentId: Math.floor(Math.random() * 1000) + 1,
-		content: "Das ist ein Beispielkommentar.",
-		author: {
-			username: "Max Mustermann",
-			nickname: "max.mustermann",
-			profilePictureUrl: ""
-		},
-		creationDate: new Date()
-		
-		};
-		comments = comments.concat(exampleComment)
-		console.log(comments)
+		const body = await loadMoreComments(post.postId, comments.length)
+		if (body.error) {
+		if (body.data.error) {
+			const t: ToastSettings = {
+				message: getErrorMessage(body.data.error.code, false),
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
+		}
+		} else {
+			const newComments: Array<Comment> = body.data.records.map((record) => ({
+			commentId: record.commentId,
+			author: {
+				username: record.author.username,
+				nickname: record.author.nickname,
+				profilePictureUrl: record.author.profilePictureUrl
+			},
+			creationDate: new Date(record.creationDate),
+			content: record.content,
+		}));
+		comments = comments.concat(newComments)
+		}
+		commentData = {
+			comments: comments,
+			overallRecords: body.data.pagination.records
+		}
+		return commentData;
 	}
 	
 </script>
@@ -81,8 +103,8 @@
 				post= {post}
 				likePost={likeThisPost}
 				unlikePost={unlikeThisPost}
-				comments={comments}
-				loadMoreComments={loadMoreComments}
+				commentData={commentData}
+				loadMoreComments={loadMoreCommentsForThisPost}
 
 			/>
 		</footer>

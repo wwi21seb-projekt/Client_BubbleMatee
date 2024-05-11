@@ -9,8 +9,7 @@
 	import { Comments } from '$components';
 	import { isLoggedIn } from '$stores';
 	import { goto } from '$app/navigation';
-	import type { Post, Comment } from '$domains';
-	import { load } from '../../../routes/(app)/about/proxy+page.server';
+	import type { Post, CommentData } from '$domains';
 
 
 
@@ -18,8 +17,8 @@
 	export let post: Post;
 	export let likePost: () => void;
 	export let unlikePost: () => void;
-	export let loadMoreComments: () => void;
-	export let comments: Array<Comment>
+	export let loadMoreComments: () => any;
+	export let commentData: CommentData;
 
 	//funktion to toggle the like of the post
 	function toggleLike(): void {
@@ -36,19 +35,19 @@
 	}
 
 	//function to open the comment section
-	function handleCommentClick(): void {
+	async function handleCommentClick() {
 		// Error-Message if the user is not logged in
 		if (!$isLoggedIn) {
 			goto('/login?redirect=1');
 		} else {
-			if ( comments.length < 1 )
+			if ( commentData.comments.length < 1 )
 			{
-				//loadMoreComments()
+				commentData = await loadMoreComments()
 			}
-			console.log(comments)
+			console.log(commentData)
 			const modalComponent: ModalComponent = {
 				ref: Comments,
-				props: { comments: comments}
+				props: { commentData: commentData, loadMoreComments: loadMoreComments}
 			};
 			const modal: ModalSettings = {
 				type: 'component',
