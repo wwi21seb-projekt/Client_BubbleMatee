@@ -2,13 +2,21 @@
 <script lang="ts">
 	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { ModalHeader, CommentElement, CommentsFooter, LoadMoreComponent } from '$components';
-	import type { Comment, CommentData } from '$domains';
+	import type {CommentData } from '$domains';
+	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { onDestroy, onMount } from 'svelte';
+	import { writable } from 'svelte/store';
 	export let loadMoreComments: () => any;
 	export let commentData: CommentData;
+	export let commentPost: (content: string) => any;
 	async function load()
 	{
 		commentData = await loadMoreComments()
-		console.log(commentData)
+	}
+
+	async function commentPostAndUpdate(content: string)
+	{
+		commentData = await commentPost(content)
 	}
 </script>
 
@@ -31,8 +39,6 @@
 		{/if}
 	</div>
 	<footer>
-		<CommentsFooter />
-		
-
+		<CommentsFooter commentPost={commentPostAndUpdate}/>
 	</footer>
 </div>

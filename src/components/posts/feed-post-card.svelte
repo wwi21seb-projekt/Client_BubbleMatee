@@ -10,6 +10,7 @@
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
 	export let loadMoreComments: (postId: string, offset: number) => any;
+	export let postComment: (postId: string, content: string) => any
 	const toastStore = getToastStore();
 
 
@@ -75,6 +76,34 @@
 		}
 		return commentData;
 	}
+
+	async function commentThisPost(content: string)
+	{
+		const body = await postComment(post.postId, content)
+		if (body.error) {
+		if (body.data.error) {
+			const t: ToastSettings = {
+				message: getErrorMessage(body.data.error.code, false),
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
+		}
+		} else {
+			const newComment: Comment = {
+				commentId: body.data.commentId,
+				author: body.data.author,
+				content: body.data.content,
+				creationDate: new Date(body.data.creationDate)
+			}
+		comments = comments.concat(newComment)
+		}
+		let commentDataNew = {
+			comments: comments,
+			overallRecords: commentData.overallRecords +1
+		}
+		commentData = commentDataNew
+		return commentData;
+	}
 	
 </script>
 
@@ -105,7 +134,7 @@
 				unlikePost={unlikeThisPost}
 				commentData={commentData}
 				loadMoreComments={loadMoreCommentsForThisPost}
-
+				commentPost={commentThisPost}
 			/>
 		</footer>
 	</div>

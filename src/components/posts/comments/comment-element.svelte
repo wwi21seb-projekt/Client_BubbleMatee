@@ -1,19 +1,29 @@
 <!--Comment-Element for the comment-Modal-Window. Shows one comment with the user and the text-->
 <script lang="ts">
 	import type { Comment } from '$domains';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	export let id: string;
 	export let comment: Comment;
-	import { Avatar } from '@skeletonlabs/skeleton';
+	import { Avatar, getModalStore } from '@skeletonlabs/skeleton';
 	import { Person } from '$images';
 	import { calculatePassedTime } from '$utils';
 
 	let shortComment: string = comment.content.substring(0, 64);
 	let moreClicked = false;
 	let dateString: string = calculatePassedTime(comment.creationDate);
+   	const modalStore = getModalStore();
+
 	//function to toggle wether the comment is shown fully or not (only for long comments)
 	function changeMoreClicked() {
 		moreClicked = !moreClicked;
 	}
+	
+	function getWords(text: string) {
+    	const words = text.split(" ");
+		return words;
+  }
+
 </script>
 
 <!--Grid with two columns. The left Column contains the profile picture and the right the comment-->
@@ -26,14 +36,39 @@
 	>
 		<!--Header containing the username and nickname and the time that has passed since the post-->
 		<header class="flex justify-between items-center pr-1">
-			<p class="text-xl md:text-2xl font-bold">{comment.author.username}</p>
+			<button
+				class={`${'hover:text-gray-400'}`}
+				on:click={() => {
+					const currenPath = $page.url.pathname.split('/')[1];
+					goto(`/${currenPath}/user/${comment.author.username}`);
+					modalStore.close()
+				}}
+	>
+		<p class="text-xl md:text-2xl font-bold">{comment.author.username}</p>
+		</button>
+			
 			<small class="text-sm md:text-base">{"vor " + dateString}</small>
 		</header>
 		<div>
 			<!--The actual comment. If the text is longer than 128 characters it is shortend and the user can switch between the long and the short version-->
-			<p class="text-xl md:text-2xl break-words w-full" id={id + '-short-comment'}>
-				{moreClicked ? comment.content : shortComment}
-			</p>
+			<p class="text-xl md:text-2xl break-words w-full" id={id + '-comment'}>
+				{#each getWords(moreClicked ? comment.content : shortComment) as word}
+				{#if word.startsWith("@")}
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<!-- svelte-ignore a11y-missing-attribute -->
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<a class="hover:text-gray-400 cursor-pointer italic"
+				on:click={() => {
+					const currenPath = $page.url.pathname.split('/')[1];
+					goto(`/${currenPath}/user/${comment.author.username}`);
+					modalStore.close()
+				}}>{word}</a>
+				{" "}
+				{:else}
+				{word+" "}
+				{/if}
+				{/each }
+			</p>	
 			{#if comment.content.length > shortComment.length}
 				<button
 					class="text-xl md:text-2xl text-gray-400 hover:text-gray-500 focus:text-gray-500"

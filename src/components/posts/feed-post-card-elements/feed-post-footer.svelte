@@ -18,6 +18,7 @@
 	export let likePost: () => void;
 	export let unlikePost: () => void;
 	export let loadMoreComments: () => any;
+	export let commentPost: (content: string) => any;
 	export let commentData: CommentData;
 
 	//funktion to toggle the like of the post
@@ -44,10 +45,9 @@
 			{
 				commentData = await loadMoreComments()
 			}
-			console.log(commentData)
 			const modalComponent: ModalComponent = {
 				ref: Comments,
-				props: { commentData: commentData, loadMoreComments: loadMoreComments}
+				props: { commentData: commentData, loadMoreComments: loadMoreComments, commentPost: commentPost}
 			};
 			const modal: ModalSettings = {
 				type: 'component',
