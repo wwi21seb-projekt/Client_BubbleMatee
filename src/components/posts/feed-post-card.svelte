@@ -1,7 +1,7 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
-	import type { Comment, CommentData, CommentResponse, ErrorObject, ErrorResponse, Post } from '$domains';
+	import type { Comment, CommentData, CommentResponse, ErrorObject, ErrorResponse, Post, PostCommentResponse } from '$domains';
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
@@ -10,8 +10,8 @@
 	export let deletePost: (postId: string) => void;
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
-	export let loadMoreComments: (postId: string, offset: number) => Promise<ErrorResponse> | Promise<CommentResponse>;
-	export let postComment: (postId: string, content: string) => Promise<ErrorResponse> | Promise<PostCommentResponse>;
+	export let loadMoreComments: (postId: string, offset: number) => Promise<ErrorResponse> | Promise<CommentResponse> | Promise<void>;
+	export let postComment: (postId: string, content: string) => Promise<void | ErrorResponse | PostCommentResponse>;;
 	const toastStore = getToastStore();
 
 	//function to delete this post -> calls a passed function
