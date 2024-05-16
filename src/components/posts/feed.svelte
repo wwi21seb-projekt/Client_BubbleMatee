@@ -8,7 +8,7 @@
 	export let nothingFoundMessage: string | null;
 	export let nothingFoundSubMessage: string | null;
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
-	import type {CommentResponse, ErrorResponse, Post } from '$domains';
+	import type { CommentResponse, ErrorResponse, Post } from '$domains';
 	import type { PostCommentResponse } from '$domains/ServerResponses';
 	import { loading } from '$stores';
 	import { getErrorMessage, globalConfig } from '$utils';
@@ -53,7 +53,6 @@
 		}
 	}
 
-
 	//function to unlike a post. Is passed to and called from each induciduall post-card-component
 	async function unlikePost(postId: string) {
 		try {
@@ -75,9 +74,9 @@
 				}
 			} else {
 				const post = posts.filter((post) => post.postId === postId)[0];
-				post.liked = false
-				post.likes = post.likes -1;
-				posts = posts
+				post.liked = false;
+				post.likes = post.likes - 1;
+				posts = posts;
 			}
 			return body;
 		} catch (e) {
@@ -106,9 +105,9 @@
 				}
 			} else {
 				const post = posts.filter((post) => post.postId === postId)[0];
-				post.liked = true
-				post.likes = post.likes +1;
-				posts = posts
+				post.liked = true;
+				post.likes = post.likes + 1;
+				posts = posts;
 			}
 			return body;
 		} catch (e) {
@@ -118,35 +117,36 @@
 
 	async function loadMoreComments(postId: string, offset: number) {
 		try {
-			const response = await fetch(`/api/posts/${postId}/comments?offset=${offset}&limit=${globalConfig.limit}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
+			const response = await fetch(
+				`/api/posts/${postId}/comments?offset=${offset}&limit=${globalConfig.limit}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+			);
+			const body: ErrorResponse | CommentResponse = await response.json();
+			return body;
+		} catch (e) {
+			console.error(e);
 		}
-	});
-	const body: ErrorResponse | CommentResponse = await response.json();
-	return body
-	
-	} catch (e) {
-		console.error(e);
-	}
 	}
 
 	async function postComment(postId: string, content: string) {
 		try {
 			const response = await fetch(`/api/posts/${postId}/comments`, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						content: content,					
-					})
-				});
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					content: content
+				})
+			});
 			const body: ErrorResponse | PostCommentResponse = await response.json();
-			return body
-
-	} catch (e) {
-		console.error(e);
-	}
+			return body;
+		} catch (e) {
+			console.error(e);
+		}
 	}
 </script>
 
@@ -155,7 +155,8 @@
 	<div class={classString}>
 		{#if posts.length > 0}
 			{#each posts as post (post.postId)}
-				<FeedPostCard {post} {deletePost} {likePost} {unlikePost} {loadMoreComments} {postComment}></FeedPostCard>
+				<FeedPostCard {post} {deletePost} {likePost} {unlikePost} {loadMoreComments} {postComment}
+				></FeedPostCard>
 			{/each}
 		{:else if !$loading}
 			<div class=" mx-4">

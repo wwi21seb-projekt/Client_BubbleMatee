@@ -10,7 +10,7 @@ export interface Feed {
 			creationDate: Date;
 			content: string;
 			likes: number;
-			liked: boolean
+			liked: boolean;
 		}
 	];
 	pagination: {

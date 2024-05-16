@@ -10,9 +10,8 @@
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
 	export let loadMoreComments: (postId: string, offset: number) => any;
-	export let postComment: (postId: string, content: string) => any
+	export let postComment: (postId: string, content: string) => any;
 	const toastStore = getToastStore();
-
 
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
@@ -30,81 +29,75 @@
 	}
 
 	function toggleLike() {
-		if (isLoggedIn)
-		{
-		if (post.liked)
-		{
-			unlikeThisPost()
-		}
-		else{
-			likeThisPost()
+		if (isLoggedIn) {
+			if (post.liked) {
+				unlikeThisPost();
+			} else {
+				likeThisPost();
+			}
 		}
 	}
-}
 	let comments: Array<Comment> = new Array<Comment>();
 	let commentData: CommentData = {
-			comments: comments,
-			overallRecords: 1
-		}	
-	async function loadMoreCommentsForThisPost()
-	{
-		const body = await loadMoreComments(post.postId, comments.length)
+		comments: comments,
+		overallRecords: 1
+	};
+	async function loadMoreCommentsForThisPost() {
+		const body = await loadMoreComments(post.postId, comments.length);
 		if (body.error) {
-		if (body.data.error) {
-			const t: ToastSettings = {
-				message: getErrorMessage(body.data.error.code, false),
-				background: 'variant-filled-error'
-			};
-			toastStore.trigger(t);
-		}
+			if (body.data.error) {
+				const t: ToastSettings = {
+					message: getErrorMessage(body.data.error.code, false),
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			}
 		} else {
 			const newComments: Array<Comment> = body.data.records.map((record: Comment) => ({
-			commentId: record.commentId,
-			author: {
-				username: record.author.username,
-				nickname: record.author.nickname,
-				profilePictureUrl: record.author.profilePictureUrl
-			},
-			creationDate: new Date(record.creationDate),
-			content: record.content,
-		}));
-		comments = comments.concat(newComments)
+				commentId: record.commentId,
+				author: {
+					username: record.author.username,
+					nickname: record.author.nickname,
+					profilePictureUrl: record.author.profilePictureUrl
+				},
+				creationDate: new Date(record.creationDate),
+				content: record.content
+			}));
+			comments = comments.concat(newComments);
 		}
 		commentData = {
 			comments: comments,
 			overallRecords: body.data.pagination.records
-		}
+		};
 		return commentData;
 	}
 
-	async function commentThisPost(content: string)
-	{
-		const body = await postComment(post.postId, content)
+	async function commentThisPost(content: string) {
+		const body = await postComment(post.postId, content);
 		if (body.error) {
-		if (body.data.error) {
-			const t: ToastSettings = {
-				message: getErrorMessage(body.data.error.code, false),
-				background: 'variant-filled-error'
-			};
-			toastStore.trigger(t);
-		}
+			if (body.data.error) {
+				const t: ToastSettings = {
+					message: getErrorMessage(body.data.error.code, false),
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			}
 		} else {
 			const newComment: Comment = {
 				commentId: body.data.commentId,
 				author: body.data.author,
 				content: body.data.content,
 				creationDate: new Date(body.data.creationDate)
-			}
-		comments = comments.concat(newComment)
+			};
+			comments = comments.concat(newComment);
 		}
 		let commentDataNew = {
 			comments: comments,
-			overallRecords: commentData.overallRecords +1
-		}
-		commentData = commentDataNew
+			overallRecords: commentData.overallRecords + 1
+		};
+		commentData = commentDataNew;
 		return commentData;
 	}
-	
 </script>
 
 <!--Component contains the header (Username/ Profile Picture etc/ the main post psrt (image/ text) and the footer (Likes and comments))-->
@@ -129,10 +122,10 @@
 		</main>
 		<footer>
 			<FeedPostFooter
-				post= {post}
+				{post}
 				likePost={likeThisPost}
 				unlikePost={unlikeThisPost}
-				commentData={commentData}
+				{commentData}
 				loadMoreComments={loadMoreCommentsForThisPost}
 				commentPost={commentThisPost}
 			/>

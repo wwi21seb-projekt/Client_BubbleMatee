@@ -12,7 +12,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing feed data or an error.
  */
 export const GET: RequestHandler = async ({ fetch, url, params }) => {
-    const postId = params.postId;
+	const postId = params.postId;
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/posts/${postId}/comments${url.search}`, {
 			method: 'GET',

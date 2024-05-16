@@ -9,7 +9,7 @@ export interface UserFeed {
 			content: string;
 			location: Location | null;
 			likes: number;
-			liked: boolean
+			liked: boolean;
 		}
 	];
 	pagination: {

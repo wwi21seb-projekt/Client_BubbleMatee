@@ -1,7 +1,7 @@
-import type { Author } from "$domains";
+import type { Author } from '$domains';
 
 export interface CommentList {
-	records: Array<Comment>
+	records: Array<Comment>;
 	pagination: {
 		offset: number;
 		limit: number;
@@ -9,8 +9,7 @@ export interface CommentList {
 	};
 }
 
-export interface Comment 
-{
+export interface Comment {
 	commentId: string;
 	author: Author;
 	creationDate: Date;

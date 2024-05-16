@@ -2,21 +2,19 @@
 <script lang="ts">
 	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { ModalHeader, CommentElement, CommentsFooter, LoadMoreComponent } from '$components';
-	import type {CommentData } from '$domains';
+	import type { CommentData } from '$domains';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	import { onDestroy, onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	export let loadMoreComments: () => any;
 	export let commentData: CommentData;
 	export let commentPost: (content: string) => any;
-	async function load()
-	{
-		commentData = await loadMoreComments()
+	async function load() {
+		commentData = await loadMoreComments();
 	}
 
-	async function commentPostAndUpdate(content: string)
-	{
-		commentData = await commentPost(content)
+	async function commentPostAndUpdate(content: string) {
+		commentData = await commentPost(content);
 	}
 </script>
 
@@ -30,15 +28,15 @@
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
 		{#each commentData.comments as comment}
-			<CommentElement comment={comment} id={`comment-${comment.commentId}`} />
+			<CommentElement {comment} id={`comment-${comment.commentId}`} />
 		{/each}
-		{#if (commentData.overallRecords > commentData.comments.length)}
-		<div class="ml-12 md:ml-14 mr-2 mt-2">
-			<LoadMoreComponent loadMore={load} />
-		</div>
+		{#if commentData.overallRecords > commentData.comments.length}
+			<div class="ml-12 md:ml-14 mr-2 mt-2">
+				<LoadMoreComponent loadMore={load} />
+			</div>
 		{/if}
 	</div>
 	<footer>
-		<CommentsFooter commentPost={commentPostAndUpdate}/>
+		<CommentsFooter commentPost={commentPostAndUpdate} />
 	</footer>
 </div>

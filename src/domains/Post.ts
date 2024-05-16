@@ -11,7 +11,7 @@ export interface Post {
 	content: string;
 	location: Location | null;
 	likes: number;
-	liked: boolean
+	liked: boolean;
 }
 
 export interface Author {
@@ -44,10 +44,10 @@ export interface Comment {
 	commentId: number;
 	content: string;
 	author: Author;
-	creationDate: Date
+	creationDate: Date;
 }
 
 export interface CommentData {
 	comments: Array<Comment>;
-	overallRecords: number
+	overallRecords: number;
 }

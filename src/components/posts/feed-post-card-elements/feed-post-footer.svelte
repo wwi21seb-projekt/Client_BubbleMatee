@@ -11,8 +11,6 @@
 	import { goto } from '$app/navigation';
 	import type { Post, CommentData } from '$domains';
 
-
-
 	const modalStore = getModalStore();
 	export let post: Post;
 	export let likePost: () => void;
@@ -28,9 +26,9 @@
 			goto('/login?redirect=1');
 		} else {
 			if (post.liked) {
-				unlikePost()
+				unlikePost();
 			} else {
-				likePost()
+				likePost();
 			}
 		}
 	}
@@ -41,13 +39,16 @@
 		if (!$isLoggedIn) {
 			goto('/login?redirect=1');
 		} else {
-			if ( commentData.comments.length < 1 )
-			{
-				commentData = await loadMoreComments()
+			if (commentData.comments.length < 1) {
+				commentData = await loadMoreComments();
 			}
 			const modalComponent: ModalComponent = {
 				ref: Comments,
-				props: { commentData: commentData, loadMoreComments: loadMoreComments, commentPost: commentPost}
+				props: {
+					commentData: commentData,
+					loadMoreComments: loadMoreComments,
+					commentPost: commentPost
+				}
 			};
 			const modal: ModalSettings = {
 				type: 'component',
