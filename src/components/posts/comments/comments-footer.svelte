@@ -3,9 +3,9 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { PaperAirplane, Trash } from '@steeze-ui/heroicons';
 	import { UserComponent } from '$components';
-	import type { Author, ErrorResponse, UserSearch } from '$domains';
+	import type { Author } from '$domains';
 	import { loadSearchedUser } from '$utils';
-	export let commentPost: (content: string) => any;
+	export let commentPost: (content: string) => void;
 
 	let newComment: string = '';
 	//post of a comment
@@ -28,8 +28,9 @@
 		}));
 		authors = userSearch;
 	}
-	function handleInput(event: any) {
-		const value = event.target.value;
+	function handleInput(event: InputEvent) {
+		const target = event.target as HTMLTextAreaElement;
+    	const value = target.value;
 		if (value.includes('@')) {
 			const lastAtIndex = value.lastIndexOf('@');
 			const afterAt = value.substring(lastAtIndex);

@@ -28,7 +28,7 @@
 		unlikePost(post.postId);
 	}
 
-	function toggleLike() {
+	function toggleLike(): void {
 		if (isLoggedIn) {
 			if (post.liked) {
 				unlikeThisPost();
@@ -42,7 +42,7 @@
 		comments: comments,
 		overallRecords: 1
 	};
-	async function loadMoreCommentsForThisPost() {
+	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
 		const body = await loadMoreComments(post.postId, comments.length);
 		if (body.error) {
 			if (body.data.error) {
@@ -72,7 +72,7 @@
 		return commentData;
 	}
 
-	async function commentThisPost(content: string) {
+	async function commentThisPost(content: string): Promise<CommentData> {
 		const body = await postComment(post.postId, content);
 		if (body.error) {
 			if (body.data.error) {

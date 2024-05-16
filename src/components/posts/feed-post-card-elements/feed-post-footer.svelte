@@ -15,8 +15,8 @@
 	export let post: Post;
 	export let likePost: () => void;
 	export let unlikePost: () => void;
-	export let loadMoreComments: () => any;
-	export let commentPost: (content: string) => any;
+	export let loadMoreComments: () => Promise<CommentData>;
+	export let commentPost: (content: string) => Promise<CommentData>;
 	export let commentData: CommentData;
 
 	//funktion to toggle the like of the post

@@ -3,12 +3,9 @@
 	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { ModalHeader, CommentElement, CommentsFooter, LoadMoreComponent } from '$components';
 	import type { CommentData } from '$domains';
-	import { getModalStore } from '@skeletonlabs/skeleton';
-	import { onDestroy, onMount } from 'svelte';
-	import { writable } from 'svelte/store';
-	export let loadMoreComments: () => any;
+	export let loadMoreComments: () => Promise<CommentData>;
 	export let commentData: CommentData;
-	export let commentPost: (content: string) => any;
+	export let commentPost: (content: string) => Promise<CommentData>;
 	async function load() {
 		commentData = await loadMoreComments();
 	}
