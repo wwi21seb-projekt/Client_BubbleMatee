@@ -30,7 +30,7 @@
 	}
 	function handleInput(event: Event) {
 		const target = event.target as HTMLTextAreaElement;
-    	const value = target.value;
+		const value = target.value;
 		if (value.includes('@')) {
 			const lastAtIndex = value.lastIndexOf('@');
 			const afterAt = value.substring(lastAtIndex);
