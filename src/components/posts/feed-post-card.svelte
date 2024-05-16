@@ -58,7 +58,7 @@
 			toastStore.trigger(t);
 		}
 		} else {
-			const newComments: Array<Comment> = body.data.records.map((record) => ({
+			const newComments: Array<Comment> = body.data.records.map((record: Comment) => ({
 			commentId: record.commentId,
 			author: {
 				username: record.author.username,

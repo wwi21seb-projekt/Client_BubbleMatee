@@ -21,7 +21,7 @@
 	let authors= new Array<Author>
 	async function loadUsers(search:string) {
 		const response = await loadSearchedUser(search, 0, "5")
-		let userSearch = response.data.records.map((record) => ({
+		let userSearch = response.data.records.map((record: Author) => ({
 			nickname: record.nickname,
 			profilePictureUrl: record.profilePictureUrl,
 			username: record.username
