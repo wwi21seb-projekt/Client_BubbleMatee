@@ -28,7 +28,7 @@
 		}));
 		authors = userSearch;
 	}
-	function handleInput(event: InputEvent) {
+	function handleInput(event: Event) {
 		const target = event.target as HTMLTextAreaElement;
     	const value = target.value;
 		if (value.includes('@')) {
