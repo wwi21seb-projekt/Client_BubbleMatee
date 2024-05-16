@@ -9,8 +9,8 @@
 	export let deletePost: (postId: string) => void;
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
-	export let loadMoreComments: (postId: string, offset: number) => any;
-	export let postComment: (postId: string, content: string) => any;
+	export let loadMoreComments: (postId: string, offset: number) => Promise<CommentData>;
+	export let postComment: (postId: string, content: string) => Promise<CommentData>;
 	const toastStore = getToastStore();
 
 	//function to delete this post -> calls a passed function
