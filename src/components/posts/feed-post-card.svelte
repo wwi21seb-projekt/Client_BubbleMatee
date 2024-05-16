@@ -1,7 +1,8 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
-	import type { Comment, CommentData, Post } from '$domains';
+	import type { Comment, CommentData, CommentResponse, ErrorObject, ErrorResponse, Post } from '$domains';
+	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
@@ -9,8 +10,8 @@
 	export let deletePost: (postId: string) => void;
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
-	export let loadMoreComments: (postId: string, offset: number) => Promise<CommentData>;
-	export let postComment: (postId: string, content: string) => Promise<CommentData>;
+	export let loadMoreComments: (postId: string, offset: number) => Promise<ErrorResponse> | Promise<CommentResponse>;
+	export let postComment: (postId: string, content: string) => Promise<ErrorResponse> | Promise<PostCommentResponse>;
 	const toastStore = getToastStore();
 
 	//function to delete this post -> calls a passed function
@@ -43,17 +44,19 @@
 		overallRecords: 1
 	};
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
-		const body = await loadMoreComments(post.postId, comments.length);
+		const body : CommentResponse | ErrorResponse = await loadMoreComments(post.postId, comments.length);
 		if (body.error) {
-			if (body.data.error) {
+			const data = body.data as ErrorObject
+			if (data.error) {
 				const t: ToastSettings = {
-					message: getErrorMessage(body.data.error.code, false),
+					message: getErrorMessage(data.error.code, false),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
 			}
 		} else {
-			const newComments: Array<Comment> = body.data.records.map((record: Comment) => ({
+			const data = body.data as CommentList
+			const newComments: Array<Comment> = data.records.map((record: Comment) => ({
 				commentId: record.commentId,
 				author: {
 					username: record.author.username,
@@ -64,11 +67,11 @@
 				content: record.content
 			}));
 			comments = comments.concat(newComments);
-		}
-		commentData = {
+			commentData = {
 			comments: comments,
-			overallRecords: body.data.pagination.records
+			overallRecords: data.pagination.records
 		};
+	}
 		return commentData;
 	}
 
