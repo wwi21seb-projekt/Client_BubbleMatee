@@ -1,4 +1,4 @@
-import type { ErrorResponse, PostCommentResponse, CommentResponse} from '$domains';
+import type { ErrorResponse, PostCommentResponse, CommentResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 

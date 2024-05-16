@@ -32,4 +32,3 @@ export type { Feed } from './ServerDomains/feed';
 export type { UserFeed } from './ServerDomains/userFeed';
 export type { TokenPayload } from './ServerDomains/token';
 export type { SubscriptionList, Follower } from './ServerDomains/subscription';
-
