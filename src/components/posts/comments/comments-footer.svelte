@@ -46,7 +46,7 @@
 
 <!--Footer containing a delete button, a text-area and a post button-->
 <div class="bg-transparent rounded-lg border-2 px-2">
-	{#if authors.length > 0}
+	{#if newComment.includes('@') && !newComment.substring(newComment.lastIndexOf('@')).includes(' ')}
 		<div class="w-full bg-transparent text-xl">
 			{#each authors as author}
 				<div class="w-full md:px-12 px-10">
@@ -54,7 +54,7 @@
 						class="w-full my-2hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
 						on:click={() => {
 							const lastAtIndex = newComment.lastIndexOf('@');
-							newComment = newComment.substring(0, lastAtIndex + 1) + author.username;
+							newComment = newComment.substring(0, lastAtIndex + 1) + author.username + ' ';
 							console.log(author);
 						}}
 					>
