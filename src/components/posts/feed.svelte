@@ -14,7 +14,6 @@
 	import { getErrorMessage, globalConfig } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
-
 	//function to delete a post. Is passed to and called from each induciduall post-card-component
 	async function deletePost(postId: string) {
 		try {
@@ -52,7 +51,6 @@
 			console.error(e);
 		}
 	}
-
 	//function to unlike a post. Is passed to and called from each induciduall post-card-component
 	async function unlikePost(postId: string) {
 		try {
@@ -83,7 +81,6 @@
 			console.error(e);
 		}
 	}
-
 	//function to like a post. Is passed to and called from each induciduall post-card-component
 	async function likePost(postId: string) {
 		try {
@@ -114,7 +111,6 @@
 			console.error(e);
 		}
 	}
-
 	async function loadMoreComments(
 		postId: string,
 		offset: number
@@ -145,7 +141,6 @@
 			return errorResponse;
 		}
 	}
-
 	async function postComment(
 		postId: string,
 		content: string
