@@ -1,4 +1,4 @@
-import type {Comment} from '$domains'
+import type { Comment } from '$domains';
 export interface CommentList {
 	records: Array<Comment>;
 	pagination: {
@@ -7,4 +7,3 @@ export interface CommentList {
 		records: number;
 	};
 }
-

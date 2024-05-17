@@ -115,7 +115,10 @@
 		}
 	}
 
-	async function loadMoreComments(postId: string, offset: number): Promise<ErrorResponse | CommentResponse> {
+	async function loadMoreComments(
+		postId: string,
+		offset: number
+	): Promise<ErrorResponse | CommentResponse> {
 		try {
 			const response = await fetch(
 				`/api/posts/${postId}/comments?offset=${offset}&limit=${globalConfig.limit}`,
@@ -131,20 +134,22 @@
 		} catch (e) {
 			console.error(e);
 			const errorResponse: ErrorResponse = {
-			error: true,
-			data: {
-				error: {
-				code: 'internal_server_error',
-				message: 'Failed to load comments',
-				},
-			},
+				error: true,
+				data: {
+					error: {
+						code: 'internal_server_error',
+						message: 'Failed to load comments'
+					}
+				}
 			};
 			return errorResponse;
-  }
 		}
-	
+	}
 
-	async function postComment(postId: string, content: string): Promise<ErrorResponse | PostCommentResponse> {
+	async function postComment(
+		postId: string,
+		content: string
+	): Promise<ErrorResponse | PostCommentResponse> {
 		try {
 			const response = await fetch(`/api/posts/${postId}/comments`, {
 				method: 'POST',
@@ -157,13 +162,13 @@
 			return body;
 		} catch (e) {
 			const errorResponse: ErrorResponse = {
-			error: true,
-			data: {
-				error: {
-				code: 'internal_server_error',
-				message: 'Failed to load comments',
-				},
-			},
+				error: true,
+				data: {
+					error: {
+						code: 'internal_server_error',
+						message: 'Failed to load comments'
+					}
+				}
 			};
 			return errorResponse;
 		}

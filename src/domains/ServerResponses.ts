@@ -5,7 +5,7 @@ import type { Subscription, SubscriptionList } from './ServerDomains/subscriptio
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 import type { Author, LocationPlace, Post } from './Post';
 import type { CommentList } from './ServerDomains/comments';
-import type { Comment } from '$domains'
+import type { Comment } from '$domains';
 export interface Response {
 	error: boolean;
 }
