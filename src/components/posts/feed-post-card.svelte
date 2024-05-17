@@ -78,19 +78,21 @@
 	async function commentThisPost(content: string): Promise<CommentData> {
 		const body = await postComment(post.postId, content);
 		if (body.error) {
-			if (body.data.error) {
+			const data = body.data as ErrorObject
+			if (data.error) {
 				const t: ToastSettings = {
-					message: getErrorMessage(body.data.error.code, false),
+					message: getErrorMessage(data.error.code, false),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
 			}
 		} else {
+			const data = body.data as Comment
 			const newComment: Comment = {
-				commentId: body.data.commentId,
-				author: body.data.author,
-				content: body.data.content,
-				creationDate: new Date(body.data.creationDate)
+				commentId: data.commentId,
+				author: data.author,
+				content: data.content,
+				creationDate: new Date(data.creationDate)
 			};
 			comments = comments.concat(newComment);
 		}
