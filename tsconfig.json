@@ -9,6 +9,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
+		"types": ["vite-plugin-pwa/info"],
 		"moduleResolution": "bundler",
 		"allowImportingTsExtensions": true // Hinzugefügte Option
 	}

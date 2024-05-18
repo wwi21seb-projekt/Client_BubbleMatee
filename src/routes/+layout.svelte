@@ -4,10 +4,16 @@
 	import { Header, NavigationBarMobile, NavigationBarDesktop } from '$components';
 	import { initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+	// import { pwaInfo } from 'virtual:pwa-info';
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
+	// $: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '';
 	initializeStores();
 </script>
+
+<!-- <svelte:head>
+	{@html webManifestLink}
+</svelte:head> -->
 
 <Modal transitions={false} />
 <Toast position="t" />

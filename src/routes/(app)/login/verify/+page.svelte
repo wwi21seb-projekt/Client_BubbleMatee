@@ -4,7 +4,7 @@
 	import { CodeInput, UsernameInput } from '$components';
 	import type { Error } from '$domains';
 	import { currentUsername, isLoggedIn } from '$stores';
-	import { getErrorMessage } from '$utils';
+	import { activatePushNotifications, getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
@@ -48,6 +48,7 @@
 				isLoggedIn.set(true);
 				currentUsername.set(username);
 				goto('/myProfile');
+				await activatePushNotifications();
 			}
 
 			return body;
