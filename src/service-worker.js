@@ -40,6 +40,11 @@ self.addEventListener('fetch', (event) => {
 	// ignore POST requests etc
 	if (event.request.method !== 'GET' || event.request.url.startsWith('chrome-extension')) return;
 
+	/**
+	 * Respond to the request with either the cached response or the network response.
+	 *
+	 * @returns The response to the request
+	 */
 	async function respond() {
 		const url = new URL(event.request.url);
 		const cache = await caches.open(CACHE);
