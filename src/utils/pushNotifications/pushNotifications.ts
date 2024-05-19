@@ -1,3 +1,5 @@
+import type { Notification } from '$domains';
+
 export const activatePushNotifications = async () => {
 	if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
 		return;
@@ -19,30 +21,66 @@ export const activatePushNotifications = async () => {
 	console.log('Subscription sent to server: ', successful);
 };
 
+export const getNotificationTitle = (notificationType: string): string => {
+	switch (notificationType) {
+		case 'repost':
+			return 'Dein Beitrag wurde geteilt';
+		case 'follow':
+			return 'Du hast einen neuen Follower';
+		default:
+			return 'Du hast eine neue Benachrichtigung';
+	}
+};
+
+export const getNotificationOptions = (notification: Notification): NotificationOptions => {
+	let body: string;
+	const user = notification.user.nickname ? notification.user.nickname : notification.user.username;
+
+	switch (notification.notificationType) {
+		case 'repost':
+			body = `${user} hat deinen Beitrag geteilt`;
+			break;
+		case 'follow':
+			body = `${user} folgt dir jetzt`;
+			break;
+		default:
+			body = 'Du hast eine neue Benachrichtigung';
+	}
+
+	const options = {
+		body,
+		data: { notificationId: notification.notificationId, username: notification.user.username },
+		icon: '/src/images/layout/logo.png', //icon on the left
+		badge: '/src/images/layout/logo.png', //icon on top of screen
+		image: '/src/images/layout/logo.png', //on the right on mobile
+		vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
+		sound: '/src/sound/notification.mp3'
+		// actions: [{ action: 'explore', title: 'Go to the site' }]
+	};
+	return options;
+};
+
+/**
+ * The user is asked for permission to receive push notifications.
+ *
+ *
+ * @returns A promise that resolves to the permission status
+ */
 async function askPermission(): Promise<string> {
 	let status: NotificationPermission = Notification.permission;
 	if (Notification.permission === 'default') {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		status = await Notification.requestPermission();
-
-		//TODO: move here the code from the next block
-	}
-	if (Notification.permission === 'granted') {
-		const registration: ServiceWorkerRegistration = await navigator.serviceWorker.ready;
-		const options = {
-			body: 'Welcome to our website!',
-			icon: '/src/images/layout/logo.png', //icon on the left
-			badge: '/src/images/layout/logo.png', //icon on top of screen
-			image: '/src/images/layout/logo.png', //on the right on mobile
-			vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
-			sound: '/src/sound/notification.mp3',
-			actions: [{ action: 'explore', title: 'Go to the site' }]
-		};
-		registration.showNotification('Welcome to our website!', options);
 	}
 	return status;
 }
 
+/**
+ * The user is subscribed to push notifications.
+ *
+ *
+ * @returns A promise that resolves to the subscription
+ */
 async function subscribeUserToPush(): Promise<PushSubscription> {
 	const vapidKey: string = await getVapidKey();
 
@@ -60,9 +98,15 @@ async function subscribeUserToPush(): Promise<PushSubscription> {
 	return pushSubscription;
 }
 
+/**
+ * The VAPID key is requested from the server.
+ *
+ *
+ * @returns A promise that resolves to the VAPID key
+ */
 async function getVapidKey(): Promise<string> {
 	try {
-		const response = await fetch(`/api/push/vapid`, {
+		const response = await fetch('/api/push/vapid', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
@@ -80,6 +124,12 @@ async function getVapidKey(): Promise<string> {
 	}
 }
 
+/**
+ * The subscription is sent to the server to be stored in the database.
+ *
+ * @param subscription The subscription to send to the server
+ * @returns A promise that resolves to true if the subscription was sent successfully
+ */
 function sendSubscriptionToBackEnd(subscription: PushSubscription): Promise<boolean> {
 	return fetch('/api/push/register', {
 		method: 'POST',
@@ -87,7 +137,7 @@ function sendSubscriptionToBackEnd(subscription: PushSubscription): Promise<bool
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(subscription)
-	}).then(function (response) {
+	}).then((response) => {
 		if (!response.ok) {
 			throw new Error('Bad status code from server.');
 		}

@@ -33,4 +33,8 @@ export { getCurrentUser } from './token/getUser';
 export { checkAuth } from './token/checkAuth';
 export { globalConfig } from './config/config';
 
-export { activatePushNotifications } from './pushNotifications/pushNotifications';
+export {
+	activatePushNotifications,
+	getNotificationTitle,
+	getNotificationOptions
+} from './pushNotifications/pushNotifications';

@@ -1,11 +1,12 @@
 /// <reference types="@sveltejs/kit" />
-// / <reference no-default-lib="true"/>
-// / <reference lib="esnext" />
-// / <reference lib="webworker" />
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
 
 import { build, files, version } from '$service-worker';
+import { getNotificationOptions, getNotificationTitle } from '$utils';
 
-// const sw = self;
+const sw = self;
 
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;
@@ -15,7 +16,7 @@ const ASSETS = [
 	...files // everything in `static`
 ];
 
-self.addEventListener('install', (event) => {
+sw.addEventListener('install', (event) => {
 	// Create a new cache and add all files to it
 	async function addFilesToCache() {
 		const cache = await caches.open(CACHE);
@@ -25,7 +26,7 @@ self.addEventListener('install', (event) => {
 	event.waitUntil(addFilesToCache());
 });
 
-self.addEventListener('activate', (event) => {
+sw.addEventListener('activate', (event) => {
 	// Remove previous cached data from disk
 	async function deleteOldCaches() {
 		for (const key of await caches.keys()) {
@@ -36,13 +37,11 @@ self.addEventListener('activate', (event) => {
 	event.waitUntil(deleteOldCaches());
 });
 
-self.addEventListener('fetch', (event) => {
-	// ignore POST requests etc
+sw.addEventListener('fetch', (event) => {
 	if (event.request.method !== 'GET' || event.request.url.startsWith('chrome-extension')) return;
 
 	/**
 	 * Respond to the request with either the cached response or the network response.
-	 *
 	 * @returns The response to the request
 	 */
 	async function respond() {
@@ -58,13 +57,11 @@ self.addEventListener('fetch', (event) => {
 			}
 		}
 
-		// for everything else, try the network first, but
-		// fall back to the cache if we're offline
+		// for everything else, try the network first, but fall back to the cache if we're offline
 		try {
 			const response = await fetch(event.request);
 
-			// if we're offline, fetch can return a value that is not a Response
-			// instead of throwing - and we can't pass this non-Response to respondWith
+			// if we're offline, fetch can return a value that is not a Response instead of throwing - and we can't pass this non-Response to respondWith
 			if (!(response instanceof Response)) {
 				throw new Error('invalid response from fetch');
 			}
@@ -81,23 +78,19 @@ self.addEventListener('fetch', (event) => {
 				return response;
 			}
 
-			// if there's no cache, then just error out
-			// as there is nothing we can do to respond to this request
+			// if there's no cache, then just error out as there is nothing we can do to respond to this request
 			throw err;
 		}
 	}
-
 	event.respondWith(respond());
 });
 
-self.addEventListener('notificationclick', (event) => {
-	if (!event.action) {
-		// Was a normal notification click
-		console.log('Notification Click.');
-		return;
-	}
-
+sw.addEventListener('notificationclick', (event) => {
 	let examplePage = '/';
+	if (!event.action) {
+		console.log('Notification Click.', event.notification.data.username);
+		examplePage = `/search/user/${event.notification.data.username}`;
+	}
 
 	switch (event.action) {
 		case 'explore':
@@ -108,17 +101,14 @@ self.addEventListener('notificationclick', (event) => {
 			console.log(`Unknown action clicked: '${event.action}'`);
 			break;
 	}
-
-	const urlToOpen = new URL(examplePage, self.location.origin).href;
-
-	const promiseChain = self.clients
+	const urlToOpen = new URL(examplePage, sw.location.origin).href;
+	const promiseChain = sw.clients
 		.matchAll({
 			type: 'window',
 			includeUncontrolled: true
 		})
 		.then((windowClients) => {
 			let matchingClient = null;
-
 			for (let i = 0; i < windowClients.length; i++) {
 				const windowClient = windowClients[i];
 				if (windowClient.url === urlToOpen) {
@@ -130,28 +120,56 @@ self.addEventListener('notificationclick', (event) => {
 			if (matchingClient) {
 				return matchingClient.focus();
 			} else {
-				return self.clients.openWindow(urlToOpen);
+				return sw.clients.openWindow(urlToOpen);
 			}
 		});
-
 	event.waitUntil(promiseChain);
 });
 
-self.addEventListener('push', function (event) {
-	console.log('Received a push message', event);
+sw.addEventListener('push', (event) => {
+	// If the user is currently on the page, show that a new notification has been received
+	if (isClientFocused()) {
+		sw.clients
+			.matchAll({
+				type: 'window',
+				includeUncontrolled: true
+			})
+			.then((windowClients) => {
+				windowClients.forEach((windowClient) => {
+					windowClient.postMessage({
+						message: 'Received a push message.',
+						time: new Date().toString()
+					});
+				});
+			});
+	}
 
-	// Display notification or handle data
-	// Example: show a notification
-	const title = 'New Notification';
-	const body = 'You have new updates!';
-	const icon = '/images/icon.png';
-	const tag = 'simple-push-demo-notification-tag';
+	const notification = event.data.json();
+	const title = getNotificationTitle(notification.notificationType);
+	const options = getNotificationOptions(notification);
+	const promiseChain = sw.registration.showNotification(title, options);
+	event.waitUntil(promiseChain);
 
-	event.waitUntil(
-		self.registration.showNotification(title, {
-			body: body,
-			icon: icon,
-			tag: tag
-		})
-	);
+	/**
+	 * Check if the client is focused
+	 * @returns boolean indicating if the client is focused
+	 */
+	function isClientFocused() {
+		return sw.clients
+			.matchAll({
+				type: 'window',
+				includeUncontrolled: true
+			})
+			.then((windowClients) => {
+				let clientIsFocused = false;
+				for (let i = 0; i < windowClients.length; i++) {
+					const windowClient = windowClients[i];
+					if (windowClient.focused) {
+						clientIsFocused = true;
+						break;
+					}
+				}
+				return clientIsFocused;
+			});
+	}
 });

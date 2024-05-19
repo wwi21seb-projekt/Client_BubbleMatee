@@ -4,9 +4,31 @@
 	import { Header, NavigationBarMobile, NavigationBarDesktop } from '$components';
 	import { initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+	import { hasNotifications, notifications } from '$stores';
+	import type { ErrorResponse, NotificationResponse, Notification } from '$domains';
+	import { onMount } from 'svelte';
 
+	export let data: NotificationResponse | ErrorResponse;
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 	initializeStores();
+
+	if (typeof navigator !== 'undefined') {
+		navigator.serviceWorker.addEventListener('message', function (event) {
+			console.log('Received a message from service worker: ', event.data);
+			hasNotifications.set(true);
+		});
+	}
+	$: pageNotifications = data.error
+		? undefined
+		: (data.data as { records: Array<Notification> }).records;
+
+	onMount(() => {
+		if (pageNotifications) {
+			hasNotifications.set(pageNotifications?.length > 0);
+			notifications.set(pageNotifications);
+		}
+	});
 </script>
 
 <Modal transitions={false} />
