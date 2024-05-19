@@ -12,7 +12,7 @@ export const activatePushNotifications = async () => {
 
 	// 2. Get push subscription
 	//TODO: überprüfen ob bereits vorhanden und dann nicht nochmal anfordern
-	const subscription: PushSubscription = await subscribeUserToPush();
+	const subscription: PushSubscription = await resubscribeUserToPush();
 
 	// 3. Send push subscription to server
 	const successful: boolean = await sendSubscriptionToBackEnd(subscription);
@@ -48,7 +48,7 @@ async function subscribeUserToPush(): Promise<PushSubscription> {
 
 	const subscribeOptions: PushSubscriptionOptionsInit = {
 		userVisibleOnly: true,
-		applicationServerKey: btoa(vapidKey) // base64encoded or arraybuffer
+		applicationServerKey: vapidKey // base64encoded or arraybuffer
 	};
 
 	const registration: ServiceWorkerRegistration = await navigator.serviceWorker.ready;
@@ -94,4 +94,18 @@ function sendSubscriptionToBackEnd(subscription: PushSubscription): Promise<bool
 
 		return true;
 	});
+}
+
+async function unsubscribeUserFromPush(): Promise<void> {
+	const registration: ServiceWorkerRegistration = await navigator.serviceWorker.ready;
+	const subscription: PushSubscription | null = await registration.pushManager.getSubscription();
+
+	if (subscription) {
+		await subscription.unsubscribe();
+	}
+}
+
+async function resubscribeUserToPush(): Promise<PushSubscription> {
+	await unsubscribeUserFromPush();
+	return subscribeUserToPush();
 }
