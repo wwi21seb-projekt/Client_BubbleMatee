@@ -1,5 +1,5 @@
-import { goto } from '$app/navigation';
 import type { Error } from '$domains';
+import { redirectToLogin1, redirectToLogin2 } from '$stores/loading';
 
 const errorMessages: Array<Error> = [
 	{
@@ -95,6 +95,7 @@ const errorMessages: Array<Error> = [
  * Returns the error message for a given error code.
  *
  * @param code The error code.
+ * @param hasNoToast Whether the error should be displayed as a toast.
  * @returns The error message.
  */
 export function getErrorMessage(code: string, hasNoToast: boolean): string {
@@ -116,8 +117,8 @@ export function getErrorMessage(code: string, hasNoToast: boolean): string {
  */
 function handleUnauthorized(code: string, hasNoToast: boolean) {
 	if (code === 'ERR-014' && !hasNoToast) {
-		goto('/login?redirect=2');
+		redirectToLogin2.set(true);
 	} else if (code === 'ERR-014' && hasNoToast) {
-		goto('/login?redirect=1');
+		redirectToLogin1.set(true);
 	}
 }

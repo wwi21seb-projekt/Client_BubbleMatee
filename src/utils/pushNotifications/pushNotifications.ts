@@ -1,5 +1,11 @@
 import type { Notification } from '$domains';
 
+/**
+ * Activates push notifications for the user.
+ *
+ *
+ * @returns A promise that resolves to void
+ */
 export const activatePushNotifications = async () => {
 	if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
 		return;
@@ -13,7 +19,6 @@ export const activatePushNotifications = async () => {
 	}
 
 	// 2. Get push subscription
-	//TODO: überprüfen ob bereits vorhanden und dann nicht nochmal anfordern
 	const subscription: PushSubscription = await resubscribeUserToPush();
 
 	// 3. Send push subscription to server
@@ -21,6 +26,12 @@ export const activatePushNotifications = async () => {
 	console.log('Subscription sent to server: ', successful);
 };
 
+/**
+ * @param notificationType - The type of the notification
+ *
+ *
+ * @returns A string with the notification title
+ */
 export const getNotificationTitle = (notificationType: string): string => {
 	switch (notificationType) {
 		case 'repost':
@@ -32,6 +43,12 @@ export const getNotificationTitle = (notificationType: string): string => {
 	}
 };
 
+/**
+ * @param notification - The notification object
+ *
+ *
+ * @returns An object with the notification options
+ */
 export const getNotificationOptions = (notification: Notification): NotificationOptions => {
 	let body: string;
 	const user = notification.user.nickname ? notification.user.nickname : notification.user.username;
@@ -146,6 +163,12 @@ function sendSubscriptionToBackEnd(subscription: PushSubscription): Promise<bool
 	});
 }
 
+/**
+ * The user is unsubscribed from push notifications.
+ *
+ *
+ * @returns A promise that resolves to void
+ */
 async function unsubscribeUserFromPush(): Promise<void> {
 	const registration: ServiceWorkerRegistration = await navigator.serviceWorker.ready;
 	const subscription: PushSubscription | null = await registration.pushManager.getSubscription();
@@ -155,6 +178,12 @@ async function unsubscribeUserFromPush(): Promise<void> {
 	}
 }
 
+/**
+ * The user is resubscribed to push notifications.
+ *
+ *
+ * @returns A promise that resolves to the subscription
+ */
 async function resubscribeUserToPush(): Promise<PushSubscription> {
 	await unsubscribeUserFromPush();
 	return subscribeUserToPush();

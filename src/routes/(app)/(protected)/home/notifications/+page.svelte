@@ -13,7 +13,7 @@
 	<button on:click={handleClick} class="ml-2 absolute left-0 inset-y-0">
 		<Icon
 			src={ArrowLeft}
-			class="h1 h-8 md:h-10 font-bold stroke-primary-900 dark:primary-500 z-100"
+			class="h1 h-8 md:h-10 font-bold stroke-primary-900 dark:stroke-primary-500 z-100"
 		/>
 	</button>
 	<h1

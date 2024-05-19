@@ -7,6 +7,8 @@
 	import { hasNotifications, notifications } from '$stores';
 	import type { ErrorResponse, NotificationResponse, Notification } from '$domains';
 	import { onMount } from 'svelte';
+	import { redirectToLogin1, redirectToLogin2 } from '$stores/loading';
+	import { goto } from '$app/navigation';
 
 	export let data: NotificationResponse | ErrorResponse;
 
@@ -22,6 +24,20 @@
 	$: pageNotifications = data.error
 		? undefined
 		: (data.data as { records: Array<Notification> }).records;
+
+	redirectToLogin1.subscribe((value) => {
+		if (value) {
+			goto('/login?redirect=1');
+			redirectToLogin1.set(false);
+		}
+	});
+
+	redirectToLogin2.subscribe((value) => {
+		if (value) {
+			goto('/login?redirect=2');
+			redirectToLogin2.set(false);
+		}
+	});
 
 	onMount(() => {
 		if (pageNotifications) {
