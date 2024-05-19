@@ -3,16 +3,16 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
- * Handles DELETE requests to delete a post.
+ * Handles DELETE requests to delete a notification.
  *
  * @param fetch The fetch function for making HTTP requests.
  * @param params The params object containing the postId.
  * @returns The response containing nothing or an error.
  */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
-	const postId = params.postId;
+	const notificationId = params.notification;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/posts/${postId}`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/notifications/${notificationId}`, {
 			method: 'DELETE'
 		});
 
