@@ -3,12 +3,15 @@
 <script lang="ts">
 	//TODO: Datenanbindung der Komponente -> wenn der Endpunkt definiert wurde
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Heart, ChatBubbleLeft } from '@steeze-ui/heroicons';
+	import { Heart, ChatBubbleLeft, ArrowPathRoundedSquare } from '@steeze-ui/heroicons';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	import type { ModalComponent, ModalSettings } from '@skeletonlabs/skeleton';
-	import { Comments } from '$components';
+	import { Comments, RepostComponent } from '$components';
 	import { isLoggedIn } from '$stores';
 	import { goto } from '$app/navigation';
+	import type { Post } from '$domains';
+
+	export let post: Post;
 
 	const modalStore = getModalStore();
 
@@ -56,6 +59,26 @@
 			modalStore.trigger(modal);
 		}
 	}
+
+	//function to open the comment section
+	function handleRepostClick(): void {
+		// Error-Message if the user is not logged in
+		if (!$isLoggedIn) {
+			goto('/login?redirect=1');
+		} else {
+			const modalComponent: ModalComponent = {
+				ref: RepostComponent,
+				props: { post: post }
+			};
+			const modal: ModalSettings = {
+				type: 'component',
+				component: modalComponent,
+				backdropClasses:
+					'bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 lg:dark:from-transparent lg:darkto-transparent lg:from-transparent lg:to-transparent'
+			};
+			modalStore.trigger(modal);
+		}
+	}
 </script>
 
 <div class="flex flex-row items-center space-x-4">
@@ -80,5 +103,11 @@
 			<Icon src={ChatBubbleLeft} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
 		</button>
 		<small class="text-xs md:text-sm">10. Mio</small>
+	</div>
+	<div class="flex flex-col items-center">
+		<button on:click={handleRepostClick} class="focus:outline-none">
+			<Icon src={ArrowPathRoundedSquare} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
+		</button>
+		<small class="text-xs md:text-sm">Repost</small>
 	</div>
 </div>

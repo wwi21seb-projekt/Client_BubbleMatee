@@ -3,11 +3,14 @@
 	import { derived } from 'svelte/store';
 	import { isFileSelected, postText, loading } from '$stores';
 	import { goto } from '$app/navigation';
-	import type { Error } from '$domains';
+	import type { Error, Post } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { PostGeolocation } from '$components';
 	import { PaperPlane } from '$images';
+
+	export let isRepost: boolean = false;
+	export let post: Post | undefined = undefined;
 
 	// Helper function to remove whitespace and newlines from a string
 	function removeWhitespaceAndNewlines(text: string): string {
@@ -38,6 +41,16 @@
 		author: Author;
 		creationDate: string;
 		content: string;
+	};
+
+	type NewPost = {
+		repostedPostId?: string;
+		content: string;
+		location: {
+			longitude: number;
+			latitude: number;
+			accuracy: number;
+		} | null;
 	};
 
 	// Initializing mock data for demonstration or testing purposes
@@ -72,6 +85,7 @@
 
 	// Asynchronous function to handle the post action, including API calls and error handling
 	const handlePost = async () => {
+		console.log('Test');
 		if ($inputValid) {
 			loading.set(true);
 			try {
@@ -83,22 +97,25 @@
 				// Prüfen, ob die Koordinaten gültig sind
 				const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
 
+				let postBody: NewPost = {
+					content: $postText,
+					location: ARE_COORDS_VALID
+						? {
+								//optional
+								// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
+								longitude: LONGITUDE,
+								latitude: LATITUDE,
+								accuracy: ACCURACY
+							}
+						: null
+				};
+
+				isRepost && post ? (postBody.repostedPostId = post.postId) : null;
 				// Making a POST request to the server with the user input
 				const response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						content: $postText,
-						location: ARE_COORDS_VALID
-							? {
-									//optional
-									// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
-									longitude: LONGITUDE,
-									latitude: LATITUDE,
-									accuracy: ACCURACY
-								}
-							: null
-					})
+					body: JSON.stringify(postBody)
 				});
 
 				const body = await response.json();
@@ -130,7 +147,10 @@
 	};
 </script>
 
-<PostGeolocation bind:coords />
+<div class={!isRepost ? '' : 'hidden'}>
+	<PostGeolocation bind:coords />
+</div>
+
 <button
 	type="button"
 	class="btn variant-filled-primary mt-4 buttonPost"

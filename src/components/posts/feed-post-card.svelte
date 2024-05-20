@@ -1,9 +1,16 @@
 <!--Component for a single post-->
 <script lang="ts">
-	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
-	import type { Post } from '$domains';
-	export let post: Post;
+	import {
+		FeedPostFooter,
+		FeedPostMain,
+		FeedPostHeader,
+		FeedPostLocation,
+		FeedPostCard
+	} from '$components';
+	import type { PostWithRepost } from '$domains';
+	export let post: PostWithRepost;
 	export let deletePost: (postId: string) => void;
+	export let isRepost: boolean = false;
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
 		deletePost(post.postId);
@@ -21,6 +28,7 @@
 				author={post.author}
 				deletePost={deleteThisPost}
 				{post}
+				{isRepost}
 			/>
 		</header>
 		<main class="card w-full !bg-transparent my-2">
@@ -28,9 +36,14 @@
 			{#if post.location}
 				<FeedPostLocation location={post.location} />
 			{/if}
+			{#if post.repost && !isRepost}
+				<FeedPostCard isRepost={true} deletePost={() => {}} post={post.repost} />
+			{/if}
 		</main>
-		<footer>
-			<FeedPostFooter />
-		</footer>
+		{#if !isRepost}
+			<footer>
+				<FeedPostFooter {post} />
+			</footer>
+		{/if}
 	</div>
 </div>

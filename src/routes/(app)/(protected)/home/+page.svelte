@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Feed } from '$components';
-	import type { Post } from '$domains';
+	import type { PostWithRepost } from '$domains';
 	import { fetchNextPostsFeed } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
@@ -9,7 +9,7 @@
 	// lastPostID -> The ID of the last Post -> is needed to load the next posts
 	let lastPostID: string = '';
 	let lastPage: boolean = true;
-	let posts: Array<Post> = new Array<Post>();
+	let posts: Array<PostWithRepost> = new Array<PostWithRepost>();
 	const toastStore = getToastStore();
 
 	//load the first posts directly

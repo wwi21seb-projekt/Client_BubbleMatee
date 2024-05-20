@@ -1,6 +1,7 @@
 <!-- List component that contains multiple posts.  -->
 <script lang="ts">
-	export let posts: Array<Post>;
+	export let posts: Array<PostWithRepost>;
+	console.log(posts);
 	export let loadMorePosts: () => Promise<void>;
 	export let lastPage: boolean;
 	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4';
@@ -8,7 +9,7 @@
 	export let nothingFoundMessage: string | null;
 	export let nothingFoundSubMessage: string | null;
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
-	import type { Post } from '$domains';
+	import type { PostWithRepost } from '$domains';
 	import { loading } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';

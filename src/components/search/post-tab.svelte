@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Error, Post } from '$domains';
+	import type { Error, Post, PostWithRepost } from '$domains';
 	import { Feed } from '$components';
 	import { getErrorMessage } from '$utils';
 
-	export let posts: Array<Post>;
+	export let posts: Array<PostWithRepost>;
 	export let isError: boolean;
 	export let loadMore: () => Promise<void>;
 	export let error: Error;
