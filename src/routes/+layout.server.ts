@@ -1,5 +1,5 @@
-import type { LoadEvent } from '@sveltejs/kit';
-import type { LayoutLoad } from './$types';
+import type { ServerLoadEvent } from '@sveltejs/kit';
+import type { LayoutServerLoad } from './$types';
 import type { ErrorResponse, NotificationResponse } from '$domains';
 
 /**
@@ -8,7 +8,12 @@ import type { ErrorResponse, NotificationResponse } from '$domains';
  * @param event The SvelteKit load event.
  * @returns The response containing notification data or an error.
  */
-export const load: LayoutLoad = async (event: LoadEvent) => {
+export const load: LayoutServerLoad = async (event: ServerLoadEvent) => {
+	const token = event.cookies.get('token');
+	if (!token) {
+		return { error: true, data: {} } as ErrorResponse;
+	}
+
 	const response = await event.fetch('/api/notifications', {
 		method: 'GET',
 		headers: {
@@ -17,5 +22,5 @@ export const load: LayoutLoad = async (event: LoadEvent) => {
 	});
 
 	const body = await response.json();
-	return body as NotificationResponse | ErrorResponse; //TODO: type
+	return body as NotificationResponse | ErrorResponse;
 };

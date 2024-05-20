@@ -1,4 +1,4 @@
-import type { ErrorResponse, FeedResponse } from '$domains';
+import type { ErrorResponse, NotificationResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
@@ -20,7 +20,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 		const body = await response.json();
 		if (response.ok) {
 			const result = { data: body, error: false };
-			return json(result as FeedResponse); //TODO: type
+			return json(result as NotificationResponse);
 		}
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {

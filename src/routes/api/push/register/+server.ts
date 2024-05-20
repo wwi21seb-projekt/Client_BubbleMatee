@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 		});
 
 		if (response.ok) {
-			return json({ data: {}, error: false }); //TODO: type
+			return json({ data: {}, error: false });
 		}
 
 		const body = await response.json();

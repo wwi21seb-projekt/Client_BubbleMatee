@@ -88,3 +88,7 @@ export interface SubscriptionListResponse extends Response {
 export interface NotificationResponse extends Response {
 	data: { records: Array<Notification> };
 }
+
+export interface VapidResponse extends Response {
+	data: { key: string };
+}

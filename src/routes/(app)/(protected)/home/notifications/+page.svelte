@@ -1,11 +1,53 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { ArrowLeft } from '@steeze-ui/heroicons';
+	import { ArrowLeft, Check, CheckCircle } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getErrorMessage, getNotificationOptions, getNotificationTitle } from '$utils';
+	import { hasNotifications, notifications } from '$stores';
+	import { Person } from '$images';
+	import type { Notification } from '$domains';
 
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		console.log('event', event);
+	const toastStore = getToastStore();
+
+	function handleClick() {
 		goto('/home');
+	}
+
+	async function deleteNotification(
+		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
+	) {
+		const notificationId: string | undefined = event.currentTarget.parentElement?.id;
+		try {
+			const response = await fetch(`/api/notifications/${notificationId}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			if (body.error) {
+				if (body.data.error) {
+					const t: ToastSettings = {
+						message: getErrorMessage(body.data.error.code, false),
+						background: 'variant-filled-error'
+					};
+					toastStore.trigger(t);
+				}
+				//show confirmation if succesfull
+			} else {
+				const notificationsNew: Array<Notification> = $notifications.filter(
+					(notification) => notification.notificationId !== notificationId
+				);
+				notifications.set(notificationsNew);
+				if (notificationsNew.length === 0) {
+					hasNotifications.set(false);
+				}
+			}
+			return body;
+		} catch (e) {
+			console.error(e);
+		}
 	}
 </script>
 
@@ -25,34 +67,43 @@
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
 
-<!-- <div class="relative">
+{#each $notifications as notification (notification.notificationId)}
 	<div
-		class="absolute inset-0
-                    bg-gray-800 opacity-50
-                    z-10"
-	></div>
-
-	<div
-		class="absolute inset-0 flex
-                    items-center justify-center
-                    text-white z-20"
+		class="flex justify-between items-center p-2 border-b border-gray-300 dark:border-gray-700"
+		id={notification.notificationId}
 	>
-		<div
-			class="bg-gray-800 p-8
-                        rounded-lg shadow-lg"
-		>
-			<h1 class="text-3xl font-bold mb-4">Welcome to Our Website</h1>
-			<p class="text-lg">Thanks for visiting! This is the overlay content.</p>
+		<div class="flex items-center">
+			<div
+				class="flex items-center justify-center w-12 h-12 bg-primary-900 dark:bg-primary-500 text-white dark:text-black rounded-full"
+			>
+				<Avatar
+					border="hover:border-2 hover:!border-surface-600"
+					cursor="cursor-pointer"
+					src={notification.user.profilePictureUrl ? notification.user.profilePictureUrl : Person}
+				/>
+			</div>
+			<div class="ml-2">
+				<p class="text-lg font-semibold dark:text-gray-300">
+					{getNotificationTitle(notification.notificationType)}
+				</p>
+				<p class="text-sm dark:text-gray-400">{getNotificationOptions(notification).body}</p>
+			</div>
 		</div>
+		<!-- // button to mark notification as read -->
+		<button class="ml-2" on:click={deleteNotification}>
+			<Icon src={Check} class="h-6 w-6 text-primary-900 dark:text-primary-500 mr-2" />
+		</button>
 	</div>
-</div> -->
+{/each}
+
+{#if $notifications.length === 0}
+	<div class="flex justify-center items-center h-96">
+		<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
+		<p class="text-lg font-semibold dark:text-gray-300">No Notifications</p>
+	</div>
+{/if}
 
 <style>
-	/* :root {
-		--default-margin: 2rem;
-		--icon-size: 2.188rem;
-	} */
-
 	.h1 {
 		text-align: center;
 		margin: var(--default-margin) auto;

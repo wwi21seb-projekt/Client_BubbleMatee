@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { PasswordInput, UsernameInput } from '$components';
 	import { currentUsername, isLoggedIn } from '$stores';
@@ -72,9 +72,10 @@
 				}
 			} else {
 				isLoggedIn.set(true);
-				currentUsername.set(username); //TODOS: get useranme from token when discussed with other teams
+				currentUsername.set(username);
 				goto('/myProfile');
 				await activatePushNotifications();
+				invalidateAll();
 			}
 
 			return body;

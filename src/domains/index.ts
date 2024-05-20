@@ -18,7 +18,8 @@ export type {
 	FeedSearch,
 	SubscriptionListResponse,
 	LocationResponse,
-	NotificationResponse
+	NotificationResponse,
+	VapidResponse
 } from './ServerResponses';
 
 //Server Domains

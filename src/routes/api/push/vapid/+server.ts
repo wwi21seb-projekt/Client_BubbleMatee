@@ -1,4 +1,4 @@
-import type { ErrorResponse, Response } from '$domains';
+import type { ErrorResponse, VapidResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
@@ -21,7 +21,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 
 		if (response.ok) {
 			const result = { data: body, error: false };
-			return json(result as Response); //TODO: type
+			return json(result as VapidResponse);
 		}
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {

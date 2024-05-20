@@ -6,9 +6,8 @@
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { hasNotifications, notifications } from '$stores';
 	import type { ErrorResponse, NotificationResponse, Notification } from '$domains';
-	import { onMount } from 'svelte';
 	import { redirectToLogin1, redirectToLogin2 } from '$stores/loading';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	export let data: NotificationResponse | ErrorResponse;
 
@@ -19,6 +18,7 @@
 		navigator.serviceWorker.addEventListener('message', function (event) {
 			console.log('Received a message from service worker: ', event.data);
 			hasNotifications.set(true);
+			invalidateAll();
 		});
 	}
 	$: pageNotifications = data.error
@@ -39,12 +39,12 @@
 		}
 	});
 
-	onMount(() => {
+	$: {
 		if (pageNotifications) {
 			hasNotifications.set(pageNotifications?.length > 0);
 			notifications.set(pageNotifications);
 		}
-	});
+	}
 </script>
 
 <Modal transitions={false} />

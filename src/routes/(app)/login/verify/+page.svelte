@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { CodeInput, UsernameInput } from '$components';
 	import type { Error } from '$domains';
@@ -31,7 +31,7 @@
 			const body = await response.json();
 
 			if (body.error) {
-				let error: Error = body.data.error; //TODOS: error handling messages
+				let error: Error = body.data.error;
 				let errorColor: string = 'variant-filled-error';
 
 				if (error.code === 'ERR-013') {
@@ -49,8 +49,8 @@
 				currentUsername.set(username);
 				goto('/myProfile');
 				await activatePushNotifications();
+				invalidateAll();
 			}
-
 			return body;
 		} catch (e) {
 			console.error(e);

@@ -22,8 +22,7 @@ export const activatePushNotifications = async () => {
 	const subscription: PushSubscription = await resubscribeUserToPush();
 
 	// 3. Send push subscription to server
-	const successful: boolean = await sendSubscriptionToBackEnd(subscription);
-	console.log('Subscription sent to server: ', successful);
+	await sendSubscriptionToBackEnd(subscription);
 };
 
 /**
@@ -111,7 +110,6 @@ async function subscribeUserToPush(): Promise<PushSubscription> {
 	const pushSubscription: PushSubscription =
 		await registration.pushManager.subscribe(subscribeOptions);
 
-	console.log('Received PushSubscription: ', pushSubscription);
 	return pushSubscription;
 }
 

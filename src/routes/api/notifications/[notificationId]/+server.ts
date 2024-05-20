@@ -10,7 +10,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing nothing or an error.
  */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
-	const notificationId = params.notification;
+	const notificationId: string = params.notificationId as string;
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/notifications/${notificationId}`, {
 			method: 'DELETE'
