@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Error, Post, PostWithRepost } from '$domains';
+	import type { Error, PostWithRepost } from '$domains';
 	import { Feed } from '$components';
 	import { getErrorMessage } from '$utils';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Feed } from '$components';
-	import type { Post, PostWithRepost, UserInfo } from '$domains';
+	import type { PostWithRepost, UserInfo } from '$domains';
 	import { fetchNextPostsUser } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
