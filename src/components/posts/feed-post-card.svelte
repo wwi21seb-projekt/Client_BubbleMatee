@@ -89,6 +89,7 @@
 				overallRecords: data.pagination.records
 			};
 		}
+		commentData.overallRecords = 0;
 		return commentData;
 	}
 
