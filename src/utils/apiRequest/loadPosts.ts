@@ -3,7 +3,6 @@ import type {
 	ErrorResponse,
 	Feed,
 	FeedResponse,
-	Post,
 	PostData,
 	PostWithRepost,
 	UserFeed,
@@ -41,28 +40,29 @@ import { getErrorMessage } from '$utils';
 	} else {
 		const feedData: Feed = (body as FeedResponse).data;
 		//map the feed-data to a Post-Array with new Posts
-		console.log(feedData)
-		const newPosts: Array<PostWithRepost> = feedData.records.map((record) => (
-			record.repost ?
-				{
-					postId: record.postId,
-					author: record.author,
-					creationDate: new Date(record.creationDate),
-					content: record.content,
-					location: record.location,
-					repost: {
-						...record.repost,
-						creationDate: new Date(record.repost?.creationDate)
+		console.log(feedData);
+		const newPosts: Array<PostWithRepost> = feedData.records.map((record) =>
+			record.repost
+				? {
+						postId: record.postId,
+						author: record.author,
+						creationDate: new Date(record.creationDate),
+						content: record.content,
+						location: record.location,
+						repost: {
+							...record.repost,
+							creationDate: new Date(record.repost?.creationDate)
+						}
 					}
-
-				} : {
-					postId: record.postId,
-					author: record.author,
-					creationDate: new Date(record.creationDate),
-					content: record.content,
-					location: record.location
-				}));
-		console.log(newPosts)
+				: {
+						postId: record.postId,
+						author: record.author,
+						creationDate: new Date(record.creationDate),
+						content: record.content,
+						location: record.location
+					}
+		);
+		console.log(newPosts);
 		const postdata: PostData = {
 			posts: newPosts,
 			overallRecords: feedData.pagination.records,

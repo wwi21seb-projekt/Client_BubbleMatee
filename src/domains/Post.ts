@@ -13,7 +13,7 @@ export interface Post {
 }
 
 export interface PostWithRepost extends Post {
-	repost?: Post
+	repost?: Post;
 }
 
 export interface Author {

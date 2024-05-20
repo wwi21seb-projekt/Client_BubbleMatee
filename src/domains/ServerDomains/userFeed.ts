@@ -1,4 +1,4 @@
-import type { Location, PostWithRepost } from '$domains';
+import type { PostWithRepost } from '$domains';
 
 //Interface for the data that the server sends for a user feed-request
 export interface UserFeed {
