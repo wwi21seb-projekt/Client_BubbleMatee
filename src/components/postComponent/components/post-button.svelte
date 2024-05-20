@@ -8,6 +8,8 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { PostGeolocation } from '$components';
 	import { PaperPlane } from '$images';
+	import { getModalStore } from '@skeletonlabs/skeleton';
+	const modalStore = getModalStore();
 
 	export let isRepost: boolean = false;
 	export let post: Post | undefined = undefined;
@@ -142,6 +144,7 @@
 			} finally {
 				// Resetting loading state after the operation is complete
 				loading.set(false);
+				modalStore.close();
 			}
 		}
 	};
