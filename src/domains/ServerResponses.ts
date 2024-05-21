@@ -93,6 +93,7 @@ export interface CommentResponse extends Response {
 
 export interface PostCommentResponse extends Response {
 	data: Comment;
+}
 
 export interface NotificationResponse extends Response {
 	data: { records: Array<Notification> };

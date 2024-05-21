@@ -1,10 +1,9 @@
 export type { Logo, PersonData, PersonSourceData } from './About';
 
-export type { Post, Author, PostData, Location, LocationPlace, Comment, CommentData } from './Post';
 export type { User, Tokens, UserInfo, EditUserInfo, SearchParams } from './ServerDomains/user';
 export type { Subscription } from './ServerDomains/subscription';
 
-export type { Post, Author, PostData, Location, LocationPlace, UploadRestrictions } from './Post';
+export type { Post, Author, PostData, Location, LocationPlace, UploadRestrictions, Comment, CommentData } from './Post';
 
 
 export type {
@@ -24,10 +23,8 @@ export type {
 	FeedSearch,
 	SubscriptionListResponse,
 	LocationResponse,
-
 	CommentResponse,
-	PostCommentResponse
-
+	PostCommentResponse,
 	NotificationResponse,
 	VapidResponse
 
@@ -35,8 +32,6 @@ export type {
 
 //Server Domains
 export type { Imprint } from './ServerDomains/imprint';
-export type { User, Tokens, UserInfo, EditUserInfo, SearchParams } from './ServerDomains/user';
-export type { Subscription } from './ServerDomains/subscription';
 export type { Feed } from './ServerDomains/feed';
 export type { UserFeed } from './ServerDomains/userFeed';
 export type { TokenPayload } from './ServerDomains/token';
