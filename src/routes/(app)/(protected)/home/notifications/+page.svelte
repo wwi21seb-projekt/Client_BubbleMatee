@@ -14,10 +14,12 @@
 		goto('/home');
 	}
 
-	async function deleteNotification(
-		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) {
-		const notificationId: string | undefined = event.currentTarget.parentElement?.id;
+	function handleNotificationClick(notification: Notification) {
+		goto(`/search/user/${notification.user.username}`);
+		deleteNotificationRequest(notification.notificationId);
+	}
+
+	async function deleteNotificationRequest(notificationId: string | undefined) {
 		try {
 			const response = await fetch(`/api/notifications/${notificationId}`, {
 				method: 'DELETE',
@@ -49,6 +51,13 @@
 			console.error(e);
 		}
 	}
+
+	async function deleteNotification(
+		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
+	) {
+		const notificationId: string | undefined = event.currentTarget.parentElement?.id;
+		deleteNotificationRequest(notificationId);
+	}
 </script>
 
 <span class="relative">
@@ -67,41 +76,49 @@
 <!-- Separator Line -->
 <hr class="!border-t-8 !border-double" />
 
-{#each $notifications as notification (notification.notificationId)}
-	<div
-		class="flex justify-between items-center p-2 border-b border-gray-300 dark:border-gray-700"
-		id={notification.notificationId}
-	>
-		<div class="flex items-center">
-			<div
-				class="flex items-center justify-center w-12 h-12 bg-primary-900 dark:bg-primary-500 text-white dark:text-black rounded-full"
-			>
-				<Avatar
-					border="hover:border-2 hover:!border-surface-600"
-					cursor="cursor-pointer"
-					src={notification.user.profilePictureUrl ? notification.user.profilePictureUrl : Person}
-				/>
-			</div>
-			<div class="ml-2">
-				<p class="text-lg font-semibold dark:text-gray-300">
-					{getNotificationTitle(notification.notificationType)}
-				</p>
-				<p class="text-sm dark:text-gray-400">{getNotificationOptions(notification).body}</p>
-			</div>
-		</div>
-		<!-- // button to mark notification as read -->
-		<button class="ml-2" on:click={deleteNotification}>
-			<Icon src={Check} class="h-6 w-6 text-primary-900 dark:text-primary-500 mr-2" />
-		</button>
-	</div>
-{/each}
+<div class="flex w-full justify-center items-center">
+	<div class="w-full sm:w-3/4 md:w-full lg:w-3/4 align-self">
+		<div class="w-full">
+			{#each $notifications as notification (notification.notificationId)}
+				<div
+					class="flex justify-between items-center p-2 border-b border-gray-300 dark:border-gray-700"
+					id={notification.notificationId}
+				>
+					<button class="flex items-center" on:click={() => handleNotificationClick(notification)}>
+						<div
+							class="flex items-center justify-center w-12 h-12 bg-primary-900 dark:bg-primary-500 text-white dark:text-black rounded-full"
+						>
+							<Avatar
+								border="hover:border-2 hover:!border-surface-600"
+								cursor="cursor-pointer"
+								src={notification.user.profilePictureUrl
+									? notification.user.profilePictureUrl
+									: Person}
+							/>
+						</div>
+						<div class="ml-2">
+							<p class="text-lg font-semibold dark:text-gray-300">
+								{getNotificationTitle(notification.notificationType)}
+							</p>
+							<p class="text-sm dark:text-gray-400">{getNotificationOptions(notification).body}</p>
+						</div>
+					</button>
+					<!-- // button to mark notification as read -->
+					<button class="ml-2" on:click={deleteNotification}>
+						<Icon src={Check} class="h-6 w-6 text-primary-900 dark:text-primary-500 mr-2" />
+					</button>
+				</div>
+			{/each}
 
-{#if $notifications.length === 0}
-	<div class="flex justify-center items-center h-96">
-		<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
-		<p class="text-lg font-semibold dark:text-gray-300">No Notifications</p>
+			{#if $notifications.length === 0}
+				<div class="flex justify-center items-center h-96">
+					<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
+					<p class="text-lg font-semibold dark:text-gray-300">No Notifications</p>
+				</div>
+			{/if}
+		</div>
 	</div>
-{/if}
+</div>
 
 <style>
 	.h1 {
