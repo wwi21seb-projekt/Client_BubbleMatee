@@ -21,32 +21,35 @@
 	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	export let post: PostWithRepost;
-	export let likePost: (postId: string) => void;
-	export let unlikePost: (postId: string) => void;
-	export let loadMoreComments: (
+	export let likePost: ((postId: string) => void) | null;
+	export let unlikePost: ((postId: string) => void) | null;
+	export let loadMoreComments: ((
 		postId: string,
 		offset: number
-	) => Promise<ErrorResponse | CommentResponse>;
-	export let postComment: (
+	) => Promise<ErrorResponse | CommentResponse>) | null;
+	export let postComment: ((
 		postId: string,
 		content: string
-	) => Promise<ErrorResponse | PostCommentResponse>;
+	) => Promise<ErrorResponse | PostCommentResponse>) | null;
 	const toastStore = getToastStore();
-	export let deletePost: (postId: string) => void;
+	export let deletePost: ((postId: string) => void|) | null;
 	export let isRepost: boolean = false;
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
-		deletePost(post.postId);
+		if(deletePost)
+		{ deletePost(post.postId);}
 	}
 
 	//function to delete this post -> calls a passed function
 	function likeThisPost(): void {
-		likePost(post.postId);
+		if(likePost)
+		{likePost(post.postId);}
 	}
 
 	//function to delete this post -> calls a passed function
 	function unlikeThisPost(): void {
-		unlikePost(post.postId);
+		if (unlikePost)
+		{unlikePost(post.postId);}
 	}
 
 	function toggleLike(): void {
@@ -64,7 +67,8 @@
 		overallRecords: 1
 	};
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
-		const body: CommentResponse | ErrorResponse = await loadMoreComments(
+		if(loadMoreComments)
+		{const body: CommentResponse | ErrorResponse = await loadMoreComments(
 			post.postId,
 			comments.length
 		);
@@ -98,11 +102,13 @@
 			};
 		}
 		commentData.overallRecords = 0;
+	}
 		return commentData;
 	}
 
 	async function commentThisPost(content: string): Promise<CommentData> {
-		const body = await postComment(post.postId, content);
+		if(postComment)
+		{const body = await postComment(post.postId, content);
 		if (body.error) {
 			const data = body.data as ErrorObject;
 			if (data.error) {
@@ -127,6 +133,7 @@
 			overallRecords: commentData.overallRecords + 1
 		};
 		commentData = commentDataNew;
+	}
 		return commentData;
 	}
 </script>
@@ -152,7 +159,15 @@
 				<FeedPostLocation location={post.location} />
 			{/if}
 			{#if post.repost && !isRepost}
-				<FeedPostCard isRepost={true} deletePost={() => {}} post={post.repost} />
+				<FeedPostCard
+					isRepost={true}
+					deletePost={() => {}}
+					post={post.repost}
+					likePost={null}
+					postComment={null}
+					loadMoreComments={null}
+					unlikePost={null}
+				/>
 			{/if}
 		</main>
 		{#if !isRepost}
