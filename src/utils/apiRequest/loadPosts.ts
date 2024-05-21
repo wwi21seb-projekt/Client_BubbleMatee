@@ -159,10 +159,12 @@ export async function searchPostByHashtag(searchQuery: string, offset: number, l
 		throw new ErrorEvent(message);
 	} else {
 		//map the feed-data to a Post-Array with new Posts
-		const mappedRecords: Array<PostWithRepost> = body.data.records.map((record: PostWithRepost) => ({
-			...record,
-			creationDate: new Date(record.creationDate)
-		}));
+		const mappedRecords: Array<PostWithRepost> = body.data.records.map(
+			(record: PostWithRepost) => ({
+				...record,
+				creationDate: new Date(record.creationDate)
+			})
+		);
 		body.data.records = mappedRecords;
 		return body;
 	}

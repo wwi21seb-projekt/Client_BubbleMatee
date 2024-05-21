@@ -20,24 +20,28 @@
 	let dateString: string = calculatePassedTime(date);
 	//if the post belongs to the active user, he has the option to delete it
 	let isOwnUser: boolean = author.username === $currentUsername;
-	let canNavigate: boolean =
-		$page.params.username === author.username || ($page.url.pathname === '/myProfile' && !isRepost);
+	let cantNavigate: boolean =
+		$page.params.username === author.username ||
+		($page.url.pathname === '/myProfile' && !isRepost) ||
+		post.author.username === $currentUsername;
 	const popupClick: PopupSettings = {
 		event: 'click',
-		target: 'popupClick-' + post.postId,
+		target: `popupClick-${post.postId}`,
 		placement: 'left'
+	};
+
+	const onNavigationClick = () => {
+		const currentPath: string = $page.url.pathname.split('/')[1];
+		goto(`/${currentPath}/user/${author.username}`);
 	};
 </script>
 
 <div class="flex items-center justify-between">
 	<!--Element shows the profile picture, username, nickname and the time that has passed since the post-->
 	<button
-		class={`${canNavigate ? '' : 'hover:text-gray-400'}`}
-		on:click={() => {
-			const currentPath: string = $page.url.pathname.split('/')[1];
-			goto(`/${currentPath}/user/${author.username}`);
-		}}
-		disabled={canNavigate}
+		class={`${cantNavigate ? '' : 'hover:text-gray-400'}`}
+		on:click={onNavigationClick}
+		disabled={cantNavigate}
 	>
 		<UserComponent {author} />
 	</button>
