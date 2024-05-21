@@ -38,7 +38,7 @@
 	<textarea
 		class="textarea !bg-surface-300 dark:!bg-surface-700 {classtext}"
 		rows="3"
-		placeholder="Bitte geben sie hier ihren Post mit maximal 256 Zeichen ein."
+		placeholder="Bitte geben Sie hier ihren Post mit maximal 256 Zeichen ein."
 		maxlength={maxChars}
 		bind:value={localPostText}
 		on:input={handleInput}
