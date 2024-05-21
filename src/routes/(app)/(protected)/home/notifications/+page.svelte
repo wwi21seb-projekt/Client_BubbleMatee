@@ -70,7 +70,7 @@
 	<h1
 		class="h1 bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone z-0"
 	>
-		NOTIFICATIONS
+		MELDUNGEN
 	</h1>
 </span>
 <!-- Separator Line -->
