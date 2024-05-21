@@ -145,20 +145,25 @@ async function getVapidKey(): Promise<string> {
  * @param subscription The subscription to send to the server
  * @returns A promise that resolves to true if the subscription was sent successfully
  */
-function sendSubscriptionToBackEnd(subscription: PushSubscription): Promise<boolean> {
-	return fetch('/api/push/register', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(subscription)
-	}).then((response) => {
+async function sendSubscriptionToBackEnd(subscription: PushSubscription): Promise<boolean> {
+	try {
+		const response = await fetch('/api/push/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(subscription)
+		});
+
 		if (!response.ok) {
 			throw new Error('Bad status code from server.');
 		}
 
 		return true;
-	});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
 }
 
 /**

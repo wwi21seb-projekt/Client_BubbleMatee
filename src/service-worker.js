@@ -102,74 +102,81 @@ sw.addEventListener('notificationclick', (event) => {
 			break;
 	}
 	const urlToOpen = new URL(examplePage, sw.location.origin).href;
-	const promiseChain = sw.clients
-		.matchAll({
+	async function handleClient(sw, urlToOpen) {
+		const windowClients = await sw.clients.matchAll({
 			type: 'window',
 			includeUncontrolled: true
-		})
-		.then((windowClients) => {
-			let matchingClient = null;
-			for (let i = 0; i < windowClients.length; i++) {
-				const windowClient = windowClients[i];
-				if (windowClient.url === urlToOpen) {
-					matchingClient = windowClient;
-					break;
-				}
-			}
-
-			if (matchingClient) {
-				return matchingClient.focus();
-			} else {
-				return sw.clients.openWindow(urlToOpen);
-			}
 		});
+
+		let matchingClient = null;
+		for (let i = 0; i < windowClients.length; i++) {
+			const windowClient = windowClients[i];
+			if (windowClient.url === urlToOpen) {
+				matchingClient = windowClient;
+				break;
+			}
+		}
+
+		if (matchingClient) {
+			return matchingClient.focus();
+		} else {
+			return sw.clients.openWindow(urlToOpen);
+		}
+	}
+
+	const promiseChain = handleClient(sw, urlToOpen);
 	event.waitUntil(promiseChain);
 });
 
 sw.addEventListener('push', (event) => {
-	// If the user is currently on the page, show that a new notification has been received
-	if (isClientFocused()) {
-		sw.clients
-			.matchAll({
-				type: 'window',
-				includeUncontrolled: true
-			})
-			.then((windowClients) => {
-				windowClients.forEach((windowClient) => {
-					windowClient.postMessage({
-						message: 'Received a push message.',
-						time: new Date().toString()
-					});
-				});
-			});
-	}
-
 	const notification = event.data.json();
 	const title = getNotificationTitle(notification.notificationType);
 	const options = getNotificationOptions(notification);
-	const promiseChain = sw.registration.showNotification(title, options);
+
+	const promiseChain = Promise.all([
+		postMessageToClients(),
+		sw.registration.showNotification(title, options)
+	]);
+
 	event.waitUntil(promiseChain);
 
 	/**
 	 * Check if the client is focused
-	 * @returns boolean indicating if the client is focused
+	 * @returns {Promise<boolean>} Whether the client is focused
 	 */
-	function isClientFocused() {
-		return sw.clients
-			.matchAll({
-				type: 'window',
-				includeUncontrolled: true
-			})
-			.then((windowClients) => {
-				let clientIsFocused = false;
-				for (let i = 0; i < windowClients.length; i++) {
-					const windowClient = windowClients[i];
-					if (windowClient.focused) {
-						clientIsFocused = true;
-						break;
-					}
-				}
-				return clientIsFocused;
+	async function isClientFocused() {
+		const windowClients = await sw.clients.matchAll({
+			type: 'window',
+			includeUncontrolled: true
+		});
+
+		let clientIsFocused = false;
+		for (let i = 0; i < windowClients.length; i++) {
+			const windowClient = windowClients[i];
+			if (windowClient.focused) {
+				clientIsFocused = true;
+				break;
+			}
+		}
+		return clientIsFocused;
+	}
+
+	/**
+	 * Post a message to all the clients
+	 * @returns {Promise<void>} An empty Promise
+	 */
+	async function postMessageToClients() {
+		if (!(await isClientFocused())) return;
+		const windowClients = await sw.clients.matchAll({
+			type: 'window',
+			includeUncontrolled: true
+		});
+
+		windowClients.forEach((windowClient) => {
+			windowClient.postMessage({
+				message: 'Received a push message.',
+				time: new Date().toString()
 			});
+		});
 	}
 });
