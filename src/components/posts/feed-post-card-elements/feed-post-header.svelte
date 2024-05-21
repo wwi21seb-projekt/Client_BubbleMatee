@@ -21,7 +21,7 @@
 	//if the post belongs to the active user, he has the option to delete it
 	let isOwnUser: boolean = author.username === $currentUsername;
 	let canNavigate: boolean =
-		$page.params.username === author.username || $page.url.pathname === '/myProfile';
+		$page.params.username === author.username || ($page.url.pathname === '/myProfile' && !isRepost);
 	const popupClick: PopupSettings = {
 		event: 'click',
 		target: 'popupClick-' + post.postId,
@@ -34,8 +34,8 @@
 	<button
 		class={`${canNavigate ? '' : 'hover:text-gray-400'}`}
 		on:click={() => {
-			const currenPath = $page.url.pathname.split('/')[1];
-			goto(`/${currenPath}/user/${author.username}`);
+			const currentPath = $page.url.pathname.split('/')[1];
+			goto(`/${currentPath}/user/${author.username}`);
 		}}
 		disabled={canNavigate}
 	>

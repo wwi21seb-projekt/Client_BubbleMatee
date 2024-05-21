@@ -87,7 +87,6 @@
 
 	// Asynchronous function to handle the post action, including API calls and error handling
 	const handlePost = async () => {
-		console.log('Test');
 		if ($inputValid) {
 			loading.set(true);
 			try {

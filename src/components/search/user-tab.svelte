@@ -62,7 +62,6 @@
 	};
 
 	function changeUsers(user: Follower, data: FollowResponse | undefined) {
-		console.log(data);
 		const newUsers = users.map((record) => {
 			if (record === user) {
 				if (data) {

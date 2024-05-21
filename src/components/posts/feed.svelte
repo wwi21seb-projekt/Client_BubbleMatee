@@ -1,7 +1,6 @@
 <!-- List component that contains multiple posts.  -->
 <script lang="ts">
 	export let posts: Array<PostWithRepost>;
-	console.log(posts);
 	export let loadMorePosts: () => Promise<void>;
 	export let lastPage: boolean;
 	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4';
