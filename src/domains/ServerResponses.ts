@@ -6,6 +6,8 @@ import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user'
 import type { Author, LocationPlace, Post } from './Post';
 import type { CommentList } from './ServerDomains/comments';
 import type { Comment } from '$domains';
+import type { Notification } from './ServerDomains/notifications';
+
 export interface Response {
 	error: boolean;
 }
@@ -91,4 +93,12 @@ export interface CommentResponse extends Response {
 
 export interface PostCommentResponse extends Response {
 	data: Comment;
+
+export interface NotificationResponse extends Response {
+	data: { records: Array<Notification> };
+}
+
+export interface VapidResponse extends Response {
+	data: { key: string };
+
 }

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { PasswordInput, UsernameInput } from '$components';
 	import { currentUsername, isLoggedIn } from '$stores';
-	import { getErrorMessage } from '$utils';
+	import { activatePushNotifications, getErrorMessage } from '$utils';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
@@ -72,8 +72,10 @@
 				}
 			} else {
 				isLoggedIn.set(true);
-				currentUsername.set(username); //TODOS: get useranme from token when discussed with other teams
+				currentUsername.set(username);
 				goto('/myProfile');
+				await activatePushNotifications();
+				invalidateAll();
 			}
 
 			return body;
