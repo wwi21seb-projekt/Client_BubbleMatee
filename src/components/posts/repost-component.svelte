@@ -5,7 +5,6 @@
 	import FeedPostCard from './feed-post-card.svelte';
 	export let post: Post;
 	import { postText } from '$stores';
-	import { goto } from '$app/navigation';
 
 	$postText = '';
 </script>
