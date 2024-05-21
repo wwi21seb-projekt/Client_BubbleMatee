@@ -32,7 +32,7 @@
 		content: string
 	) => Promise<ErrorResponse | PostCommentResponse>) | null;
 	const toastStore = getToastStore();
-	export let deletePost: ((postId: string) => void|) | null;
+	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
@@ -108,31 +108,32 @@
 
 	async function commentThisPost(content: string): Promise<CommentData> {
 		if(postComment)
-		{const body = await postComment(post.postId, content);
-		if (body.error) {
-			const data = body.data as ErrorObject;
-			if (data.error) {
-				const t: ToastSettings = {
-					message: getErrorMessage(data.error.code, false),
-					background: 'variant-filled-error'
+		{
+			const body = await postComment(post.postId, content);
+			if (body.error) {
+				const data = body.data as ErrorObject;
+				if (data.error) {
+					const t: ToastSettings = {
+						message: getErrorMessage(data.error.code, false),
+						background: 'variant-filled-error'
+					};
+					toastStore.trigger(t);
+				}
+			} else {
+				const data = body.data as Comment;
+				const newComment: Comment = {
+					commentId: data.commentId,
+					author: data.author,
+					content: data.content,
+					creationDate: new Date(data.creationDate)
 				};
-				toastStore.trigger(t);
+				comments = comments.concat(newComment);
 			}
-		} else {
-			const data = body.data as Comment;
-			const newComment: Comment = {
-				commentId: data.commentId,
-				author: data.author,
-				content: data.content,
-				creationDate: new Date(data.creationDate)
+			let commentDataNew = {
+				comments: comments,
+				overallRecords: commentData.overallRecords + 1
 			};
-			comments = comments.concat(newComment);
-		}
-		let commentDataNew = {
-			comments: comments,
-			overallRecords: commentData.overallRecords + 1
-		};
-		commentData = commentDataNew;
+			commentData = commentDataNew;
 	}
 		return commentData;
 	}
