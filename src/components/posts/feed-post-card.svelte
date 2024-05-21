@@ -73,6 +73,8 @@
 			}
 		} else {
 			const data = body.data as CommentList;
+			if (data.records)
+			{
 			const newComments: Array<Comment> = data.records.map((record: Comment) => ({
 				commentId: record.commentId,
 				author: {
@@ -84,6 +86,7 @@
 				content: record.content
 			}));
 			comments = comments.concat(newComments);
+			}
 			commentData = {
 				comments: comments,
 				overallRecords: data.pagination.records
