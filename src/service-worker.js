@@ -102,8 +102,18 @@ sw.addEventListener('notificationclick', (event) => {
 			break;
 	}
 	const urlToOpen = new URL(examplePage, sw.location.origin).href;
-	async function handleClient(sw, urlToOpen) {
-		const windowClients = await sw.clients.matchAll({
+
+	const promiseChain = handleClient(sw, urlToOpen);
+	event.waitUntil(promiseChain);
+
+	/**
+	 * Handle the client interaction
+	 * @param {ServiceWorkerGlobalScope} serviceWorker The Service Worker
+	 * @param {string} url The URL to open
+	 * @returns {Promise<void>} An empty Promise
+	 */
+	async function handleClient(serviceWorker, url) {
+		const windowClients = await serviceWorker.clients.matchAll({
 			type: 'window',
 			includeUncontrolled: true
 		});
@@ -111,7 +121,7 @@ sw.addEventListener('notificationclick', (event) => {
 		let matchingClient = null;
 		for (let i = 0; i < windowClients.length; i++) {
 			const windowClient = windowClients[i];
-			if (windowClient.url === urlToOpen) {
+			if (windowClient.url === url) {
 				matchingClient = windowClient;
 				break;
 			}
@@ -120,12 +130,9 @@ sw.addEventListener('notificationclick', (event) => {
 		if (matchingClient) {
 			return matchingClient.focus();
 		} else {
-			return sw.clients.openWindow(urlToOpen);
+			return serviceWorker.clients.openWindow(url);
 		}
 	}
-
-	const promiseChain = handleClient(sw, urlToOpen);
-	event.waitUntil(promiseChain);
 });
 
 sw.addEventListener('push', (event) => {
