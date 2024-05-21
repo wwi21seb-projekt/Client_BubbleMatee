@@ -22,7 +22,7 @@
 	</div>
 	<hr class="mt-2 mb-2" />
 	<div class="flex justify-center">
-		<div class="container" >
+		<div class="container">
 			<FeedPostCard deletePost={() => {}} {post} isRepost={true} />
 		</div>
 	</div>
