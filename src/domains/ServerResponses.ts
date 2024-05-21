@@ -4,6 +4,7 @@ import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription, SubscriptionList } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 import type { Author, LocationPlace, PostWithRepost } from './Post';
+import type { Notification } from './ServerDomains/notifications';
 
 export interface Response {
 	error: boolean;
@@ -82,4 +83,12 @@ export interface FeedSearch {
 
 export interface SubscriptionListResponse extends Response {
 	data: SubscriptionList;
+}
+
+export interface NotificationResponse extends Response {
+	data: { records: Array<Notification> };
+}
+
+export interface VapidResponse extends Response {
+	data: { key: string };
 }
