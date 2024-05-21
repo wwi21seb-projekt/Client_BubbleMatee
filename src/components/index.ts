@@ -40,6 +40,7 @@ export { default as Feed } from './posts/feed.svelte';
 export { default as FeedPostHeader } from './posts/feed-post-card-elements/feed-post-header.svelte';
 export { default as FeedPostMain } from './posts/feed-post-card-elements/feed-post-main.svelte';
 export { default as FeedPostLocation } from './posts/feed-post-card-elements/feed-post-locations.svelte';
+export { default as RepostComponent } from './posts/repost-component.svelte';
 
 export { default as FeedPostFooter } from './posts/feed-post-card-elements/feed-post-footer.svelte';
 export { default as Comments } from './posts/comments/comments.svelte';

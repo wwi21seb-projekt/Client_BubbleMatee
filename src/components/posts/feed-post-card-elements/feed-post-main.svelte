@@ -22,7 +22,7 @@
 		<!--Show text, if the post has text-->
 
 		{#if text !== ''}
-			<div class="shrink-0 w-full snap-start px-4 py-2 flex items-center rounded w-full">
+			<div class="shrink-0 snap-start px-4 py-2 flex items-center rounded w-full">
 				<article class="text-xl w-full">
 					<p class="break-words w-full text-center">{text}</p>
 				</article>
