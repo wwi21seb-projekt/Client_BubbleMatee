@@ -1,24 +1,26 @@
 <!--Component for a single post-->
 <script lang="ts">
-	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostLocation } from '$components';
+	import {
+		FeedPostFooter,
+		FeedPostMain,
+		FeedPostHeader,
+		FeedPostLocation,
+		FeedPostCard
+	} from '$components';
 	import type {
 		Comment,
 		CommentData,
 		CommentResponse,
 		ErrorObject,
 		ErrorResponse,
-		Post,
+		PostWithRepost,
 		PostCommentResponse
 	} from '$domains';
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { PostWithRepost } from '$domains';
 	export let post: PostWithRepost;
-	export let deletePost: (postId: string) => void;
-	export let isRepost: boolean = false;
-	export let deletePost: (postId: string) => void;
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
 	export let loadMoreComments: (
@@ -30,15 +32,6 @@
 		content: string
 	) => Promise<ErrorResponse | PostCommentResponse>;
 	const toastStore = getToastStore();
-	import {
-		FeedPostFooter,
-		FeedPostMain,
-		FeedPostHeader,
-		FeedPostLocation,
-		FeedPostCard
-	} from '$components';
-	import type { PostWithRepost } from '$domains';
-	export let post: PostWithRepost;
 	export let deletePost: (postId: string) => void;
 	export let isRepost: boolean = false;
 	//function to delete this post -> calls a passed function
@@ -86,19 +79,18 @@
 			}
 		} else {
 			const data = body.data as CommentList;
-			if (data.records)
-			{
-			const newComments: Array<Comment> = data.records.map((record: Comment) => ({
-				commentId: record.commentId,
-				author: {
-					username: record.author.username,
-					nickname: record.author.nickname,
-					profilePictureUrl: record.author.profilePictureUrl
-				},
-				creationDate: new Date(record.creationDate),
-				content: record.content
-			}));
-			comments = comments.concat(newComments);
+			if (data.records) {
+				const newComments: Array<Comment> = data.records.map((record: Comment) => ({
+					commentId: record.commentId,
+					author: {
+						username: record.author.username,
+						nickname: record.author.nickname,
+						profilePictureUrl: record.author.profilePictureUrl
+					},
+					creationDate: new Date(record.creationDate),
+					content: record.content
+				}));
+				comments = comments.concat(newComments);
 			}
 			commentData = {
 				comments: comments,
@@ -166,15 +158,15 @@
 		{#if !isRepost}
 			<footer>
 				<footer>
-			<FeedPostFooter
-				{post}
-				likePost={likeThisPost}
-				unlikePost={unlikeThisPost}
-				{commentData}
-				loadMoreComments={loadMoreCommentsForThisPost}
-				commentPost={commentThisPost}
-			/>
-		</footer>
+					<FeedPostFooter
+						{post}
+						likePost={likeThisPost}
+						unlikePost={unlikeThisPost}
+						{commentData}
+						loadMoreComments={loadMoreCommentsForThisPost}
+						commentPost={commentThisPost}
+					/>
+				</footer>
 			</footer>
 		{/if}
 	</div>

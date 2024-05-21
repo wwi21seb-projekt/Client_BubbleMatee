@@ -101,5 +101,4 @@ export interface NotificationResponse extends Response {
 
 export interface VapidResponse extends Response {
 	data: { key: string };
-
 }
