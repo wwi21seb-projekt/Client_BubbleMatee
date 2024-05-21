@@ -34,7 +34,7 @@
 	<button
 		class={`${canNavigate ? '' : 'hover:text-gray-400'}`}
 		on:click={() => {
-			const currentPath = $page.url.pathname.split('/')[1];
+			const currentPath: string = $page.url.pathname.split('/')[1];
 			goto(`/${currentPath}/user/${author.username}`);
 		}}
 		disabled={canNavigate}
