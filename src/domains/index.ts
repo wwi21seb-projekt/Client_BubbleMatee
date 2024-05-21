@@ -1,5 +1,13 @@
 export type { Logo, PersonData, PersonSourceData } from './About';
-export type { Post, PostWithRepost, Author, PostData, Location, LocationPlace, UploadRestrictions } from './Post';
+export type {
+	Post,
+	PostWithRepost,
+	Author,
+	PostData,
+	Location,
+	LocationPlace,
+	UploadRestrictions
+} from './Post';
 
 export type {
 	Response,
