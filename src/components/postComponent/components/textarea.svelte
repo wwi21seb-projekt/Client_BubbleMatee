@@ -2,8 +2,6 @@
 	import { postText } from '$stores';
 
 	var localPostText: string = '';
-	// Maximum characters allowed in the textarea
-	const maxChars = 256;
 
 	// CSS class names for different text states
 	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';
@@ -12,6 +10,9 @@
 
 	// Character limit for showing a warning
 	const charsWarning = 50;
+
+	// Maximum characters allowed in the textarea
+	export let maxChars: number = 256;
 
 	// Reactive declarations to update the textarea class based on text length
 	$: classtext =
@@ -38,7 +39,7 @@
 	<textarea
 		class="textarea !bg-surface-300 dark:!bg-surface-700 {classtext}"
 		rows="3"
-		placeholder="Bitte geben Sie hier ihren Post mit maximal 256 Zeichen ein."
+		placeholder={`Bitte geben Sie hier ihren Post mit maximal ${maxChars} Zeichen ein.`}
 		maxlength={maxChars}
 		bind:value={localPostText}
 		on:input={handleInput}
@@ -60,7 +61,9 @@
 		flex-direction: column;
 		align-items: center;
 		max-width: 31.25rem;
+		max-height: 7rem;
 		margin: auto;
 		margin-bottom: 2rem;
+		margin-top: 2rem;
 	}
 </style>

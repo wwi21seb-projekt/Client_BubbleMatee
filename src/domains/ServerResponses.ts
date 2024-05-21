@@ -3,9 +3,9 @@ import type { Feed } from './ServerDomains/feed';
 import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription, SubscriptionList } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
-import type { Author, LocationPlace, Post } from './Post';
 import type { CommentList } from './ServerDomains/comments';
 import type { Comment } from '$domains';
+import type { Author, LocationPlace, PostWithRepost } from './Post';
 import type { Notification } from './ServerDomains/notifications';
 
 export interface Response {
@@ -75,7 +75,7 @@ export interface UserSearch {
 }
 
 export interface FeedSearch {
-	records: Post[];
+	records: PostWithRepost[];
 	pagination: {
 		offset: 0;
 		limit: 0;

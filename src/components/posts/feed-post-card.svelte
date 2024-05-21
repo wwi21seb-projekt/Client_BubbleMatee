@@ -14,7 +14,10 @@
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	export let post: Post;
+	import type { PostWithRepost } from '$domains';
+	export let post: PostWithRepost;
+	export let deletePost: (postId: string) => void;
+	export let isRepost: boolean = false;
 	export let deletePost: (postId: string) => void;
 	export let likePost: (postId: string) => void;
 	export let unlikePost: (postId: string) => void;
@@ -27,7 +30,17 @@
 		content: string
 	) => Promise<ErrorResponse | PostCommentResponse>;
 	const toastStore = getToastStore();
-
+	import {
+		FeedPostFooter,
+		FeedPostMain,
+		FeedPostHeader,
+		FeedPostLocation,
+		FeedPostCard
+	} from '$components';
+	import type { PostWithRepost } from '$domains';
+	export let post: PostWithRepost;
+	export let deletePost: (postId: string) => void;
+	export let isRepost: boolean = false;
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
 		deletePost(post.postId);
@@ -138,6 +151,7 @@
 				author={post.author}
 				deletePost={deleteThisPost}
 				{post}
+				{isRepost}
 			/>
 		</header>
 		<main class="card w-full !bg-transparent my-2">
@@ -145,8 +159,13 @@
 			{#if post.location}
 				<FeedPostLocation location={post.location} />
 			{/if}
+			{#if post.repost && !isRepost}
+				<FeedPostCard isRepost={true} deletePost={() => {}} post={post.repost} />
+			{/if}
 		</main>
-		<footer>
+		{#if !isRepost}
+			<footer>
+				<footer>
 			<FeedPostFooter
 				{post}
 				likePost={likeThisPost}
@@ -156,5 +175,7 @@
 				commentPost={commentThisPost}
 			/>
 		</footer>
+			</footer>
+		{/if}
 	</div>
 </div>

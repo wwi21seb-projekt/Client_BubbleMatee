@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { Feed } from '$components';
-	import type { Post, UserInfo } from '$domains';
+	import type { PostWithRepost, UserInfo } from '$domains';
 	import { fetchNextPostsUser } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
 	import { onMount } from 'svelte';
 	import { currentUsername, loading } from '$stores';
 	let lastPage: boolean = true;
-	let posts: Array<Post> = new Array<Post>();
+	let posts: Array<PostWithRepost> = new Array<PostWithRepost>();
 	const toastStore = getToastStore();
 	export let user: UserInfo;
 	let isOwnUser = $currentUsername === user.username;

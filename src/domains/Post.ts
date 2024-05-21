@@ -14,6 +14,10 @@ export interface Post {
 	liked: boolean;
 }
 
+export interface PostWithRepost extends Post {
+	repost?: Post;
+}
+
 export interface Author {
 	username: string;
 	nickname: string;
@@ -35,7 +39,7 @@ export interface LocationPlace {
 
 //interface, that is needed to manage the loading of the next posts
 export interface PostData {
-	posts: Array<Post>;
+	posts: Array<PostWithRepost>;
 	lastPostId?: string;
 	overallRecords: number;
 }

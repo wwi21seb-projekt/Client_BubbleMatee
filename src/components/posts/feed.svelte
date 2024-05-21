@@ -1,6 +1,6 @@
 <!-- List component that contains multiple posts.  -->
 <script lang="ts">
-	export let posts: Array<Post>;
+	export let posts: Array<PostWithRepost>;
 	export let loadMorePosts: () => Promise<void>;
 	export let lastPage: boolean;
 	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4';
@@ -8,7 +8,7 @@
 	export let nothingFoundMessage: string | null;
 	export let nothingFoundSubMessage: string | null;
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
-	import type { CommentResponse, ErrorResponse, Post } from '$domains';
+	import type { CommentResponse, ErrorResponse, PostWithRepost } from '$domains';
 	import type { PostCommentResponse } from '$domains/ServerResponses';
 	import { loading } from '$stores';
 	import { getErrorMessage, globalConfig } from '$utils';

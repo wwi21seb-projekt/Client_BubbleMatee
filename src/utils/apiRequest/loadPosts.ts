@@ -3,8 +3,8 @@ import type {
 	ErrorResponse,
 	Feed,
 	FeedResponse,
-	Post,
 	PostData,
+	PostWithRepost,
 	UserFeed,
 	UserInfo
 } from '$domains';
@@ -40,15 +40,27 @@ import { getErrorMessage } from '$utils';
 	} else {
 		const feedData: Feed = (body as FeedResponse).data;
 		//map the feed-data to a Post-Array with new Posts
-		const newPosts: Array<Post> = feedData.records.map((record) => ({
-			postId: record.postId,
-			author: record.author,
-			creationDate: new Date(record.creationDate),
-			content: record.content,
-			location: record.location,
-			likes: record.likes,
-			liked: record.liked
-		}));
+		const newPosts: Array<PostWithRepost> = feedData.records.map((record) =>
+			record.repost
+				? {
+						postId: record.postId,
+						author: record.author,
+						creationDate: new Date(record.creationDate),
+						content: record.content,
+						location: record.location,
+						repost: {
+							...record.repost,
+							creationDate: new Date(record.repost?.creationDate)
+						}
+					}
+				: {
+						postId: record.postId,
+						author: record.author,
+						creationDate: new Date(record.creationDate),
+						content: record.content,
+						location: record.location
+					}
+		);
 		const postdata: PostData = {
 			posts: newPosts,
 			overallRecords: feedData.pagination.records,
@@ -86,19 +98,39 @@ import { getErrorMessage } from '$utils';
 	} else {
 		const feedData: UserFeed = (body as UserFeedResponse).data;
 		//map the feed-data to a Post-Array with new Posts
-		const newPosts: Array<Post> = feedData.records.map((record) => ({
-			postId: record.postId,
-			author: {
-				username: user.username,
-				nickname: user.nickname,
-				profilePictureUrl: user.profilePictureUrl
-			},
-			creationDate: new Date(record.creationDate),
-			content: record.content,
-			location: record.location,
-			likes: record.likes,
-			liked: record.liked
-		}));
+		const newPosts: Array<PostWithRepost> = feedData.records.map((record) =>
+			record.repost
+				? {
+						postId: record.postId,
+						author: {
+							username: user.username,
+							nickname: user.nickname,
+							profilePictureUrl: user.profilePictureUrl
+						},
+						creationDate: new Date(record.creationDate),
+						content: record.content,
+						location: record.location,
+            likes: record.likes,
+			      liked: record.liked,
+						repost: {
+							...record.repost,
+							creationDate: new Date(record.repost.creationDate)
+						}
+					}
+				: {
+						postId: record.postId,
+						author: {
+							username: user.username,
+							nickname: user.nickname,
+							profilePictureUrl: user.profilePictureUrl
+						},
+						creationDate: new Date(record.creationDate),
+						content: record.content,
+						location: record.location,
+            likes: record.likes,
+            liked: record.liked
+					}
+		);
 		const postdata: PostData = {
 			posts: newPosts,
 			overallRecords: feedData.pagination.records
@@ -131,10 +163,12 @@ export async function searchPostByHashtag(searchQuery: string, offset: number, l
 		throw new ErrorEvent(message);
 	} else {
 		//map the feed-data to a Post-Array with new Posts
-		const mappedRecords = body.data.records.map((record: Post) => ({
-			...record,
-			creationDate: new Date(record.creationDate)
-		}));
+		const mappedRecords: Array<PostWithRepost> = body.data.records.map(
+			(record: PostWithRepost) => ({
+				...record,
+				creationDate: new Date(record.creationDate)
+			})
+		);
 		body.data.records = mappedRecords;
 		return body;
 	}

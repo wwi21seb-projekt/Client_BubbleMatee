@@ -3,8 +3,7 @@ export type { Logo, PersonData, PersonSourceData } from './About';
 export type { User, Tokens, UserInfo, EditUserInfo, SearchParams } from './ServerDomains/user';
 export type { Subscription } from './ServerDomains/subscription';
 
-export type { Post, Author, PostData, Location, LocationPlace, UploadRestrictions, Comment, CommentData } from './Post';
-
+export type { Post,PostWithRepost Author, PostData, Location, LocationPlace, UploadRestrictions, Comment, CommentData } from './Post';
 
 export type {
 	Response,
@@ -35,5 +34,7 @@ export type { Imprint } from './ServerDomains/imprint';
 export type { Feed } from './ServerDomains/feed';
 export type { UserFeed } from './ServerDomains/userFeed';
 export type { TokenPayload } from './ServerDomains/token';
+export type { User, Tokens, UserInfo, EditUserInfo, SearchParams } from './ServerDomains/user';
+export type { Subscription } from './ServerDomains/subscription';
 export type { SubscriptionList, Follower } from './ServerDomains/subscription';
 export type { Notification } from './ServerDomains/notifications';
