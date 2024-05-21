@@ -23,33 +23,34 @@
 	export let post: PostWithRepost;
 	export let likePost: ((postId: string) => void) | null;
 	export let unlikePost: ((postId: string) => void) | null;
-	export let loadMoreComments: ((
-		postId: string,
-		offset: number
-	) => Promise<ErrorResponse | CommentResponse>) | null;
-	export let postComment: ((
-		postId: string,
-		content: string
-	) => Promise<ErrorResponse | PostCommentResponse>) | null;
+	export let loadMoreComments:
+		| ((postId: string, offset: number) => Promise<ErrorResponse | CommentResponse>)
+		| null;
+	export let postComment:
+		| ((postId: string, content: string) => Promise<ErrorResponse | PostCommentResponse>)
+		| null;
 	const toastStore = getToastStore();
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
 	//function to delete this post -> calls a passed function
 	function deleteThisPost(): void {
-		if(deletePost)
-		{ deletePost(post.postId);}
+		if (deletePost) {
+			deletePost(post.postId);
+		}
 	}
 
 	//function to delete this post -> calls a passed function
 	function likeThisPost(): void {
-		if(likePost)
-		{likePost(post.postId);}
+		if (likePost) {
+			likePost(post.postId);
+		}
 	}
 
 	//function to delete this post -> calls a passed function
 	function unlikeThisPost(): void {
-		if (unlikePost)
-		{unlikePost(post.postId);}
+		if (unlikePost) {
+			unlikePost(post.postId);
+		}
 	}
 
 	function toggleLike(): void {
@@ -67,48 +68,47 @@
 		overallRecords: 1
 	};
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
-		if(loadMoreComments)
-		{const body: CommentResponse | ErrorResponse = await loadMoreComments(
-			post.postId,
-			comments.length
-		);
-		if (body.error) {
-			const data = body.data as ErrorObject;
-			if (data.error) {
-				const t: ToastSettings = {
-					message: getErrorMessage(data.error.code, false),
-					background: 'variant-filled-error'
+		if (loadMoreComments) {
+			const body: CommentResponse | ErrorResponse = await loadMoreComments(
+				post.postId,
+				comments.length
+			);
+			if (body.error) {
+				const data = body.data as ErrorObject;
+				if (data.error) {
+					const t: ToastSettings = {
+						message: getErrorMessage(data.error.code, false),
+						background: 'variant-filled-error'
+					};
+					toastStore.trigger(t);
+				}
+			} else {
+				const data = body.data as CommentList;
+				if (data.records) {
+					const newComments: Array<Comment> = data.records.map((record: Comment) => ({
+						commentId: record.commentId,
+						author: {
+							username: record.author.username,
+							nickname: record.author.nickname,
+							profilePictureUrl: record.author.profilePictureUrl
+						},
+						creationDate: new Date(record.creationDate),
+						content: record.content
+					}));
+					comments = comments.concat(newComments);
+				}
+				commentData = {
+					comments: comments,
+					overallRecords: data.pagination.records
 				};
-				toastStore.trigger(t);
 			}
-		} else {
-			const data = body.data as CommentList;
-			if (data.records) {
-				const newComments: Array<Comment> = data.records.map((record: Comment) => ({
-					commentId: record.commentId,
-					author: {
-						username: record.author.username,
-						nickname: record.author.nickname,
-						profilePictureUrl: record.author.profilePictureUrl
-					},
-					creationDate: new Date(record.creationDate),
-					content: record.content
-				}));
-				comments = comments.concat(newComments);
-			}
-			commentData = {
-				comments: comments,
-				overallRecords: data.pagination.records
-			};
+			commentData.overallRecords = 0;
 		}
-		commentData.overallRecords = 0;
-	}
 		return commentData;
 	}
 
 	async function commentThisPost(content: string): Promise<CommentData> {
-		if(postComment)
-		{
+		if (postComment) {
 			const body = await postComment(post.postId, content);
 			if (body.error) {
 				const data = body.data as ErrorObject;
@@ -134,7 +134,7 @@
 				overallRecords: commentData.overallRecords + 1
 			};
 			commentData = commentDataNew;
-	}
+		}
 		return commentData;
 	}
 </script>
