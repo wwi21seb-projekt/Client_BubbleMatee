@@ -9,9 +9,9 @@
 	import { Comments, RepostComponent } from '$components';
 	import { isLoggedIn } from '$stores';
 	import { goto } from '$app/navigation';
-	import type { Post } from '$domains';
+	import type { PostWithRepost } from '$domains';
 
-	export let post: Post;
+	export let post: PostWithRepost;
 
 	const modalStore = getModalStore();
 
@@ -104,10 +104,12 @@
 		</button>
 		<small class="text-xs md:text-sm">10. Mio</small>
 	</div>
-	<div class="flex flex-col items-center">
-		<button on:click={handleRepostClick} class="focus:outline-none">
-			<Icon src={ArrowPathRoundedSquare} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
-		</button>
-		<small class="text-xs md:text-sm">Repost</small>
-	</div>
+	{#if !post.repost}
+		<div class="flex flex-col items-center">
+			<button on:click={handleRepostClick} class="focus:outline-none">
+				<Icon src={ArrowPathRoundedSquare} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
+			</button>
+			<small class="text-xs md:text-sm">Repost</small>
+		</div>
+	{/if}
 </div>
