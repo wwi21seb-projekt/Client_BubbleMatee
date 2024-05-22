@@ -113,7 +113,7 @@
 			{#if $notifications.length === 0}
 				<div class="flex justify-center items-center h-96">
 					<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
-					<p class="text-lg font-semibold dark:text-gray-300">No Notifications</p>
+					<p class="text-lg font-semibold dark:text-gray-300">Keine Meldungen</p>
 				</div>
 			{/if}
 		</div>
