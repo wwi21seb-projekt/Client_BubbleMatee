@@ -41,8 +41,8 @@
 			<button
 				class={`${'hover:text-gray-400'}`}
 				on:click={() => {
-					const currenPath = $page.url.pathname.split('/')[1];
-					goto(`/${currenPath}/user/${comment.author.username}`);
+					const currentPath = $page.url.pathname.split('/')[1];
+					goto(`/${currentPath}/user/${comment.author.username}`);
 					modalStore.close();
 				}}
 			>
@@ -55,7 +55,7 @@
 			<!--The actual comment. If the text is longer than 128 characters it is shortend and the user can switch between the long and the short version-->
 			<p class="text-xl md:text-2xl break-words w-full" id={id + '-comment'}>
 				{#each getWords(moreClicked ? comment.content : shortComment) as word}
-					{#if word.startsWith('@')}
+					{#if word.includes('@')}
 						<!-- svelte-ignore a11y-no-static-element-interactions -->
 						<!-- svelte-ignore a11y-missing-attribute -->
 						<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -63,7 +63,8 @@
 							class="hover:text-gray-400 cursor-pointer italic"
 							on:click={() => {
 								const currenPath = $page.url.pathname.split('/')[1];
-								goto(`/${currenPath}/user/${comment.author.username}`);
+								let lastIndex = word.lastIndexOf('@');
+								goto(`/${currenPath}/user/${word.substring(lastIndex + 1)}`);
 								modalStore.close();
 							}}>{word}</a
 						>

@@ -101,8 +101,8 @@
 		<button on:click={handleCommentClick} class="focus:outline-none">
 			<Icon src={ChatBubbleLeft} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
 		</button>
-		<!-- <small class="text-xs md:text-sm">10. Mio</small>-->
-	</div> 
+		<small class="text-xs md:text-sm">Kommentieren</small>
+	</div>
 	{#if !post.repost}
 		<div class="flex flex-col items-center">
 			<button on:click={handleRepostClick} class="focus:outline-none">
