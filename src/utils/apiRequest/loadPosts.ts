@@ -32,6 +32,7 @@ import { getErrorMessage } from '$utils';
 		}
 	});
 	const body: ErrorResponse | FeedResponse = await response.json();
+	console.log(body);
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
@@ -50,6 +51,7 @@ import { getErrorMessage } from '$utils';
 						location: record.location,
 						likes: record.likes,
 						liked: record.liked,
+						comments: record.comments,
 						repost: {
 							...record.repost,
 							creationDate: new Date(record.repost?.creationDate)
@@ -62,7 +64,8 @@ import { getErrorMessage } from '$utils';
 						content: record.content,
 						location: record.location,
 						likes: record.likes,
-						liked: record.liked
+						liked: record.liked,
+						comments: record.comments
 					}
 		);
 		const postdata: PostData = {

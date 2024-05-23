@@ -12,6 +12,7 @@ export interface Post {
 	location: Location | null;
 	likes: number;
 	liked: boolean;
+	comments: number;
 }
 
 export interface PostWithRepost extends Post {
