@@ -136,7 +136,7 @@ import { getErrorMessage } from '$utils';
 						location: record.location,
 						likes: record.likes,
 						liked: record.liked,
-						comments: record.comments,
+						comments: record.comments
 					}
 		);
 		const postdata: PostData = {
