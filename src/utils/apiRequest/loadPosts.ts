@@ -32,7 +32,6 @@ import { getErrorMessage } from '$utils';
 		}
 	});
 	const body: ErrorResponse | FeedResponse = await response.json();
-	console.log(body);
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
