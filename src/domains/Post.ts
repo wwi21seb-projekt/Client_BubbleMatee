@@ -10,6 +10,9 @@ export interface Post {
 	creationDate: Date;
 	content: string;
 	location: Location | null;
+	likes: number;
+	liked: boolean;
+	comments: number;
 }
 
 export interface PostWithRepost extends Post {
@@ -39,5 +42,17 @@ export interface LocationPlace {
 export interface PostData {
 	posts: Array<PostWithRepost>;
 	lastPostId?: string;
+	overallRecords: number;
+}
+
+export interface Comment {
+	commentId: number;
+	content: string;
+	author: Author;
+	creationDate: Date;
+}
+
+export interface CommentData {
+	comments: Array<Comment>;
 	overallRecords: number;
 }

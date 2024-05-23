@@ -22,7 +22,15 @@
 	<hr class="mt-2 mb-2" />
 	<div class="flex justify-center">
 		<div class="container">
-			<FeedPostCard deletePost={() => {}} {post} isRepost={true} />
+			<FeedPostCard
+				deletePost={null}
+				{post}
+				isRepost={true}
+				likePost={null}
+				postComment={null}
+				loadMoreComments={null}
+				unlikePost={null}
+			/>
 		</div>
 	</div>
 	<footer>

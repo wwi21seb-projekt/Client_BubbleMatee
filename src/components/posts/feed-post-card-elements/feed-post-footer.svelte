@@ -9,14 +9,14 @@
 	import { Comments, RepostComponent } from '$components';
 	import { isLoggedIn } from '$stores';
 	import { goto } from '$app/navigation';
-	import type { PostWithRepost } from '$domains';
-
+	import type { PostWithRepost, CommentData } from '$domains';
 	export let post: PostWithRepost;
-
 	const modalStore = getModalStore();
-
-	let isLiked: boolean = false;
-	let numberOfLikes: number = 42; // Beispielanzahl der Likes
+	export let likePost: () => void;
+	export let unlikePost: () => void;
+	export let loadMoreComments: () => Promise<CommentData>;
+	export let commentPost: (content: string) => Promise<CommentData>;
+	export let commentData: CommentData;
 
 	//funktion to toggle the like of the post
 	function toggleLike(): void {
@@ -24,31 +24,30 @@
 		if (!$isLoggedIn) {
 			goto('/login?redirect=1');
 		} else {
-			isLiked = !isLiked;
-			if (isLiked) {
-				numberOfLikes++;
+			if (post.liked) {
+				unlikePost();
 			} else {
-				numberOfLikes--;
+				likePost();
 			}
 		}
 	}
 
 	//function to open the comment section
-	function handleCommentClick(): void {
+	async function handleCommentClick() {
 		// Error-Message if the user is not logged in
 		if (!$isLoggedIn) {
 			goto('/login?redirect=1');
 		} else {
-			//temporär zum testen
-			const comments = [
-				'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
-				'barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
-				'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj',
-				'barsjdgasdjgkjasbarsjdgasdjgkjasbarsjdgasdjgkjasdlkfjaslkdjfkldsajflkasdjflkjasdkfjsalkdjflksadjfksjdlkfjsalkdjflksadjflkajdflkjsadlkfjs adlkjflkdsaj barsjdgasdjgkjas dlkfjaslkdjfkldsajflkasdjflkjasdkfjsal kdjflks adjfksjdlkfjsalk djflksadjflka jdflkjsadlkfjs adlkjflkdsaj'
-			];
+			if (commentData.comments.length < 1) {
+				commentData = await loadMoreComments();
+			}
 			const modalComponent: ModalComponent = {
 				ref: Comments,
-				props: { comments: comments }
+				props: {
+					commentData: commentData,
+					loadMoreComments: loadMoreComments,
+					commentPost: commentPost
+				}
 			};
 			const modal: ModalSettings = {
 				type: 'component',
@@ -89,12 +88,12 @@
 			<Icon
 				src={Heart}
 				class={'h-8 md:h-10 font-bold' +
-					(isLiked
+					(post.liked
 						? ' fill-red-500 stroke-none hover:fill-red-700'
 						: ' fill-none stroke-black dark:stroke-white hover:stroke-gray-400 dark:hover:stroke-gray-400')}
 			/>
 		</button>
-		<small class="text-xs md:text-sm">{numberOfLikes}</small>
+		<small class="text-xs md:text-sm">{post.likes}</small>
 	</div>
 	<!--Comment-button-->
 
@@ -102,7 +101,7 @@
 		<button on:click={handleCommentClick} class="focus:outline-none">
 			<Icon src={ChatBubbleLeft} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
 		</button>
-		<small class="text-xs md:text-sm">10. Mio</small>
+		<small class="text-xs md:text-sm">{post.likes}</small>
 	</div>
 	{#if !post.repost}
 		<div class="flex flex-col items-center">
