@@ -5,7 +5,7 @@ import type { Subscription, SubscriptionList } from './ServerDomains/subscriptio
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
 import type { CommentList } from './ServerDomains/comments';
 import type { Comment } from '$domains';
-import type { Author, LocationPlace, PostWithRepost } from './Post';
+import type { Author, LocationPlace, PostData, PostWithRepost } from './Post';
 import type { Notification } from './ServerDomains/notifications';
 
 export interface Response {
@@ -81,6 +81,11 @@ export interface FeedSearch {
 		limit: 0;
 		records: 0;
 	};
+}
+
+export interface UserDataWithPosts {
+	userData: UserInfoResponse | ErrorResponse;
+	postData: PostData | ErrorObject;
 }
 
 export interface SubscriptionListResponse extends Response {

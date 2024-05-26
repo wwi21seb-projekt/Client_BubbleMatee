@@ -1,7 +1,13 @@
 import type { ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import type { ErrorResponse, UserInfoResponse } from '$domains';
-import { getCurrentUser } from '$utils';
+import type {
+	ErrorObject,
+	ErrorResponse,
+	PostData,
+	UserDataWithPosts,
+	UserInfoResponse
+} from '$domains';
+import { fetchFirstPostsUser, getCurrentUser, globalConfig } from '$utils';
 
 /**
  * Handles the server-side loading for the myProfile page.
@@ -11,14 +17,22 @@ import { getCurrentUser } from '$utils';
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const username: string = getCurrentUser(event.cookies.get('token'));
-
-	const response = await event.fetch(`/api/users/${username}`, {
+	const responseUser = await event.fetch(`/api/users/${username}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
 		}
 	});
-
-	const body = await response.json();
-	return body as UserInfoResponse | ErrorResponse;
+	const userData: UserInfoResponse | ErrorResponse = await responseUser.json();
+	const postData: ErrorObject | PostData = await fetchFirstPostsUser(
+		event,
+		'0',
+		globalConfig.limit,
+		username
+	);
+	let data: UserDataWithPosts = {
+		userData: userData,
+		postData: postData
+	};
+	return data;
 };

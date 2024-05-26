@@ -2,19 +2,21 @@
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import type {
 		Error,
+		ErrorObject,
 		ErrorResponse,
-		FeedSearch,
 		Follower,
+		PostData,
+		PostWithRepost,
 		SearchParams,
 		UserSearch
 	} from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
-	import type { Post } from '$domains';
 	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag, globalConfig } from '$utils';
 	import { onMount } from 'svelte';
 	import ChipComponent from '$components/search/chip-component.svelte';
 	import { loading } from '$stores';
+	export let data: PostData | ErrorObject;
 	const toastStore = getToastStore();
 	const POSTTAB = 0;
 	const USERTAB = 1;
@@ -24,22 +26,27 @@
 	let isError: boolean = false;
 	let error: Error;
 	let userSearch: Array<Follower> = [];
-	let postSearch: Array<Post> = [];
-	let lastPostID: string = '';
-	let lastPage: boolean = true;
-	let isSearch: boolean = userSearch.length > 0 || postSearch.length > 0;
-	let posts: Array<Post> = new Array<Post>();
+	let postSearch: PostData = {
+		posts: new Array<PostWithRepost>(),
+		overallRecords: 0,
+		lastPostId: ''
+	};
+	let isSearch: boolean = userSearch.length > 0 || postSearch.posts.length > 0;
 	let urlProps: SearchParams;
-	//load the first posts directly
+	let lastPage: boolean = true;
+	let postDataGlobaleFeed: PostData = {
+		posts: new Array<PostWithRepost>(),
+		overallRecords: 0,
+		lastPostId: ''
+	};
+	handleLoadResult(data);
 	onMount(async () => {
-		loadMorePosts();
 		const urlParams = new URLSearchParams(window.location.search);
 		urlProps = {
 			q: urlParams.get('q') ? urlParams.get('q') : '',
 			username: urlParams.get('username') ? urlParams.get('username') : '',
 			offset: 0
 		};
-
 		if (urlProps.username) {
 			searchTerm = urlProps.username;
 			tabSet = USERTAB;
@@ -49,12 +56,26 @@
 		}
 		handleSearch();
 	});
-
+	function handleLoadResult(data: PostData | ErrorObject): void {
+		if ('posts' in data) {
+			postDataGlobaleFeed.posts = postDataGlobaleFeed.posts.concat(data.posts);
+			postDataGlobaleFeed.overallRecords = data.overallRecords;
+			postDataGlobaleFeed.lastPostId = data.lastPostId!;
+		} else {
+			const t: ToastSettings = {
+				message: data.error.code,
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
+		}
+	}
 	const getSearch = async (searchQuery: string, offset: number, limit: string) => {
 		if (tabSet === POSTTAB) {
-			const body = await searchPostByHashtag(searchQuery, offset, limit);
-			isError = body.error;
-			error = body.data.error;
+			const body: ErrorObject | PostData = await searchPostByHashtag(searchQuery, offset, limit);
+			isError = 'error' in body;
+			if ('error' in body) {
+				error = body.error;
+			}
 			return body;
 		} else {
 			const body = await loadSearchedUser(searchQuery, offset, limit);
@@ -72,33 +93,26 @@
 	}
 	async function loadMorePostsSearch() {
 		$loading = true;
-		if (urlProps.offset !== null) {
-			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
-			const response = await searchHashtags();
-			handleHashtags({ ...response, records: [...postSearch, ...response.records] });
-		}
+		urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
+		const response = await searchHashtags();
+		handleHashtags(response);
 		$loading = false;
 	}
 	async function searchHashtags() {
 		goto(`/search?q=${searchTerm}`);
 		const response = await getSearch(searchTerm, urlProps.offset, globalConfig.limit);
-		return response.data;
+		return response;
 	}
-
 	async function searchUsers() {
 		goto(`/search?username=${searchTerm}`);
 		const response = await getSearch(searchTerm, urlProps.offset, globalConfig.limit);
 		return response.data;
 	}
-
-	async function handleHashtags(response: FeedSearch) {
+	async function handleHashtags(response: PostData) {
 		userSearch = [];
-		postSearch = response.records;
-		urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
-			? (lastPage = false)
-			: (lastPage = true);
+		postSearch.posts = postSearch.posts.concat(response.posts);
+		postSearch.overallRecords = response.overallRecords;
 	}
-
 	async function handleUsers(response: UserSearch) {
 		userSearch = response.records.map((record) => ({
 			followerId: '',
@@ -107,20 +121,22 @@
 			profilePictureUrl: record.profilePictureUrl,
 			username: record.username
 		}));
-		postSearch = [];
+		postSearch.posts = [];
 		urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
 			? (lastPage = false)
 			: (lastPage = true);
 	}
 	export async function handleSearch() {
+		$loading = true;
 		urlProps.offset = 0;
 		chipString = searchTerm;
 		try {
 			if (tabSet === POSTTAB && searchTerm.length > 0) {
 				isSearch = true;
-				const response: FeedSearch | ErrorResponse = await searchHashtags();
-
-				handleHashtags(response as FeedSearch);
+				postSearch.posts = [];
+				postSearch.overallRecords = 0;
+				const response = await searchHashtags();
+				handleHashtags(response);
 			} else if (tabSet === USERTAB && searchTerm.length > 0) {
 				isSearch = true;
 				const response: UserSearch | ErrorResponse = await searchUsers();
@@ -139,26 +155,18 @@
 			}
 			isError = true;
 		}
+		$loading = false;
 	}
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
 		$loading = true;
-		try {
-			const data = await fetchNextPostsFeed(lastPostID, globalConfig.limit, 'global');
-			posts = posts.concat(data.posts);
-			lastPage = posts.length === data.overallRecords;
-			lastPostID = data.lastPostId!;
-		} catch (error) {
-			if (error instanceof ErrorEvent) {
-				const t: ToastSettings = {
-					message: error.type,
-					background: 'variant-filled-error'
-				};
-				toastStore.trigger(t);
-			}
-		} finally {
-			$loading = false;
-		}
+		const data: PostData | ErrorObject = await fetchNextPostsFeed(
+			postDataGlobaleFeed.lastPostId!,
+			globalConfig.limit,
+			'global'
+		);
+		handleLoadResult(data);
+		$loading = false;
 	}
 </script>
 
@@ -166,32 +174,24 @@
 	<SearchBar {handleSearch} bind:searchTerm />
 </div>
 {#if isSearch}
-	<div
-		class="flex justify-center sticky p-4 z-40 bg-surface-50 dark:bg-surface-900"
-		style="top: 4.6rem"
-	>
-		<ChipComponent message={`Sucherergebnisse für ${chipString}`} />
-	</div>
-	<div class="flex justify-center">
-		<SearchTabs
-			bind:tabSet
-			bind:lastPage
-			{handleSearch}
-			{loadMoreUsers}
-			{loadMorePostsSearch}
-			{POSTTAB}
-			{USERTAB}
-			{isError}
-			{error}
-			{postSearch}
-			{userSearch}
-		/>
-	</div>
+	<SearchTabs
+		bind:tabSet
+		bind:lastPage
+		{handleSearch}
+		{loadMoreUsers}
+		{loadMorePostsSearch}
+		{POSTTAB}
+		{USERTAB}
+		{isError}
+		{error}
+		{postSearch}
+		{userSearch}
+		{chipString}
+	/>
 {:else}
 	<Feed
-		{posts}
+		postData={postDataGlobaleFeed}
 		{loadMorePosts}
-		{lastPage}
 		nothingFoundMessage={'Keine Post gefunden'}
 		nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
 	/>

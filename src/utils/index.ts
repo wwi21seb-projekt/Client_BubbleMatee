@@ -23,7 +23,9 @@ export { calculatePassedTime } from './globalFunctions/timeCalculations';
 export {
 	fetchNextPostsFeed,
 	fetchNextPostsUser,
-	searchPostByHashtag
+	searchPostByHashtag,
+	fetchFirstPostsFeed,
+	fetchFirstPostsUser
 } from './apiRequest/loadPosts';
 export { fetchLocation } from './apiRequest/loadLocation';
 export { loadUser, loadSearchedUser } from './apiRequest/loadUser';

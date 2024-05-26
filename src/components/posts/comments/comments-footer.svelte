@@ -34,7 +34,6 @@
 		if (value.includes('@')) {
 			const lastAtIndex = value.lastIndexOf('@');
 			const afterAt = value.substring(lastAtIndex);
-			console.log(afterAt);
 			if (!afterAt.includes(' ')) {
 				loadUsers(afterAt);
 			} else {
@@ -55,7 +54,6 @@
 						on:click={() => {
 							const lastAtIndex = newComment.lastIndexOf('@');
 							newComment = newComment.substring(0, lastAtIndex + 1) + author.username + ' ';
-							console.log(author);
 						}}
 					>
 						<UserComponent {author} />
