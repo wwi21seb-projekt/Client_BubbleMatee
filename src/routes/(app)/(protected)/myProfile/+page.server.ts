@@ -31,8 +31,8 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 		username
 	);
 	const data: UserDataWithPosts = {
-		userData: userData,
-		postData: postData
+		userData,
+		postData
 	};
 	return data;
 };

@@ -22,11 +22,10 @@ export { getErrorMessage } from './errorMessages/errorMessages';
 export { calculatePassedTime } from './globalFunctions/timeCalculations';
 export {
 	fetchNextPostsFeed,
-	fetchNextPostsUser,
 	searchPostByHashtag,
-	fetchFirstPostsFeed,
-	fetchFirstPostsUser
+	fetchFirstPostsFeed
 } from './apiRequest/loadPosts';
+export { fetchNextPostsUser, fetchFirstPostsUser } from './apiRequest/loadPostUser';
 export { fetchLocation } from './apiRequest/loadLocation';
 export { loadUser, loadSearchedUser } from './apiRequest/loadUser';
 export { subscribe, unsubscribe } from './apiRequest/postSubscriptions';
