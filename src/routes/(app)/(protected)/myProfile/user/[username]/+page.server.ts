@@ -24,7 +24,7 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 		globalConfig.limit,
 		username
 	);
-	let data: UserDataWithPosts = {
+	const data: UserDataWithPosts = {
 		userData: userData,
 		postData: postData
 	};

@@ -14,7 +14,6 @@
 	import { Feed, SearchTabs, SearchBar } from '$components';
 	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag, globalConfig } from '$utils';
 	import { onMount } from 'svelte';
-	import ChipComponent from '$components/search/chip-component.svelte';
 	import { loading } from '$stores';
 	export let data: PostData | ErrorObject;
 	const toastStore = getToastStore();

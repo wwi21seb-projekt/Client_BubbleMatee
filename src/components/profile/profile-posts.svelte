@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Feed } from '$components';
-	import type { PostData, PostWithRepost, UserInfo } from '$domains';
+	import type { PostData } from '$domains';
 	import { currentUsername } from '$stores';
 	export let postData: PostData;
 	export let username: string;
