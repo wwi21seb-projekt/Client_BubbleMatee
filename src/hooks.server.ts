@@ -8,9 +8,12 @@ const unauthorizedRoutes = [
 	'/',
 	'/login.*',
 	'/about',
+	'/login/passwordForget',
 	'/trending',
+	'/api/.*/reset-password',
 	'/api/feed.*feedType=global',
 	'/api/imprint',
+	'/api/passwordForget',
 	'/api/users/.*/activate', // Verify API
 	'/api/users', // User API
 	'/api/users/login', // Login API
