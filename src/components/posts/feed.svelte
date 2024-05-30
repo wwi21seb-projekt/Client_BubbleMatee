@@ -1,14 +1,13 @@
 <!-- List component that contains multiple posts.  -->
 <script lang="ts">
-	export let posts: Array<PostWithRepost>;
+	export let postData: PostData;
 	export let loadMorePosts: () => Promise<void>;
-	export let lastPage: boolean;
 	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4';
 	export let notifyDeletedPost: (() => void) | null = null;
 	export let nothingFoundMessage: string | null;
 	export let nothingFoundSubMessage: string | null;
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
-	import type { CommentResponse, ErrorResponse, PostWithRepost } from '$domains';
+	import type { CommentResponse, ErrorResponse, PostData } from '$domains';
 	import type { PostCommentResponse } from '$domains/ServerResponses';
 	import { loading } from '$stores';
 	import { getErrorMessage, globalConfig } from '$utils';
@@ -36,7 +35,7 @@
 				//show confirmation if succesfull
 			} else {
 				//delete from local array
-				posts = posts.filter((post) => post.postId !== postId);
+				postData.posts = postData.posts.filter((post) => post.postId !== postId);
 				const t: ToastSettings = {
 					message: 'Der Beitrag wurde gelöscht',
 					background: 'variant-filled-success'
@@ -71,10 +70,10 @@
 					toastStore.trigger(t);
 				}
 			} else {
-				const post = posts.filter((post) => post.postId === postId)[0];
+				const post = postData.posts.filter((post) => post.postId === postId)[0];
 				post.liked = false;
 				post.likes = post.likes - 1;
-				posts = posts;
+				postData.posts = postData.posts;
 			}
 			return body;
 		} catch (e) {
@@ -101,10 +100,10 @@
 					toastStore.trigger(t);
 				}
 			} else {
-				const post = posts.filter((post) => post.postId === postId)[0];
+				const post = postData.posts.filter((post) => post.postId === postId)[0];
 				post.liked = true;
 				post.likes = post.likes + 1;
-				posts = posts;
+				postData.posts = postData.posts;
 			}
 			return body;
 		} catch (e) {
@@ -173,8 +172,8 @@
 <div class="flex w-full justify-center items-center">
 	<!--Switch the width on different devices-->
 	<div class={classString}>
-		{#if posts.length > 0}
-			{#each posts as post (post.postId)}
+		{#if postData.posts.length > 0}
+			{#each postData.posts as post (post.postId)}
 				<FeedPostCard {post} {deletePost} {likePost} {unlikePost} {loadMoreComments} {postComment}
 				></FeedPostCard>
 			{/each}
@@ -187,7 +186,7 @@
 			</div>
 		{/if}
 		<!-- Button to load the next posts - is invisible, if there are no more posts-->
-		{#if !lastPage}
+		{#if postData.posts.length < postData.overallRecords}
 			<div class=" m-4">
 				<LoadMoreComponent loadMore={loadMorePosts} />
 			</div>

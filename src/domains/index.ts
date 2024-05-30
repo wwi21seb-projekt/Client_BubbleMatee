@@ -29,6 +29,7 @@ export type {
 	FollowResponse,
 	UserSearchResponse,
 	UserSearch,
+	UserDataWithPosts,
 	FeedSearch,
 	SubscriptionListResponse,
 	LocationResponse,
