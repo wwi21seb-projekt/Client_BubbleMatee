@@ -1,7 +1,7 @@
 import type { ServerLoadEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { ChatMessageResponse, ChatsResponse, ErrorResponse } from '$domains';
-import { globalConfig, loadChatMessages, loadChats } from '$utils';
+import { getCurrentUser, globalConfig, loadChatMessages, loadChats } from '$utils';
 
 /**
  * Handles the server-side loading for the the Chats page.
@@ -10,6 +10,8 @@ import { globalConfig, loadChatMessages, loadChats } from '$utils';
  * @returns The response containing chat data or an error.
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
+	const username: string = getCurrentUser(event.cookies.get('token'));
+
 	const chatId = event.params.chatId ? event.params.chatId : '';
 	const chatsData: ChatsResponse | ErrorResponse = await loadChats(event);
 	const chatMessageData: ErrorResponse | ChatMessageResponse = await loadChatMessages(
@@ -18,5 +20,5 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 		'0',
 		globalConfig.limit
 	);
-	return { chatsData: chatsData, chatMessageData: chatMessageData };
+	return { chatsData: chatsData, chatMessageData: chatMessageData, username: username };
 };
