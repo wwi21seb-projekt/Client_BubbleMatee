@@ -4,6 +4,7 @@
 	import { Logo, Text } from '$images';
 	import { AppBar, LightSwitch, modeCurrent, setModeUserPrefers } from '@skeletonlabs/skeleton';
 	import NotificationButton from '$components/notifications/notification-button.svelte';
+	import ChatButton from '$components/chats/chat-button.svelte';
 
 	const handleLightSwitch = () => {
 		setModeUserPrefers($modeCurrent);
@@ -24,6 +25,7 @@
 			<Settings />
 		{:else if $page.url.pathname === '/home'}
 			<NotificationButton />
+			<ChatButton />
 		{/if}
 	</svelte:fragment>
 </AppBar>
