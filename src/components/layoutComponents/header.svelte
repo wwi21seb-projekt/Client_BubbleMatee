@@ -9,8 +9,6 @@
 	const handleLightSwitch = () => {
 		setModeUserPrefers($modeCurrent);
 	};
-
-	let messages: Array<string> = [];
 </script>
 
 <!-- App Shell -->
