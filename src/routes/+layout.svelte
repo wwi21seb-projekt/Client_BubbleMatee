@@ -16,7 +16,6 @@
 
 	if (typeof navigator !== 'undefined') {
 		navigator.serviceWorker.addEventListener('message', function (event) {
-			console.log('Received a message from service worker: ', event.data);
 			hasNotifications.set(true);
 			invalidateAll();
 		});

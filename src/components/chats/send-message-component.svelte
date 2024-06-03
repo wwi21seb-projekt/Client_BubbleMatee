@@ -1,21 +1,21 @@
 <script lang="ts">
 	import { PaperAirplane } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { subscribe, sendMessage, storeMessage } from '$stores';
-	import { getCurrentUser } from '$utils';
+	import { sendMessage, storeUnsendMessage } from '$stores';
 	export let username: string;
 
 	let currentMessage: string;
 
 	function onSendMessage(): void {
 		if (currentMessage && currentMessage.length > 0) {
-			storeMessage({
+			storeUnsendMessage({
 				content: currentMessage,
 				username: username,
 				creationDate: new Date().toISOString()
 			});
 			sendMessage(currentMessage);
 		}
+		currentMessage = '';
 	}
 </script>
 

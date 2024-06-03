@@ -9,7 +9,7 @@
 		ErrorObject,
 		ErrorResponse
 	} from '$domains';
-	import { subscribe } from '$stores';
+	import { connectToWebSocket, subscribeMessage, subscribeUnsendMessage } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { onMount } from 'svelte';
 
@@ -29,21 +29,29 @@
 		? []
 		: ((data.chatMessageData.data as ChatMessages).records as Array<ChatMessage>);
 
-	onMount(() => {
-		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
-		connectToWebSocket();
-	});
+	let unsendChatMessages: Array<ChatMessage> = [];
 
-	function connectToWebSocket(): void {
-		console.log('WebSocket');
-		subscribe((currentMessage) => {
+	onMount(() => {
+		connectToWebSocket(chatId);
+		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
+		subscribeUnsendMessage((currentMessage) => {
 			if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
+				unsendChatMessages = unsendChatMessages.length
+					? [...unsendChatMessages, currentMessage as unknown as ChatMessage]
+					: [currentMessage as unknown as ChatMessage];
+			}
+		});
+		subscribeMessage((currentMessage) => {
+			if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
+				unsendChatMessages = unsendChatMessages.filter(
+					(message) => message.content !== currentMessage.content
+				);
 				chatMessages = chatMessages.length
 					? [...chatMessages, currentMessage as unknown as ChatMessage]
 					: [currentMessage as unknown as ChatMessage];
 			}
 		});
-	}
+	});
 </script>
 
 <div class="chat w-full h-full {chatId ? 'lg:grid lg:grid-cols-[30%_1fr]' : ''}">
@@ -56,7 +64,7 @@
 					<ErrorAlert message={errorChatMessage} />
 				</main>
 			{:else}
-				<Chat {chatMessages} username={data.username} />
+				<Chat {chatMessages} username={data.username} {unsendChatMessages} />
 				<SendMessageComponent username={data.username} />
 			{/if}
 		</div>
