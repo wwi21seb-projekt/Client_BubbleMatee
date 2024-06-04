@@ -12,19 +12,17 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  */
 export const POST: RequestHandler = async ({ fetch, params }) => {
 	const username: string = params.username as string;
-	console.log(username);
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/${username}/reset-password`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/reset-password`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
-		const body = await response.json();
 		if (response.ok) {
-			const result = { data: body, error: false };
-			return json(result as FeedResponse);
+			return json({ data: {}, error: false });
 		}
+		const body = await response.json();
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		console.error(exception);
@@ -48,18 +46,17 @@ export const PATCH: RequestHandler = async ({ fetch, request, params }) => {
 	const requestBody = await request.json();
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/${username}/reset-password`, {
+		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/reset-password`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(requestBody)
 		});
-		const body = await response.json();
 		if (response.ok) {
-			const result = { data: body, error: false };
-			return json(result as FeedResponse);
+			return json({ data: {}, error: false });
 		}
+		const body = await response.json();
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		console.error(exception);

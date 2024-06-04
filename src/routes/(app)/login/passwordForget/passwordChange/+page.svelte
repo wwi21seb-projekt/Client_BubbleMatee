@@ -33,7 +33,7 @@
 	const sendReset = async () => {
 		loading = true;
 		try {
-			const response = await fetch(`/api/${username}/reset-password`, {
+			const response = await fetch(`/api/users/${username}/reset-password`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json'

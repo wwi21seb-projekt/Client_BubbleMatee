@@ -14,15 +14,15 @@
 	const sendMailForCode = async () => {
 		loading = true;
 		try {
-			const response = await fetch(`/api/${username}/reset-password`, {
+			const response = await fetch(`/api/users/${username}/reset-password`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				}
 			});
-
+			console.log(response);
 			const body = await response.json();
-
+			console.log(body);
 			if (body.error) {
 				const t: ToastSettings = {
 					message: getErrorMessage(body.data.error.code, false),
