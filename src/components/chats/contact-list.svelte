@@ -11,6 +11,7 @@
 
 	export let data: ChatsResponse | ErrorResponse;
 	export let chatId: string = '';
+	export let chatPartner: string = '';
 
 	$: chats = data.error ? null : (data.data as Chats);
 	$: error = data.error ? (data.data as ErrorObject) : null;
@@ -26,7 +27,7 @@
 		<ErrorAlert message={errorMessage} />
 	</main>
 {:else}
-	<div class="lg:grid grid-rows-[auto_1fr_auto] border-r border-surface-500/30">
+	<div class="{chatId ? 'hidden': ''} lg:grid grid-rows-[auto_1fr_auto] border-r border-surface-500/30">
 		<!-- List -->
 		<div class="p-4 space-y-4 overflow-y-auto">
 			<div class="flex justify-between items-center">
@@ -47,6 +48,7 @@
 							on:click={() => {
 								goto(`/home/chats/${person.chatId}`);
 								chatId = person.chatId;
+								chatPartner = person.user.username
 							}}
 						>
 							<Avatar src={Person} height="auto" />

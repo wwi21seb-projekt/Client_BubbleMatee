@@ -80,3 +80,4 @@ export { default as Chat } from './chats/chat.svelte';
 export { default as SendMessageComponent } from './chats/send-message-component.svelte';
 export { default as ContactList } from './chats/contact-list.svelte';
 export { default as ChatComponent } from './chats/chat-component.svelte';
+export { default as ChatMobileHeader } from './chats/chat-mobile-header.svelte';
