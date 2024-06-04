@@ -20,5 +20,5 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 		'0',
 		globalConfig.limit
 	);
-	return { chatsData: chatsData, chatMessageData: chatMessageData, username: username };
+	return { chatsData, chatMessageData, username };
 };

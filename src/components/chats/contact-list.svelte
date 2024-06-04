@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { ErrorAlert } from '$components';
-	import type { ChatResponse, Chats, ChatsResponse, ErrorObject, ErrorResponse } from '$domains';
+	import type { Chats, ChatsResponse, ErrorObject, ErrorResponse } from '$domains';
 	import { Person } from '$images';
 	import { getErrorMessage } from '$utils';
 	import { Avatar } from '@skeletonlabs/skeleton';
@@ -19,35 +19,6 @@
 	onMount(() => {
 		errorMessage = error ? getErrorMessage(error.error.code, true) : '';
 	});
-
-	async function createNewChat(
-		username: string,
-		content: string
-	): Promise<ErrorResponse | ChatResponse> {
-		try {
-			const response = await fetch(`/api/chats`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					username: username,
-					content: content
-				})
-			});
-			const body: ErrorResponse | ChatResponse = await response.json();
-			return body;
-		} catch (e) {
-			const errorResponse: ErrorResponse = {
-				error: true,
-				data: {
-					error: {
-						code: 'internal_server_error',
-						message: 'Failed to load comments'
-					}
-				}
-			};
-			return errorResponse;
-		}
-	}
 </script>
 
 {#if error}

@@ -12,6 +12,9 @@ import { getCurrentUser, loadChats } from '$utils';
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const username: string = getCurrentUser(event.cookies.get('token'));
 	const chatsData: ChatsResponse | ErrorResponse = await loadChats(event);
-	const chatMessageData: ErrorResponse | ChatMessageResponse = { data: { records: [], pagination: { offset: 0, limit: 0, records: 0 } }, error: false };
-	return { chatsData: chatsData, chatMessageData: chatMessageData, username: username };
+	const chatMessageData: ErrorResponse | ChatMessageResponse = {
+		data: { records: [], pagination: { offset: 0, limit: 0, records: 0 } },
+		error: false
+	};
+	return { chatsData, chatMessageData, username };
 };

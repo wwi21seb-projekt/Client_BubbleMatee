@@ -6,7 +6,7 @@ import type { ServerLoadEvent } from '@sveltejs/kit';
  */
 
 export async function loadChats(event: ServerLoadEvent) {
-	const response = await event.fetch(`/api/chats`, {
+	const response = await event.fetch('/api/chats', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

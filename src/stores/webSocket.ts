@@ -77,6 +77,9 @@ export function connectToWebSocket(chatId: string) {
 	}
 }
 
+/**
+ * Disconnects from the WebSocket.
+ */
 export function disconnectFromWebSocket() {
 	if (socket) {
 		socket.close();

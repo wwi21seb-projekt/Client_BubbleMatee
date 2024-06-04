@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Chat, ContactList, ErrorAlert, SendMessageComponent } from '$components';
-	import type { ChatData, ChatMessage, Chats, ErrorObject } from '$domains';
+	import type { ChatData, ChatMessage, ErrorObject } from '$domains';
 
 	export let chatId: string;
 	export let chatData: ChatData;
