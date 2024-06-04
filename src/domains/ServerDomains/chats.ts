@@ -25,6 +25,11 @@ export interface ChatMessage {
 	creationDate: string;
 }
 
+export interface SortedMessages {
+	date: string;
+	messages: ChatMessage[];
+}
+
 export interface ChatData {
 	chatsData: ChatsResponse | ErrorResponse;
 	chatMessageData: ErrorResponse | ChatMessageResponse;
