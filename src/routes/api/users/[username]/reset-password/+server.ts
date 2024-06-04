@@ -1,4 +1,4 @@
-import type { ErrorResponse, FeedResponse } from '$domains';
+import type { ErrorResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
