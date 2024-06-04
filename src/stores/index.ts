@@ -15,5 +15,6 @@ export {
 	sendMessage,
 	storeUnsendMessage,
 	subscribeUnsendMessage,
-	connectToWebSocket
+	connectToWebSocket,
+	disconnectFromWebSocket
 } from './webSocket';

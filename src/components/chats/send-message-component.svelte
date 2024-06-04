@@ -2,11 +2,55 @@
 	import { PaperAirplane } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { sendMessage, storeUnsendMessage } from '$stores';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getErrorMessage } from '$utils';
 	export let username: string;
+	export let chatPartnerUsername: string;
+	const toastStore = getToastStore();
 
 	let currentMessage: string;
 
+	async function createNewChat() {
+		try {
+			const response = await fetch('/api/chats', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					username: chatPartnerUsername,
+					content: currentMessage
+				})
+			});
+
+			const body = await response.json();
+
+			if (body.error) {
+				const t: ToastSettings = {
+					message: getErrorMessage(body.data.error.code, false),
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			} else {
+				let chatId = body.data.chatId;
+				goto(`/home/chats/${chatId}`);
+			}
+
+			return body;
+		} catch (e) {
+			console.error(e);
+		}
+	}
+
 	function onSendMessage(): void {
+		if ($page.url.pathname.includes('newChat')) {
+			console.log('Creating new chat');
+			createNewChat();
+			return;
+		}
+
 		if (currentMessage && currentMessage.length > 0) {
 			storeUnsendMessage({
 				content: currentMessage,

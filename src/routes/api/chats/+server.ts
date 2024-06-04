@@ -43,7 +43,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
  * @returns The response containing registration data or an error.
  */
 
-export const POST: RequestHandler = async ({ fetch, request, params }) => {
+export const POST: RequestHandler = async ({ fetch, request }) => {
 	const requestBody = await request.json();
 	try {
 		const response = await fetch(`${PUBLIC_BASE_URL}/api/chats`, {

@@ -2,9 +2,9 @@
 	import { page } from '$app/stores';
 	import { ChatComponent } from '$components';
 	import type { ChatData, ChatMessage, ChatMessages, Chats, ErrorObject } from '$domains';
-	import { connectToWebSocket, subscribeMessage, subscribeUnsendMessage } from '$stores';
+	import { subscribeUnsendMessage } from '$stores';
 	import { getErrorMessage } from '$utils';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	export let data: ChatData;
 	export let newUser: string = $page.params.username;
@@ -38,27 +38,20 @@
 	};
 
 	let unsendChatMessages: Array<ChatMessage> = [];
+	let unsubscribeUnsendMessages: () => void = subscribeUnsendMessage((currentMessage) => {
+		if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
+			unsendChatMessages = unsendChatMessages.length
+				? [...unsendChatMessages, currentMessage as unknown as ChatMessage]
+				: [currentMessage as unknown as ChatMessage];
+		}
+	});
 
 	onMount(() => {
-		connectToWebSocket(chatId);
 		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
-		subscribeUnsendMessage((currentMessage) => {
-			if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
-				unsendChatMessages = unsendChatMessages.length
-					? [...unsendChatMessages, currentMessage as unknown as ChatMessage]
-					: [currentMessage as unknown as ChatMessage];
-			}
-		});
-		subscribeMessage((currentMessage) => {
-			if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
-				unsendChatMessages = unsendChatMessages.filter(
-					(message) => message.content !== currentMessage.content
-				);
-				chatMessages = chatMessages.length
-					? [...chatMessages, currentMessage as unknown as ChatMessage]
-					: [currentMessage as unknown as ChatMessage];
-			}
-		});
+	});
+
+	onDestroy(() => {
+		unsubscribeUnsendMessages();
 	});
 </script>
 

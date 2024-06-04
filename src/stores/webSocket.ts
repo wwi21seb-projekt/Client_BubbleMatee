@@ -53,7 +53,6 @@ export const subscribeUnsendMessage = unsendMessageStore.subscribe;
  * @returns void
  */
 export function connectToWebSocket(chatId: string) {
-	console.log('Connecting to WebSocket');
 	if (typeof window !== 'undefined') {
 		const protocol = PUBLIC_BASE_URL.startsWith('https') ? 'wss' : 'ws';
 		const base_url = `${protocol}://${PUBLIC_BASE_URL.replace('http://', '').replace('https://', '')}`;
@@ -62,9 +61,8 @@ export function connectToWebSocket(chatId: string) {
 
 	if (socket) {
 		// Connection opened
-		socket?.addEventListener('open', (event: Event) => {
+		socket?.addEventListener('open', () => {
 			console.log("It's open");
-			console.log(event);
 		});
 
 		// Listen for messages
@@ -76,5 +74,11 @@ export function connectToWebSocket(chatId: string) {
 				console.error('Fehler beim Parsen von JSON: ', error);
 			}
 		});
+	}
+}
+
+export function disconnectFromWebSocket() {
+	if (socket) {
+		socket.close();
 	}
 }
