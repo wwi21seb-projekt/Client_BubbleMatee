@@ -40,6 +40,9 @@ export const POST: RequestHandler = async ({ fetch, params }) => {
 	}
 };
 
+/**
+ * Handles PATCH for Password-Reset Code.
+ */
 export const PATCH: RequestHandler = async ({ fetch, request, params }) => {
 	const username: string = params.username as string;
 	const requestBody = await request.json();
