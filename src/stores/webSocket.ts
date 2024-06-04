@@ -52,11 +52,11 @@ export const subscribeUnsendMessage = unsendMessageStore.subscribe;
  * @param chatId The ID of the chat.
  * @returns void
  */
-export function connectToWebSocket(chatId: string) {
+export function connectToWebSocket(chatId: string, token: string) {
 	if (typeof window !== 'undefined') {
 		const protocol = PUBLIC_BASE_URL.startsWith('https') ? 'wss' : 'ws';
 		const base_url = `${protocol}://${PUBLIC_BASE_URL.replace('http://', '').replace('https://', '')}`;
-		socket = new WebSocket(`${base_url}/api/chat?chatId=${chatId}`);
+		socket = new WebSocket(`${base_url}/api/chat?chatId=${chatId}`, [`Bearer${token}`]);
 	}
 
 	if (socket) {

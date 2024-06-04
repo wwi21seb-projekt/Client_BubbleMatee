@@ -41,7 +41,7 @@
 	});
 
 	onMount(() => {
-		connectToWebSocket(chatId);
+		connectToWebSocket(chatId, data.token);
 		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
 	});
 

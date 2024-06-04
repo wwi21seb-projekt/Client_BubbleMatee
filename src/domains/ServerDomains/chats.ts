@@ -29,4 +29,5 @@ export interface ChatData {
 	chatsData: ChatsResponse | ErrorResponse;
 	chatMessageData: ErrorResponse | ChatMessageResponse;
 	username: string;
+	token: string;
 }
