@@ -1,21 +1,18 @@
 <script lang="ts">
-	import type { Error, Post } from '$domains';
+	import type { Error, PostData } from '$domains';
 	import { Feed } from '$components';
 	import { getErrorMessage } from '$utils';
-
-	export let posts: Array<Post>;
+	export let postData: PostData;
 	export let isError: boolean;
 	export let loadMore: () => Promise<void>;
 	export let error: Error;
-	export let lastPage: boolean;
 </script>
 
 {#if !isError}
 	<Feed
 		classString={'w-full'}
-		{posts}
+		{postData}
 		loadMorePosts={loadMore}
-		{lastPage}
 		nothingFoundMessage={'Keine passenden Post gefunden'}
 		nothingFoundSubMessage={'Sei der erste, der diesen Hashtag verwendet!'}
 	/>

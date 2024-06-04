@@ -1,6 +1,7 @@
 import type { ErrorResponse } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
+
 /**
  * Handles DELETE requests to delete a post.
  *

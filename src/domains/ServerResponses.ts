@@ -3,7 +3,10 @@ import type { Feed } from './ServerDomains/feed';
 import type { UserFeed } from './ServerDomains/userFeed';
 import type { Subscription, SubscriptionList } from './ServerDomains/subscription';
 import type { EditUserInfo, Tokens, User, UserInfo } from './ServerDomains/user';
-import type { Author, LocationPlace, Post } from './Post';
+import type { CommentList } from './ServerDomains/comments';
+import type { Comment } from '$domains';
+import type { Author, LocationPlace, PostData, PostWithRepost } from './Post';
+import type { Notification } from './ServerDomains/notifications';
 
 export interface Response {
 	error: boolean;
@@ -72,7 +75,7 @@ export interface UserSearch {
 }
 
 export interface FeedSearch {
-	records: Post[];
+	records: PostWithRepost[];
 	pagination: {
 		offset: 0;
 		limit: 0;
@@ -80,6 +83,27 @@ export interface FeedSearch {
 	};
 }
 
+export interface UserDataWithPosts {
+	userData: UserInfoResponse | ErrorResponse;
+	postData: PostData | ErrorObject;
+}
+
 export interface SubscriptionListResponse extends Response {
 	data: SubscriptionList;
+}
+
+export interface CommentResponse extends Response {
+	data: CommentList;
+}
+
+export interface PostCommentResponse extends Response {
+	data: Comment;
+}
+
+export interface NotificationResponse extends Response {
+	data: { records: Array<Notification> };
+}
+
+export interface VapidResponse extends Response {
+	data: { key: string };
 }

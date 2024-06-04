@@ -2,14 +2,12 @@
 	import ArrowRightIcon from '$images/icons/arrow-right-icon.svelte';
 	import { EditIcon, LogoutIcon, PasswordIcon } from '$images';
 	import { goto } from '$app/navigation';
-	import { currentUsername, isLoggedIn } from '$stores';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-
+	import { currentUsername, hasNotifications, isLoggedIn, notifications } from '$stores';
 	const toastStore = getToastStore();
 	const t: ToastSettings = {
 		message: 'Abmeldung erfolgreich'
 	};
-
 	const handleLogout = async () => {
 		const response = await fetch('/api/users/logout', {
 			method: 'POST',
@@ -24,6 +22,8 @@
 			isLoggedIn.set(false);
 			currentUsername.set(null);
 			goto('/login');
+			notifications.set([]);
+			hasNotifications.set(false);
 		}
 
 		toastStore.trigger(t);

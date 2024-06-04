@@ -40,12 +40,14 @@ export { default as Feed } from './posts/feed.svelte';
 export { default as FeedPostHeader } from './posts/feed-post-card-elements/feed-post-header.svelte';
 export { default as FeedPostMain } from './posts/feed-post-card-elements/feed-post-main.svelte';
 export { default as FeedPostLocation } from './posts/feed-post-card-elements/feed-post-locations.svelte';
+export { default as RepostComponent } from './posts/repost-component.svelte';
 
 export { default as FeedPostFooter } from './posts/feed-post-card-elements/feed-post-footer.svelte';
 export { default as Comments } from './posts/comments/comments.svelte';
 export { default as CommentElement } from './posts/comments/comment-element.svelte';
 export { default as CommentsFooter } from './posts/comments/comments-footer.svelte';
 export { default as PostMenu } from './posts/feed-post-card-elements/post-menu-component.svelte';
+
 //Profile Page of a user
 export { default as ProfileHeader } from './profile/profile-header.svelte';
 export { default as ProfileHeaderBottom } from './profile/profile-header-bottom.svelte';
@@ -68,3 +70,6 @@ export { default as ChipComponent } from './search/chip-component.svelte';
 //General Components
 export { default as ErrorAlert } from './general/error-alert.svelte';
 export { default as NothingFoundComponent } from './general/nothing-found-component.svelte';
+
+//Notification Components
+export { default as NotificationButton } from './notifications/notification-button.svelte';

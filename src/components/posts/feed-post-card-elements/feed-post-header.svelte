@@ -14,29 +14,34 @@
 	export let author: Author;
 	export let deletePost: () => void;
 	export let post: Post;
+	export let isRepost: boolean;
 
 	//calculate the time that has passend since the post in weeks/ days/ hours or minutes
 	let dateString: string = calculatePassedTime(date);
 	//if the post belongs to the active user, he has the option to delete it
 	let isOwnUser: boolean = author.username === $currentUsername;
-	let canNavigate: boolean =
-		$page.params.username === author.username || $page.url.pathname === '/myProfile';
+	let cantNavigate: boolean =
+		$page.params.username === author.username ||
+		($page.url.pathname === '/myProfile' && !isRepost) ||
+		post.author.username === $currentUsername;
 	const popupClick: PopupSettings = {
 		event: 'click',
-		target: 'popupClick-' + post.postId,
+		target: `popupClick-${post.postId}`,
 		placement: 'left'
+	};
+
+	const onNavigationClick = () => {
+		const currentPath: string = $page.url.pathname.split('/')[1];
+		goto(`/${currentPath}/user/${author.username}`);
 	};
 </script>
 
 <div class="flex items-center justify-between">
 	<!--Element shows the profile picture, username, nickname and the time that has passed since the post-->
 	<button
-		class={`${canNavigate ? '' : 'hover:text-gray-400'}`}
-		on:click={() => {
-			const currenPath = $page.url.pathname.split('/')[1];
-			goto(`/${currenPath}/user/${author.username}`);
-		}}
-		disabled={canNavigate}
+		class={`${cantNavigate ? '' : 'hover:text-gray-400'}`}
+		on:click={onNavigationClick}
+		disabled={cantNavigate}
 	>
 		<UserComponent {author} />
 	</button>
@@ -46,8 +51,11 @@
 			{'vor ' + dateString}
 		</small>
 		<!--If the post belongs to the active user, a context-menu is shown-->
-		<div class={`w-2 ${isOwnUser ? '' : 'hidden'}`}></div>
-		<button class={`focus:outline-none ${isOwnUser ? '' : 'hidden'}`} use:popup={popupClick}>
+		<div class={`w-2 ${isOwnUser && !isRepost ? '' : 'hidden'}`}></div>
+		<button
+			class={`focus:outline-none ${isOwnUser && !isRepost ? '' : 'hidden'}`}
+			use:popup={popupClick}
+		>
 			<Icon src={EllipsisVertical} class="h-6 md:h-8 hover:stroke-gray-400" />
 		</button>
 	</div>

@@ -4,13 +4,51 @@
 	import { Header, NavigationBarMobile, NavigationBarDesktop } from '$components';
 	import { initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+	import { hasNotifications, notifications } from '$stores';
+	import type { ErrorResponse, NotificationResponse, Notification } from '$domains';
+	import { redirectToLogin1, redirectToLogin2 } from '$stores/loading';
+	import { goto, invalidateAll } from '$app/navigation';
 
+	export let data: NotificationResponse | ErrorResponse;
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 	initializeStores();
+
+	if (typeof navigator !== 'undefined') {
+		navigator.serviceWorker.addEventListener('message', function (event) {
+			console.log('Received a message from service worker: ', event.data);
+			hasNotifications.set(true);
+			invalidateAll();
+		});
+	}
+	$: pageNotifications = data.error
+		? undefined
+		: (data.data as { records: Array<Notification> }).records;
+
+	redirectToLogin1.subscribe((value) => {
+		if (value) {
+			goto('/login?redirect=1');
+			redirectToLogin1.set(false);
+		}
+	});
+
+	redirectToLogin2.subscribe((value) => {
+		if (value) {
+			goto('/login?redirect=2');
+			redirectToLogin2.set(false);
+		}
+	});
+
+	$: {
+		if (pageNotifications) {
+			hasNotifications.set(pageNotifications?.length > 0);
+			notifications.set(pageNotifications);
+		}
+	}
 </script>
 
 <Modal transitions={false} />
-<Toast position="t" />
+<Toast position="t" zIndex="z-[1000]" />
 <!-- Basic Layout of the App -->
 <AppShell>
 	<svelte:fragment slot="header">
