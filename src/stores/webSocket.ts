@@ -56,7 +56,7 @@ export function connectToWebSocket(chatId: string, token: string) {
 	if (typeof window !== 'undefined') {
 		const protocol = PUBLIC_BASE_URL.startsWith('https') ? 'wss' : 'ws';
 		const base_url = `${protocol}://${PUBLIC_BASE_URL.replace('http://', '').replace('https://', '')}`;
-		socket = new WebSocket(`${base_url}/api/chat?chatId=${chatId}`, [`Bearer${token}`]);
+		socket = new WebSocket(`${base_url}/api/chat?chatId=${chatId}`, [token]);
 	}
 
 	if (socket) {
