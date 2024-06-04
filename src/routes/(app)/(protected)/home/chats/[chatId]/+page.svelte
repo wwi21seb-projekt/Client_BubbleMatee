@@ -17,6 +17,7 @@
 		chatsData: ChatsResponse | ErrorResponse;
 		chatMessageData: ErrorResponse | ChatMessageResponse;
 		username: string;
+		token: string;
 	}
 
 	export let data: ServerData;
@@ -32,7 +33,7 @@
 	let unsendChatMessages: Array<ChatMessage> = [];
 
 	onMount(() => {
-		connectToWebSocket(chatId);
+		connectToWebSocket(chatId, data.token);
 		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
 		subscribeUnsendMessage((currentMessage) => {
 			if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {

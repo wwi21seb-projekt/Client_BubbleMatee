@@ -20,5 +20,11 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 		'0',
 		globalConfig.limit
 	);
-	return { chatsData: chatsData, chatMessageData: chatMessageData, username: username };
+	const token = event.cookies.get('token');
+	return {
+		chatsData: chatsData,
+		chatMessageData: chatMessageData,
+		username: username,
+		token: token
+	};
 };
