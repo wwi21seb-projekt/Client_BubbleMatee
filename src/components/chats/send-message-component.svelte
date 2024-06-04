@@ -11,6 +11,7 @@
 	const toastStore = getToastStore();
 
 	let currentMessage: string;
+	let textarea: HTMLTextAreaElement;
 
 	async function createNewChat() {
 		try {
@@ -44,6 +45,13 @@
 		}
 	}
 
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Enter' && !event.shiftKey) {
+			event.preventDefault();
+			onSendMessage();
+		}
+	}
+
 	function onSendMessage(): void {
 		if ($page.url.pathname.includes('newChat')) {
 			console.log('Creating new chat');
@@ -60,6 +68,13 @@
 			sendMessage(currentMessage);
 		}
 		currentMessage = '';
+		textarea.style.height = 'auto'; // Setzt die Höhe des Textfelds zurück
+	}
+
+	function autoResize(event: Event) {
+		const target = event.target as HTMLTextAreaElement;
+		target.style.height = 'auto';
+		target.style.height = target.scrollHeight + 'px';
 	}
 </script>
 
@@ -68,11 +83,14 @@
 		<button class="input-group-shim">+</button>
 		<textarea
 			bind:value={currentMessage}
-			class="bg-transparent border-0 ring-0"
+			bind:this={textarea}
+			class="bg-transparent border-0 ring-0 overflow-y-auto"
 			name="prompt"
 			id="prompt"
 			placeholder="Write a message..."
 			rows="1"
+			on:keydown={handleKeydown}
+			on:input={autoResize}
 		></textarea>
 		<button
 			class={currentMessage ? 'variant-filled-primary' : 'input-group-shim'}

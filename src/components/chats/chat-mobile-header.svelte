@@ -8,7 +8,9 @@
 	export let chatPartner: string;
 </script>
 
-<div class="flex items-center bg-surface-50 dark:bg-surface-900">
+<div
+	class="flex items-center bg-surface-50 dark:bg-surface-900 w-full border-b border-surface-500/30"
+>
 	<button
 		class="lg:hidden h-12 btn"
 		on:click={() => {

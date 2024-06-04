@@ -31,19 +31,21 @@
 	</div>
 	{#if !isError}
 		{#if authors}
-			{#each authors as author}
-				<div class="w-full p-2 md:px-12 px-10">
-					<button
-						class="w-full my-2hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
-						on:click={() => {
-							goto(`/home/chats/newChat/${author.username}`);
-							modalStore.close();
-						}}
-					>
-						<UserComponent {author} />
-					</button>
-				</div>
-			{/each}
+			<div class="overflow-y-auto">
+				{#each authors as author}
+					<div class="w-full p-2 md:px-12 px-10">
+						<button
+							class="w-full my-2hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
+							on:click={() => {
+								goto(`/home/chats/newChat/${author.username}`);
+								modalStore.close();
+							}}
+						>
+							<UserComponent {author} />
+						</button>
+					</div>
+				{/each}
+			</div>
 		{:else}
 			<p class="flex justify-center">Keine Nutzer gefunden</p>
 		{/if}

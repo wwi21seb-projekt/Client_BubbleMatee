@@ -21,7 +21,6 @@
 
 	let sortedAndClusteredMessages: Array<SortedMessages> = [];
 
-	console.log(chatMessages);
 	$: {
 		// Sort messages so the newest ones are first
 		chatMessages.sort(
@@ -52,24 +51,30 @@
 	<ContactList {chatId} data={chatData.chatsData} {chatPartner} />
 	{#if chatId}
 		<!-- Chat -->
-		<div class="grid">
+		<div class="h-full">
 			{#if chatMessagesError}
 				<main class="p-4 h-full grid grid-cols-1 place-content-center justify-items-center">
 					<ErrorAlert message={errorChatMessage} />
 				</main>
 			{:else}
-				<div class="w-full">
-					<ChatMobileHeader {chatPartner} />
-					<Chat
-						chatMessages={sortedAndClusteredMessages}
+				<div class="w-full h-full">
+					<div class="flex justify-center m-0 sticky top-0 z-40 bg-surface-50 dark:bg-surface-900">
+						<ChatMobileHeader {chatPartner} />
+					</div>
+					<div class="overflow-y-auto h-full">
+						<Chat
+							chatMessages={sortedAndClusteredMessages}
+							username={chatData.username}
+							{unsendChatMessages}
+						/>
+					</div>
+				</div>
+				<div class="m-0 sticky bottom-0 z-40 bg-surface-50 dark:bg-surface-900">
+					<SendMessageComponent
 						username={chatData.username}
-						{unsendChatMessages}
+						chatPartnerUsername={chatPartnerUsernameFromUrl}
 					/>
 				</div>
-				<SendMessageComponent
-					username={chatData.username}
-					chatPartnerUsername={chatPartnerUsernameFromUrl}
-				/>
 			{/if}
 		</div>
 	{/if}

@@ -22,7 +22,10 @@
 							<header class="flex justify-between items-center">
 								<p class="font-bold">{chat.username}</p>
 								<small class="opacity-50"
-									>{new Date(chat.creationDate).toLocaleTimeString('de-DE')}</small
+									>{new Date(chat.creationDate).toLocaleTimeString('de-DE', {
+										hour: '2-digit',
+										minute: '2-digit'
+									})}</small
 								>
 							</header>
 							<p>{chat.content}</p>
@@ -36,7 +39,10 @@
 							<header class="flex justify-between items-center">
 								<p class="font-bold">{chat.username}</p>
 								<small class="opacity-50"
-									>{new Date(chat.creationDate).toLocaleTimeString('de-DE')}</small
+									>{new Date(chat.creationDate).toLocaleTimeString('de-DE', {
+										hour: '2-digit',
+										minute: '2-digit'
+									})}</small
 								>
 							</header>
 							<p>{chat.content}</p>
@@ -52,7 +58,12 @@
 				<div class="card p-4 rounded-tr-none space-y-2 bg-primary-700 dark:bg-primary-700 relative">
 					<header class="flex justify-between items-center">
 						<p class="font-bold">{chat.username}</p>
-						<small class="opacity-50">{chat.creationDate}</small>
+						<small class="opacity-50"
+							>{new Date(chat.creationDate).toLocaleTimeString('de-DE', {
+								hour: '2-digit',
+								minute: '2-digit'
+							})}</small
+						>
 					</header>
 					<p>{chat.content}</p>
 					<div class="loader-container">
