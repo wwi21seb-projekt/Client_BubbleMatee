@@ -1,3 +1,4 @@
+import type { ChatMessageResponse, ChatsResponse, ErrorResponse } from '$domains/ServerResponses';
 import type { User } from './user';
 
 export interface Chats {
@@ -22,4 +23,10 @@ export interface ChatMessage {
 	content: string;
 	username: string;
 	creationDate: string;
+}
+
+export interface ChatData {
+	chatsData: ChatsResponse | ErrorResponse;
+	chatMessageData: ErrorResponse | ChatMessageResponse;
+	username: string;
 }

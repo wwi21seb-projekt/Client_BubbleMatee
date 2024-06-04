@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { ChatComponent } from '$components';
-	import type { ChatData, ChatMessage, ChatMessages, ErrorObject } from '$domains';
+	import type { ChatData, ChatMessage, ChatMessages, Chats, ErrorObject } from '$domains';
 	import { connectToWebSocket, subscribeMessage, subscribeUnsendMessage } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { onMount } from 'svelte';
 
 	export let data: ChatData;
-	let chatId: string = $page.params.chatId;
+	export let newUser: string = $page.params.username;
+
+	let chatId: string = 'newChat';
 	let errorChatMessage: string = '';
 	$: chatMessagesError = data.chatMessageData.error
 		? (data.chatMessageData.data as ErrorObject)
@@ -15,6 +17,25 @@
 	$: chatMessages = data.chatMessageData.error
 		? []
 		: ((data.chatMessageData.data as ChatMessages).records as Array<ChatMessage>);
+
+	$: data = {
+		...data,
+		chatsData: {
+			...data.chatsData,
+			data: {
+				...data.chatsData.data,
+				records: data.chatsData.error
+					? []
+					: [
+							...(data.chatsData.data as Chats).records,
+							{
+								chatId: 'newChat',
+								user: { username: newUser, email: '', nickname: '' }
+							}
+						]
+			}
+		}
+	};
 
 	let unsendChatMessages: Array<ChatMessage> = [];
 

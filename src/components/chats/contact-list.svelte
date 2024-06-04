@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { ErrorAlert } from '$components';
-	import type { Chats, ChatsResponse, ErrorObject, ErrorResponse } from '$domains';
+	import type { ChatResponse, Chats, ChatsResponse, ErrorObject, ErrorResponse } from '$domains';
 	import { Person } from '$images';
 	import { getErrorMessage } from '$utils';
 	import { Avatar } from '@skeletonlabs/skeleton';
+	import { Plus } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
 
 	export let data: ChatsResponse | ErrorResponse;
@@ -17,6 +19,35 @@
 	onMount(() => {
 		errorMessage = error ? getErrorMessage(error.error.code, true) : '';
 	});
+
+	async function createNewChat(
+		username: string,
+		content: string
+	): Promise<ErrorResponse | ChatResponse> {
+		try {
+			const response = await fetch(`/api/chats`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					username: username,
+					content: content
+				})
+			});
+			const body: ErrorResponse | ChatResponse = await response.json();
+			return body;
+		} catch (e) {
+			const errorResponse: ErrorResponse = {
+				error: true,
+				data: {
+					error: {
+						code: 'internal_server_error',
+						message: 'Failed to load comments'
+					}
+				}
+			};
+			return errorResponse;
+		}
+	}
 </script>
 
 {#if error}
@@ -25,13 +56,15 @@
 	</main>
 {:else}
 	<div class="lg:grid grid-rows-[auto_1fr_auto] border-r border-surface-500/30">
-		<!-- Header -->
-		<header class="border-b border-surface-500/30 p-4">
-			<input class="input" type="search" placeholder="Search..." />
-		</header>
 		<!-- List -->
 		<div class="p-4 space-y-4 overflow-y-auto">
-			<small class="opacity-50">Kontakte</small>
+			<div class="flex justify-between items-center">
+				<small class="opacity-50">Kontakte</small>
+				<button type="button" class="btn variant-filled-primary" on:click={() => {}}>
+					<p>Neuer Chat</p>
+					<Icon src={Plus} class="h-4 font-bold hover:stroke-gray-400" />
+				</button>
+			</div>
 			<div class="flex flex-col space-y-1">
 				{#if chats}
 					{#each chats.records as person}

@@ -79,3 +79,4 @@ export { default as ChatButton } from './chats/chat-button.svelte';
 export { default as Chat } from './chats/chat.svelte';
 export { default as SendMessageComponent } from './chats/send-message-component.svelte';
 export { default as ContactList } from './chats/contact-list.svelte';
+export { default as ChatComponent } from './chats/chat-component.svelte';

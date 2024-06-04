@@ -7,7 +7,7 @@ import type { CommentList } from './ServerDomains/comments';
 import type { Comment } from '$domains';
 import type { Author, LocationPlace, PostData, PostWithRepost } from './Post';
 import type { Notification } from './ServerDomains/notifications';
-import type { ChatMessages, Chats } from './ServerDomains/chats';
+import type { Chat, ChatMessages, Chats } from './ServerDomains/chats';
 
 export interface Response {
 	error: boolean;
@@ -36,6 +36,10 @@ export interface ChatsResponse extends Response {
 
 export interface ChatMessageResponse extends Response {
 	data: ChatMessages;
+}
+
+export interface ChatResponse extends Response {
+	data: Chat;
 }
 
 export interface LoginResponse extends Response {

@@ -38,6 +38,7 @@ export type {
 	NotificationResponse,
 	VapidResponse,
 	ChatsResponse,
+	ChatResponse,
 	ChatMessageResponse
 } from './ServerResponses';
 
@@ -48,4 +49,4 @@ export type { UserFeed } from './ServerDomains/userFeed';
 export type { TokenPayload } from './ServerDomains/token';
 export type { SubscriptionList, Follower } from './ServerDomains/subscription';
 export type { Notification } from './ServerDomains/notifications';
-export type { Chat, Chats, ChatMessage, ChatMessages } from './ServerDomains/chats';
+export type { Chat, Chats, ChatMessage, ChatMessages, ChatData } from './ServerDomains/chats';
