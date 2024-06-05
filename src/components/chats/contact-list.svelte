@@ -42,7 +42,7 @@
 		<ErrorAlert message={errorMessage} />
 	</main>
 {:else}
-	<div class="w-full flex flex-col h-full overflow-y-auto border-r border-surface-500/30">
+	<div class="w-full flex flex-col overflow-y-auto border-r border-surface-500/30">
 		<div class="{chatId ? 'hidden' : ''} lg:grid grid-rows-[auto_1fr_auto]">
 			<!-- List -->
 			<div class="p-4 space-y-4">
@@ -73,12 +73,12 @@
 								</span>
 							</button>
 						{/each}
+						<div class="grow"></div>
 					{:else}
 						<p>Keine offenen Chats</p>
 					{/if}
 				</div>
 			</div>
 		</div>
-		<div class="grow"></div>
 	</div>
 {/if}
