@@ -7,7 +7,8 @@
 		ErrorAlert,
 		SendMessageComponent
 	} from '$components';
-	import type { ChatData, ChatMessage, ErrorObject, SortedMessages } from '$domains';
+	import type { ChatData, ChatMessage, ChatsResponse, ErrorObject, SortedMessages } from '$domains';
+	import { onMount } from 'svelte';
 
 	export let chatId: string;
 	export let chatData: ChatData;
@@ -45,30 +46,36 @@
 			}
 		});
 	}
+
+	$: onMount(() => {
+		if (chatId) {
+			(chatData.chatsData as ChatsResponse).data.records.map((chat) => {
+				if (chat.chatId === chatId) {
+					chatPartner = chat.user.username;
+				}
+			});
+		}
+	});
 </script>
 
-<div class="chat w-full h-full {chatId ? 'lg:grid lg:grid-cols-[30%_1fr]' : ''}">
+<div class="chat mobile-height overflow-hidden {chatId ? 'lg:grid lg:grid-cols-[30%_1fr]' : ''}">
 	<ContactList {chatId} data={chatData.chatsData} {chatPartner} />
 	{#if chatId}
 		<!-- Chat -->
-		<div class="h-full">
+		<div class="overflow-hidden">
 			{#if chatMessagesError}
 				<main class="p-4 h-full grid grid-cols-1 place-content-center justify-items-center">
 					<ErrorAlert message={errorChatMessage} />
 				</main>
 			{:else}
-				<div class="w-full h-full">
-					<div class="flex justify-center m-0 sticky top-0 z-40 bg-surface-50 dark:bg-surface-900">
-						<ChatMobileHeader {chatPartner} />
-					</div>
-					<div class="overflow-y-auto h-full">
-						<Chat
-							chatMessages={sortedAndClusteredMessages}
-							username={chatData.username}
-							{unsendChatMessages}
-						/>
-					</div>
+				<div class="flex justify-center m-0 sticky top-0 z-40 bg-surface-50 dark:bg-surface-900">
+					<ChatMobileHeader {chatPartner} />
 				</div>
+				<Chat
+					chatMessages={sortedAndClusteredMessages}
+					username={chatData.username}
+					{unsendChatMessages}
+				/>
 				<div class="m-0 sticky bottom-0 z-40 bg-surface-50 dark:bg-surface-900">
 					<SendMessageComponent
 						username={chatData.username}
@@ -79,3 +86,9 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.mobile-height {
+		height: 80vh;
+	}
+</style>

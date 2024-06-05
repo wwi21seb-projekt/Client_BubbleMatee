@@ -8,7 +8,7 @@
 	export let unsendChatMessages: Array<ChatMessage>;
 </script>
 
-<section class="p-4 overflow-y-auto space-y-4">
+<div class="p-4 overflow-auto h-96 lg:h-3/4 space-y-4">
 	{#if chatMessages}
 		{#each chatMessages as chatDay}
 			<span class="chip-disabled variant-ghost flex justify-center items-center text-sm"
@@ -74,7 +74,7 @@
 			</div>
 		{/each}
 	{/if}
-</section>
+</div>
 
 <style>
 	.loader-container {

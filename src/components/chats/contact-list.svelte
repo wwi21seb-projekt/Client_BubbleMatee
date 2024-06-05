@@ -42,7 +42,7 @@
 		<ErrorAlert message={errorMessage} />
 	</main>
 {:else}
-	<div class="w-full flex flex-col overflow-y-auto border-r border-surface-500/30">
+	<div class="w-full flex flex-col border-r border-surface-500/30">
 		<div class="{chatId ? 'hidden' : ''} lg:grid grid-rows-[auto_1fr_auto]">
 			<!-- List -->
 			<div class="p-4 space-y-4">
@@ -53,7 +53,7 @@
 						<Icon src={Plus} class="h-4 font-bold hover:stroke-gray-400" />
 					</button>
 				</div>
-				<div class="flex flex-col space-y-1">
+				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1">
 					{#if chats}
 						{#each chats.records as person}
 							<button
