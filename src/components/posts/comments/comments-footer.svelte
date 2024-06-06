@@ -23,7 +23,7 @@
 		const response = await loadSearchedUser(search, 0, '5');
 		let userSearch = response.data.records.map((record: Author) => ({
 			nickname: record.nickname,
-			profilePictureUrl: record.profilePictureUrl,
+			picture: record.picture,
 			username: record.username
 		}));
 		authors = userSearch;

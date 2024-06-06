@@ -17,7 +17,7 @@
 	export let isError: boolean;
 	export let error: Error;
 	export let lastPage: boolean;
-	export let chipString;
+	export let chipString: string;
 </script>
 
 <div

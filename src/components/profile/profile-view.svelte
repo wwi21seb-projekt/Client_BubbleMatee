@@ -4,6 +4,7 @@
 	import type {
 		ErrorObject,
 		ErrorResponse,
+		Picture,
 		PostData,
 		PostWithRepost,
 		UserInfo,
@@ -47,7 +48,7 @@
 	function handleLoadResult(data: PostData | ErrorObject): void {
 		if ('posts' in data) {
 			if (user) {
-				enrichPostsWithAuthor(data.posts, user.username, user.nickname, user.profilePictureUrl);
+				enrichPostsWithAuthor(data.posts, user.username, user.nickname, user.picture);
 			}
 			postData.posts = postData.posts.concat(data.posts);
 			postData.overallRecords = data.overallRecords;
@@ -76,13 +77,13 @@
 		posts: Array<PostWithRepost>,
 		username: string,
 		nickname: string,
-		profilePictureUrl: string
+		picture: Picture | undefined 
 	): void {
 		posts.forEach((post) => {
 			post.author = {
 				username: username,
 				nickname: nickname,
-				profilePictureUrl: profilePictureUrl
+				picture: picture
 			};
 		});
 	}

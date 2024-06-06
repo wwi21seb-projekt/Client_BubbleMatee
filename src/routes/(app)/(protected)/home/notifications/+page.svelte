@@ -91,8 +91,8 @@
 							<Avatar
 								border="hover:border-2 hover:!border-surface-600"
 								cursor="cursor-pointer"
-								src={notification.user.profilePictureUrl
-									? notification.user.profilePictureUrl
+								src={notification.user.picture && notification.user.picture.url
+									? notification.user.picture.url
 									: Person}
 							/>
 						</div>

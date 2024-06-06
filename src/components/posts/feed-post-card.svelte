@@ -90,7 +90,7 @@
 						author: {
 							username: record.author.username,
 							nickname: record.author.nickname,
-							profilePictureUrl: record.author.profilePictureUrl
+							picture: record.author.picture
 						},
 						creationDate: new Date(record.creationDate),
 						content: record.content
@@ -143,7 +143,11 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:dblclick={toggleLike} class="m-4">
 	<div
-		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
+		class={`${isRepost ? 
+		"!bg-gradient-to-br dark:from-tertiary-400 dark:to-secondary-400 from-primary-500 to-primary-700" :
+		"!bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600"} 
+		w-full p-4 rounded-xl`}
+
 	>
 		<header>
 			<FeedPostHeader
@@ -154,12 +158,8 @@
 				{isRepost}
 			/>
 		</header>
-		<main class="card w-full !bg-transparent my-2">
-			<FeedPostMain text={post.content} />
-			{#if post.location}
-				<FeedPostLocation location={post.location} />
-			{/if}
-			{#if post.repost && !isRepost}
+		{#if post.repost && !isRepost}
+		<div class="w-full !bg-transparent my-2">
 				<FeedPostCard
 					isRepost={true}
 					deletePost={() => {}}
@@ -169,8 +169,15 @@
 					loadMoreComments={null}
 					unlikePost={null}
 				/>
+		</div>
 			{/if}
-		</main>
+		<div class="card w-full !bg-transparent my-2 mx-2">
+			<FeedPostMain text={post.content} picture={post.picture}/>
+			{#if post.location}
+			<FeedPostLocation location={post.location} />
+			{/if}
+			
+		</div>
 		{#if !isRepost}
 			<footer>
 				<footer>

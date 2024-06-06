@@ -17,7 +17,7 @@
 		const modalComponent: ModalComponent = {
 			ref: Avatar,
 			props: {
-				src: user.profilePictureUrl ? user.profilePictureUrl : Person,
+				src: user.picture && user.picture.url != '' ? user.picture.url : Person,
 				width: 'w-1/2 sm:w-1/3 md:w-1/6'
 			}
 		};
@@ -53,7 +53,7 @@
 					<Avatar
 						border="hover:border-2 hover:!border-surface-600"
 						cursor="cursor-pointer"
-						src={user.profilePictureUrl ? user.profilePictureUrl : Person}
+						src={user.picture && user.picture.url != '' ? user.picture.url : Person}
 						on:click={handlePictureClick}
 					/>
 				</div>

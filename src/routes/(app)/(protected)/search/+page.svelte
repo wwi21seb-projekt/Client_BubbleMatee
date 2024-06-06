@@ -117,7 +117,7 @@
 			followerId: '',
 			followingId: '',
 			nickname: record.nickname,
-			profilePictureUrl: record.profilePictureUrl,
+			picture: record.picture,
 			username: record.username
 		}));
 		postSearch.posts = [];

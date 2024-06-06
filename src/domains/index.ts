@@ -12,7 +12,8 @@ export type {
 	LocationPlace,
 	UploadRestrictions,
 	Comment,
-	CommentData
+	CommentData,
+	Picture
 } from './Post';
 
 export type {

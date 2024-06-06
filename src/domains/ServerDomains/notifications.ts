@@ -1,3 +1,5 @@
+import type { Picture } from "$domains/Post";
+
 export interface Notification {
 	notificationId: string;
 	timestamp: Date;
@@ -5,6 +7,6 @@ export interface Notification {
 	user: {
 		username: string;
 		nickname: string;
-		profilePictureUrl: string;
+		picture?: Picture;
 	};
 }
