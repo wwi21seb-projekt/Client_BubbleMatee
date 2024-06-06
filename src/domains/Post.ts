@@ -16,12 +16,12 @@ export interface Post {
 	picture?: Picture;
 }
 
-export interface Picture{
-		url: string,
-		width: number,
-		height:number
-		tag?:number
-	} 
+export interface Picture {
+	url: string;
+	width: number;
+	height: number;
+	tag?: number;
+}
 
 export interface PostWithRepost extends Post {
 	repost?: Post;

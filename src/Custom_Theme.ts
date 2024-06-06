@@ -28,7 +28,7 @@ export const CustomTheme: CustomThemeConfig = {
 		'--color-primary-400': '147 245 254', // #93f5fe
 		'--color-primary-500': '100 241 253', // #64F1FD
 		'--color-primary-600': '90 217 228', // #5ad9e4
-		'--color-primary-700': '75 181 190', // #4bb5be
+		'--color-primary-700': '85 200 220', // #4bb5be
 		'--color-primary-800': '60 145 152', // #3c9198
 		'--color-primary-900': '49 118 124', // #31767c
 		// secondary | #033C85

@@ -141,13 +141,14 @@
 
 <!--Component contains the header (Username/ Profile Picture etc/ the main post psrt (image/ text) and the footer (Likes and comments))-->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:dblclick={toggleLike} class="m-4">
+<div on:dblclick={toggleLike} class="">
 	<div
-		class={`${isRepost ? 
-		"!bg-gradient-to-br dark:from-tertiary-400 dark:to-secondary-400 from-primary-500 to-primary-700" :
-		"!bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600"} 
-		w-full p-4 rounded-xl`}
-
+		class={`${
+			isRepost
+				? '!bg-gradient-to-br dark:from-secondary-500 dark:to-secondary-600 from-primary-600 to-primary-700 '
+				: '!bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-600 from-primary-400 to-primary-600 mb-2'
+		} 
+		w-full rounded-xl p-4 `}
 	>
 		<header>
 			<FeedPostHeader
@@ -158,26 +159,27 @@
 				{isRepost}
 			/>
 		</header>
-		{#if post.repost && !isRepost}
-		<div class="w-full !bg-transparent my-2">
-				<FeedPostCard
-					isRepost={true}
-					deletePost={() => {}}
-					post={post.repost}
-					likePost={null}
-					postComment={null}
-					loadMoreComments={null}
-					unlikePost={null}
-				/>
-		</div>
+		<main class="m-4">
+			{#if post.repost && !isRepost}
+				<div class="card w-full !bg-transparent my-2 mx-0">
+					<FeedPostCard
+						isRepost={true}
+						deletePost={() => {}}
+						post={post.repost}
+						likePost={null}
+						postComment={null}
+						loadMoreComments={null}
+						unlikePost={null}
+					/>
+				</div>
 			{/if}
-		<div class="card w-full !bg-transparent my-2 mx-2">
-			<FeedPostMain text={post.content} picture={post.picture}/>
-			{#if post.location}
-			<FeedPostLocation location={post.location} />
-			{/if}
-			
-		</div>
+			<div class="card w-full !bg-transparent my-2">
+				<FeedPostMain text={post.content} picture={post.picture} />
+				{#if post.location}
+					<FeedPostLocation location={post.location} />
+				{/if}
+			</div>
+		</main>
 		{#if !isRepost}
 			<footer>
 				<footer>

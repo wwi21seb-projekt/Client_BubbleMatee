@@ -5,7 +5,6 @@
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
 	import { loading } from '$stores';
-	// lastPostID -> The ID of the last Post -> is needed to load the next posts
 	export let data: PostData | ErrorObject;
 	let postData: PostData = {
 		posts: new Array<PostWithRepost>(),

@@ -77,7 +77,7 @@
 		posts: Array<PostWithRepost>,
 		username: string,
 		nickname: string,
-		picture: Picture | undefined 
+		picture: Picture | undefined
 	): void {
 		posts.forEach((post) => {
 			post.author = {

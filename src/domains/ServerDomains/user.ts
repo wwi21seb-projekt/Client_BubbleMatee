@@ -1,4 +1,4 @@
-import type { Picture } from "$domains/Post";
+import type { Picture } from '$domains/Post';
 
 export interface Tokens {
 	token: string;
