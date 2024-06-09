@@ -9,6 +9,8 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
 	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
+
 	const modalStore = getModalStore();
 
 	export let data: ChatsResponse | ErrorResponse;
@@ -57,6 +59,7 @@
 					{#if chats}
 						{#each chats.records as person}
 							<button
+								disabled={$page.params.username === person.user.username}
 								type="button"
 								class="btn w-full flex items-center space-x-4 {person.chatId === chatId
 									? 'variant-filled-primary'

@@ -3,11 +3,11 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
- * Handles GET requests to retrieve posts.
+ * Handles GET request to retrieve chat messages.
  *
  * @param fetch The fetch function for making HTTP requests.
  * @param url The requested URL containing the search parameters.
- * @returns The response containing feed data or an error.
+ * @returns The response containing all chat messages or an error.
  */
 export const GET: RequestHandler = async ({ fetch, url }) => {
 	try {

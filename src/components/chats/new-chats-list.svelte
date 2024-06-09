@@ -4,6 +4,8 @@
 	import { globalConfig, loadSearchedUser } from '$utils';
 	import { goto } from '$app/navigation';
 	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { ChevronLeft } from '@steeze-ui/heroicons';
 	const modalStore = getModalStore();
 
 	let searchTerm: string = '';
@@ -16,7 +18,6 @@
 		isError = body.error;
 		if (!isError) {
 			authors = body.data.records;
-			offset += parseInt(globalConfig.limit);
 		}
 	};
 
@@ -26,7 +27,10 @@
 <div
 	class="h-[calc(100vh-32px)] bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full lg:h-[calc(75vh)] lg:ml-14 lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
 >
-	<div class="flex justify-center">
+	<div class="flex justify-between items-center">
+		<button on:click={() => modalStore.close()} class="h-8 m-4 lg:hidden"
+			><Icon src={ChevronLeft} /></button
+		>
 		<SearchBar bind:searchTerm {handleSearch} />
 	</div>
 	{#if !isError}

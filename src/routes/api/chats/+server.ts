@@ -3,11 +3,11 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 /**
- * Handles GET requests to retrieve global or personal feed.
+ * Handles GET request to get all chats.
  *
  * @param fetch The fetch function for making HTTP requests.
  * @param url The requested URL containing the search parameters.
- * @returns The response containing feed data or an error.
+ * @returns The response containing data of about all chat partners.
  */
 export const GET: RequestHandler = async ({ fetch }) => {
 	try {
@@ -37,10 +37,10 @@ export const GET: RequestHandler = async ({ fetch }) => {
 };
 
 /**
- * Handles POST requests for commenting a post.
+ * Handles POST requests for creating a new chat.
  * @param fetch The fetch function for making HTTP requests.
  * @param request The SvelteKit request object.
- * @returns The response containing registration data or an error.
+ * @returns The response containing the created chat.
  */
 
 export const POST: RequestHandler = async ({ fetch, request }) => {
