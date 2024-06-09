@@ -1,16 +1,30 @@
 <script lang="ts">
 	import { getUserInfoColors, getUserInfoIcons, isValidUsername } from '$utils';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+
+	const toastStore = getToastStore();
+	const t: ToastSettings = {
+		message:
+			'Der Nutzername darf nur alphanumerische Zeichen enthalten und nicht länger als 20 Zeichen sein.'
+	};
 
 	export let username: string = '';
 	export let isSignUp: boolean = false;
 
 	$: usernameColor = getUserInfoColors(username, isValidUsername);
 	$: usernameIcon = getUserInfoIcons(username, isValidUsername);
+
+	// Überprüfe die Gültigkeit des Nutzernamens nach jeder Eingabe
+	function validateUsername() {
+		if (username && !isValidUsername(username)) {
+			toastStore.trigger(t);
+		}
+	}
 </script>
 
 <label>
-	<span>Nutzname:</span>
+	<span>Nutzername:</span>
 	<div class="input-group input-group-divider grid-cols-[1fr_auto]">
 		<input
 			class="input"
@@ -21,6 +35,7 @@
 			bind:value={username}
 			required
 			maxLength="20"
+			on:input={validateUsername}
 		/>
 		{#if isSignUp && usernameIcon}
 			<button class="[&>*]:pointer-events-none">
@@ -29,7 +44,3 @@
 		{/if}
 	</div>
 </label>
-
-<div class="card p-4 variant-filled-surface" data-popup="popupHoverUsername">
-	<p>Der Nutzernahme darf keine Sonderzeichen enthalten und nicht länger als 20 Zeichen sein</p>
-</div>

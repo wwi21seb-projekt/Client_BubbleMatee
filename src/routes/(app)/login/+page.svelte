@@ -112,4 +112,12 @@
 			>
 		</p>
 	</div>
+	<div class="flex justify-center">
+		<p>
+			Passwort vergessen? <a
+				class="dark:text-primary-500 text-secondary-500"
+				href="/login/passwordForget">Passwort zurücksetzen</a
+			>
+		</p>
+	</div>
 </main>
