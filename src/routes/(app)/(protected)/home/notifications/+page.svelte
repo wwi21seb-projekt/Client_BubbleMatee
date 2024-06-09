@@ -9,6 +9,9 @@
 	import type { Notification } from '$domains';
 
 	const toastStore = getToastStore();
+	$: nonMessageNotifications = $notifications.filter(
+		(notification) => notification.notificationType !== 'message'
+	);
 
 	function handleClick() {
 		goto('/home');
@@ -79,7 +82,7 @@
 <div class="flex w-full justify-center items-center">
 	<div class="w-full sm:w-3/4 md:w-full lg:w-3/4 align-self">
 		<div class="w-full">
-			{#each $notifications as notification (notification.notificationId)}
+			{#each nonMessageNotifications as notification (notification.notificationId)}
 				<div
 					class="flex justify-between items-center p-2 border-b border-gray-300 dark:border-gray-700"
 					id={notification.notificationId}
@@ -100,7 +103,9 @@
 							<p class="text-lg font-semibold dark:text-gray-300">
 								{getNotificationTitle(notification.notificationType)}
 							</p>
-							<p class="text-sm dark:text-gray-400">{getNotificationOptions(notification).body}</p>
+							<p class="text-sm dark:text-gray-400 text-left">
+								{getNotificationOptions(notification).body}
+							</p>
 						</div>
 					</button>
 					<!-- // button to mark notification as read -->
@@ -110,7 +115,7 @@
 				</div>
 			{/each}
 
-			{#if $notifications.length === 0}
+			{#if nonMessageNotifications.length === 0}
 				<div class="flex justify-center items-center h-96">
 					<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
 					<p class="text-lg font-semibold dark:text-gray-300">Keine Meldungen</p>
@@ -125,9 +130,5 @@
 		text-align: center;
 		margin: var(--default-margin) auto;
 		transition: transform 0.3s ease-in-out;
-	}
-
-	.h1:hover {
-		transform: scale(1.1);
 	}
 </style>
