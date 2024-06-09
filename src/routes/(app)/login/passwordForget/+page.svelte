@@ -20,9 +20,7 @@
 					'Content-Type': 'application/json'
 				}
 			});
-			console.log(response);
 			const body = await response.json();
-			console.log(body);
 			if (body.error) {
 				const t: ToastSettings = {
 					message: getErrorMessage(body.data.error.code, false),

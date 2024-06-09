@@ -54,7 +54,6 @@
 
 	function onSendMessage(): void {
 		if ($page.url.pathname.includes('newChat')) {
-			console.log('Creating new chat');
 			createNewChat();
 			return;
 		}
