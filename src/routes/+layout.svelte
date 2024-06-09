@@ -15,8 +15,7 @@
 	initializeStores();
 
 	if (typeof navigator !== 'undefined') {
-		navigator.serviceWorker.addEventListener('message', function (event) {
-			console.log('Received a message from service worker: ', event.data);
+		navigator.serviceWorker.addEventListener('message', function () {
 			hasNotifications.set(true);
 			invalidateAll();
 		});
