@@ -80,7 +80,7 @@
 
 <section class="border-t border-surface-500/30 p-4">
 	<div class="input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-container-token">
-		<button class="input-group-shim">+</button>
+		<div class="input-group-shim"></div>
 		<textarea
 			bind:value={currentMessage}
 			bind:this={textarea}
