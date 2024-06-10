@@ -121,19 +121,23 @@
 				}
 			} else {
 				const data = body.data as Comment;
-				const newComment: Comment = {
-					commentId: data.commentId,
-					author: data.author,
-					content: data.content,
-					creationDate: new Date(data.creationDate)
-				};
-				comments = comments.concat(newComment);
+				let newComment: Array<Comment> = [
+					{
+						commentId: data.commentId,
+						author: data.author,
+						content: data.content,
+						creationDate: new Date(data.creationDate)
+					}
+				];
+				newComment = newComment.concat(comments);
 			}
 			let commentDataNew = {
 				comments: comments,
 				overallRecords: commentData.overallRecords + 1
 			};
 			commentData = commentDataNew;
+
+			post.comments++;
 		}
 		return commentData;
 	}
