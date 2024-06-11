@@ -1,5 +1,6 @@
 <!--Component for a single post-->
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import {
 		FeedPostFooter,
 		FeedPostMain,
@@ -14,7 +15,8 @@
 		ErrorObject,
 		ErrorResponse,
 		PostWithRepost,
-		PostCommentResponse
+		PostCommentResponse,
+		Post
 	} from '$domains';
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
@@ -33,9 +35,10 @@
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
 	//function to delete this post -> calls a passed function
-	function deleteThisPost(): void {
-		if (deletePost) {
-			deletePost(post.postId);
+	function deleteThisPost(currentPost: PostWithRepost | Post | undefined): void {
+		if (deletePost && currentPost) {
+			deletePost(currentPost.postId);
+			invalidateAll();
 		}
 	}
 
@@ -129,7 +132,7 @@
 						creationDate: new Date(data.creationDate)
 					}
 				];
-				newComment = newComment.concat(comments);
+				comments = comments.concat(newComment);
 			}
 			let commentDataNew = {
 				comments: comments,
@@ -149,45 +152,49 @@
 	<div
 		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
 	>
-		<header>
-			<FeedPostHeader
-				date={post.creationDate}
-				author={post.author}
-				deletePost={deleteThisPost}
-				{post}
-				{isRepost}
-			/>
-		</header>
-		<main class="card w-full !bg-transparent my-2">
-			<FeedPostMain text={post.content} />
-			{#if post.location}
-				<FeedPostLocation location={post.location} />
-			{/if}
-			{#if post.repost && !isRepost}
-				<FeedPostCard
-					isRepost={true}
-					deletePost={() => {}}
-					post={post.repost}
-					likePost={null}
-					postComment={null}
-					loadMoreComments={null}
-					unlikePost={null}
+		{#if post.author}
+			<header>
+				<FeedPostHeader
+					date={post.creationDate}
+					author={post.author}
+					deletePost={() => deleteThisPost(post)}
+					{post}
+					{isRepost}
 				/>
-			{/if}
-		</main>
-		{#if !isRepost}
-			<footer>
-				<footer>
-					<FeedPostFooter
-						{post}
-						likePost={likeThisPost}
-						unlikePost={unlikeThisPost}
-						{commentData}
-						loadMoreComments={loadMoreCommentsForThisPost}
-						commentPost={commentThisPost}
+			</header>
+			<main class="card w-full !bg-transparent my-2">
+				<FeedPostMain text={post.content} />
+				{#if post.location}
+					<FeedPostLocation location={post.location} />
+				{/if}
+				{#if post.repost && !isRepost}
+					<FeedPostCard
+						isRepost={true}
+						deletePost={() => deleteThisPost(post.repost)}
+						post={post.repost}
+						likePost={null}
+						postComment={null}
+						loadMoreComments={null}
+						unlikePost={null}
 					/>
+				{/if}
+			</main>
+			{#if !isRepost}
+				<footer>
+					<footer>
+						<FeedPostFooter
+							{post}
+							likePost={likeThisPost}
+							unlikePost={unlikeThisPost}
+							{commentData}
+							loadMoreComments={loadMoreCommentsForThisPost}
+							commentPost={commentThisPost}
+						/>
+					</footer>
 				</footer>
-			</footer>
+			{/if}
+		{:else}
+			<div class="flex justify-center items-center font-bold">originaler Post gelöscht</div>
 		{/if}
 	</div>
 </div>
