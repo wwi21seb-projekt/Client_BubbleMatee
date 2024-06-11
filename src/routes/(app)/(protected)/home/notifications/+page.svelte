@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { ArrowLeft, Check, CheckCircle } from '@steeze-ui/heroicons';
+	import { Check, CheckCircle, ChevronLeft } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getErrorMessage, getNotificationOptions, getNotificationTitle } from '$utils';
 	import { hasNotifications, notifications } from '$stores';
 	import { Person } from '$images';
 	import type { Notification } from '$domains';
+	import { NothingFoundComponent } from '$components';
 
 	const toastStore = getToastStore();
 
@@ -63,7 +64,7 @@
 <span class="relative">
 	<button on:click={handleClick} class="ml-2 absolute left-0 inset-y-0">
 		<Icon
-			src={ArrowLeft}
+			src={ChevronLeft}
 			class="h1 h-8 md:h-10 font-bold stroke-primary-900 dark:stroke-primary-500 z-100"
 		/>
 	</button>
@@ -112,8 +113,10 @@
 
 			{#if $notifications.length === 0}
 				<div class="flex justify-center items-center h-96">
-					<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
-					<p class="text-lg font-semibold dark:text-gray-300">Keine Meldungen</p>
+					<NothingFoundComponent
+						message="Keine Meldungen"
+						submessage="Es sind keine neuen Meldungen vorhanden"
+					/>
 				</div>
 			{/if}
 		</div>

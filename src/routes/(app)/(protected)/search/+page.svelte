@@ -191,7 +191,7 @@
 	<Feed
 		postData={postDataGlobaleFeed}
 		{loadMorePosts}
-		nothingFoundMessage={'Keine Post gefunden'}
+		nothingFoundMessage={'Keine Posts gefunden'}
 		nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
 	/>
 {/if}

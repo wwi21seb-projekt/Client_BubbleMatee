@@ -3,11 +3,11 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	export let message: string;
-	export let submessage: string | null;
+	export let submessage: string | null = '';
 </script>
 
 <div
-	class="w-full rounded-xl flex flex-col items-center justify-center card variant-ghost-error p-4"
+	class="w-full rounded-xl flex flex-col items-center justify-center card variant-ghost-primary p-4"
 >
 	<div class="flex items-center justify-between w-full">
 		<div class="flex items-center">

@@ -48,7 +48,7 @@
 <Feed
 	{postData}
 	{loadMorePosts}
-	nothingFoundMessage={'Keine Post gefunden'}
+	nothingFoundMessage={'Keine Posts gefunden'}
 	nothingFoundSubMessage={'Folge anderen Accounts, um ihre neusten Beiträge hier zu sehen'}
 ></Feed>
 

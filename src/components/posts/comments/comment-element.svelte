@@ -49,9 +49,7 @@
 				<p class="text-xl md:text-2xl font-bold">{comment.author.username}</p>
 			</button>
 
-			<small class="text-sm md:text-base"
-				>{dateString === 'Gerade eben' ? 'vor ' + dateString : dateString}</small
-			>
+			<small class="text-sm md:text-base">{'vor ' + dateString}</small>
 		</header>
 		<div>
 			<!--The actual comment. If the text is longer than 128 characters it is shortend and the user can switch between the long and the short version-->

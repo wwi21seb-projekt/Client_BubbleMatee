@@ -2,7 +2,7 @@
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
 	import { derived } from 'svelte/store';
 	import { isFileSelected, postText, loading } from '$stores';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import type { Error, Post } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
