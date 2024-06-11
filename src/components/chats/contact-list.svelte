@@ -5,7 +5,7 @@
 	import { Person } from '$images';
 	import { getErrorMessage } from '$utils';
 	import { Avatar, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
-	import { CheckCircle, ChevronLeft, Plus } from '@steeze-ui/heroicons';
+	import { ChevronLeft, Plus } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
 	import { getModalStore } from '@skeletonlabs/skeleton';

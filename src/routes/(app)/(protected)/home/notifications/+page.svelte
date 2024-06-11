@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Check, CheckCircle, ChevronLeft } from '@steeze-ui/heroicons';
+	import { Check, ChevronLeft } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getErrorMessage, getNotificationOptions, getNotificationTitle } from '$utils';
