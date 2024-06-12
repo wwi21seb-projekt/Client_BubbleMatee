@@ -93,7 +93,10 @@
 		if (urlProps.offset !== null) {
 			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
 			const response = await searchUsers();
-			handleUsers({ ...response, records: [...userSearch, ...response.records] });
+			handleUsers({
+				...response,
+				records: 'error' in response ? [...userSearch] : [...userSearch, ...response.records]
+			});
 		}
 	}
 	async function loadMorePostsSearch() {
@@ -119,17 +122,19 @@
 		postSearch.overallRecords = response.overallRecords;
 	}
 	async function handleUsers(response: UserSearch) {
-		userSearch = response.records.map((record) => ({
-			followerId: '',
-			followingId: '',
-			nickname: record.nickname,
-			profilePictureUrl: record.profilePictureUrl,
-			username: record.username
-		}));
+		if (!('error' in response)) {
+			userSearch = response.records.map((record) => ({
+				followerId: '',
+				followingId: '',
+				nickname: record.nickname,
+				profilePictureUrl: record.profilePictureUrl,
+				username: record.username
+			}));
+			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
+				? (lastPage = false)
+				: (lastPage = true);
+		}
 		postSearch.posts = [];
-		urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
-			? (lastPage = false)
-			: (lastPage = true);
 	}
 	export async function handleSearch() {
 		$loading = true;
