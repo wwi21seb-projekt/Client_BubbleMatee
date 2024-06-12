@@ -3,11 +3,7 @@
 <script lang="ts">
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ArrowLeft } from '@steeze-ui/heroicons';
-	import { getModalStore } from '@skeletonlabs/skeleton';
-	const leave = () => {
-		modalStore.close();
-	};
-	const modalStore = getModalStore();
+	export let leave: () => void;
 	export let title: string = '';
 </script>
 

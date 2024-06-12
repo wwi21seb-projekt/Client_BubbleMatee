@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Author, Error, FollowResponse, Follower } from '$domains';
+	import type { Author, Error, ErrorResponse, FollowResponse, Follower } from '$domains';
 	import { LoadMoreComponent, UserComponent } from '$components';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -55,8 +55,10 @@
 					message: getErrorMessage(body.data.error.code, false),
 					background: 'variant-filled-error'
 				};
-
 				toastStore.trigger(t);
+				if ((body as ErrorResponse).data.error.code == 'ERR-014') {
+					modalStore.close();
+				}
 			}
 		} else {
 			changeUsers(user, body);
