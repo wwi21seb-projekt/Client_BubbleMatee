@@ -34,7 +34,12 @@
 	const toastStore = getToastStore();
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
-	//function to delete this post -> calls a passed function
+	let comments: Array<Comment> = new Array<Comment>();
+	let commentData: CommentData = {
+		comments: comments,
+		overallRecords: 1
+	};
+
 	function deleteThisPost(currentPost: PostWithRepost | Post | undefined): void {
 		if (deletePost && currentPost) {
 			deletePost(currentPost.postId);
@@ -42,14 +47,12 @@
 		}
 	}
 
-	//function to delete this post -> calls a passed function
 	function likeThisPost(): void {
 		if (likePost) {
 			likePost(post.postId);
 		}
 	}
 
-	//function to delete this post -> calls a passed function
 	function unlikeThisPost(): void {
 		if (unlikePost) {
 			unlikePost(post.postId);
@@ -65,11 +68,7 @@
 			}
 		}
 	}
-	let comments: Array<Comment> = new Array<Comment>();
-	let commentData: CommentData = {
-		comments: comments,
-		overallRecords: 1
-	};
+
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
 		if (loadMoreComments) {
 			const body: CommentResponse | ErrorResponse = await loadMoreComments(
