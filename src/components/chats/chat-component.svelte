@@ -59,7 +59,7 @@
 </script>
 
 <div class="chat mobile-height overflow-hidden {chatId ? 'lg:grid lg:grid-cols-[30%_1fr]' : ''}">
-	<ContactList {chatId} data={chatData.chatsData} {chatPartner} />
+	<ContactList {chatId} data={chatData.chatsData} bind:chatPartner />
 	{#if chatId}
 		<!-- Chat -->
 		<div class="overflow-hidden">

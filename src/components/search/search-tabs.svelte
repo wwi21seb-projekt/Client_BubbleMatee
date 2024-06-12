@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { ChipComponent, PostTab, UserTab } from '$components';
 	import type { Error, Follower, PostData } from '$domains';
+	import { globalConfig } from '$utils';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import { DevicePhoneMobile, User } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-
-	export let POSTTAB: number;
-	export let USERTAB: number;
 
 	export let handleSearch: () => Promise<void>;
 	export let loadMoreUsers: () => Promise<void>;
@@ -35,13 +33,13 @@
 			flex="flex-1 lg:flex-none "
 			class="m-4"
 		>
-			<Tab on:change={handleSearch} bind:group={tabSet} name="tab1" value={POSTTAB}>
+			<Tab on:change={handleSearch} bind:group={tabSet} name="tab1" value={globalConfig.postTab}>
 				<div class="flex justify-center grid grid-col">
 					<Icon class="w-8" src={DevicePhoneMobile} />
 					<span>Posts</span>
 				</div>
 			</Tab>
-			<Tab on:change={handleSearch} bind:group={tabSet} name="tab2" value={USERTAB}>
+			<Tab on:change={handleSearch} bind:group={tabSet} name="tab2" value={globalConfig.userTab}>
 				<div class="flex justify-center grid grid-col">
 					<Icon class="flex justify-center w-8" src={User} />
 					<span>Nutzer</span>
@@ -49,9 +47,9 @@
 			</Tab>
 			<!-- Tab Panels --->
 			<svelte:fragment slot="panel">
-				{#if tabSet === POSTTAB}
+				{#if tabSet === globalConfig.postTab}
 					<PostTab loadMore={loadMorePostsSearch} postData={postSearch} {isError} {error} />
-				{:else if tabSet === USERTAB}
+				{:else if tabSet === globalConfig.userTab}
 					<UserTab loadMore={loadMoreUsers} users={userSearch} {isError} {error} {lastPage} />
 				{/if}
 			</svelte:fragment>

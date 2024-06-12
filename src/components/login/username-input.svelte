@@ -6,7 +6,8 @@
 	const toastStore = getToastStore();
 	const t: ToastSettings = {
 		message:
-			'Der Nutzername darf nur alphanumerische Zeichen enthalten und nicht länger als 20 Zeichen sein.'
+			'Der Nutzername darf nur alphanumerische Zeichen enthalten und nicht länger als 20 Zeichen sein.',
+		background: 'variant-filled-error'
 	};
 
 	export let username: string = '';

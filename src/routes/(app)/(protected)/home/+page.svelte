@@ -5,6 +5,7 @@
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
 	import { loading } from '$stores';
+	import { onMount } from 'svelte';
 	// lastPostID -> The ID of the last Post -> is needed to load the next posts
 	export let data: PostData | ErrorObject;
 	let postData: PostData = {
@@ -35,22 +36,29 @@
 		handleLoadResult(data);
 		$loading = false;
 	}
+
+	let main: HTMLElement;
+	onMount(() => {
+		main.scrollIntoView();
+	});
 </script>
 
-<h1 class="h1">
-	<span
-		class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
-		>PERSÖNLICHER FEED</span
-	>
-</h1>
-<!-- Separator Line -->
-<hr class="!border-t-8 !border-double" />
-<Feed
-	{postData}
-	{loadMorePosts}
-	nothingFoundMessage={'Keine Posts gefunden'}
-	nothingFoundSubMessage={'Folge anderen Accounts, um ihre neusten Beiträge hier zu sehen'}
-></Feed>
+<main bind:this={main}>
+	<h1 class="h1">
+		<span
+			class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
+			>PERSÖNLICHER FEED</span
+		>
+	</h1>
+	<!-- Separator Line -->
+	<hr class="!border-t-8 !border-double" />
+	<Feed
+		{postData}
+		{loadMorePosts}
+		nothingFoundMessage={'Keine Posts gefunden'}
+		nothingFoundSubMessage={'Folge anderen Accounts, um ihre neusten Beiträge hier zu sehen'}
+	></Feed>
+</main>
 
 <style>
 	/* Definition of CSS variables for recurring values */

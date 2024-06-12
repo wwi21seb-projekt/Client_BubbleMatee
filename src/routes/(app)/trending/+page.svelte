@@ -5,6 +5,7 @@
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
 	import { loading } from '$stores';
+	import { onMount } from 'svelte';
 	export let data: PostData | ErrorObject;
 	let postData: PostData = {
 		posts: new Array<PostWithRepost>(),
@@ -39,23 +40,30 @@
 		handleLoadResult(data);
 		$loading = false;
 	}
+	let main: HTMLElement;
+
+	onMount(() => {
+		main.scrollIntoView();
+	});
 </script>
 
-<h1 class="h1 flex justify-center m-4">
-	<span
-		class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
-		>TRENDING POSTS</span
-	>
-</h1>
-<!-- Separator Line -->
-<hr class="!border-t-8 !border-double" />
+<main bind:this={main}>
+	<h1 class="h1 flex justify-center m-4">
+		<span
+			class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
+			>AKTUELLE TRENDS</span
+		>
+	</h1>
+	<!-- Separator Line -->
+	<hr class="!border-t-8 !border-double" />
 
-<Feed
-	{postData}
-	{loadMorePosts}
-	nothingFoundMessage={'Keine Posts gefunden'}
-	nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
-></Feed>
+	<Feed
+		{postData}
+		{loadMorePosts}
+		nothingFoundMessage={'Keine Posts gefunden'}
+		nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
+	></Feed>
+</main>
 
 <style>
 	/* Definition of CSS variables for recurring values */
