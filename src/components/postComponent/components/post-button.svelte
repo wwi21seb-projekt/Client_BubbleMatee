@@ -1,7 +1,7 @@
 <script lang="ts">
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
 	import { derived } from 'svelte/store';
-	import { isFileSelected, postText, loading } from '$stores';
+	import { isFileSelected, postText, loading, uploadedImageUrl } from '$stores';
 	import { goto } from '$app/navigation';
 	import type { Error, Post } from '$domains';
 	import { getErrorMessage } from '$utils';
@@ -48,6 +48,7 @@
 	type NewPost = {
 		repostedPostId?: string;
 		content: string;
+		picture?: string;
 		location: {
 			longitude: number;
 			latitude: number;
@@ -100,6 +101,7 @@
 
 				let postBody: NewPost = {
 					content: $postText,
+					picture: $uploadedImageUrl,
 					location: ARE_COORDS_VALID
 						? {
 								//optional
@@ -118,6 +120,8 @@
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(postBody)
 				});
+
+				console.log(postBody);
 
 				const body = await response.json();
 				// Handling potential errors from the response

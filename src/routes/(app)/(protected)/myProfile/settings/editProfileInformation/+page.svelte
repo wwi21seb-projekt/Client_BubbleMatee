@@ -35,7 +35,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ nickname: nicknameInput, status: statusInput })
+				body: JSON.stringify({ nickname: nicknameInput, status: statusInput, picture: null })
 			});
 
 			const body = await response.json();

@@ -100,63 +100,75 @@
 	}
 </script>
 
-<Geolocation {getPosition} {options} bind:coords let:loading let:success let:error let:notSupported>
-	{#if notSupported}
-		{showToast('Dein Browser unterstützt die Geolocation-API nicht.', 'variant-filled-error')}
-		{updateButtonState('deactivated')}
-	{:else}
-		{#if loading}
-			{showToast('Koordinaten werden ermittelt', 'variant-filled-success')}
-		{/if}
-		{#if success}
-			{updateButtonState('activated')}
-			{loadLocation()}
+<div class="flex flex-col items-center justify-center">
+	<!-- Dies stellt den Flex-Container dar -->
 
-			<div
-				class="card !bg-surface-300 dark:!bg-surface-700 border border-primary-500 rounded-xl p-4 mt-2 w-full max-w-[500px] divide-y divide-surface-500"
-			>
-				<div class="mb-1">
-					<p class="mb-1 text-xl font-semibold text-center w-full">{'Koodinaten'}</p>
-					<div class="w-full justify-center items-center flex flex-row mt-1">
-						<a
-							class="chip variant-soft-secondary hover:variant-filled-secondary dark:variant-soft-primary darkhover:variant-filled-primary flex flex-row justify-center items-center text-base md:text-lg rounded-xl px-5 py-1 mb-1"
-							href={`https://www.google.com/maps/search/?api=1&query=${coords[1]}%2C${coords[0]}`}
-						>
-							<img src={Pin} alt="Icon für Location" class="w-6 md:w-6 pr-1" />
-							<span>{`(${coords[1]},${coords[0]})`}</span>
-						</a>
-					</div>
-				</div>
-				<div>
-					<p class="mb-1 text-xl font-semibold text-center w-full">Standort</p>
-					<div class="w-full justify-center items-center flex flex-row mt-1">
-						<a
-							class="chip variant-soft-secondary hover:variant-filled-secondary dark:variant-soft-primary darkhover:variant-filled-primary flex flex-row justify-center items-center text-base md:text-lg rounded-xl px-5 py-1 mb-1"
-							href={`https://www.google.com/maps/search/?api=1&query=${coords[1]}%2C${coords[0]}`}
-						>
-							<img src={Pin} alt="Icon für Location" class="w-6 md:w-6 pr-1" />
-							<span>{standorttext}</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		{/if}
-		{#if error}
-			{showToast(
-				`Fehler bei der Ermittlung deiner Koordinaten: ${error.message}`,
-				'variant-filled-error'
-			)}
+	<Geolocation
+		{getPosition}
+		{options}
+		bind:coords
+		let:loading
+		let:success
+		let:error
+		let:notSupported
+	>
+		{#if notSupported}
+			{showToast('Dein Browser unterstützt die Geolocation-API nicht.', 'variant-filled-error')}
 			{updateButtonState('deactivated')}
-		{/if}
-	{/if}
-</Geolocation>
+		{:else}
+			{#if loading}
+				{showToast('Koordinaten werden ermittelt', 'variant-filled-success')}
+			{/if}
+			{#if success}
+				{updateButtonState('activated')}
+				{loadLocation()}
 
-<button
-	class={isLocationActivated
-		? 'btn variant-filled-success mt-2'
-		: 'btn variant-filled-warning mt-2'}
-	disabled={buttonDisabled}
-	on:click={handleButtonClick}
->
-	{buttonGeolocationText}
-</button>
+				<div
+					class="card !bg-surface-300 dark:!bg-surface-700 border border-primary-500 rounded-xl p-4 mt-2 w-full max-w-[500px] divide-y divide-surface-500"
+				>
+					<div class="mb-1">
+						<p class="mb-1 text-xl font-semibold text-center w-full">{'Koodinaten'}</p>
+						<div class="w-full justify-center items-center flex flex-row mt-1">
+							<a
+								class="chip variant-soft-secondary hover:variant-filled-secondary dark:variant-soft-primary darkhover:variant-filled-primary flex flex-row justify-center items-center text-base md:text-lg rounded-xl px-5 py-1 mb-1"
+								href={`https://www.google.com/maps/search/?api=1&query=${coords[1]}%2C${coords[0]}`}
+							>
+								<img src={Pin} alt="Icon für Location" class="w-6 md:w-6 pr-1" />
+								<span>{`(${coords[1]},${coords[0]})`}</span>
+							</a>
+						</div>
+					</div>
+					<div>
+						<p class="mb-1 text-xl font-semibold text-center w-full">Standort</p>
+						<div class="w-full justify-center items-center flex flex-row mt-1">
+							<a
+								class="chip variant-soft-secondary hover:variant-filled-secondary dark:variant-soft-primary darkhover:variant-filled-primary flex flex-row justify-center items-center text-base md:text-lg rounded-xl px-5 py-1 mb-1"
+								href={`https://www.google.com/maps/search/?api=1&query=${coords[1]}%2C${coords[0]}`}
+							>
+								<img src={Pin} alt="Icon für Location" class="w-6 md:w-6 pr-1" />
+								<span>{standorttext}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			{/if}
+			{#if error}
+				{showToast(
+					`Fehler bei der Ermittlung deiner Koordinaten: ${error.message}`,
+					'variant-filled-error'
+				)}
+				{updateButtonState('deactivated')}
+			{/if}
+		{/if}
+	</Geolocation>
+
+	<button
+		class={isLocationActivated
+			? 'btn variant-filled-success mt-2'
+			: 'btn variant-filled-warning mt-2'}
+		disabled={buttonDisabled}
+		on:click={handleButtonClick}
+	>
+		{buttonGeolocationText}
+	</button>
+</div>

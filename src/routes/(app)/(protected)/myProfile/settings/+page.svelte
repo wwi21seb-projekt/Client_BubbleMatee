@@ -1,9 +1,8 @@
 <script lang="ts">
 	import ArrowRightIcon from '$images/icons/arrow-right-icon.svelte';
-	import { EditIcon, LogoutIcon, PasswordIcon } from '$images';
+	import { EditIcon, LogoutIcon, PasswordIcon, PhotoIcon } from '$images';
 	import { goto } from '$app/navigation';
 	import { currentUsername, hasNotifications, isLoggedIn, notifications } from '$stores';
-
 	const handleLogout = async () => {
 		const response = await fetch('/api/users/logout', {
 			method: 'POST',
@@ -59,6 +58,16 @@
 					</span>
 					<span class="badge self-center"><ArrowRightIcon /></span>
 				</button>
+			</li>
+			<hr class="!border-t-2" />
+			<li>
+				<a href="/myProfile/settings/editProfilePhoto" class="flex justify-between">
+					<span class="flex self-center">
+						<span class="badge self-center"><PhotoIcon /></span>
+						<span class="flex-auto self-center">Profilbild bearbeiten</span>
+					</span>
+					<span class="badge self-center"><ArrowRightIcon /></span>
+				</a>
 			</li>
 			<hr class="!border-t-2" />
 		</ul>

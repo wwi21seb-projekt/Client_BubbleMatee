@@ -4,7 +4,7 @@
  * @param date DateTime in UTC.
  * @returns String with time that has passed in Minutes/ Hours/ Days or Weeks
  */
-export function calculatePassedTime(date: Date) {
+export function calculatePassedTime(date: Date): string {
 	// Current date and time in UTC
 	const now: Date = new Date();
 	const nowUTC: Date = new Date(now.toUTCString());
@@ -18,12 +18,12 @@ export function calculatePassedTime(date: Date) {
 
 	// Make decisions on how to represent the time
 	if (differenceInMinutes < 60) {
-		return `${differenceInMinutes} Minuten`;
+		return differenceInMinutes === 1 ? '1 Minute' : `${differenceInMinutes} Minuten`;
 	} else if (differenceInHours < 24) {
-		return `${differenceInHours} Stunden`;
+		return differenceInHours === 1 ? '1 Stunde' : `${differenceInHours} Stunden`;
 	} else if (differenceInDays < 7) {
-		return `${differenceInDays} Tagen`;
+		return differenceInDays === 1 ? '1 Tag' : `${differenceInDays} Tagen`;
 	} else {
-		return `${differenceInWeeks} Wochen`;
+		return differenceInWeeks === 1 ? '1 Woche' : `${differenceInWeeks} Wochen`;
 	}
 }

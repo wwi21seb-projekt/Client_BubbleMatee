@@ -88,6 +88,18 @@ const errorMessages: Array<Error> = [
 	{
 		code: 'ERR-020',
 		message: 'Der Post wurde nicht gefunden. Bitte überprüfe deine Eingaben und versuche es erneut.'
+	},
+	{
+		code: 'ERR-021',
+		message: 'Bitte laden Sie nur eine Datei hoch'
+	},
+	{
+		code: 'ERR-022',
+		message: 'Es sind nur die Dateiformate JPG and WebP erlaubt.'
+	},
+	{
+		code: 'ERR-023',
+		message: 'Die Dateigröße darf 5MB nicht überschreiten, deine datei ist zu groß.'
 	}
 ];
 

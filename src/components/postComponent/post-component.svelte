@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Textarea, PostButton } from '$components';
+	import FileInput from './components/file-input.svelte';
 </script>
 
 <h1 class="h1">
@@ -12,6 +13,7 @@
 <hr class="!border-t-8 !border-double" />
 
 <div class="content">
+	<FileInput />
 	<Textarea />
 	<PostButton />
 </div>

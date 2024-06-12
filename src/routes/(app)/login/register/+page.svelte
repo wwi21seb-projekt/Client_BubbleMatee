@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { UserInfoStep, PasswordStep } from '$components';
+	import { UserInfoStep, PasswordStep, ProfileImageInputStep } from '$components';
 	import { getErrorMessage } from '$utils';
 	import { Stepper, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { uploadedImageUrl } from '$stores';
 
 	const toastStore = getToastStore();
 
@@ -27,9 +28,20 @@
 					email: email,
 					password: password,
 					username: username,
-					nickname: nickname
+					nickname: nickname,
+					profilePicture: $uploadedImageUrl // base64 optional "" wenn nicht vorhanden
 				})
 			});
+
+			console.log(
+				JSON.stringify({
+					email: email,
+					password: password,
+					username: username,
+					nickname: nickname,
+					profilePicture: $uploadedImageUrl // base64 optional "" wenn nicht vorhanden
+				})
+			);
 
 			const body = await response.json();
 
@@ -64,6 +76,7 @@
 		on:complete={handleSubmit}
 	>
 		<UserInfoStep bind:email bind:nickname bind:username />
+		<ProfileImageInputStep />
 		<PasswordStep bind:password bind:passwordRepeat {loading} />
 	</Stepper>
 	<div class="flex justify-center p-4">
