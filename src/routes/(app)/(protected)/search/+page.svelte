@@ -1,15 +1,6 @@
 <script lang="ts">
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type {
-		Error,
-		ErrorObject,
-		ErrorResponse,
-		Follower,
-		PostData,
-		PostWithRepost,
-		SearchParams,
-		UserSearch
-	} from '$domains';
+	import type {Error,ErrorObject,ErrorResponse,Follower,PostData,PostWithRepost,SearchParams,UserSearch} from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
 	import {
@@ -179,7 +170,6 @@
 		$loading = false;
 	}
 </script>
-
 <div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
 	<SearchBar {handleSearch} bind:searchTerm />
 </div>
