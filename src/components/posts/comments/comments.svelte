@@ -1,6 +1,5 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
-	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import { ModalHeader, CommentElement, CommentsFooter, LoadMoreComponent } from '$components';
 	import type { CommentData } from '$domains';
 	export let loadMoreComments: () => Promise<CommentData>;

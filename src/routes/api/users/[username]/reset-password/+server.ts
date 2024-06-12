@@ -57,6 +57,7 @@ export const PATCH: RequestHandler = async ({ fetch, request, params }) => {
 			return json({ data: {}, error: false });
 		}
 		const body = await response.json();
+		console.error(body);
 		return json({ data: body, error: true } as ErrorResponse);
 	} catch (exception) {
 		console.error(exception);

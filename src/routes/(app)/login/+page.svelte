@@ -17,7 +17,7 @@
 
 	const isRedirect = $page.url.searchParams.get('redirect');
 	//isRedirekt = '1' -> redirect to login page and show toast
-	//isRedirekt = '2' -> redirect to login page from client side, toast alreday shown
+	//isRedirekt = '2' -> redirect to login page from client side, toast already shown
 
 	if (isRedirect) {
 		if (isRedirect === '1') {

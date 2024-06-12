@@ -52,13 +52,15 @@
 		if (body && body.error) {
 			if (body.data.error) {
 				const t: ToastSettings = {
-					message: body.data.error.message,
+					message: getErrorMessage(body.data.error.code, false),
 					background: 'variant-filled-error'
 				};
+
 				toastStore.trigger(t);
 			}
+		} else {
+			changeUsers(user, body);
 		}
-		changeUsers(user, body);
 	};
 
 	function changeUsers(user: Follower, data: FollowResponse | undefined) {

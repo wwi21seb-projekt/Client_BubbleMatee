@@ -12,7 +12,13 @@
 	} from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
-	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag, globalConfig } from '$utils';
+	import {
+		fetchNextPostsFeed,
+		loadSearchedUser,
+		searchPostByHashtag,
+		globalConfig,
+		getErrorMessage
+	} from '$utils';
 	import { onMount } from 'svelte';
 	import { loading } from '$stores';
 	export let data: PostData | ErrorObject;
@@ -62,7 +68,7 @@
 			postDataGlobaleFeed.lastPostId = data.lastPostId!;
 		} else {
 			const t: ToastSettings = {
-				message: data.error.code,
+				message: getErrorMessage(data.error.code, false),
 				background: 'variant-filled-error'
 			};
 			toastStore.trigger(t);

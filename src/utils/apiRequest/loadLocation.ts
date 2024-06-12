@@ -1,5 +1,4 @@
 import type { Error, ErrorResponse, LocationPlace, LocationResponse } from '$domains';
-import { getErrorMessage } from '$utils';
 
 /**
  * Loads the next location given the longitude and latitude
@@ -21,7 +20,7 @@ export async function fetchLocation(long: string, lat: string): Promise<Location
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
-		const message = getErrorMessage(error.code, false);
+		const message = error.message;
 		throw new ErrorEvent(message);
 	} else {
 		const data: LocationPlace = body.data as LocationPlace;

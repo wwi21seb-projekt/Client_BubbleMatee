@@ -61,33 +61,62 @@ const errorMessages: Array<Error> = [
 	{
 		code: 'ERR-014',
 		message:
-			'Die Anfrage ist nicht authorisiert. Bitte melde dich mit deinem Account an und versuche es erneut.'
+			'Die Anfrage ist nicht autorisiert. Bitte melde dich mit deinem Account an und versuche es erneut.'
 	},
 	{
 		code: 'ERR-015',
-		message: 'Du folgst dieser Person nicht. Überpfüfe deine Eingaben und versuche es erneut'
+		message: 'Du folgst dieser Person nicht. Überprüfe deine Eingaben und versuche es erneut'
 	},
 	{
 		code: 'ERR-016',
-		message: 'Du folgst dieser Person bereits. Überpfüfe deine Eingaben und versuche es erneut.'
+		message: 'Du folgst dieser Person bereits. Überprüfe deine Eingaben und versuche es erneut.'
 	},
 	{
 		code: 'ERR-017',
-		message: 'Du kannst dir selbst nicht folgen. Überpfüfe deine Eingaben und versuche es erneut.'
+		message: 'Du kannst dir selbst nicht folgen. Überprüfe deine Eingaben und versuche es erneut.'
 	},
 	{
 		code: 'ERR-018',
 		message:
-			'Du kannst nur deine eigenen Abonnenments verwalten. Überpfüfe deine Eingaben und versuche es erneut.'
+			'Du kannst nur deine eigenen Abonnements verwalten. Überprüfe deine Eingaben und versuche es erneut.'
 	},
 	{
 		code: 'ERR-019',
 		message:
-			'Du kannst nur deine eigenen Posts verwalten. Überpfüfe deine Eingaben und versuche es erneut.'
+			'Du kannst nur deine eigenen Posts verwalten. Überprüfe deine Eingaben und versuche es erneut.'
 	},
 	{
 		code: 'ERR-020',
 		message: 'Der Post wurde nicht gefunden. Bitte überprüfe deine Eingaben und versuche es erneut.'
+	},
+	{
+		code: 'ERR-021',
+		message: 'Dieser Post wurde bereits geliked.'
+	},
+	{
+		code: 'ERR-022',
+		message: 'Dieser Post wurde noch nicht geliked.'
+	},
+	{
+		code: 'ERR-023',
+		message: 'Die Benachrichtigung wurde nicht gefunden. Bitte versuche es erneut.'
+	},
+	{
+		code: 'ERR-024',
+		message: 'Du kannst nur deine eigenen Benachrichtigungen löschen. Bitte versuche es erneut.'
+	},
+	{
+		code: 'ERR-025',
+		message:
+			'Der Passwort-Reset-Token ist ungültig oder abgelaufen. Bitte fordere einen neuen Token an und versuche es erneut.'
+	},
+	{
+		code: 'ERR-026',
+		message: 'Der Chat existiert bereits. Bitte überprüfe den Benutzernamen und versuche es erneut.'
+	},
+	{
+		code: 'ERR-027',
+		message: 'Der Chat wurde nicht gefunden. Bitte versuche es erneut.'
 	}
 ];
 

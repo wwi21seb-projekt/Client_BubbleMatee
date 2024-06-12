@@ -38,10 +38,7 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 	} catch (exception) {
 		return json({
 			error: true,
-			data: {
-				code: 500,
-				message: 'Internal Server Error'
-			}
+			data: { error: { code: 500, message: 'Internal Server Error' } }
 		});
 	}
 };
@@ -70,8 +67,7 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 		return json({
 			error: true,
 			data: {
-				code: '500',
-				message: 'Internal Server Error'
+				error: { code: '500', message: 'Internal Server Error' }
 			}
 		});
 	}
