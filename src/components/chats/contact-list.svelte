@@ -47,23 +47,23 @@
 	<div class="w-full flex flex-col border-r border-surface-500/30">
 		<div class="{chatId ? 'hidden' : ''} lg:grid grid-rows-[auto_1fr_auto]">
 			<!-- List -->
-			<div class="p-4 space-y-4">
+			<div class="p-4 px-0 space-y-4 w-full">
 				<div class="flex justify-between items-center">
 					<button
-						class="h-10 btn w-16"
+						class="h-10 btn w-auto"
 						on:click={() => {
 							goto('/home');
 						}}
 					>
 						<Icon src={ChevronLeft} />
 					</button>
-					<small class="opacity-50 w-32">Kontakte</small>
-					<button type="button" class="btn variant-filled-primary" on:click={onNewChat}>
+					<p class="opacity-50 w-28 mx-auto hidden sm:block text-lg md:text-xl">Kontakte</p>
+					<button type="button" class="btn variant-filled-primary mr-2" on:click={onNewChat}>
 						<p>Neuer Chat</p>
 						<Icon src={Plus} class="h-4 font-bold hover:stroke-gray-400" />
 					</button>
 				</div>
-				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1">
+				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1 px-2">
 					{#if chats && chats?.records.length > 0}
 						{#each chats.records as person}
 							<button
@@ -79,9 +79,7 @@
 								}}
 							>
 								<Avatar src={Person} height="auto" />
-								<span class="flex-1 text-start">
-									{person.user.username}
-								</span>
+								<h3 class="ml-2 text-lg md:text-xl flex-1 text-start">{person.user.username}</h3>
 							</button>
 						{/each}
 						<div class="grow"></div>
