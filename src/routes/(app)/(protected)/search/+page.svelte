@@ -44,7 +44,6 @@
 		lastPostId: ''
 	};
 	handleLoadResult(data);
-
 	onMount(async () => {
 		main.scrollIntoView();
 		const urlParams = new URLSearchParams(window.location.search);
@@ -168,7 +167,6 @@
 		}
 		$loading = false;
 	}
-	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
 		$loading = true;
 		const data: PostData | ErrorObject = await fetchNextPostsFeed(
