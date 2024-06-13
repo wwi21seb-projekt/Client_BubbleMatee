@@ -7,11 +7,13 @@
 	import { hasNotifications, notifications } from '$stores';
 	import { Person } from '$images';
 	import type { Notification } from '$domains';
+	import { page } from '$app/stores';
 
 	const toastStore = getToastStore();
 	$: nonMessageNotifications = $notifications.filter(
 		(notification) => notification.notificationType !== 'message'
 	);
+	$: notificationError = $page.data.error ? $page.data.data.error : undefined;
 
 	function handleClick() {
 		goto('/home');
@@ -114,8 +116,14 @@
 					</button>
 				</div>
 			{/each}
-
-			{#if nonMessageNotifications.length === 0}
+			{#if notificationError}
+				<div class="flex justify-center items-center h-96">
+					<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
+					<p class="text-lg font-semibold dark:text-gray-300">
+						{getErrorMessage(notificationError.code, true)}
+					</p>
+				</div>
+			{:else if nonMessageNotifications.length === 0}
 				<div class="flex justify-center items-center h-96">
 					<Icon src={CheckCircle} class="h-12 w-12 stroke-primary-900 dark:stroke-primary-500" />
 					<p class="text-lg font-semibold dark:text-gray-300">Keine Meldungen</p>

@@ -19,10 +19,12 @@ export const activatePushNotifications = async () => {
 	}
 
 	// 2. Get push subscription
-	const subscription: PushSubscription = await resubscribeUserToPush();
+	const subscription: PushSubscription | null = await resubscribeUserToPush();
 
 	// 3. Send push subscription to server
-	await sendSubscriptionToBackEnd(subscription);
+	if (subscription) {
+		await sendSubscriptionToBackEnd(subscription);
+	}
 };
 
 /**
@@ -97,8 +99,11 @@ async function askPermission(): Promise<string> {
  *
  * @returns A promise that resolves to the subscription
  */
-async function subscribeUserToPush(): Promise<PushSubscription> {
+async function subscribeUserToPush(): Promise<PushSubscription | null> {
 	const vapidKey: string = await getVapidKey();
+	if (!vapidKey || vapidKey === '') {
+		return null;
+	}
 
 	const subscribeOptions: PushSubscriptionOptionsInit = {
 		userVisibleOnly: true,
@@ -187,7 +192,7 @@ async function unsubscribeUserFromPush(): Promise<void> {
  *
  * @returns A promise that resolves to the subscription
  */
-async function resubscribeUserToPush(): Promise<PushSubscription> {
+async function resubscribeUserToPush(): Promise<PushSubscription | null> {
 	await unsubscribeUserFromPush();
 	return subscribeUserToPush();
 }

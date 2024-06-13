@@ -48,7 +48,7 @@
 	}
 
 	$: onMount(() => {
-		if (chatId) {
+		if (chatId && !chatData.chatsData.error) {
 			(chatData.chatsData as ChatsResponse).data.records.map((chat) => {
 				if (chat.chatId === chatId) {
 					chatPartner = chat.user.username;
