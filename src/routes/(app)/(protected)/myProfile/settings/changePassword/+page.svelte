@@ -25,7 +25,6 @@
 	$: stepLocked =
 		!passwordValid(newPassword) ||
 		!passwordsMatch(newPassword, repeatNewPassword) ||
-		oldPassword === newPassword ||
 		oldPassword === '' ||
 		loading;
 

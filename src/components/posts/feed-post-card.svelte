@@ -1,5 +1,6 @@
 <!--Component for a single post-->
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import {
 		FeedPostFooter,
 		FeedPostMain,
@@ -14,7 +15,8 @@
 		ErrorObject,
 		ErrorResponse,
 		PostWithRepost,
-		PostCommentResponse
+		PostCommentResponse,
+		Post
 	} from '$domains';
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
@@ -32,21 +34,25 @@
 	const toastStore = getToastStore();
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
-	//function to delete this post -> calls a passed function
-	function deleteThisPost(): void {
-		if (deletePost) {
-			deletePost(post.postId);
+	let comments: Array<Comment> = new Array<Comment>();
+	let commentData: CommentData = {
+		comments: comments,
+		overallRecords: 1
+	};
+
+	function deleteThisPost(currentPost: PostWithRepost | Post | undefined): void {
+		if (deletePost && currentPost) {
+			deletePost(currentPost.postId);
+			invalidateAll();
 		}
 	}
 
-	//function to delete this post -> calls a passed function
 	function likeThisPost(): void {
 		if (likePost) {
 			likePost(post.postId);
 		}
 	}
 
-	//function to delete this post -> calls a passed function
 	function unlikeThisPost(): void {
 		if (unlikePost) {
 			unlikePost(post.postId);
@@ -62,11 +68,7 @@
 			}
 		}
 	}
-	let comments: Array<Comment> = new Array<Comment>();
-	let commentData: CommentData = {
-		comments: comments,
-		overallRecords: 1
-	};
+
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
 		if (loadMoreComments) {
 			const body: CommentResponse | ErrorResponse = await loadMoreComments(
@@ -121,12 +123,14 @@
 				}
 			} else {
 				const data = body.data as Comment;
-				const newComment: Comment = {
-					commentId: data.commentId,
-					author: data.author,
-					content: data.content,
-					creationDate: new Date(data.creationDate)
-				};
+				let newComment: Array<Comment> = [
+					{
+						commentId: data.commentId,
+						author: data.author,
+						content: data.content,
+						creationDate: new Date(data.creationDate)
+					}
+				];
 				comments = comments.concat(newComment);
 			}
 			let commentDataNew = {
@@ -134,6 +138,8 @@
 				overallRecords: commentData.overallRecords + 1
 			};
 			commentData = commentDataNew;
+
+			post.comments++;
 		}
 		return commentData;
 	}
@@ -145,45 +151,49 @@
 	<div
 		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
 	>
-		<header>
-			<FeedPostHeader
-				date={post.creationDate}
-				author={post.author}
-				deletePost={deleteThisPost}
-				{post}
-				{isRepost}
-			/>
-		</header>
-		<main class="card w-full !bg-transparent my-2">
-			<FeedPostMain text={post.content} />
-			{#if post.location}
-				<FeedPostLocation location={post.location} />
-			{/if}
-			{#if post.repost && !isRepost}
-				<FeedPostCard
-					isRepost={true}
-					deletePost={() => {}}
-					post={post.repost}
-					likePost={null}
-					postComment={null}
-					loadMoreComments={null}
-					unlikePost={null}
+		{#if post.author}
+			<header>
+				<FeedPostHeader
+					date={post.creationDate}
+					author={post.author}
+					deletePost={() => deleteThisPost(post)}
+					{post}
+					{isRepost}
 				/>
-			{/if}
-		</main>
-		{#if !isRepost}
-			<footer>
-				<footer>
-					<FeedPostFooter
-						{post}
-						likePost={likeThisPost}
-						unlikePost={unlikeThisPost}
-						{commentData}
-						loadMoreComments={loadMoreCommentsForThisPost}
-						commentPost={commentThisPost}
+			</header>
+			<main class="card w-full !bg-transparent my-2">
+				<FeedPostMain text={post.content} />
+				{#if post.location}
+					<FeedPostLocation location={post.location} />
+				{/if}
+				{#if post.repost && !isRepost}
+					<FeedPostCard
+						isRepost={true}
+						deletePost={() => deleteThisPost(post.repost)}
+						post={post.repost}
+						likePost={null}
+						postComment={null}
+						loadMoreComments={null}
+						unlikePost={null}
 					/>
+				{/if}
+			</main>
+			{#if !isRepost}
+				<footer>
+					<footer>
+						<FeedPostFooter
+							{post}
+							likePost={likeThisPost}
+							unlikePost={unlikeThisPost}
+							{commentData}
+							loadMoreComments={loadMoreCommentsForThisPost}
+							commentPost={commentThisPost}
+						/>
+					</footer>
 				</footer>
-			</footer>
+			{/if}
+		{:else}
+			<div class="flex justify-center items-center font-bold">originaler Post gelöscht</div>
 		{/if}
 	</div>
 </div>

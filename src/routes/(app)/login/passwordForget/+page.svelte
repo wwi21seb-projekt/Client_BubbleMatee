@@ -33,7 +33,7 @@
 					background: 'variant-filled-success'
 				};
 				toastStore.trigger(t);
-				goto('/login/passwordForget/passwordChange');
+				goto(`/login/passwordForget/${username}/passwordChange`);
 			}
 
 			return body;

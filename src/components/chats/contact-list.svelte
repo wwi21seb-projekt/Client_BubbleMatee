@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { ErrorAlert, NewChatsList } from '$components';
 	import type {
 		Chat,
 		Chats,
@@ -9,10 +8,11 @@
 		ErrorResponse,
 		Notification
 	} from '$domains';
+	import { ErrorAlert, NewChatsList, NothingFoundComponent } from '$components';
 	import { Person } from '$images';
 	import { getErrorMessage } from '$utils';
 	import { Avatar, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
-	import { Plus } from '@steeze-ui/heroicons';
+	import { ChevronLeft, Plus } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
 	import { getModalStore } from '@skeletonlabs/skeleton';
@@ -126,15 +126,23 @@
 			<!-- List -->
 			<div class="p-4 space-y-4">
 				<div class="flex justify-between items-center">
-					<small class="opacity-50">Kontakte</small>
+					<button
+						class="h-10 btn w-16"
+						on:click={() => {
+							goto('/home');
+						}}
+					>
+						<Icon src={ChevronLeft} />
+					</button>
+					<small class="opacity-50 w-32">Kontakte</small>
 					<button type="button" class="btn variant-filled-primary" on:click={onNewChat}>
 						<p>Neuer Chat</p>
 						<Icon src={Plus} class="h-4 font-bold hover:stroke-gray-400" />
 					</button>
 				</div>
 				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1">
-					{#if chats}
-						{#each chats as person (person.chatId)}
+					{#if chats && chats.length > 0}
+						{#each chats as person}
 							<button
 								disabled={$page.params.username === person.user.username}
 								type="button"
@@ -156,7 +164,14 @@
 						{/each}
 						<div class="grow"></div>
 					{:else}
-						<p>Keine offenen Chats</p>
+						<div>
+							<div class="flex justify-center items-center h-96 lg: p-32">
+								<NothingFoundComponent
+									message="Keine Chats vorhanden"
+									submessage="Nutze 'Neuer Chat' um eine Konversation zu starten"
+								/>
+							</div>
+						</div>
 					{/if}
 				</div>
 			</div>

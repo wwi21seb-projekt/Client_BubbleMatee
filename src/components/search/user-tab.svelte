@@ -17,10 +17,14 @@
 	const modalStore = getModalStore();
 	const toastStore = getToastStore();
 
-	function onUserClick(user: Author) {
+	async function onUserClick(user: Author) {
 		const basepath = $page.url.pathname;
 		const tabPath = basepath.split('/')[1];
-		goto(`/${tabPath}/user/${user.username}`);
+		if ($currentUsername === user.username) {
+			await goto('/myProfile');
+		} else {
+			await goto(`/${tabPath}/user/${user.username}`);
+		}
 		modalStore.close();
 	}
 

@@ -1,14 +1,29 @@
 <script lang="ts">
 	import type { ChatMessage, SortedMessages } from '$domains';
+	import { afterUpdate } from 'svelte';
 	import { Person } from '$images';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let username: string;
 	export let chatMessages: Array<SortedMessages>;
 	export let unsendChatMessages: Array<ChatMessage>;
+
+	let scrollDiv: HTMLDivElement;
+
+	// After rendering the new child, call this function
+	function autoScrollToChild() {
+		const lastChild = scrollDiv.lastElementChild;
+		if (lastChild) {
+			lastChild.scrollIntoView({ behavior: 'auto', block: 'end' });
+		}
+	}
+
+	$: {
+		afterUpdate(autoScrollToChild);
+	}
 </script>
 
-<div class="p-4 overflow-auto h-96 lg:h-3/4 space-y-4">
+<div class="p-4 overflow-auto h-96 lg:h-3/4 space-y-4" bind:this={scrollDiv}>
 	{#if chatMessages}
 		{#each chatMessages as chatDay}
 			<span class="chip-disabled variant-ghost flex justify-center items-center text-sm"

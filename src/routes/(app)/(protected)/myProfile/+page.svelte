@@ -1,16 +1,19 @@
 <script lang="ts">
 	import { ProfileView } from '$components';
-	import type {
-		ErrorObject,
-		ErrorResponse,
-		PostData,
-		UserDataWithPosts,
-		UserInfoResponse
-	} from '$domains';
+	import type { UserDataWithPosts } from '$domains';
+	import { onMount } from 'svelte';
 
 	export let data: UserDataWithPosts;
-	let userData: UserInfoResponse | ErrorResponse = data.userData;
-	let loadedPostData: ErrorObject | PostData = data.postData;
+	$: userData = data.userData;
+	$: loadedPostData = data.postData;
+
+	let main: HTMLElement;
+
+	onMount(() => {
+		main.scrollIntoView();
+	});
 </script>
 
-<ProfileView {userData} {loadedPostData} />
+<main bind:this={main}>
+	<ProfileView {userData} {loadedPostData} />
+</main>
