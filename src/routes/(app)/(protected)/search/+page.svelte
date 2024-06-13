@@ -1,15 +1,7 @@
 <script lang="ts">
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type {
-		Error,
-		ErrorObject,
-		ErrorResponse,
-		Follower,
-		PostData,
-		PostWithRepost,
-		SearchParams,
-		UserSearch
-	} from '$domains';
+	import type { Error, ErrorObject, ErrorResponse, Follower } from '$domains';
+	import type { PostData, PostWithRepost, SearchParams, UserSearch } from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
 	import {
