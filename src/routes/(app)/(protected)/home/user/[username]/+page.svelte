@@ -9,6 +9,13 @@
 	onMount(() => {
 		main.scrollIntoView();
 	});
+
+	$: {
+		if (data && main) {
+			// check if data has changed
+			main.scrollIntoView();
+		}
+	}
 </script>
 
 <main bind:this={main}>
