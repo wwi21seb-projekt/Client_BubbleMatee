@@ -41,31 +41,27 @@
 		isError: false,
 		errorText: ''
 	};
-
 	function deleteThisPost(currentPost: PostWithRepost | Post | undefined): void {
 		if (deletePost && currentPost) {
 			deletePost(currentPost.postId);
 			invalidateAll();
-		}}
-
+		}
+	}
 	function likeThisPost(): void {
 		if (likePost) {
 			likePost(post.postId);
-		}}
-
+		}
+	}
 	function unlikeThisPost(): void {
 		if (unlikePost) {
 			unlikePost(post.postId);
-		}}
-
+		}
+	}
 	function toggleLike(): void {
 		if (isLoggedIn) {
-			if (post.liked) {
-				unlikeThisPost();
-			} else {
-				likeThisPost();
-			}}}
-
+			post.liked ? unlikeThisPost() : likeThisPost();
+		}
+	}
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
 		if (loadMoreComments) {
 			const body: CommentResponse | ErrorResponse = await loadMoreComments(
@@ -123,12 +119,14 @@
 				}
 			} else {
 				const data = body.data as Comment;
-				let newComment: Array<Comment> = [{
+				let newComment: Array<Comment> = [
+					{
 						commentId: data.commentId,
 						author: data.author,
 						content: data.content,
 						creationDate: new Date(data.creationDate)
-					}];
+					}
+				];
 				comments = comments.concat(newComment);
 			}
 			let commentDataNew: CommentData = {
@@ -149,18 +147,21 @@
 		return commentData;
 	}
 </script>
+
 <!--Component contains the header (Username/ Profile Picture etc/ the main post (image/ text) and the footer (Likes and comments))-->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:dblclick={toggleLike} class="m-4">
-	<div class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl">
+	<div
+		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
+	>
 		{#if post.author}
-				<FeedPostHeader
-					date={post.creationDate}
-					author={post.author}
-					deletePost={() => deleteThisPost(post)}
-					{post}
-					{isRepost}
-				/>
+			<FeedPostHeader
+				date={post.creationDate}
+				author={post.author}
+				deletePost={() => deleteThisPost(post)}
+				{post}
+				{isRepost}
+			/>
 			<main class="card w-full !bg-transparent my-2">
 				<FeedPostMain text={post.content} />
 				{#if post.location}
