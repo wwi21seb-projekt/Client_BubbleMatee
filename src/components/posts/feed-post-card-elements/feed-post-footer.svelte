@@ -79,7 +79,7 @@
 		}
 	}
 </script>
-
+<footer>
 <div class="flex flex-row items-center space-x-4">
 	<!--Like-button-->
 	<div class="flex flex-col items-center">
@@ -112,3 +112,4 @@
 		</div>
 	{/if}
 </div>
+</footer>

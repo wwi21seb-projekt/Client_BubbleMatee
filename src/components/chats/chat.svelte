@@ -26,11 +26,9 @@
 <div class="p-4 space-y-4" bind:this={scrollDiv}>
 	{#if chatMessages}
 		{#each chatMessages as chatDay}
-		<div class = "flex flex justify-center items-center">
-			<span class="chip-disabled variant-ghost  text-sm w-auto rounded px-2"
-				>{chatDay.date}</span
-			>
-		</div>
+			<div class="flex flex justify-center items-center">
+				<span class="chip-disabled variant-ghost text-sm w-auto rounded px-2">{chatDay.date}</span>
+			</div>
 			{#each chatDay.messages as chat}
 				{#if chat.username === username}
 					<!-- Needs to be changed after proper API integration -->

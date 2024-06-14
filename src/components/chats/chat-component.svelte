@@ -73,18 +73,18 @@
 				</div>
 				<main class="flex-grow overflow-y-auto overflow-x-hidden pr-1">
 					<Chat
-					chatMessages={sortedAndClusteredMessages}
-					username={chatData.username}
-					{unsendChatMessages}
-				/>
+						chatMessages={sortedAndClusteredMessages}
+						username={chatData.username}
+						{unsendChatMessages}
+					/>
 				</main>
 				<footer class="flex-shrink-0 m-0 bottom-0 z-40 bg-surface-50 dark:bg-surface-900">
 					<SendMessageComponent
-					username={chatData.username}
-					chatPartnerUsername={chatPartnerUsernameFromUrl}
-				/>				</footer>
+						username={chatData.username}
+						chatPartnerUsername={chatPartnerUsernameFromUrl}
+					/>
+				</footer>
 			{/if}
 		</div>
 	{/if}
 </div>
-

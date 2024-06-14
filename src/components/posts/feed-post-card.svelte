@@ -37,27 +37,26 @@
 	let comments: Array<Comment> = new Array<Comment>();
 	let commentData: CommentData = {
 		comments: comments,
-		overallRecords: 1
+		overallRecords: 1,
+		isError: false,
+		errorText: ''
 	};
 
 	function deleteThisPost(currentPost: PostWithRepost | Post | undefined): void {
 		if (deletePost && currentPost) {
 			deletePost(currentPost.postId);
 			invalidateAll();
-		}
-	}
+		}}
 
 	function likeThisPost(): void {
 		if (likePost) {
 			likePost(post.postId);
-		}
-	}
+		}}
 
 	function unlikeThisPost(): void {
 		if (unlikePost) {
 			unlikePost(post.postId);
-		}
-	}
+		}}
 
 	function toggleLike(): void {
 		if (isLoggedIn) {
@@ -65,9 +64,7 @@
 				unlikeThisPost();
 			} else {
 				likeThisPost();
-			}
-		}
-	}
+			}}}
 
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
 		if (loadMoreComments) {
@@ -83,6 +80,8 @@
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
+					commentData.isError = true;
+					commentData.errorText = getErrorMessage(data.error.code, false);
 				}
 			} else {
 				const data = body.data as CommentList;
@@ -101,16 +100,17 @@
 				}
 				commentData = {
 					comments: comments,
-					overallRecords: data.pagination.records
+					overallRecords: data.pagination.records,
+					isError: false,
+					errorText: ''
 				};
 			}
 			commentData.overallRecords = 0;
 		}
 		return commentData;
 	}
-
 	async function commentThisPost(content: string): Promise<CommentData> {
-		if (postComment) {
+		if (postComment && !commentData.isError) {
 			const body = await postComment(post.postId, content);
 			if (body.error) {
 				const data = body.data as ErrorObject;
@@ -123,36 +123,37 @@
 				}
 			} else {
 				const data = body.data as Comment;
-				let newComment: Array<Comment> = [
-					{
+				let newComment: Array<Comment> = [{
 						commentId: data.commentId,
 						author: data.author,
 						content: data.content,
 						creationDate: new Date(data.creationDate)
-					}
-				];
+					}];
 				comments = comments.concat(newComment);
 			}
-			let commentDataNew = {
+			let commentDataNew: CommentData = {
 				comments: comments,
-				overallRecords: commentData.overallRecords + 1
+				overallRecords: commentData.overallRecords + 1,
+				isError: false,
+				errorText: ''
 			};
 			commentData = commentDataNew;
-
 			post.comments++;
+		} else if (commentData.isError) {
+			const t: ToastSettings = {
+				message: 'Lade zunächst die Kommentare neu, bevor du kommentierst!',
+				background: 'variant-filled-warning'
+			};
+			toastStore.trigger(t);
 		}
 		return commentData;
 	}
 </script>
-
-<!--Component contains the header (Username/ Profile Picture etc/ the main post psrt (image/ text) and the footer (Likes and comments))-->
+<!--Component contains the header (Username/ Profile Picture etc/ the main post (image/ text) and the footer (Likes and comments))-->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:dblclick={toggleLike} class="m-4">
-	<div
-		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
-	>
+	<div class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl">
 		{#if post.author}
-			<header>
 				<FeedPostHeader
 					date={post.creationDate}
 					author={post.author}
@@ -160,7 +161,6 @@
 					{post}
 					{isRepost}
 				/>
-			</header>
 			<main class="card w-full !bg-transparent my-2">
 				<FeedPostMain text={post.content} />
 				{#if post.location}
@@ -179,21 +179,19 @@
 				{/if}
 			</main>
 			{#if !isRepost}
-				<footer>
-					<footer>
-						<FeedPostFooter
-							{post}
-							likePost={likeThisPost}
-							unlikePost={unlikeThisPost}
-							{commentData}
-							loadMoreComments={loadMoreCommentsForThisPost}
-							commentPost={commentThisPost}
-						/>
-					</footer>
-				</footer>
+				<FeedPostFooter
+					{post}
+					likePost={likeThisPost}
+					unlikePost={unlikeThisPost}
+					{commentData}
+					loadMoreComments={loadMoreCommentsForThisPost}
+					commentPost={commentThisPost}
+				/>
 			{/if}
 		{:else}
-			<div class="flex justify-center items-center font-bold">originaler Post gelöscht</div>
+			<div class="flex justify-center items-center font-bold">
+				Der originale Post wurde gelöscht
+			</div>
 		{/if}
 	</div>
 </div>

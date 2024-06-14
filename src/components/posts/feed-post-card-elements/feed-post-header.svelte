@@ -36,6 +36,7 @@
 	};
 </script>
 
+<header>
 <div class="flex items-center justify-between">
 	<!--Element shows the profile picture, username, nickname and the time that has passed since the post-->
 	<button
@@ -60,6 +61,7 @@
 		</button>
 	</div>
 </div>
+</header>
 
 <!--Options-Popup -> All the options a user has to change or delete his own post (for the moment he con only delete it)-->
 <div class="w-1/2 sm:w-1/3 md:w-1/4" data-popup="popupClick-{post.postId}">

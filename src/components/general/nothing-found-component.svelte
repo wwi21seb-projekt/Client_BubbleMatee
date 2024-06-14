@@ -7,7 +7,7 @@
 </script>
 
 <div
-	class="w-full rounded-xl flex flex-col items-center justify-center card variant-ghost-primary p-4"
+	class="w-full rounded-xl flex flex-col items-center justify-center card dark:variant-ghost-primary variant-ghost-secondary p-4"
 >
 	<div class="flex items-center justify-between w-full">
 		<div class="flex items-center">

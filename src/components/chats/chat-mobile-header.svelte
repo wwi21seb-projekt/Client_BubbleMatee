@@ -19,6 +19,6 @@
 	>
 		<Icon src={ChevronLeft} />
 	</button>
-	<Avatar class="m-2" src={Person} height="auto"/>
+	<Avatar class="m-2" src={Person} height="auto" />
 	<h3 class="flex-1 text-start font-bold ml-2 text-xl md:text-2xl">{chatPartner}</h3>
 </div>
