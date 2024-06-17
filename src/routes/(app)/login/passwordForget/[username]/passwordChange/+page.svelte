@@ -13,12 +13,13 @@
 		passwordValid,
 		passwordsMatch
 	} from '$utils';
+	import { page } from '$app/stores';
 
 	export let password: string = '';
 	export let passwordRepeat: string = '';
 	export let code: string = '';
 
-	let username: string = '';
+	let username: string = $page.params.username;
 
 	$: stepLocked =
 		!username ||
@@ -58,7 +59,7 @@
 					background: 'variant-filled-success'
 				};
 				toastStore.trigger(t);
-				goto('/login');
+				goto(`/login?username=${username}`);
 			}
 
 			return body;

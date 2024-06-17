@@ -180,7 +180,7 @@
 		{:else if !$loading}
 			<div class=" mx-4">
 				<NothingFoundComponent
-					message={nothingFoundMessage ? nothingFoundMessage : 'Keine Post gefunden'}
+					message={nothingFoundMessage ? nothingFoundMessage : 'Keine Posts gefunden'}
 					submessage={nothingFoundSubMessage ? nothingFoundSubMessage : null}
 				/>
 			</div>

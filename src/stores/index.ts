@@ -10,3 +10,11 @@ export {
 	postText
 } from './post';
 export { hasNotifications, notifications } from './notifications';
+export {
+	subscribeMessage,
+	sendMessage,
+	storeUnsendMessage,
+	subscribeUnsendMessage,
+	connectToWebSocket,
+	disconnectFromWebSocket
+} from './webSocket';
