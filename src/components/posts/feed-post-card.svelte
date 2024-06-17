@@ -148,7 +148,6 @@
 	}
 </script>
 
-<!--Component contains the header (Username/ Profile Picture etc/ the main post (image/ text) and the footer (Likes and comments))-->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:dblclick={toggleLike}>
 	<div
@@ -180,23 +179,16 @@
 					/>
 				</div>
 			{/if}
-			<div class="card w-full !bg-transparent">
-				<FeedPostMain text={post.content} picture={post.picture} />
-				{#if post.location}
-					<FeedPostLocation location={post.location} />
-				{/if}
-			</div>
+			<FeedPostMain {post} />
 			{#if !isRepost}
-				<footer>
-					<FeedPostFooter
-						{post}
-						likePost={likeThisPost}
-						unlikePost={unlikeThisPost}
-						{commentData}
-						loadMoreComments={loadMoreCommentsForThisPost}
-						commentPost={commentThisPost}
-					/>
-				</footer>
+				<FeedPostFooter
+					{post}
+					likePost={likeThisPost}
+					unlikePost={unlikeThisPost}
+					{commentData}
+					loadMoreComments={loadMoreCommentsForThisPost}
+					commentPost={commentThisPost}
+				/>
 			{/if}
 		{:else}
 			<div class="flex justify-center items-center font-bold">

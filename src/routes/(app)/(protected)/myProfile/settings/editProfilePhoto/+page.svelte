@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { FileInput } from '$components';
 	import { CheckIcon } from '$images';
-	import type { UserInfo, ErrorObject } from '$domains';
+	import type { UserInfo } from '$domains';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { uploadedImageUrl } from '$stores';
 	import { goto } from '$app/navigation';

@@ -1,62 +1,72 @@
 <!-- Main post-component containing the posted image and text-->
 <script lang="ts">
-	import type { Picture } from '$domains';
+	import { FeedPostLocation } from '$components';
+	import type { PostWithRepost } from '$domains';
 
 	//TODO Add image
-	export let picture: Picture | undefined;
-	export let text: string;
+	export let post: PostWithRepost;
 </script>
 
-<!-- Scroll for mobile - component is hidden on desktop (md:hidden)-->
-<div class="grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full my-2">
-	<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 overflow-x-auto">
+<div class="card w-full !bg-transparent">
+	<!-- Scroll for mobile - component is hidden on desktop (md:hidden)-->
+	<div class="grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full my-2">
+		<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 overflow-x-auto">
+			<!--Show an image, if the post has one-->
+			{#if post.picture && post.picture.url != ''}
+				<div
+					class="shrink-0 w-full snap-start rounded aspect-square h-48 sm:h-60 flex items-center justify-center overflow-hidden"
+				>
+					<img
+						src={post.picture.url}
+						class="w-auto h-auto max-h-48 sm:max-h-60 max-w-full rounded p-2"
+						alt="Post"
+					/>
+				</div>
+			{/if}
+			<!--Seperator if the post has an image and text-->
+
+			{#if post.picture && post.picture.url != '' && post.content !== ''}
+				<span class="divider-vertical h-full" />
+			{/if}
+			<!--Show text, if the post has text-->
+
+			{#if post.content !== ''}
+				<div class="shrink-0 snap-start px-4 py-2 flex items-center rounded w-full">
+					<article class="text-xl w-full">
+						<p class="break-words w-full text-center">{post.content}</p>
+					</article>
+				</div>
+			{/if}
+		</div>
+	</div>
+
+	<!-- Side By Side for Desktop component is only visible on desktop (hidden md:flex)-->
+	<div class="hidden md:flex !bg-transparent items-center justify-center">
 		<!--Show an image, if the post has one-->
-		{#if picture && picture.url != ''}
-			<div
-				class="shrink-0 w-full snap-start rounded aspect-square h-48 sm:h-60 flex items-center justify-center overflow-hidden"
-			>
+		{#if post.picture && post.picture.url != ''}
+			<div class="w-1/2 flex items-center justify-center overflow-hidden aspect-square h-72">
 				<img
-					src={picture.url}
-					class="w-auto h-auto max-h-48 sm:max-h-60 max-w-full rounded p-2"
+					src={post.picture.url}
+					class="w-auto h-auto max-h-full max-w-full rounded p-2"
 					alt="Post"
 				/>
 			</div>
 		{/if}
 		<!--Seperator if the post has an image and text-->
-
-		{#if picture && picture.url != '' && text !== ''}
-			<span class="divider-vertical h-full" />
+		{#if post.picture && post.picture.url != '' && post.content !== ''}
+			<span class="divider-vertical h-100 mr-2 ml-2" />
 		{/if}
 		<!--Show text, if the post has text-->
-
-		{#if text !== ''}
-			<div class="shrink-0 snap-start px-4 py-2 flex items-center rounded w-full">
-				<article class="text-xl w-full">
-					<p class="break-words w-full text-center">{text}</p>
+		{#if post.content !== ''}
+			<div class="w-1/2 flex items-center justify-center px-4 py-2">
+				<article class="text-2xl w-full">
+					<p class="break-words w-full text-center">{post.content}</p>
 				</article>
 			</div>
 		{/if}
 	</div>
-</div>
 
-<!-- Side By Side for Desktop component is only visible on desktop (hidden md:flex)-->
-<div class="hidden md:flex !bg-transparent items-center justify-center">
-	<!--Show an image, if the post has one-->
-	{#if picture && picture.url != ''}
-		<div class="w-1/2 flex items-center justify-center overflow-hidden aspect-square h-72">
-			<img src={picture.url} class="w-auto h-auto max-h-full max-w-full rounded p-2" alt="Post" />
-		</div>
-	{/if}
-	<!--Seperator if the post has an image and text-->
-	{#if picture && picture.url != '' && text !== ''}
-		<span class="divider-vertical h-100 mr-2 ml-2" />
-	{/if}
-	<!--Show text, if the post has text-->
-	{#if text !== ''}
-		<div class="w-1/2 flex items-center justify-center px-4 py-2">
-			<article class="text-2xl w-full">
-				<p class="break-words w-full text-center">{text}</p>
-			</article>
-		</div>
+	{#if post.location}
+		<FeedPostLocation location={post.location} />
 	{/if}
 </div>
