@@ -17,7 +17,7 @@
 			>
 				<img
 					src={picture.url}
-					class="w-auto h-auto max-h-48 sm:max-h-60 max-w-full rounded"
+					class="w-auto h-auto max-h-48 sm:max-h-60 max-w-full rounded p-2"
 					alt="Post"
 				/>
 			</div>
@@ -44,7 +44,7 @@
 	<!--Show an image, if the post has one-->
 	{#if picture && picture.url != ''}
 		<div class="w-1/2 flex items-center justify-center overflow-hidden aspect-square h-72">
-			<img src={picture.url} class="w-auto h-auto max-h-full max-w-full rounded" alt="Post" />
+			<img src={picture.url} class="w-auto h-auto max-h-full max-w-full rounded p-2" alt="Post" />
 		</div>
 	{/if}
 	<!--Seperator if the post has an image and text-->
