@@ -1,12 +1,7 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import {
-		FeedPostFooter,
-		FeedPostMain,
-		FeedPostHeader,
-		FeedPostCard
-	} from '$components';
+	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostCard } from '$components';
 	import type {
 		Comment,
 		CommentData,
