@@ -16,19 +16,22 @@
 	<header>
 		<ModalHeader title="Post teilen" />
 	</header>
-	<div class="content">
-		<FileInput />
-		<Textarea />
-	</div>
-	<hr class="mt-2 mb-2" />
-	<div class="flex justify-center">
-		<div class="container">
-			<FeedPostCard deletePost={() => {}} {post} isRepost={true} />
-		</div>
-	</div>
+
 	<footer>
+		<div class="content">
+			<div class="w-full justify-center items-center flex">
+				<div class="container">
+					<FeedPostCard deletePost={() => {}} {post} isRepost={true} />
+				</div>
+			</div>
+			<hr class="mt-2 mb-2" />
+			<FileInput />
+			<Textarea />
+		</div>
 		<div class="flex justify-center">
-			<PostButton isRepost={true} {post} />
+			<div class="flex justify-center">
+				<PostButton isRepost={true} {post} />
+			</div>
 		</div>
 	</footer>
 </div>

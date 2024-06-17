@@ -86,66 +86,57 @@
 		mockData.content = body.data.content ?? mockData.content;
 	}
 
+	// Function to remove the Base64 prefix from an image URL
+	function removeBase64Prefix(base64Url: string): string {
+		return base64Url.split(',')[1]; // Split the string at the comma and return the second part, which is the actual Base64 data
+	}
+
 	// Asynchronous function to handle the post action, including API calls and error handling
 	const handlePost = async () => {
 		if ($inputValid) {
 			loading.set(true);
 			try {
-				// Extrahieren der Längen- und Breitengrade aus der coords Variable
-				const LONGITUDE = coords[0];
-				const LATITUDE = coords[1];
-				const ACCURACY = 1; // oder ein Standardwert, falls gewünscht
-
-				// Prüfen, ob die Koordinaten gültig sind
-				const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
-
+				// Ensure picture is set only if $uploadedImageUrl is defined
 				let postBody: NewPost = {
 					content: $postText,
-					picture: $uploadedImageUrl,
-					location: ARE_COORDS_VALID
-						? {
-								//optional
-								// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
-								longitude: LONGITUDE,
-								latitude: LATITUDE,
-								accuracy: ACCURACY
-							}
-						: null
+					location: {
+						longitude: coords[0],
+						latitude: coords[1],
+						accuracy: 1
+					}
 				};
 
-				isRepost && post ? (postBody.repostedPostId = post.postId) : null;
-				// Making a POST request to the server with the user input
+				if ($uploadedImageUrl) {
+					postBody.picture = removeBase64Prefix($uploadedImageUrl);
+				}
+
+				if (isRepost && post) {
+					postBody.repostedPostId = post.postId;
+				}
+
 				const response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(postBody)
 				});
 
-				console.log(postBody);
-
 				const body = await response.json();
-				// Handling potential errors from the response
 				if (body.error) {
-					const ERROR: Error = body.data.error;
 					toastStore.trigger({
-						message: getErrorMessage(ERROR.code, false),
+						message: getErrorMessage(body.error.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {
 					updateMockDataFromBody(body);
-					// Navigation command after successful post
 					goto(`/myProfile`);
 					toastStore.trigger({
 						message: 'Post erfolgreich',
 						background: 'variant-filled-success'
 					});
 				}
-
-				return body;
 			} catch (e) {
 				console.error(e);
 			} finally {
-				// Resetting loading state after the operation is complete
 				loading.set(false);
 				modalStore.close();
 			}
@@ -153,19 +144,21 @@
 	};
 </script>
 
-<div class={!isRepost ? '' : 'hidden'}>
-	<PostGeolocation bind:coords />
-</div>
+<div class="flex flex-col items-center">
+	<div class={!isRepost ? '' : ''}>
+		<PostGeolocation bind:coords />
+	</div>
 
-<button
-	type="button"
-	class="btn variant-filled-primary mt-4 buttonPost"
-	disabled={!$inputValid}
-	on:click={handlePost}
->
-	<img src={PaperPlane} alt="Icon zum Posten" class="iconImage" />
-	<span>Posten</span>
-</button>
+	<button
+		type="button"
+		class="btn variant-filled-primary mt-4 buttonPost"
+		disabled={!$inputValid}
+		on:click={handlePost}
+	>
+		<img src={PaperPlane} alt="Icon zum Posten" class="iconImage" />
+		<span>Posten</span>
+	</button>
+</div>
 
 <style>
 	:root {
