@@ -48,7 +48,7 @@
 			return dataResponse;
 		} catch (e) {
 			console.error(e);
-		} 
+		}
 	};
 </script>
 
