@@ -1,5 +1,6 @@
 <!--Component for a single post-->
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import {
 		FeedPostFooter,
 		FeedPostMain,
@@ -14,7 +15,8 @@
 		ErrorObject,
 		ErrorResponse,
 		PostWithRepost,
-		PostCommentResponse
+		PostCommentResponse,
+		Post
 	} from '$domains';
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
@@ -32,41 +34,34 @@
 	const toastStore = getToastStore();
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
-	//function to delete this post -> calls a passed function
-	function deleteThisPost(): void {
-		if (deletePost) {
-			deletePost(post.postId);
+	let comments: Array<Comment> = new Array<Comment>();
+	let commentData: CommentData = {
+		comments: comments,
+		overallRecords: 1,
+		isError: false,
+		errorText: ''
+	};
+	function deleteThisPost(currentPost: PostWithRepost | Post | undefined): void {
+		if (deletePost && currentPost) {
+			deletePost(currentPost.postId);
+			invalidateAll();
 		}
 	}
-
-	//function to delete this post -> calls a passed function
 	function likeThisPost(): void {
 		if (likePost) {
 			likePost(post.postId);
 		}
 	}
-
-	//function to delete this post -> calls a passed function
 	function unlikeThisPost(): void {
 		if (unlikePost) {
 			unlikePost(post.postId);
 		}
 	}
-
 	function toggleLike(): void {
 		if (isLoggedIn) {
-			if (post.liked) {
-				unlikeThisPost();
-			} else {
-				likeThisPost();
-			}
+			post.liked ? unlikeThisPost() : likeThisPost();
 		}
 	}
-	let comments: Array<Comment> = new Array<Comment>();
-	let commentData: CommentData = {
-		comments: comments,
-		overallRecords: 1
-	};
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
 		if (loadMoreComments) {
 			const body: CommentResponse | ErrorResponse = await loadMoreComments(
@@ -81,6 +76,8 @@
 						background: 'variant-filled-error'
 					};
 					toastStore.trigger(t);
+					commentData.isError = true;
+					commentData.errorText = getErrorMessage(data.error.code, false);
 				}
 			} else {
 				const data = body.data as CommentList;
@@ -99,16 +96,17 @@
 				}
 				commentData = {
 					comments: comments,
-					overallRecords: data.pagination.records
+					overallRecords: data.pagination.records,
+					isError: false,
+					errorText: ''
 				};
 			}
 			commentData.overallRecords = 0;
 		}
 		return commentData;
 	}
-
 	async function commentThisPost(content: string): Promise<CommentData> {
-		if (postComment) {
+		if (postComment && !commentData.isError) {
 			const body = await postComment(post.postId, content);
 			if (body.error) {
 				const data = body.data as ErrorObject;
@@ -121,50 +119,59 @@
 				}
 			} else {
 				const data = body.data as Comment;
-				const newComment: Comment = {
-					commentId: data.commentId,
-					author: data.author,
-					content: data.content,
-					creationDate: new Date(data.creationDate)
-				};
+				let newComment: Array<Comment> = [
+					{
+						commentId: data.commentId,
+						author: data.author,
+						content: data.content,
+						creationDate: new Date(data.creationDate)
+					}
+				];
 				comments = comments.concat(newComment);
 			}
-			let commentDataNew = {
+			let commentDataNew: CommentData = {
 				comments: comments,
-				overallRecords: commentData.overallRecords + 1
+				overallRecords: commentData.overallRecords + 1,
+				isError: false,
+				errorText: ''
 			};
 			commentData = commentDataNew;
+			post.comments++;
+		} else if (commentData.isError) {
+			const t: ToastSettings = {
+				message: 'Lade zunächst die Kommentare neu, bevor du kommentierst!',
+				background: 'variant-filled-warning'
+			};
+			toastStore.trigger(t);
 		}
 		return commentData;
 	}
 </script>
 
-<!--Component contains the header (Username/ Profile Picture etc/ the main post psrt (image/ text) and the footer (Likes and comments))-->
+<!--Component contains the header (Username/ Profile Picture etc/ the main post (image/ text) and the footer (Likes and comments))-->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:dblclick={toggleLike} class="">
+<div on:dblclick={toggleLike}>
 	<div
 		class={`${
 			isRepost
-				? '!bg-gradient-to-br dark:from-secondary-500 dark:to-secondary-600 from-primary-600 to-primary-700 '
+				? '!bg-gradient-to-br dark:from-secondary-500 dark:to-secondary-600 from-primary-600 to-primary-700 m'
 				: '!bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-600 from-primary-400 to-primary-600 mb-2'
 		} 
 		w-full rounded-xl p-4 `}
 	>
-		<header>
+		{#if post.author}
 			<FeedPostHeader
 				date={post.creationDate}
 				author={post.author}
-				deletePost={deleteThisPost}
+				deletePost={() => deleteThisPost(post)}
 				{post}
 				{isRepost}
 			/>
-		</header>
-		<main class="m-4">
 			{#if post.repost && !isRepost}
 				<div class="card w-full !bg-transparent my-2 mx-0">
 					<FeedPostCard
 						isRepost={true}
-						deletePost={() => {}}
+						deletePost={() => deleteThisPost(post.repost)}
 						post={post.repost}
 						likePost={null}
 						postComment={null}
@@ -173,15 +180,13 @@
 					/>
 				</div>
 			{/if}
-			<div class="card w-full !bg-transparent my-2">
+			<div class="card w-full !bg-transparent">
 				<FeedPostMain text={post.content} picture={post.picture} />
 				{#if post.location}
 					<FeedPostLocation location={post.location} />
 				{/if}
 			</div>
-		</main>
 		{#if !isRepost}
-			<footer>
 				<footer>
 					<FeedPostFooter
 						{post}
@@ -192,7 +197,11 @@
 						commentPost={commentThisPost}
 					/>
 				</footer>
-			</footer>
 		{/if}
-	</div>
+		{:else}
+			<div class="flex justify-center items-center font-bold">
+				Der originale Post wurde gelöscht
+			</div>
+		{/if}
+</div>
 </div>
