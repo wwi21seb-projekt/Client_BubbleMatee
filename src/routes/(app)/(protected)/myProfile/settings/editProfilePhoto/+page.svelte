@@ -12,9 +12,6 @@
 	let toastStore = getToastStore();
 
 	let user = data.error ? null : (data.data as UserInfo);
-	let error = data.error ? (data.data as ErrorObject).error : null;
-	let errorMessage: string;
-
 	const profilePictureTransmit = async () => {
 		try {
 			const response = await fetch('/api/users', {
@@ -28,14 +25,6 @@
 					picture: $uploadedImageUrl
 				})
 			});
-
-			console.log(
-				JSON.stringify({
-					nickname: user?.nickname,
-					status: user?.status,
-					picture: $uploadedImageUrl
-				})
-			);
 
 			const dataResponse = await response.json();
 
@@ -59,8 +48,7 @@
 			return dataResponse;
 		} catch (e) {
 			console.error(e);
-		} finally {
-		}
+		} 
 	};
 </script>
 

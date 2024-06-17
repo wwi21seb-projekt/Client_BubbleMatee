@@ -3,7 +3,7 @@
 	import { derived } from 'svelte/store';
 	import { isFileSelected, postText, loading, uploadedImageUrl } from '$stores';
 	import { goto } from '$app/navigation';
-	import type { Error, Post } from '$domains';
+	import type {Post } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { PostGeolocation } from '$components';
