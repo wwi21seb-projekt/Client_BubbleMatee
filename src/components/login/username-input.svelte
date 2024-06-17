@@ -6,7 +6,8 @@
 	const toastStore = getToastStore();
 	const t: ToastSettings = {
 		message:
-			'Der Nutzername darf nur alphanumerische Zeichen enthalten und nicht länger als 20 Zeichen sein.'
+			'Der Nutzername darf nur alphanumerische Zeichen enthalten und nicht länger als 20 Zeichen sein.',
+		background: 'variant-filled-error'
 	};
 
 	export let username: string = '';
@@ -38,9 +39,9 @@
 			on:input={validateUsername}
 		/>
 		{#if isSignUp && usernameIcon}
-			<button class="[&>*]:pointer-events-none">
+			<div class="[&>*]:pointer-events-none">
 				<Icon class="{usernameColor} w-6" src={usernameIcon} />
-			</button>
+			</div>
 		{/if}
 	</div>
 </label>

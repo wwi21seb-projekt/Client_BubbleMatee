@@ -10,7 +10,7 @@
 
 	const toastStore = getToastStore();
 
-	let username: string;
+	let username: string = $page.url.searchParams.get('username')?.toString() ?? '';
 	let password: string;
 
 	let loading: boolean = false;
@@ -62,7 +62,7 @@
 						background: 'variant-filled-warning'
 					};
 					toastStore.trigger(t);
-					goto('/login/verify?username=' + username);
+					goto(`/login/verify?username=${username}`);
 				} else {
 					const t: ToastSettings = {
 						message: getErrorMessage(body.data.error.code, false),

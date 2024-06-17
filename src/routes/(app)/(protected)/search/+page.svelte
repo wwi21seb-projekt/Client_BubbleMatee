@@ -17,13 +17,12 @@
 	import { loading } from '$stores';
 	export let data: PostData | ErrorObject;
 	const toastStore = getToastStore();
-	const POSTTAB = 0;
-	const USERTAB = 1;
 	let searchTerm: string = '';
 	let chipString: string = '';
-	let tabSet: number = POSTTAB;
+	let tabSet: number = globalConfig.postTab;
 	let isError: boolean = false;
 	let error: Error;
+	let main: HTMLElement;
 	let userSearch: Array<Follower> = [];
 	let postSearch: PostData = {
 		posts: new Array<PostWithRepost>(),
@@ -39,7 +38,9 @@
 		lastPostId: ''
 	};
 	handleLoadResult(data);
+
 	onMount(async () => {
+		main.scrollIntoView();
 		const urlParams = new URLSearchParams(window.location.search);
 		urlProps = {
 			q: urlParams.get('q') ? urlParams.get('q') : '',
@@ -48,10 +49,10 @@
 		};
 		if (urlProps.username) {
 			searchTerm = urlProps.username;
-			tabSet = USERTAB;
+			tabSet = globalConfig.userTab;
 		} else if (urlProps.q) {
 			searchTerm = urlProps.q;
-			tabSet = POSTTAB;
+			tabSet = globalConfig.postTab;
 		}
 		handleSearch();
 	});
@@ -68,8 +69,8 @@
 			toastStore.trigger(t);
 		}
 	}
-	const getSearch = async (searchQuery: string, offset: number, limit: string) => {
-		if (tabSet === POSTTAB) {
+	const getSearch = async (tab: number, searchQuery: string, offset: number, limit: string) => {
+		if (tab === globalConfig.postTab) {
 			const body: ErrorObject | PostData = await searchPostByHashtag(searchQuery, offset, limit);
 			isError = 'error' in body;
 			if ('error' in body) {
@@ -86,25 +87,25 @@
 	async function loadMoreUsers() {
 		if (urlProps.offset !== null) {
 			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
-			const response = await searchUsers();
+			const response = await searchUsers(searchTerm, urlProps.offset);
 			handleUsers({ ...response, records: [...userSearch, ...response.records] });
 		}
 	}
 	async function loadMorePostsSearch() {
 		$loading = true;
 		urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
-		const response = await searchHashtags();
+		const response = await searchHashtags(searchTerm, urlProps.offset);
 		handleHashtags(response);
 		$loading = false;
 	}
-	async function searchHashtags() {
+	async function searchHashtags(hashtag: string, offset: number) {
 		goto(`/search?q=${searchTerm}`);
-		const response = await getSearch(searchTerm, urlProps.offset, globalConfig.limit);
+		const response = await getSearch(tabSet, hashtag, offset, globalConfig.limit);
 		return response;
 	}
-	async function searchUsers() {
+	async function searchUsers(userstring: string, offset: number) {
 		goto(`/search?username=${searchTerm}`);
-		const response = await getSearch(searchTerm, urlProps.offset, globalConfig.limit);
+		const response = await getSearch(tabSet, userstring, offset, globalConfig.limit);
 		return response.data;
 	}
 	async function handleHashtags(response: PostData) {
@@ -130,15 +131,15 @@
 		urlProps.offset = 0;
 		chipString = searchTerm;
 		try {
-			if (tabSet === POSTTAB && searchTerm.length > 0) {
+			if (tabSet === globalConfig.postTab && searchTerm.length > 0) {
 				isSearch = true;
 				postSearch.posts = [];
 				postSearch.overallRecords = 0;
-				const response = await searchHashtags();
+				const response = await searchHashtags(searchTerm, urlProps.offset);
 				handleHashtags(response);
-			} else if (tabSet === USERTAB && searchTerm.length > 0) {
+			} else if (tabSet === globalConfig.userTab && searchTerm.length > 0) {
 				isSearch = true;
-				const response: UserSearch | ErrorResponse = await searchUsers();
+				const response: UserSearch | ErrorResponse = await searchUsers(searchTerm, urlProps.offset);
 				handleUsers(response as UserSearch);
 			} else {
 				isSearch = false;
@@ -169,29 +170,29 @@
 	}
 </script>
 
-<div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
-	<SearchBar {handleSearch} bind:searchTerm />
-</div>
-{#if isSearch}
-	<SearchTabs
-		bind:tabSet
-		bind:lastPage
-		{handleSearch}
-		{loadMoreUsers}
-		{loadMorePostsSearch}
-		{POSTTAB}
-		{USERTAB}
-		{isError}
-		{error}
-		{postSearch}
-		{userSearch}
-		{chipString}
-	/>
-{:else}
-	<Feed
-		postData={postDataGlobaleFeed}
-		{loadMorePosts}
-		nothingFoundMessage={'Keine Post gefunden'}
-		nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
-	/>
-{/if}
+<main bind:this={main}>
+	<div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
+		<SearchBar {handleSearch} bind:searchTerm />
+	</div>
+	{#if isSearch}
+		<SearchTabs
+			bind:tabSet
+			bind:lastPage
+			{handleSearch}
+			{loadMoreUsers}
+			{loadMorePostsSearch}
+			{isError}
+			{error}
+			{postSearch}
+			{userSearch}
+			{chipString}
+		/>
+	{:else}
+		<Feed
+			postData={postDataGlobaleFeed}
+			{loadMorePosts}
+			nothingFoundMessage={'Keine Posts gefunden'}
+			nothingFoundSubMessage={'Sei der erste, der einen Post auf dieser Plattform verfasst!'}
+		/>
+	{/if}
+</main>

@@ -101,8 +101,6 @@
 </script>
 
 <div class="flex flex-col items-center justify-center">
-	<!-- Dies stellt den Flex-Container dar -->
-
 	<Geolocation
 		{getPosition}
 		{options}

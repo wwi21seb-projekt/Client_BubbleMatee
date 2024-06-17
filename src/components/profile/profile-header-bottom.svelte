@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { UserInfo } from '$domains';
 	import { currentUsername } from '$stores';
 	import { subscribe, unsubscribe, getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { Envelope } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 
 	export let user: UserInfo;
 
@@ -68,6 +70,15 @@
 			>{setFollowButtonText()}</button
 		>
 	{/if}
+	{#if !isOwnUser && !user.status}
+		<button
+			on:click={() => goto(`/home/chats/newChat/${user.username}`)}
+			class="flex items-center justify-center btn w-full mt-2 md:max-w-xs mx-4 variant-ghost-primary h-10"
+		>
+			<Icon class="mr-2 h-5 w-5" src={Envelope} />
+			<span>Nachricht</span>
+		</button>
+	{/if}
 </div>
 
 <div class="w-full px-4 flex flex-col md:flex-row justify-center md:justify-between items-center">
@@ -79,5 +90,14 @@
 		<button class={setFollowButtonClass()} on:click={handleButtonClick}
 			>{setFollowButtonText()}</button
 		>
+	{/if}
+	{#if !isOwnUser && user.status}
+		<button
+			on:click={() => goto(`/home/chats/newChat/${user.username}`)}
+			class="flex items-center justify-center btn w-full mt-2 md:max-w-xs mx-4 variant-ghost-primary h-10"
+		>
+			<Icon class="mr-2 h-5 w-5" src={Envelope} />
+			<span>Nachricht</span>
+		</button>
 	{/if}
 </div>

@@ -11,6 +11,7 @@ export function calculatePassedTime(date: Date): string {
 	// Difference in milliseconds
 	const differenceInMS = nowUTC.getTime() - date.getTime();
 	// Calculate difference in minutes, hours, days, and weeks
+	const differenceInSeconds = Math.ceil(differenceInMS / 1000);
 	const differenceInMinutes = Math.ceil(differenceInMS / (1000 * 60));
 	const differenceInHours = Math.ceil(differenceInMS / (1000 * 60 * 60));
 	const differenceInDays = Math.ceil(differenceInMS / (1000 * 60 * 60 * 24));

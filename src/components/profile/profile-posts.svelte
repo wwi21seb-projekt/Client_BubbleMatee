@@ -13,7 +13,7 @@
 	{postData}
 	{loadMorePosts}
 	{notifyDeletedPost}
-	nothingFoundMessage={'Keine Post gefunden'}
+	nothingFoundMessage={'Keine Posts gefunden'}
 	nothingFoundSubMessage={isOwnUser
 		? "Verfasse deinen ersten Post im 'Posten'-Tab!"
 		: `${username} hat noch nichts gepostet`}

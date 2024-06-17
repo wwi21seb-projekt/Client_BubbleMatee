@@ -52,7 +52,7 @@
 				};
 				toastStore.trigger(t);
 			} else {
-				goto('/login/verify?username=' + body.data.username);
+				goto(`/login/verify?username=${body.data.username}`);
 			}
 
 			return body;

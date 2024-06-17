@@ -35,7 +35,7 @@
 				let errorColor: string = 'variant-filled-error';
 
 				if (error.code === 'ERR-013') {
-					goto('/login');
+					goto(`/login?username=${username}`);
 					errorColor = 'variant-filled-warning';
 				}
 
