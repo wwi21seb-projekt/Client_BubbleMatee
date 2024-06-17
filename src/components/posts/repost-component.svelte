@@ -1,6 +1,6 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
-	import { ModalHeader, PostButton, Textarea } from '$components';
+	import { ModalHeader, PostButton, Textarea, FileInput } from '$components';
 	import type { Post } from '$domains';
 	import FeedPostCard from './feed-post-card.svelte';
 	export let post: Post;
@@ -17,6 +17,7 @@
 		<ModalHeader title="Post teilen" />
 	</header>
 	<div class="content">
+		<FileInput />
 		<Textarea />
 	</div>
 	<hr class="mt-2 mb-2" />
