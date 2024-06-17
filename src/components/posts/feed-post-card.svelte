@@ -186,7 +186,7 @@
 					<FeedPostLocation location={post.location} />
 				{/if}
 			</div>
-		{#if !isRepost}
+			{#if !isRepost}
 				<footer>
 					<FeedPostFooter
 						{post}
@@ -197,11 +197,11 @@
 						commentPost={commentThisPost}
 					/>
 				</footer>
-		{/if}
+			{/if}
 		{:else}
 			<div class="flex justify-center items-center font-bold">
 				Der originale Post wurde gelöscht
 			</div>
 		{/if}
-</div>
+	</div>
 </div>

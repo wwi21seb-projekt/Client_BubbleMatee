@@ -103,7 +103,6 @@
 									? notification.user.picture.url
 									: Person}
 							/>
-						</div>
 							<div class="ml-2">
 								<p class="text-lg font-semibold dark:text-gray-300">
 									{getNotificationTitle(notification.notificationType)}

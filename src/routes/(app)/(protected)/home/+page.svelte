@@ -5,6 +5,7 @@
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
 	import { loading } from '$stores';
+	import { onMount } from 'svelte';
 	export let data: PostData | ErrorObject;
 	let postData: PostData = {
 		posts: new Array<PostWithRepost>(),

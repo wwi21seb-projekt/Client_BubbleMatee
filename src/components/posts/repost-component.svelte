@@ -20,7 +20,15 @@
 		<div class="content">
 			<div class="w-full justify-center items-center flex">
 				<div class="container">
-					<FeedPostCard deletePost={() => {}} {post} isRepost={true} />
+					<FeedPostCard
+						deletePost={null}
+						{post}
+						isRepost={true}
+						likePost={null}
+						postComment={null}
+						loadMoreComments={null}
+						unlikePost={null}
+					/>
 				</div>
 			</div>
 			<hr class="mt-2 mb-2" />
