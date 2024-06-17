@@ -5,7 +5,6 @@
 		FeedPostFooter,
 		FeedPostMain,
 		FeedPostHeader,
-		FeedPostLocation,
 		FeedPostCard
 	} from '$components';
 	import type {
