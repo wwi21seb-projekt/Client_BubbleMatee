@@ -91,12 +91,12 @@
 		display: flex;
 		justify-content: center; /* Zentriert das Bild horizontal */
 		align-items: center; /* Zentriert das Bild vertikal */
-		height: 30%; /* Feste Höhe für alle Bilder */
+		max-height: 30%; /* Feste Höhe für alle Bilder */
 	}
 
 	.image-container img {
 		max-width: 100%;
-		height: 100%; /* Feste Höhe für das Bild */
+		max-height: 400px; /* Feste Höhe für das Bild */
 		object-fit: contain; /* Verhindert Verzerrungen und stellt sicher, dass das gesamte Bild sichtbar ist */
 	}
 

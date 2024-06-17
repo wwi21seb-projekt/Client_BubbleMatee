@@ -14,6 +14,11 @@
 	export let isRepost: boolean = false;
 	export let post: Post | undefined = undefined;
 
+	$isFileSelected = false;
+	$postText = '';
+	$uploadedImageUrl = undefined;
+	$loading = false;
+
 	// Helper function to remove whitespace and newlines from a string
 	function removeWhitespaceAndNewlines(text: string): string {
 		return text.replace(/\s+/g, '');
@@ -95,15 +100,28 @@
 	const handlePost = async () => {
 		if ($inputValid) {
 			loading.set(true);
+
+			// Extrahieren der Längen- und Breitengrade aus der coords Variable
+			const LONGITUDE = coords[0];
+			const LATITUDE = coords[1];
+			const ACCURACY = 1; // oder ein Standardwert, falls gewünscht
+
+			// Prüfen, ob die Koordinaten gültig sind
+			const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
+
 			try {
 				// Ensure picture is set only if $uploadedImageUrl is defined
 				let postBody: NewPost = {
 					content: $postText,
-					location: {
-						longitude: coords[0],
-						latitude: coords[1],
-						accuracy: 1
-					}
+					location: ARE_COORDS_VALID
+						? {
+								//optional
+								// Falls Koordinaten vorhanden sind, werden diese hier eingefügt
+								longitude: LONGITUDE,
+								latitude: LATITUDE,
+								accuracy: ACCURACY
+							}
+						: null
 				};
 
 				if ($uploadedImageUrl) {

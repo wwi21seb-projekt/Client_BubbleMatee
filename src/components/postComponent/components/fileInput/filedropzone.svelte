@@ -14,6 +14,7 @@
 
 	// Local variable to track selected files
 	let localFiles: FileList;
+	$uploadedImageUrl = undefined;
 
 	//Base 64 convert
 	function convertToBase64(file: File) {

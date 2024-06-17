@@ -2,7 +2,7 @@
 	import { postText } from '$stores';
 
 	var localPostText: string = '';
-
+	$postText = '';
 	// CSS class names for different text states
 	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';
 	const classWarning = 'text-warning-500';
