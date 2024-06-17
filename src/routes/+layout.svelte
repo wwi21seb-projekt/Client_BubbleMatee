@@ -48,7 +48,7 @@
 </script>
 
 <Modal transitions={false} />
-<Toast position="t" />
+<Toast position="t" zIndex="z-[1000]" />
 <!-- Basic Layout of the App -->
 <AppShell>
 	<svelte:fragment slot="header">

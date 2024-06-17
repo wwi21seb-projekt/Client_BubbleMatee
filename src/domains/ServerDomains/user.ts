@@ -1,3 +1,5 @@
+import type { Picture } from '$domains/Post';
+
 export interface Tokens {
 	token: string;
 	refreshToken: string;
@@ -13,7 +15,7 @@ export interface UserInfo {
 	username: string;
 	nickname: string;
 	status: string;
-	profilePictureUrl: string;
+	picture?: Picture;
 	follower: number;
 	following: number;
 	posts: number;

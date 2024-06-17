@@ -10,6 +10,17 @@ export interface Post {
 	creationDate: Date;
 	content: string;
 	location: Location | null;
+	likes: number;
+	liked: boolean;
+	comments: number;
+	picture?: Picture;
+}
+
+export interface Picture {
+	url: string;
+	width: number;
+	height: number;
+	tag?: number;
 }
 
 export interface PostWithRepost extends Post {
@@ -19,7 +30,7 @@ export interface PostWithRepost extends Post {
 export interface Author {
 	username: string;
 	nickname: string;
-	profilePictureUrl: string;
+	picture?: Picture;
 }
 
 export interface Location {
@@ -39,5 +50,17 @@ export interface LocationPlace {
 export interface PostData {
 	posts: Array<PostWithRepost>;
 	lastPostId?: string;
+	overallRecords: number;
+}
+
+export interface Comment {
+	commentId: number;
+	content: string;
+	author: Author;
+	creationDate: Date;
+}
+
+export interface CommentData {
+	comments: Array<Comment>;
 	overallRecords: number;
 }

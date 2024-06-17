@@ -1,3 +1,4 @@
+import type { Picture } from '$domains/Post';
 import type { UUID } from 'crypto';
 
 export interface Subscription {
@@ -20,6 +21,6 @@ export interface Follower {
 	followerId: string;
 	followingId: string;
 	nickname: string;
-	profilePictureUrl: string;
+	picture?: Picture;
 	username: string;
 }

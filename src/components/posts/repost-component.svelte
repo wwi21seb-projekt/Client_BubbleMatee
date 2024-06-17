@@ -16,7 +16,6 @@
 	<header>
 		<ModalHeader title="Post teilen" />
 	</header>
-
 	<footer>
 		<div class="content">
 			<div class="w-full justify-center items-center flex">
