@@ -67,9 +67,7 @@
 	</div>
 </div>
 <div class="controls mt-4 controls flex justify-between">
-	<button class="btn variant-filled-surface w-[47%]" on:click={startEditing}>
-		Bild ändern</button
-	>
+	<button class="btn variant-filled-surface w-[47%]" on:click={startEditing}> Bild ändern</button>
 	<button class="btn btn variant-filled-surface w-[47%]" on:click={removeImage}>
 		Bild entfernen</button
 	>
