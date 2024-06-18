@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { ErrorAlert, NewChatsList, NothingFoundComponent } from '$components';
-	import type { Chats, ChatsResponse, ErrorObject, ErrorResponse } from '$domains';
+	import type {
+		Chat,
+		Chats,
+		ChatsResponse,
+		ErrorObject,
+		ErrorResponse,
+		Notification
+	} from '$domains';
 	import { Person } from '$images';
 	import { getErrorMessage } from '$utils';
 	import { Avatar, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
@@ -10,6 +17,7 @@
 	import { onMount } from 'svelte';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+	import { hasNotifications, notifications } from '$stores';
 
 	const modalStore = getModalStore();
 
@@ -17,13 +25,58 @@
 	export let chatId: string = '';
 	export let chatPartner: string = '';
 
-	$: chats = data.error ? null : (data.data as Chats);
+	$: messageNotifications = $notifications.filter(
+		(notification) => notification.notificationType === 'message'
+	);
+	$: chats = data.error
+		? null
+		: (mapChatsWithReadChat(data.data as Chats, messageNotifications) as Array<ChatRead>);
 	$: error = data.error ? (data.data as ErrorObject) : null;
 
 	let errorMessage: string = '';
 	onMount(() => {
 		errorMessage = error ? getErrorMessage(error.error.code, true) : '';
 	});
+
+	interface ChatRead extends Chat {
+		newMessages: number;
+	}
+
+	function mapChatsWithReadChat(
+		chats: Chats,
+		messageNotifications: Array<Notification>
+	): ChatRead[] {
+		const chatsWithReadChat: ChatRead[] = chats.records.map((chat) => {
+			const chatRead: ChatRead = {
+				...chat,
+				newMessages: getNumberOfNewMessages(chat.user.username, messageNotifications)
+			};
+			return chatRead;
+		});
+		return chatsWithReadChat;
+	}
+
+	function getNumberOfNewMessages(
+		username: string,
+		messageNotifications: Array<Notification>
+	): number {
+		const chat = messageNotifications.filter(
+			(notification) => notification.user.username === username
+		);
+		return chat.length;
+	}
+
+	const clickOnChat = (person: ChatRead) => {
+		const notificationsToDelete: Array<Notification> = messageNotifications.filter(
+			(notification) => notification.user.username === person.user.username
+		);
+		notificationsToDelete.forEach((notification) => {
+			deleteNotificationRequest(notification.notificationId);
+		});
+		goto(`/home/chats/${person.chatId}`);
+		chatId = person.chatId;
+		chatPartner = person.user.username;
+	};
 
 	const onNewChat = () => {
 		const modalComponent: ModalComponent = {
@@ -37,6 +90,30 @@
 		};
 		modalStore.trigger(modal);
 	};
+
+	async function deleteNotificationRequest(notificationId: string | undefined) {
+		try {
+			const response = await fetch(`/api/notifications/${notificationId}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			if (!body.error) {
+				const notificationsNew: Array<Notification> = $notifications.filter(
+					(notification) => notification.notificationId !== notificationId
+				);
+				notifications.set(notificationsNew);
+				if (notificationsNew.length === 0) {
+					hasNotifications.set(false);
+				}
+			}
+			return body;
+		} catch (e) {
+			console.error(e);
+		}
+	}
 </script>
 
 {#if error}
@@ -64,22 +141,24 @@
 					</button>
 				</div>
 				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1 px-2">
-					{#if chats && chats?.records.length > 0}
-						{#each chats.records as person}
+					{#if chats}
+						{#each chats as person (person.chatId)}
 							<button
 								disabled={$page.params.username === person.user.username}
 								type="button"
 								class="btn w-full flex items-center space-x-4 {person.chatId === chatId
 									? 'variant-filled-primary'
 									: 'bg-surface-hover-token'}"
-								on:click={() => {
-									goto(`/home/chats/${person.chatId}`);
-									chatId = person.chatId;
-									chatPartner = person.user.username;
-								}}
+								on:click={() => clickOnChat(person)}
 							>
 								<Avatar src={Person} height="auto" />
 								<h3 class="ml-2 text-lg md:text-xl flex-1 text-start">{person.user.username}</h3>
+
+								{#if person.newMessages > 0}
+									<span class="badge-icon variant-filled-warning -top-0 -right-0 z-10"
+										>{person.newMessages}</span
+									>
+								{/if}
 							</button>
 						{/each}
 						<div class="grow"></div>

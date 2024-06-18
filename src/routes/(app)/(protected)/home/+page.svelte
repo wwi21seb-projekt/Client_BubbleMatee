@@ -75,10 +75,6 @@
 		transition: transform 0.3s ease-in-out; /* Transition effect for mouse hover */
 	}
 
-	.h1:hover {
-		transform: scale(1.1); /* Enlarge on hover */
-	}
-
 	/* Styles for horizontal lines (hr) */
 	hr {
 		margin-top: var(--default-margin);

@@ -90,6 +90,8 @@ sw.addEventListener('notificationclick', (event) => {
 	if (!event.action) {
 		console.log('Notification Click.', event.notification.data.username);
 		examplePage = `/search/user/${event.notification.data.username}`;
+		console.log(event);
+		if (event.notification.data.type === 'message') examplePage = '/home/chats';
 	}
 
 	switch (event.action) {

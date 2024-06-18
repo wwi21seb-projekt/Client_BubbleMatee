@@ -83,5 +83,6 @@ export function connectToWebSocket(chatId: string, token: string) {
 export function disconnectFromWebSocket() {
 	if (socket) {
 		socket.close();
+		console.log('Disconnected from WebSocket');
 	}
 }

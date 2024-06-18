@@ -2,8 +2,6 @@ import type { Notification } from '$domains';
 
 /**
  * Activates push notifications for the user.
- *
- *
  * @returns A promise that resolves to void
  */
 export const activatePushNotifications = async () => {
@@ -27,8 +25,6 @@ export const activatePushNotifications = async () => {
 
 /**
  * @param notificationType - The type of the notification
- *
- *
  * @returns A string with the notification title
  */
 export const getNotificationTitle = (notificationType: string): string => {
@@ -37,6 +33,8 @@ export const getNotificationTitle = (notificationType: string): string => {
 			return 'Dein Beitrag wurde geteilt';
 		case 'follow':
 			return 'Du hast einen neuen Follower';
+		case 'message':
+			return 'Du hast eine neue Nachricht';
 		default:
 			return 'Du hast eine neue Benachrichtigung';
 	}
@@ -44,8 +42,6 @@ export const getNotificationTitle = (notificationType: string): string => {
 
 /**
  * @param notification - The notification object
- *
- *
  * @returns An object with the notification options
  */
 export const getNotificationOptions = (notification: Notification): NotificationOptions => {
@@ -59,13 +55,20 @@ export const getNotificationOptions = (notification: Notification): Notification
 		case 'follow':
 			body = `${user} folgt dir jetzt`;
 			break;
+		case 'message':
+			body = `${user} hat dir eine Nachricht geschickt`;
+			break;
 		default:
 			body = 'Du hast eine neue Benachrichtigung';
 	}
 
 	const options = {
 		body,
-		data: { notificationId: notification.notificationId, username: notification.user.username },
+		data: {
+			notificationId: notification.notificationId,
+			username: notification.user.username,
+			type: notification.notificationType
+		},
 		icon: '/src/images/layout/logo.png', //icon on the left
 		badge: '/src/images/layout/logo.png', //icon on top of screen
 		image: '/src/images/layout/logo.png', //on the right on mobile
@@ -78,8 +81,6 @@ export const getNotificationOptions = (notification: Notification): Notification
 
 /**
  * The user is asked for permission to receive push notifications.
- *
- *
  * @returns A promise that resolves to the permission status
  */
 async function askPermission(): Promise<string> {
@@ -93,8 +94,6 @@ async function askPermission(): Promise<string> {
 
 /**
  * The user is subscribed to push notifications.
- *
- *
  * @returns A promise that resolves to the subscription
  */
 async function subscribeUserToPush(): Promise<PushSubscription> {
@@ -115,8 +114,6 @@ async function subscribeUserToPush(): Promise<PushSubscription> {
 
 /**
  * The VAPID key is requested from the server.
- *
- *
  * @returns A promise that resolves to the VAPID key
  */
 async function getVapidKey(): Promise<string> {
@@ -141,7 +138,6 @@ async function getVapidKey(): Promise<string> {
 
 /**
  * The subscription is sent to the server to be stored in the database.
- *
  * @param subscription The subscription to send to the server
  * @returns A promise that resolves to true if the subscription was sent successfully
  */
@@ -168,8 +164,6 @@ async function sendSubscriptionToBackEnd(subscription: PushSubscription): Promis
 
 /**
  * The user is unsubscribed from push notifications.
- *
- *
  * @returns A promise that resolves to void
  */
 async function unsubscribeUserFromPush(): Promise<void> {
@@ -183,8 +177,6 @@ async function unsubscribeUserFromPush(): Promise<void> {
 
 /**
  * The user is resubscribed to push notifications.
- *
- *
  * @returns A promise that resolves to the subscription
  */
 async function resubscribeUserToPush(): Promise<PushSubscription> {
