@@ -102,7 +102,7 @@
 			</div>
 		</svelte:fragment>
 		<svelte:fragment slot="message"
-			>Laden Sie eine Datei hoch oder ziehen Sie sie per Drag & Drop</svelte:fragment
+			>Lade eine Datei hoch oder ziehe sie per Drag & Drop</svelte:fragment
 		>
 		<svelte:fragment slot="meta">
 			<dl class="w-full ml-2">
