@@ -14,7 +14,6 @@
 
 	// Local variable to track selected files
 	let localFiles: FileList;
-	$uploadedImageUrl = undefined;
 
 	//Base 64 convert
 	function convertToBase64(file: File) {
@@ -32,7 +31,6 @@
 	// Handler for file change events
 	function onChangeHandler() {
 		var passedChecks = true;
-		console.log(localFiles.length !== 1);
 		if (localFiles.length === null || localFiles.length !== 1) {
 			passedChecks = false;
 			const t: ToastSettings = {

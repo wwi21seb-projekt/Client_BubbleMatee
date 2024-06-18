@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { Filedropzone, ImageDisplay } from '$components';
-	import { isFileUploaded, isEditing } from '$stores';
+	import { isFileUploaded, isEditing, uploadedImageUrl } from '$stores';
 	$isFileUploaded = false;
 	$isEditing = false;
+	$uploadedImageUrl = undefined;
 </script>
 
 <!-- show filedropzone or uploaded Image  -->

@@ -12,17 +12,25 @@
 	let toastStore = getToastStore();
 
 	let user = data.error ? null : (data.data as UserInfo);
+
+	// Function to remove the Base64 prefix from an image URL
+	function removeBase64Prefix(base64Url: string): string {
+		return base64Url.split(',')[1]; // Split the string at the comma and return the second part, which is the actual Base64 data
+	}
+
 	const profilePictureTransmit = async () => {
 		try {
+			let pictureData = $uploadedImageUrl ? removeBase64Prefix($uploadedImageUrl) : '';
+
 			const response = await fetch('/api/users', {
-				method: 'POST',
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
 					nickname: user?.nickname,
 					status: user?.status,
-					picture: $uploadedImageUrl
+					picture: pictureData
 				})
 			});
 

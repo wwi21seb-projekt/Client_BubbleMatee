@@ -16,8 +16,14 @@
 
 	let loading: boolean = false;
 
+	// Function to remove the Base64 prefix from an image URL
+	function removeBase64Prefix(base64Url: string): string {
+		return base64Url.split(',')[1]; // Split the string at the comma and return the second part, which is the actual Base64 data
+	}
+
 	const handleSubmit = async () => {
 		loading = true;
+		let pictureData = $uploadedImageUrl ? removeBase64Prefix($uploadedImageUrl) : '';
 		try {
 			const response = await fetch('/api/users', {
 				method: 'POST',
@@ -29,19 +35,9 @@
 					password: password,
 					username: username,
 					nickname: nickname,
-					profilePicture: $uploadedImageUrl // base64 optional "" wenn nicht vorhanden
+					profilePicture: pictureData
 				})
 			});
-
-			console.log(
-				JSON.stringify({
-					email: email,
-					password: password,
-					username: username,
-					nickname: nickname,
-					profilePicture: $uploadedImageUrl // base64 optional "" wenn nicht vorhanden
-				})
-			);
 
 			const body = await response.json();
 

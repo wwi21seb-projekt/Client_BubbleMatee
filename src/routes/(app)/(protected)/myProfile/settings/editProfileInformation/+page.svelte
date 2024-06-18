@@ -37,7 +37,6 @@
 				},
 				body: JSON.stringify({ nickname: nicknameInput, status: statusInput, picture: null })
 			});
-
 			const body = await response.json();
 
 			if (body.error) {
