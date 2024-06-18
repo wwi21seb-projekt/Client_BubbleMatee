@@ -52,13 +52,10 @@
 	};
 </script>
 
-<div class="flex flex-col items-center justify-center">
-	<h1 class="h1">
-		<span
-			class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
-			>Profilbild bearbeiten</span
-		>
-	</h1>
+<main class="p-4 h-full w-full grid grid-cols-1 place-content-center justify-items-center">
+	<div class="flex justify-center pb-4">
+		<h1 class="h1">Profilbild bearbeiten</h1>
+	</div>
 	<FileInput />
 
 	<button
@@ -67,26 +64,13 @@
 		><span class="badge self-center"><CheckIcon /></span>
 		Bild übernehmen</button
 	>
-</div>
+</main>
 
 <style>
 	/* Definition of CSS variables for recurring values */
 	:root {
 		--default-margin: 2rem; /* Default outer margin */
 		--default-font-size-large: 3rem; /* Default size for large text */
-	}
-
-	/* Styles for h1 elements */
-	.h1 {
-		font-size: var(--default-font-size-large);
-		text-align: center;
-		margin-top: var(--default-margin);
-		margin-bottom: var(--default-margin);
-		transition: transform 0.3s ease-in-out; /* Transition effect for mouse hover */
-	}
-
-	.h1:hover {
-		transform: scale(1.1); /* Enlarge on hover */
 	}
 
 	/* Media Query for small screens (e.g., mobile phones) */
