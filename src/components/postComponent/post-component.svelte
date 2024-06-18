@@ -34,8 +34,4 @@
 		margin: var(--default-margin) auto;
 		transition: transform 0.3s ease-in-out;
 	}
-
-	.h1:hover {
-		transform: scale(1.1);
-	}
 </style>
