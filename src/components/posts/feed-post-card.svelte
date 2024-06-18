@@ -21,7 +21,7 @@
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getModalStore, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	export let post: PostWithRepost;
 	export let likePost: ((postId: string) => void) | null;
 	export let unlikePost: ((postId: string) => void) | null;
@@ -31,34 +31,31 @@
 	export let postComment:
 		| ((postId: string, content: string) => Promise<ErrorResponse | PostCommentResponse>)
 		| null;
-	const toastStore = getToastStore();
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
+	const toastStore = getToastStore();
+	const modalStore = getModalStore();
 	let comments: Array<Comment> = new Array<Comment>();
 	let commentData: CommentData = {
 		comments: comments,
 		overallRecords: 1
 	};
-
 	function deleteThisPost(currentPost: PostWithRepost | Post | undefined): void {
 		if (deletePost && currentPost) {
 			deletePost(currentPost.postId);
 			invalidateAll();
 		}
 	}
-
 	function likeThisPost(): void {
 		if (likePost) {
 			likePost(post.postId);
 		}
 	}
-
 	function unlikeThisPost(): void {
 		if (unlikePost) {
 			unlikePost(post.postId);
 		}
 	}
-
 	function toggleLike(): void {
 		if (isLoggedIn) {
 			if (post.liked) {
@@ -68,7 +65,6 @@
 			}
 		}
 	}
-
 	async function loadMoreCommentsForThisPost(): Promise<CommentData> {
 		if (loadMoreComments) {
 			const body: CommentResponse | ErrorResponse = await loadMoreComments(
@@ -84,6 +80,7 @@
 					};
 					toastStore.trigger(t);
 				}
+				commentData.error = true;
 			} else {
 				const data = body.data as CommentList;
 				if (data.records) {
@@ -106,14 +103,17 @@
 			}
 			commentData.overallRecords = 0;
 		}
+		console.log(commentData);
 		return commentData;
 	}
-
 	async function commentThisPost(content: string): Promise<CommentData> {
 		if (postComment) {
 			const body = await postComment(post.postId, content);
 			if (body.error) {
 				const data = body.data as ErrorObject;
+				if (data.error.code == 'ERR-014') {
+					modalStore.close();
+				}
 				if (data.error) {
 					const t: ToastSettings = {
 						message: getErrorMessage(data.error.code, false),
@@ -145,7 +145,6 @@
 	}
 </script>
 
-<!--Component contains the header (Username/ Profile Picture etc/ the main post psrt (image/ text) and the footer (Likes and comments))-->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:dblclick={toggleLike} class="m-4">
 	<div

@@ -55,7 +55,9 @@
 				backdropClasses:
 					'bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 lg:dark:from-transparent lg:darkto-transparent lg:from-transparent lg:to-transparent'
 			};
-			modalStore.trigger(modal);
+			if (!commentData.error) {
+				modalStore.trigger(modal);
+			}
 		}
 	}
 

@@ -55,4 +55,5 @@ export interface Comment {
 export interface CommentData {
 	comments: Array<Comment>;
 	overallRecords: number;
+	error?: boolean;
 }
