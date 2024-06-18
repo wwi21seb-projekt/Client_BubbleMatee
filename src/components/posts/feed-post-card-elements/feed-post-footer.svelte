@@ -80,7 +80,7 @@
 	}
 </script>
 
-<footer>
+<footer class="mt-2">
 	<div class="flex flex-row items-center space-x-4">
 		<!--Like-button-->
 		<div class="flex flex-col items-center">

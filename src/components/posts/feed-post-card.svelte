@@ -147,7 +147,7 @@
 	<div
 		class={`${
 			isRepost
-				? '!bg-gradient-to-br dark:from-secondary-500 dark:to-secondary-600 from-primary-600 to-primary-700 m'
+				? '!bg-gradient-to-br dark:from-secondary-500 dark:to-secondary-600 from-primary-600 to-primary-700'
 				: '!bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-600 from-primary-400 to-primary-600 mb-2'
 		} 
 		w-full rounded-xl p-4 `}

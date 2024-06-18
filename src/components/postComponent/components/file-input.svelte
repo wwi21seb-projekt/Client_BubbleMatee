@@ -7,7 +7,7 @@
 </script>
 
 <!-- show filedropzone or uploaded Image  -->
-<div class="container">
+<div class="container my-4 mx-auto">
 	{#if !$isFileUploaded || $isEditing}
 		<!-- show filedropzone -->
 		<Filedropzone />
@@ -23,7 +23,5 @@
 		flex-direction: column;
 		align-items: center;
 		max-width: 31.25rem;
-		margin: auto;
-		margin-bottom: 2rem;
 	}
 </style>

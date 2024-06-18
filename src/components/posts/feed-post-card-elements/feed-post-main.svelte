@@ -2,15 +2,13 @@
 <script lang="ts">
 	import { FeedPostLocation } from '$components';
 	import type { PostWithRepost } from '$domains';
-
-	//TODO Add image
 	export let post: PostWithRepost;
 </script>
 
-<div class="card w-full !bg-transparent">
+<div class="card w-full !bg-transparent p-2">
 	<!-- Scroll for mobile - component is hidden on desktop (md:hidden)-->
 	<div class="grid grid-rows-1 gap-4 items-center !bg-transparent md:hidden w-full my-2">
-		<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 overflow-x-auto">
+		<div class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 overflow-x-auto pb-2">
 			<!--Show an image, if the post has one-->
 			{#if post.picture && post.picture.url != ''}
 				<div
@@ -18,7 +16,7 @@
 				>
 					<img
 						src={post.picture.url}
-						class="w-auto h-auto max-h-48 sm:max-h-60 max-w-full rounded p-2"
+						class="w-auto h-auto max-h-full max-w-full rounded-md"
 						alt="Post"
 					/>
 				</div>
@@ -41,13 +39,13 @@
 	</div>
 
 	<!-- Side By Side for Desktop component is only visible on desktop (hidden md:flex)-->
-	<div class="hidden md:flex !bg-transparent items-center justify-center">
+	<div class="hidden md:flex !bg-transparent items-center justify-center p-2">
 		<!--Show an image, if the post has one-->
 		{#if post.picture && post.picture.url != ''}
 			<div class="w-1/2 flex items-center justify-center overflow-hidden aspect-square h-72">
 				<img
 					src={post.picture.url}
-					class="w-auto h-auto max-h-full max-w-full rounded p-2"
+					class="w-auto h-auto max-h-full max-w-full rounded-md"
 					alt="Post"
 				/>
 			</div>

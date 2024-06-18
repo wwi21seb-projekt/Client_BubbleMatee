@@ -7,7 +7,6 @@
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { PostGeolocation } from '$components';
-	import { PaperPlane } from '$images';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	const modalStore = getModalStore();
 
@@ -162,38 +161,17 @@
 	};
 </script>
 
-<div class="flex flex-col items-center">
-	<div class={!isRepost ? '' : ''}>
+<div class="flex flex-col items-center w-full max-w-[31.25rem]">
+	<div class="w-full max-w-[31.25rem]">
 		<PostGeolocation bind:coords />
 	</div>
 
 	<button
 		type="button"
-		class="btn variant-filled-primary mt-4 buttonPost"
+		class="btn variant-filled-primary mt-4 w-full"
 		disabled={!$inputValid}
 		on:click={handlePost}
 	>
-		<img src={PaperPlane} alt="Icon zum Posten" class="iconImage" />
-		<span>Posten</span>
+		Posten
 	</button>
 </div>
-
-<style>
-	:root {
-		--icon-size: 2.188rem;
-	}
-
-	.buttonPost {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		max-width: 31.25rem;
-		width: 100%;
-	}
-
-	.iconImage {
-		height: var(--icon-size);
-		width: var(--icon-size);
-		margin-right: 0.5rem;
-	}
-</style>

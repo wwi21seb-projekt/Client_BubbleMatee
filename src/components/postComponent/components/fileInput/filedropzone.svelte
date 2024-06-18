@@ -4,7 +4,8 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import { getErrorMessage } from '$utils';
-
+	import { Photo } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import { uploadRestrictions } from '../../../../static/components/index.ts';
 
 	const toastStore = getToastStore();
@@ -88,15 +89,10 @@
 </script>
 
 <div class={$isEditing ? 'filedropzone' : 'filedropzone filedropzone-hidden'}>
-	<!-- svelte-ignore a11y-img-redundant-alt -->
-	<FileDropzone name="files" bind:files={localFiles} on:change={onChangeHandler}>
+	<FileDropzone name="files" bind:files={localFiles} on:change={onChangeHandler} class="h-72">
 		<svelte:fragment slot="lead">
 			<div class="imageUploadContainer">
-				<img
-					src="/src/images/icons/upload.png"
-					alt="Image for uploading image files"
-					class="iconImageUpload"
-				/>
+				<Icon src={Photo} class="h-10"></Icon>
 			</div>
 		</svelte:fragment>
 		<svelte:fragment slot="message"
@@ -146,8 +142,6 @@
 
 	.filedropzone {
 		width: var(--dropzone-width);
-		margin: var(--dropzone-margin);
-		height: auto; /* Flexible height for all dropzones */
 		display: flex;
 		flex-direction: var(--dropzone-flex-direction);
 		align-items: center; /* Centers content horizontally */
@@ -158,12 +152,6 @@
 		display: flex;
 		justify-content: center; /* Centers the icon horizontally */
 		align-items: center; /* Centers the icon vertically */
-		height: 100%; /* Or a fixed height if you want a specific size */
 		margin-left: var(--image-container-margin-left);
-	}
-
-	.iconImageUpload {
-		height: var(--icon-size);
-		width: var(--icon-size);
 	}
 </style>

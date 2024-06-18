@@ -35,8 +35,8 @@
 			<FileInput />
 			<Textarea />
 		</div>
-		<div class="flex justify-center">
-			<div class="flex justify-center">
+		<div class="flex justify-center w-full">
+			<div class="flex justify-center w-full max-w-[31.25rem]">
 				<PostButton isRepost={true} {post} />
 			</div>
 		</div>

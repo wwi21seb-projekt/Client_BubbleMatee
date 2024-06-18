@@ -52,11 +52,11 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-	class="image-container"
+	class="image-container h-72"
 	on:mouseenter={toggleOverlayVisibilityTrue}
 	on:mouseleave={toggleOverlayVisibilityFalse}
 >
-	<img src={$uploadedImageUrl} alt="Hochgeladenes Bild" />
+	<img src={$uploadedImageUrl} alt="Hochgeladenes Bild" class="h-72 w-auto rounded-md" />
 	<div class="overlay-buttons">
 		<button class="overlay-button variant-glass-surface" on:click={startEditingImage}>
 			Bearbeiten
@@ -66,20 +66,12 @@
 		</button>
 	</div>
 </div>
-<div class="controls mt-2 controls">
-	<button class="btn btn variant-filled-surface iconButton" on:click={startEditing}
-		><img
-			src="/src/images/icons/edit.png"
-			alt="Bild zum bearbeiten von Bilddateien"
-			class="iconImageEdit"
-		/>Bild aktualisieren</button
+<div class="controls mt-4 controls flex justify-between">
+	<button class="btn btn variant-filled-surface iconButton" on:click={startEditing}>
+		Bild aktualisieren</button
 	>
-	<button class="btn btn variant-filled-surface iconButton" on:click={removeImage}
-		><img
-			src="/src/images/icons/delete.png"
-			alt="Bild zum entfernen von Bilddateien"
-			class="iconImageDelete"
-		/>Bild entfernen</button
+	<button class="btn btn variant-filled-surface iconButton" on:click={removeImage}>
+		Bild entfernen</button
 	>
 </div>
 
@@ -91,19 +83,9 @@
 		display: flex;
 		justify-content: center; /* Zentriert das Bild horizontal */
 		align-items: center; /* Zentriert das Bild vertikal */
-		max-height: 30%; /* Feste Höhe für alle Bilder */
-	}
-
-	.image-container img {
-		max-width: 100%;
-		max-height: 400px; /* Feste Höhe für das Bild */
-		object-fit: contain; /* Verhindert Verzerrungen und stellt sicher, dass das gesamte Bild sichtbar ist */
 	}
 
 	.controls {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
 		width: 100%;
 		max-width: 31.25rem;
 	}
@@ -133,15 +115,6 @@
 		opacity: 1;
 	}
 
-	.iconImageEdit {
-		height: 2.188rem; /* Size for logo icons */
-		width: 2.188rem; /* Size for logo icons */
-	}
-
-	.iconImageDelete {
-		height: 2.188rem; /* Size for logo icons */
-		width: 2.188rem; /* Size for logo icons */
-	}
 	.iconButton {
 		display: flex; /* Macht den Button zu einem Flex-Container */
 		flex-direction: column;

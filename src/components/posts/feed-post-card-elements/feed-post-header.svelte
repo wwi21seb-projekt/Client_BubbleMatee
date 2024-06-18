@@ -36,7 +36,7 @@
 	};
 </script>
 
-<header>
+<header class="mb-2">
 	<div class="flex items-center justify-between">
 		<!--Element shows the profile picture, username, nickname and the time that has passed since the post-->
 		<button
