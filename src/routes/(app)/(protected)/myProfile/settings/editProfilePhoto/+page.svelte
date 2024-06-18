@@ -130,12 +130,12 @@
 		</div>
 		<img
 			src={user && user.picture && user.picture.url ? user.picture.url : Person}
-			class="h-72 w-auto m-[12px] rounded-full"
+			class="h-72 w-72 m-[12px] rounded-full"
 			alt="Profilbild"
 		/>
 
 		<button
-			class="btn variant-filled-primary my-2 w-full max-w-[31.25rem]"
+			class="btn variant-filled-surface my-2 w-full max-w-[31.25rem]"
 			on:click={() => {
 				uploadNewPicture = true;
 			}}

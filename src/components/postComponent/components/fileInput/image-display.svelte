@@ -67,10 +67,10 @@
 	</div>
 </div>
 <div class="controls mt-4 controls flex justify-between">
-	<button class="btn btn variant-filled-surface iconButton" on:click={startEditing}>
-		Bild aktualisieren</button
+	<button class="btn variant-filled-surface w-[47%]" on:click={startEditing}>
+		Bild ändern</button
 	>
-	<button class="btn btn variant-filled-surface iconButton" on:click={removeImage}>
+	<button class="btn btn variant-filled-surface w-[47%]" on:click={removeImage}>
 		Bild entfernen</button
 	>
 </div>
@@ -113,16 +113,5 @@
 
 	.image-container:hover .overlay-buttons {
 		opacity: 1;
-	}
-
-	.iconButton {
-		display: flex; /* Macht den Button zu einem Flex-Container */
-		flex-direction: column;
-		align-items: center; /* Zentriert die Inhalte vertikal */
-		justify-content: center; /* Zentriert die Inhalte horizontal */
-		width: 100%;
-		max-width: 230px;
-		min-width: 150px;
-		margin-bottom: 5px;
 	}
 </style>
