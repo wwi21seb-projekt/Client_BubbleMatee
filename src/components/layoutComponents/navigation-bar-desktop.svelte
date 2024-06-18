@@ -39,7 +39,7 @@
 					($page.url.pathname.startsWith('/home')
 						? ' text-secondary-500 dark:text-primary-500 stroke-2'
 						: ' text-primary-900 dark:text-primary-100 stroke-1') +
-					' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Home</span
+					' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Start</span
 			>
 		</AppRailAnchor>
 		<hr class="!border-t-1" />
@@ -125,7 +125,7 @@
 				($page.url.pathname.startsWith('/about')
 					? ' text-secondary-500 dark:text-primary-500 stroke-2'
 					: ' text-primary-900 dark:text-primary-100 stroke-1') +
-				' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>About us</span
+				' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}>Über uns</span
 		>
 	</AppRailAnchor>
 	<hr class="!border-t-1" />

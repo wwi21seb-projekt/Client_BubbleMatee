@@ -10,6 +10,9 @@
 		Follower
 	} from '$domains';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import { currentUsername } from '$stores';
+	import { loading } from '$stores';
 
 	export let username: string;
 	export let isFollowerlist: boolean;
@@ -25,8 +28,23 @@
 	onMount(async () => {
 		loadMore();
 	});
+	let nothingFoundMessage: string;
+	let nothingFoundSubMessage: string;
+	let isOwnUser: boolean =
+		$page.params.username === $currentUsername || $page.url.pathname === '/myProfile';
+	nothingFoundMessage = isFollowerlist ? 'Keine Abonenten gefunden' : 'Keine Abonierten gefunden';
+	if (isFollowerlist) {
+		nothingFoundSubMessage = isOwnUser
+			? 'Du hast noch keine Abonenten!'
+			: `${username} hat noch keine Abonenten!`;
+	} else {
+		nothingFoundSubMessage = isOwnUser
+			? 'Suche nach deinen Freunden, um diese zu abonieren!'
+			: `Sei der erste, der ${username} folgt!`;
+	}
 
 	async function loadMore() {
+		$loading = true;
 		const response = await fetch(
 			`/api/subscriptions/${username}?type=${type}&offset=${users.length}&limit=${globalConfig.limit}`,
 			{
@@ -48,6 +66,7 @@
 			lastPage = users.length >= subscriptionData.pagination.records;
 			isError = false;
 		}
+		$loading = false;
 	}
 </script>
 
@@ -60,6 +79,15 @@
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		<UserTab {users} {loadMore} {error} {isError} {lastPage} isFollowerlist={true} />
+		<UserTab
+			{users}
+			{loadMore}
+			{error}
+			{isError}
+			{lastPage}
+			isFollowerlist={true}
+			{nothingFoundMessage}
+			{nothingFoundSubMessage}
+		/>
 	</div>
 </div>

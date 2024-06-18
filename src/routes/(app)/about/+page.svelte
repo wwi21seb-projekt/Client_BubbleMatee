@@ -9,35 +9,43 @@
 		ServerImprint
 	} from '$components';
 	import type { ErrorResponse, ImprintResponse } from '$domains';
+	import { onMount } from 'svelte';
 
 	export let data: ImprintResponse | ErrorResponse;
+
+	let main: HTMLElement;
+	onMount(() => {
+		main.scrollIntoView();
+	});
 </script>
 
-<h1 class="h1">
-	<span
-		class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
-		>ÜBER UNS</span
-	>
-</h1>
-<!-- Separator Line -->
-<hr class="!border-t-8 !border-double" />
-<Accordion>
-	<!-- Team -->
-	<CarouselProjectParticipants />
-	<!-- Documentation -->
-	<ProjectDocumentation />
-	<!-- Product Video -->
-	<ProductVideo />
-	<!-- Legal Notes -->
-	<LegalNotice />
-	<!-- ... -->
-	<ServerImprint {data} />
-</Accordion>
+<main bind:this={main}>
+	<h1 class="h1">
+		<span
+			class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
+			>ÜBER UNS</span
+		>
+	</h1>
+	<!-- Separator Line -->
+	<hr class="!border-t-8 !border-double" />
+	<Accordion>
+		<!-- Team -->
+		<CarouselProjectParticipants />
+		<!-- Documentation -->
+		<ProjectDocumentation />
+		<!-- Product Video -->
+		<ProductVideo />
+		<!-- Legal Notes -->
+		<LegalNotice />
+		<!-- ... -->
+		<ServerImprint {data} />
+	</Accordion>
 
-<!-- Separator Line -->
-<hr class="!border-t-8 !border-double" />
+	<!-- Separator Line -->
+	<hr class="!border-t-8 !border-double" />
 
-<MediaButtonsLogo />
+	<MediaButtonsLogo />
+</main>
 
 <style>
 	/* Definition of CSS variables for recurring values */

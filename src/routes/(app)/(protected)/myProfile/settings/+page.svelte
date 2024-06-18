@@ -6,7 +6,8 @@
 	import { currentUsername, hasNotifications, isLoggedIn, notifications } from '$stores';
 	const toastStore = getToastStore();
 	const t: ToastSettings = {
-		message: 'Abmeldung erfolgreich'
+		message: 'Abmeldung erfolgreich',
+		background: 'variant-filled-success'
 	};
 	const handleLogout = async () => {
 		const response = await fetch('/api/users/logout', {
