@@ -1,4 +1,4 @@
-import type { Picture } from '$domains/Post';
+import type { Picture } from '$domains';
 import type { UUID } from 'crypto';
 
 export interface Subscription {
