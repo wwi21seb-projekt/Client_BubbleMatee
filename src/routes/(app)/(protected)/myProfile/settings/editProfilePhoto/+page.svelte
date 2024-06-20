@@ -115,7 +115,7 @@
 			Bild übernehmen</button
 		>
 		<button
-			class="btn variant-filled-error w-full max-w-[31.25rem]"
+			class="btn variant-ghost w-full max-w-[31.25rem]"
 			on:click={() => {
 				uploadNewPicture = false;
 			}}
@@ -135,7 +135,7 @@
 		/>
 
 		<button
-			class="btn variant-filled-surface my-2 w-full max-w-[31.25rem]"
+			class="btn variant-filled mt-2 w-full max-w-[31.25rem]"
 			on:click={() => {
 				uploadNewPicture = true;
 			}}
@@ -143,11 +143,17 @@
 			Neues Bild hochladen</button
 		>
 		<button
-			class="btn variant-filled-error w-full max-w-[31.25rem]"
+			class="btn variant-filled-error w-full max-w-[31.25rem] mt-2"
 			on:click={deletePicture}
 			disabled={!(user && user.picture && user.picture.url)}
 		>
 			Bild entfernen</button
+		>
+		<button
+			class="btn variant-ghost w-full max-w-[31.25rem] mt-2"
+			on:click={() => {
+				goto('/myProfile/settings');
+			}}>Abbrechen</button
 		>
 	</main>
 {/if}

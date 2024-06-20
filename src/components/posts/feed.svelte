@@ -178,18 +178,14 @@
 				></FeedPostCard>
 			{/each}
 		{:else if !$loading}
-			<div class=" mx-4">
-				<NothingFoundComponent
-					message={nothingFoundMessage ? nothingFoundMessage : 'Keine Posts gefunden'}
-					submessage={nothingFoundSubMessage ? nothingFoundSubMessage : null}
-				/>
-			</div>
+			<NothingFoundComponent
+				message={nothingFoundMessage ? nothingFoundMessage : 'Keine Posts gefunden'}
+				submessage={nothingFoundSubMessage ? nothingFoundSubMessage : null}
+			/>
 		{/if}
 		<!-- Button to load the next posts - is invisible, if there are no more posts-->
 		{#if postData.posts.length < postData.overallRecords}
-			<div class=" m-4">
-				<LoadMoreComponent loadMore={loadMorePosts} />
-			</div>
+			<LoadMoreComponent loadMore={loadMorePosts} />
 		{/if}
 	</div>
 </div>

@@ -81,6 +81,12 @@
 				disabled={loading || !informationChanged}
 				on:click={handleSave}>{loading ? 'Lädt...' : 'Speichern'}</button
 			>
+			<button
+				class="btn variant-ghost"
+				on:click={() => {
+					goto('/myProfile/settings');
+				}}>Abbrechen</button
+			>
 		</div>
 	{:else if error}
 		<ErrorAlert message={errorMessage} />
