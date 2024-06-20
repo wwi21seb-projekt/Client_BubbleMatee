@@ -52,11 +52,15 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-	class="image-container h-72"
+	class="image-container h-72 w-full"
 	on:mouseenter={toggleOverlayVisibilityTrue}
 	on:mouseleave={toggleOverlayVisibilityFalse}
 >
-	<img src={$uploadedImageUrl} alt="Hochgeladenes Bild" class="h-72 w-auto rounded-md" />
+	<img
+		src={$uploadedImageUrl}
+		alt="Hochgeladenes Bild"
+		class="w-auto h-auto max-h-full max-w-full rounded-md"
+	/>
 	<div class="overlay-buttons">
 		<button class="overlay-button variant-glass-surface" on:click={startEditingImage}>
 			Bearbeiten

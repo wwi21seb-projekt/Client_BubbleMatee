@@ -49,6 +49,16 @@
 			</li>
 			<hr class="!border-t-2" />
 			<li>
+				<a href="/myProfile/settings/editProfilePhoto" class="flex justify-between">
+					<span class="flex self-center">
+						<span class="badge self-center"><PhotoIcon /></span>
+						<span class="flex-auto self-center">Profilbild bearbeiten</span>
+					</span>
+					<span class="badge self-center"><ArrowRightIcon /></span>
+				</a>
+			</li>
+			<hr class="!border-t-2" />
+			<li>
 				<a href="/myProfile/settings/changePassword" class="flex justify-between">
 					<span class="flex self-center">
 						<span class="badge self-center"><PasswordIcon /></span>
@@ -66,16 +76,6 @@
 					</span>
 					<span class="badge self-center"><ArrowRightIcon /></span>
 				</button>
-			</li>
-			<hr class="!border-t-2" />
-			<li>
-				<a href="/myProfile/settings/editProfilePhoto" class="flex justify-between">
-					<span class="flex self-center">
-						<span class="badge self-center"><PhotoIcon /></span>
-						<span class="flex-auto self-center">Profilbild bearbeiten</span>
-					</span>
-					<span class="badge self-center"><ArrowRightIcon /></span>
-				</a>
 			</li>
 			<hr class="!border-t-2" />
 		</ul>

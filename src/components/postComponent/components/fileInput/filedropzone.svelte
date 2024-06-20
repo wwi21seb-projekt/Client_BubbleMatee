@@ -6,7 +6,7 @@
 	import { getErrorMessage } from '$utils';
 	import { Photo } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { uploadRestrictions } from '$components';
+	import { uploadRestrictions } from '../../../../static/components/index.ts';
 
 	const toastStore = getToastStore();
 

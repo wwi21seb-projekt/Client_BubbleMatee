@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Textarea, PostButton, FileInput  } from '$components';
+	import { Textarea, PostButton, FileInput } from '$components';
 </script>
 
 <h1 class="h1">
