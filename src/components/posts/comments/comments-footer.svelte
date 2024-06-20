@@ -13,8 +13,6 @@
 	const postComment = () => {
 		commentPost(newComment);
 		newComment = '';
-
-		//TODO: implement
 	};
 
 	let authors = new Array<Author>();
