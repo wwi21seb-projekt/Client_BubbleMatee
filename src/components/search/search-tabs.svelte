@@ -50,7 +50,15 @@
 				{#if tabSet === globalConfig.postTab}
 					<PostTab loadMore={loadMorePostsSearch} postData={postSearch} {isError} {error} />
 				{:else if tabSet === globalConfig.userTab}
-					<UserTab loadMore={loadMoreUsers} users={userSearch} {isError} {error} {lastPage} />
+					<UserTab
+						loadMore={loadMoreUsers}
+						users={userSearch}
+						{isError}
+						{error}
+						{lastPage}
+						nothingFoundMessage={'Keine Nutzer mit diesem Namen gefunden'}
+						nothingFoundSubMessage={'Suche nach einem anderen Namen!'}
+					/>
 				{/if}
 			</svelte:fragment>
 		</TabGroup>

@@ -117,6 +117,18 @@ const errorMessages: Array<Error> = [
 	{
 		code: 'ERR-027',
 		message: 'Der Chat wurde nicht gefunden. Bitte versuche es erneut.'
+	},
+	{
+		code: 'ERR-100',
+		message: 'Bitte laden Sie nur eine Datei hoch'
+	},
+	{
+		code: 'ERR-101',
+		message: 'Es sind nur die Dateiformate JPG, JPEG, WebP und SVG erlaubt.'
+	},
+	{
+		code: 'ERR-102',
+		message: 'Die Dateigröße darf 5MB nicht überschreiten, deine Datei ist zu groß.'
 	}
 ];
 

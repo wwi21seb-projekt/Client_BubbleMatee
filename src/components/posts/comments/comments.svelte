@@ -1,6 +1,14 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
-	import { ModalHeader, CommentElement, CommentsFooter, LoadMoreComponent } from '$components';
+	//TODO: Datenanbindung wenn der Endpunkt definiert ist
+	import {
+		ModalHeader,
+		CommentElement,
+		CommentsFooter,
+		LoadMoreComponent,
+		NothingFoundComponent,
+		ErrorAlert
+	} from '$components';
 	import type { CommentData } from '$domains';
 	export let loadMoreComments: () => Promise<CommentData>;
 	export let commentData: CommentData;
@@ -29,12 +37,23 @@
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">
-		{#each commentData.comments as comment}
-			<CommentElement {comment} id={`comment-${comment.commentId}`} />
-		{/each}
-		{#if commentData.overallRecords > commentData.comments.length}
-			<div class="ml-12 md:ml-14 mr-2 mt-2">
-				<LoadMoreComponent loadMore={load} />
+		{#if commentData.isError}
+			<ErrorAlert message={commentData.errorText}></ErrorAlert>
+		{:else if commentData.comments.length > 0}
+			{#each commentData.comments as comment}
+				<CommentElement {comment} id={`comment-${comment.commentId}`} />
+			{/each}
+			{#if commentData.overallRecords > commentData.comments.length}
+				<div class="ml-12 md:ml-14 mr-2 mt-2">
+					<LoadMoreComponent loadMore={load} />
+				</div>
+			{/if}
+		{:else}
+			<div class=" mx-4">
+				<NothingFoundComponent
+					message={'Keine Kommentare zu diesem Post gefunden'}
+					submessage={'Sei der erste, der diesen Post kommentiert!'}
+				/>
 			</div>
 		{/if}
 	</div>

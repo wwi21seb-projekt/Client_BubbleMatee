@@ -27,12 +27,16 @@ export { default as UserInfoValidation } from './login/user-info-validation.svel
 //Register Step Components
 export { default as PasswordStep } from './login/steps/password-step.svelte';
 export { default as UserInfoStep } from './login/steps/user-info-step.svelte';
+export { default as ProfileImageInputStep } from './login/steps/profile-image-input-step.svelte';
 
 //Post Components
 export { default as Textarea } from './postComponent/components/textarea.svelte';
 export { default as PostComponent } from './postComponent/post-component.svelte';
 export { default as PostButton } from './postComponent/components/post-button.svelte';
 export { default as PostGeolocation } from './postComponent/components/post-geolocation.svelte';
+export { default as Filedropzone } from './postComponent/components/fileInput/filedropzone.svelte';
+export { default as ImageDisplay } from './postComponent/components/fileInput/image-display.svelte';
+export { default as FileInput } from './postComponent/components/file-input.svelte';
 
 //Feed Components
 export { default as FeedPostCard } from './posts/feed-post-card.svelte';

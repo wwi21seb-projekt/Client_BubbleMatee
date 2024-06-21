@@ -101,17 +101,13 @@
 							class="flex items-center"
 							on:click={() => handleNotificationClick(notification)}
 						>
-							<div
-								class="flex items-center justify-center w-12 h-12 bg-primary-900 dark:bg-primary-500 text-white dark:text-black rounded-full"
-							>
-								<Avatar
-									border="hover:border-2 hover:!border-surface-600"
-									cursor="cursor-pointer"
-									src={notification.user.profilePictureUrl
-										? notification.user.profilePictureUrl
-										: Person}
-								/>
-							</div>
+							<Avatar
+								border="hover:border-2 hover:!border-surface-600"
+								cursor="cursor-pointer"
+								src={notification.user.picture && notification.user.picture.url
+									? notification.user.picture.url
+									: Person}
+							/>
 							<div class="ml-2">
 								<p class="text-lg font-semibold dark:text-gray-300">
 									{getNotificationTitle(notification.notificationType)}

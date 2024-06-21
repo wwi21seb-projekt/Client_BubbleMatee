@@ -119,7 +119,7 @@
 				followerId: '',
 				followingId: '',
 				nickname: record.nickname,
-				profilePictureUrl: record.profilePictureUrl,
+				profilePictureUrl: record.picture,
 				username: record.username
 			}));
 			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records

@@ -124,10 +124,17 @@
 			on:input={autoResize}
 		></textarea>
 		<button
-			class={currentMessage ? 'variant-filled-primary' : 'input-group-shim'}
 			on:click={onSendMessage}
+			class="bg-transparent border-none m-0 p-0 cursor-pointer outline-none"
 		>
-			<Icon src={PaperAirplane} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
+			<Icon
+				src={PaperAirplane}
+				class={`w-6 md:w-8 font-bold ${
+					currentMessage == ''
+						? 'stroke-gray-400'
+						: 'stroke-black dark:stroke-white dark:hover:stroke-gray-400 hover:stroke-gray-400'
+				} `}
+			/>
 		</button>
 	</div>
 </section>

@@ -112,5 +112,11 @@
 		<button class="btn variant-filled-primary" disabled={stepLocked} on:click={changePassword}
 			>{loading ? 'Lädt...' : 'Passwort ändern'}</button
 		>
+		<button
+			class="btn variant-ghost"
+			on:click={() => {
+				goto('/myProfile/settings');
+			}}>Abbrechen</button
+		>
 	</form>
 </main>

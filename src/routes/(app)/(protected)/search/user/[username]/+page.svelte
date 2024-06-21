@@ -7,8 +7,16 @@
 	let main: HTMLElement;
 
 	onMount(() => {
+		// initial scroll into view
 		main.scrollIntoView();
 	});
+
+	$: {
+		if (data && main) {
+			// check if data has changed
+			main.scrollIntoView();
+		}
+	}
 </script>
 
 <main bind:this={main}>

@@ -2,7 +2,7 @@
 	import { postText } from '$stores';
 
 	var localPostText: string = '';
-
+	$postText = '';
 	// CSS class names for different text states
 	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';
 	const classWarning = 'text-warning-500';
@@ -35,7 +35,7 @@
 	}
 </script>
 
-<div class="container">
+<div class="container mt-4">
 	<textarea
 		class="textarea !bg-surface-300 dark:!bg-surface-700 {classtext}"
 		rows="3"
@@ -64,6 +64,6 @@
 		max-height: 7rem;
 		margin: auto;
 		margin-bottom: 2rem;
-		margin-top: 2rem;
+		margin-top: 0rem;
 	}
 </style>

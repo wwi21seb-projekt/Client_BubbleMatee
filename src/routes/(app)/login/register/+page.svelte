@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { UserInfoStep, PasswordStep } from '$components';
+	import { UserInfoStep, PasswordStep, ProfileImageInputStep } from '$components';
 	import { getErrorMessage } from '$utils';
 	import { Stepper, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { uploadedImageUrl } from '$stores';
 
 	const toastStore = getToastStore();
 
@@ -15,8 +16,14 @@
 
 	let loading: boolean = false;
 
+	// Function to remove the Base64 prefix from an image URL
+	function removeBase64Prefix(base64Url: string): string {
+		return base64Url.split(',')[1]; // Split the string at the comma and return the second part, which is the actual Base64 data
+	}
+
 	const handleSubmit = async () => {
 		loading = true;
+		let pictureData = $uploadedImageUrl ? removeBase64Prefix($uploadedImageUrl) : '';
 		try {
 			const response = await fetch('/api/users', {
 				method: 'POST',
@@ -27,7 +34,8 @@
 					email: email,
 					password: password,
 					username: username,
-					nickname: nickname
+					nickname: nickname,
+					profilePicture: pictureData
 				})
 			});
 
@@ -64,6 +72,7 @@
 		on:complete={handleSubmit}
 	>
 		<UserInfoStep bind:email bind:nickname bind:username />
+		<ProfileImageInputStep />
 		<PasswordStep bind:password bind:passwordRepeat {loading} />
 	</Stepper>
 	<div class="flex justify-center p-4">

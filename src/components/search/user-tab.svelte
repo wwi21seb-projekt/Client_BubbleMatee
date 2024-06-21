@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Author, Error, ErrorResponse, FollowResponse, Follower } from '$domains';
-	import { LoadMoreComponent, UserComponent } from '$components';
+	import { ErrorAlert, LoadMoreComponent, NothingFoundComponent, UserComponent } from '$components';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { getModalStore, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { subscribe, unsubscribe, getErrorMessage } from '$utils';
-	import { currentUsername } from '$stores';
+	import { currentUsername, loading } from '$stores';
 
 	export let users: Array<Follower>;
 	export let isError: boolean;
@@ -13,6 +13,8 @@
 	export let loadMore: () => void;
 	export let lastPage: boolean;
 	export let isFollowerlist: boolean = false;
+	export let nothingFoundMessage: string;
+	export let nothingFoundSubMessage: string;
 
 	const modalStore = getModalStore();
 	const toastStore = getToastStore();
@@ -83,39 +85,44 @@
 </script>
 
 {#if !isError}
-	{#each users as user}
-		{#if !isFollowerlist}
-			<button
-				on:click={() => onUserClick(user)}
-				class="p-4 w-full hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card m-2 bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
-			>
-				<UserComponent author={user} />
-			</button>
-		{:else}
-			<div
-				class={`${
-					user.username === $currentUsername ? '' : 'grid grid-cols-2 content-center'
-				}    p-4 w-full hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card m-2 bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl`}
-			>
+	{#if users.length > 0}
+		{#each users as user}
+			{#if !isFollowerlist}
 				<button
-					class={`${user.username === $currentUsername ? 'w-full' : ''}`}
 					on:click={() => onUserClick(user)}
+					class="p-4 w-full hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card m-2 bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
 				>
 					<UserComponent author={user} />
 				</button>
-				{#if user.username !== $currentUsername}
-					<button on:click={() => handleButtonClick(user)} class={setFollowButtonClass(user)}
-						>{setFollowButtonText(user)}</button
+			{:else}
+				<div
+					class={`${
+						user.username === $currentUsername ? '' : 'grid grid-cols-2 content-center'
+					}    p-4 w-full hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card m-2 bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl`}
+				>
+					<button
+						class={`${user.username === $currentUsername ? 'w-full' : ''}`}
+						on:click={() => onUserClick(user)}
 					>
-				{/if}
-			</div>
+						<UserComponent author={user} />
+					</button>
+					{#if user.username !== $currentUsername}
+						<button on:click={() => handleButtonClick(user)} class={setFollowButtonClass(user)}
+							>{setFollowButtonText(user)}</button
+						>
+					{/if}
+				</div>
+			{/if}
+		{/each}
+		{#if !lastPage}
+			<LoadMoreComponent {loadMore} />
 		{/if}
-	{/each}
-	{#if !lastPage}
-		<LoadMoreComponent {loadMore} />
+	{:else if !$loading}
+		<div class=" mx-4">
+			<NothingFoundComponent message={nothingFoundMessage} submessage={nothingFoundSubMessage} />
+		</div>
 	{/if}
 {:else if error}
-	<p>{getErrorMessage(error.code, true)}</p>
+	<ErrorAlert message={getErrorMessage(error.code, true)}></ErrorAlert>
 {:else}
-	<p>Es ist ein Fehler aufgetreten</p>
-{/if}
+	<ErrorAlert message={'Es ist ein Fehler aufgetreten'}></ErrorAlert>{/if}

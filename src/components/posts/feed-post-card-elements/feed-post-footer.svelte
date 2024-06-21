@@ -82,35 +82,37 @@
 	}
 </script>
 
-<div class="flex flex-row items-center space-x-4">
-	<!--Like-button-->
-	<div class="flex flex-col items-center">
-		<button on:click={toggleLike} class="focus:outline-none">
-			<!--Red Heart if the post is liked-->
-			<Icon
-				src={Heart}
-				class={'h-8 md:h-10 font-bold' +
-					(post.liked
-						? ' fill-red-500 stroke-none hover:fill-red-700'
-						: ' fill-none stroke-black dark:stroke-white hover:stroke-gray-400 dark:hover:stroke-gray-400')}
-			/>
-		</button>
-		<small class="text-xs md:text-sm">{post.likes}</small>
-	</div>
-	<!--Comment-button-->
-
-	<div class="flex flex-col items-center">
-		<button on:click={handleCommentClick} class="focus:outline-none">
-			<Icon src={ChatBubbleLeft} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
-		</button>
-		<small class="text-xs md:text-sm">{post.comments}</small>
-	</div>
-	{#if !post.repost}
+<footer class="mt-2">
+	<div class="flex flex-row items-center space-x-4">
+		<!--Like-button-->
 		<div class="flex flex-col items-center">
-			<button on:click={handleRepostClick} class="focus:outline-none">
-				<Icon src={ArrowPathRoundedSquare} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
+			<button on:click={toggleLike} class="focus:outline-none">
+				<!--Red Heart if the post is liked-->
+				<Icon
+					src={Heart}
+					class={'h-8 md:h-10 font-bold' +
+						(post.liked
+							? ' fill-red-500 stroke-none hover:fill-red-700'
+							: ' fill-none stroke-black dark:stroke-white hover:stroke-gray-400 dark:hover:stroke-gray-400')}
+				/>
 			</button>
-			<small class="text-xs md:text-sm">Repost</small>
+			<small class="text-xs md:text-sm">{post.likes}</small>
 		</div>
-	{/if}
-</div>
+		<!--Comment-button-->
+
+		<div class="flex flex-col items-center">
+			<button on:click={handleCommentClick} class="focus:outline-none">
+				<Icon src={ChatBubbleLeft} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
+			</button>
+			<small class="text-xs md:text-sm">{post.comments}</small>
+		</div>
+		{#if !post.repost}
+			<div class="flex flex-col items-center">
+				<button on:click={handleRepostClick} class="focus:outline-none">
+					<Icon src={ArrowPathRoundedSquare} class="h-8 md:h-10 font-bold hover:stroke-gray-400" />
+				</button>
+				<small class="text-xs md:text-sm">Repost</small>
+			</div>
+		{/if}
+	</div>
+</footer>

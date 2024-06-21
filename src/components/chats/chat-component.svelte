@@ -58,37 +58,33 @@
 	});
 </script>
 
-<div class="chat mobile-height overflow-hidden {chatId ? 'lg:grid lg:grid-cols-[30%_1fr]' : ''}">
+<div class="chat overflow-hidden {chatId ? 'lg:grid lg:grid-cols-[30%_1fr]' : ''}">
 	<ContactList {chatId} data={chatData.chatsData} bind:chatPartner />
 	{#if chatId}
 		<!-- Chat -->
-		<div class="overflow-hidden">
+		<div class="flex flex-col h-[calc(100vh-118px)] md:h-[calc(100vh-88px)]">
 			{#if chatMessagesError}
 				<main class="p-4 h-full grid grid-cols-1 place-content-center justify-items-center">
 					<ErrorAlert message={errorChatMessage} />
 				</main>
 			{:else}
-				<div class="flex justify-center m-0 sticky top-0 z-40 bg-surface-50 dark:bg-surface-900">
+				<div class="flex-shrink-0 m-0 top-0 z-40 bg-surface-50 dark:bg-surface-900">
 					<ChatMobileHeader {chatPartner} />
 				</div>
-				<Chat
-					chatMessages={sortedAndClusteredMessages}
-					username={chatData.username}
-					{unsendChatMessages}
-				/>
-				<div class="m-0 sticky bottom-0 z-40 bg-surface-50 dark:bg-surface-900">
+				<main class="flex-grow overflow-y-auto overflow-x-hidden pr-1">
+					<Chat
+						chatMessages={sortedAndClusteredMessages}
+						username={chatData.username}
+						{unsendChatMessages}
+					/>
+				</main>
+				<footer class="flex-shrink-0 m-0 bottom-0 z-40 bg-surface-50 dark:bg-surface-900">
 					<SendMessageComponent
 						username={chatData.username}
 						chatPartnerUsername={chatPartnerUsernameFromUrl}
 					/>
-				</div>
+				</footer>
 			{/if}
 		</div>
 	{/if}
 </div>
-
-<style>
-	.mobile-height {
-		height: 80vh;
-	}
-</style>
