@@ -161,9 +161,9 @@
 	</Geolocation>
 
 	<button
-		class={isLocationActivated
-			? 'btn variant-filled-success mt-2 w-full max-w-[31.25rem] mt-4'
-			: 'btn variant-filled-warning mt-2 w-full max-w-[31.25rem]'}
+		class={` w-full max-w-[31.25rem] ${
+			isLocationActivated ? 'mt-4 btn variant-filled-surface' : 'btn variant-ghost-surface'
+		}`}
 		disabled={buttonDisabled}
 		on:click={handleButtonClick}
 	>

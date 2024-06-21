@@ -8,6 +8,8 @@
 
 	// Carousel element
 	let elemCarousel: HTMLDivElement;
+	let isStart = true;
+	let isEnd = false;
 
 	// Carousel navigation functions
 	function carouselMove(direction: 'left' | 'right'): void {
@@ -17,33 +19,45 @@
 			direction === 'left'
 				? Math.max(0, elemCarousel.scrollLeft - step)
 				: Math.min(maxScroll, elemCarousel.scrollLeft + step);
-
 		elemCarousel.scroll(newX, 0);
 	}
 
 	function carouselLeft(): void {
-		console.log('Test');
 		carouselMove('left');
 	}
 
 	function carouselRight(): void {
 		carouselMove('right');
 	}
+	function handleScroll() {
+		const step = elemCarousel.clientWidth;
+		const maxScroll = elemCarousel.scrollWidth - step;
+		isStart = elemCarousel.scrollLeft == 0;
+		isEnd = elemCarousel.scrollLeft > maxScroll - step + 1;
+		console.log(maxScroll);
+		console.log(elemCarousel.scrollLeft);
+	}
 </script>
 
 <div class="w-full !bg-transparent p-2">
 	<!-- Scroll for mobile - component is hidden on desktop (md:hidden)-->
 	<div class="flex justify-between md:hidden">
+		<!--Button to scroll, if the if the post has an image and text-->
 		{#if post.picture && post.picture.url != '' && post.content !== ''}
-			<button class="w-8" on:click={carouselLeft}>
-				<Icon
-					class="stroke-surface-500 dark:stroke-primary-500 stroke-bold"
-					src={ChevronLeft}
-				/></button
-			>
+			{#if !isStart}
+				<button class="w-8" on:click={carouselLeft}>
+					<Icon
+						class="stroke-surface-500 dark:stroke-primary-500 stroke-bold"
+						src={ChevronLeft}
+					/></button
+				>
+			{:else}
+				<div class="w-8"></div>
+			{/if}
 		{/if}
 		<div class="grid grid-rows-1 gap-4 items-center !bg-transparent w-full my-2">
 			<div
+				on:scroll={handleScroll}
 				bind:this={elemCarousel}
 				class="snap-x snap-mandatory scroll-auto scroll-1px flex gap-2 overflow-x-auto pb-2"
 			>
@@ -65,7 +79,6 @@
 					<span class="divider-vertical h-full" />
 				{/if}
 				<!--Show text, if the post has text-->
-
 				{#if post.content !== ''}
 					<div class="shrink-0 snap-start px-4 py-2 flex items-center rounded w-full">
 						<article class="text-xl w-full">
@@ -76,12 +89,18 @@
 			</div>
 		</div>
 		{#if post.picture && post.picture.url != '' && post.content !== ''}
-			<button class="w-8" on:click={carouselRight}>
-				<Icon
-					class="stroke-surface-500 dark:stroke-primary-500 stroke-bold"
-					src={ChevronRight}
-				/></button
-			>
+			<!--Button to scroll, if the if the post has an image and text-->
+
+			{#if !isEnd}
+				<button class="w-8" on:click={carouselRight}>
+					<Icon
+						class="stroke-surface-500 dark:stroke-primary-500 stroke-bold"
+						src={ChevronRight}
+					/></button
+				>
+			{:else}
+				<div class="w-8"></div>
+			{/if}
 		{/if}
 	</div>
 
@@ -110,7 +129,6 @@
 			</div>
 		{/if}
 	</div>
-
 	{#if post.location}
 		<FeedPostLocation location={post.location} />
 	{/if}
