@@ -99,7 +99,6 @@
 			}
 			commentData.overallRecords = 0;
 		}
-		console.log(commentData);
 		return commentData;
 	}
 	async function commentThisPost(content: string): Promise<CommentData> {

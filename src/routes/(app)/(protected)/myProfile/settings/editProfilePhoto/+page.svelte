@@ -12,7 +12,6 @@
 	let toastStore = getToastStore();
 
 	let user = data.error ? null : (data.data as UserInfo);
-	console.log(user);
 
 	// Function to remove the Base64 prefix from an image URL
 	function removeBase64Prefix(base64Url: string): string {

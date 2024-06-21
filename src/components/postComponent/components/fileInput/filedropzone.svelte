@@ -114,7 +114,7 @@
 </div>
 {#if $isEditing}
 	<div class="controls">
-		<button class="btn btn variant-filled-error" on:click={cancelEditing}
+		<button class="btn variant-filled-error" on:click={cancelEditing}
 			>Bildaktualisierung Abbrechen</button
 		>
 	</div>

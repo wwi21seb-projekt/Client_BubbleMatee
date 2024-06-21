@@ -22,14 +22,18 @@
 		: ((data.chatMessageData.data as ChatMessages).records as Array<ChatMessage>);
 
 	let unsendChatMessages: Array<ChatMessage> = [];
-	let unsubscribeUnsendMessages: () => void = subscribeUnsendMessage((currentMessage) => {
+	let unsubscribeUnsendMessages: (() => void) | null = null;
+	let unsubscribeMessages: (() => void) | null = null;
+
+	unsubscribeUnsendMessages = subscribeUnsendMessage((currentMessage) => {
 		if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
 			unsendChatMessages = unsendChatMessages.length
 				? [...unsendChatMessages, currentMessage as unknown as ChatMessage]
 				: [currentMessage as unknown as ChatMessage];
 		}
 	});
-	let unsubscribeMessages: () => void = subscribeMessage((currentMessage) => {
+
+	unsubscribeMessages = subscribeMessage((currentMessage) => {
 		if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
 			unsendChatMessages = unsendChatMessages.filter(
 				(message) => message.content !== currentMessage.content
@@ -46,8 +50,12 @@
 	});
 
 	onDestroy(() => {
-		unsubscribeUnsendMessages();
-		unsubscribeMessages();
+		if (unsubscribeUnsendMessages) {
+			unsubscribeUnsendMessages();
+		}
+		if (unsubscribeMessages) {
+			unsubscribeMessages();
+		}
 		disconnectFromWebSocket();
 	});
 </script>
