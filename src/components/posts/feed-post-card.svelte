@@ -74,7 +74,7 @@
 					commentData.isError = true;
 					commentData.errorText = getErrorMessage(data.error.code, false);
 				}
-				commentData.error = true;
+				commentData.isError = true;
 			} else {
 				const data = body.data as CommentList;
 				if (data.records) {
