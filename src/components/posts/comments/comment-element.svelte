@@ -29,7 +29,7 @@
 <div class="grid grid-cols-[auto_1fr] gap-2 m-2">
 	<!--Left column-->
 	<Avatar
-		src={comment.author.profilePictureUrl ? comment.author.profilePictureUrl : Person}
+		src={comment.author.picture && comment.author.picture.url ? comment.author.picture.url : Person}
 		width="w-8 md:w-10 min-w-0"
 	/>
 	<!--right column-->

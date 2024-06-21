@@ -35,9 +35,8 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ nickname: nicknameInput, status: statusInput })
+				body: JSON.stringify({ nickname: nicknameInput, status: statusInput, picture: null })
 			});
-
 			const body = await response.json();
 
 			if (body.error) {
@@ -81,6 +80,12 @@
 				class="btn variant-filled-primary"
 				disabled={loading || !informationChanged}
 				on:click={handleSave}>{loading ? 'Lädt...' : 'Speichern'}</button
+			>
+			<button
+				class="btn variant-ghost"
+				on:click={() => {
+					goto('/myProfile/settings');
+				}}>Abbrechen</button
 			>
 		</div>
 	{:else if error}

@@ -100,7 +100,7 @@
 	}
 </script>
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col items-center justify-center w-full max-w-[31.25rem]">
 	<Geolocation
 		{getPosition}
 		{options}
@@ -122,7 +122,7 @@
 				{loadLocation()}
 
 				<div
-					class="card !bg-surface-300 dark:!bg-surface-700 border border-primary-500 rounded-xl p-4 mt-2 w-full max-w-[500px] divide-y divide-surface-500"
+					class="card !bg-surface-300 dark:!bg-surface-700 border border-primary-500 rounded-xl p-4 mt-2 w-full max-w-[31.25rem] divide-y divide-surface-500"
 				>
 					<div class="mb-1">
 						<p class="mb-1 text-xl font-semibold text-center w-full">{'Koodinaten'}</p>
@@ -161,9 +161,9 @@
 	</Geolocation>
 
 	<button
-		class={isLocationActivated
-			? 'btn variant-filled-success mt-2'
-			: 'btn variant-filled-warning mt-2'}
+		class={` w-full max-w-[31.25rem] ${
+			isLocationActivated ? 'mt-4 btn variant-filled-surface' : 'btn variant-ghost-surface'
+		}`}
 		disabled={buttonDisabled}
 		on:click={handleButtonClick}
 	>

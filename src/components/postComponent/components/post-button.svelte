@@ -1,18 +1,22 @@
 <script lang="ts">
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
 	import { derived } from 'svelte/store';
-	import { isFileSelected, postText, loading } from '$stores';
+	import { isFileSelected, postText, loading, uploadedImageUrl } from '$stores';
 	import { goto } from '$app/navigation';
-	import type { Error, Post } from '$domains';
+	import type { Post } from '$domains';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { PostGeolocation } from '$components';
-	import { PaperPlane } from '$images';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	const modalStore = getModalStore();
 
 	export let isRepost: boolean = false;
 	export let post: Post | undefined = undefined;
+
+	$isFileSelected = false;
+	$postText = '';
+	$uploadedImageUrl = undefined;
+	$loading = false;
 
 	// Helper function to remove whitespace and newlines from a string
 	function removeWhitespaceAndNewlines(text: string): string {
@@ -48,6 +52,7 @@
 	type NewPost = {
 		repostedPostId?: string;
 		content: string;
+		picture?: string;
 		location: {
 			longitude: number;
 			latitude: number;
@@ -85,19 +90,26 @@
 		mockData.content = body.data.content ?? mockData.content;
 	}
 
+	// Function to remove the Base64 prefix from an image URL
+	function removeBase64Prefix(base64Url: string): string {
+		return base64Url.split(',')[1]; // Split the string at the comma and return the second part, which is the actual Base64 data
+	}
+
 	// Asynchronous function to handle the post action, including API calls and error handling
 	const handlePost = async () => {
 		if ($inputValid) {
 			loading.set(true);
+
+			// Extrahieren der Längen- und Breitengrade aus der coords Variable
+			const LONGITUDE = coords[0];
+			const LATITUDE = coords[1];
+			const ACCURACY = 1; // oder ein Standardwert, falls gewünscht
+
+			// Prüfen, ob die Koordinaten gültig sind
+			const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
+
 			try {
-				// Extrahieren der Längen- und Breitengrade aus der coords Variable
-				const LONGITUDE = coords[0];
-				const LATITUDE = coords[1];
-				const ACCURACY = 1; // oder ein Standardwert, falls gewünscht
-
-				// Prüfen, ob die Koordinaten gültig sind
-				const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
-
+				// Ensure picture is set only if $uploadedImageUrl is defined
 				let postBody: NewPost = {
 					content: $postText,
 					location: ARE_COORDS_VALID
@@ -111,8 +123,14 @@
 						: null
 				};
 
-				isRepost && post ? (postBody.repostedPostId = post.postId) : null;
-				// Making a POST request to the server with the user input
+				if ($uploadedImageUrl) {
+					postBody.picture = removeBase64Prefix($uploadedImageUrl);
+				}
+
+				if (isRepost && post) {
+					postBody.repostedPostId = post.postId;
+				}
+
 				const response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
@@ -120,28 +138,22 @@
 				});
 
 				const body = await response.json();
-				// Handling potential errors from the response
 				if (body.error) {
-					const ERROR: Error = body.data.error;
 					toastStore.trigger({
-						message: getErrorMessage(ERROR.code, false),
+						message: getErrorMessage(body.error.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {
 					updateMockDataFromBody(body);
-					// Navigation command after successful post
 					goto(`/myProfile`);
 					toastStore.trigger({
 						message: 'Post erfolgreich',
 						background: 'variant-filled-success'
 					});
 				}
-
-				return body;
 			} catch (e) {
 				console.error(e);
 			} finally {
-				// Resetting loading state after the operation is complete
 				loading.set(false);
 				modalStore.close();
 			}
@@ -149,36 +161,17 @@
 	};
 </script>
 
-<div class={!isRepost ? '' : 'hidden'}>
-	<PostGeolocation bind:coords />
+<div class="flex flex-col items-center w-full max-w-[31.25rem]">
+	<div class="w-full max-w-[31.25rem]">
+		<PostGeolocation bind:coords />
+	</div>
+
+	<button
+		type="button"
+		class="btn variant-filled-primary mt-4 w-full"
+		disabled={!$inputValid}
+		on:click={handlePost}
+	>
+		Posten
+	</button>
 </div>
-
-<button
-	type="button"
-	class="btn variant-filled-primary mt-4 buttonPost"
-	disabled={!$inputValid}
-	on:click={handlePost}
->
-	<img src={PaperPlane} alt="Icon zum Posten" class="iconImage" />
-	<span>Posten</span>
-</button>
-
-<style>
-	:root {
-		--icon-size: 2.188rem;
-	}
-
-	.buttonPost {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		max-width: 31.25rem;
-		width: 100%;
-	}
-
-	.iconImage {
-		height: var(--icon-size);
-		width: var(--icon-size);
-		margin-right: 0.5rem;
-	}
-</style>

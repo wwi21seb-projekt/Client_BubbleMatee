@@ -1,13 +1,7 @@
 <!--Component for a single post-->
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import {
-		FeedPostFooter,
-		FeedPostMain,
-		FeedPostHeader,
-		FeedPostLocation,
-		FeedPostCard
-	} from '$components';
+	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostCard } from '$components';
 	import type {
 		Comment,
 		CommentData,
@@ -87,7 +81,7 @@
 						author: {
 							username: record.author.username,
 							nickname: record.author.nickname,
-							profilePictureUrl: record.author.profilePictureUrl
+							picture: record.author.picture
 						},
 						creationDate: new Date(record.creationDate),
 						content: record.content
@@ -148,11 +142,15 @@
 	}
 </script>
 
-<!--Component contains the header (Username/ Profile Picture etc/ the main post (image/ text) and the footer (Likes and comments))-->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:dblclick={toggleLike} class="m-4">
+<div on:dblclick={toggleLike}>
 	<div
-		class="bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full p-4 rounded-xl"
+		class={`${
+			isRepost
+				? '!bg-gradient-to-br dark:from-secondary-500 dark:to-secondary-600 from-primary-600 to-primary-700'
+				: '!bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-600 from-primary-400 to-primary-600 mb-2'
+		} 
+		w-full rounded-xl p-4 `}
 	>
 		{#if post.author}
 			<FeedPostHeader
@@ -162,12 +160,8 @@
 				{post}
 				{isRepost}
 			/>
-			<main class="card w-full !bg-transparent my-2">
-				<FeedPostMain text={post.content} />
-				{#if post.location}
-					<FeedPostLocation location={post.location} />
-				{/if}
-				{#if post.repost && !isRepost}
+			{#if post.repost && !isRepost}
+				<div class="card w-full !bg-transparent my-2 mx-0">
 					<FeedPostCard
 						isRepost={true}
 						deletePost={() => deleteThisPost(post.repost)}
@@ -177,8 +171,9 @@
 						loadMoreComments={null}
 						unlikePost={null}
 					/>
-				{/if}
-			</main>
+				</div>
+			{/if}
+			<FeedPostMain {post} />
 			{#if !isRepost}
 				<FeedPostFooter
 					{post}

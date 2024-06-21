@@ -13,6 +13,14 @@ export interface Post {
 	likes: number;
 	liked: boolean;
 	comments: number;
+	picture?: Picture;
+}
+
+export interface Picture {
+	url: string;
+	width: number;
+	height: number;
+	tag?: number;
 }
 
 export interface PostWithRepost extends Post {
@@ -22,7 +30,7 @@ export interface PostWithRepost extends Post {
 export interface Author {
 	username: string;
 	nickname: string;
-	profilePictureUrl: string;
+	picture?: Picture;
 }
 
 export interface Location {

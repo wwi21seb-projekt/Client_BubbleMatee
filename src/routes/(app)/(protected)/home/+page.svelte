@@ -6,7 +6,6 @@
 	import { globalConfig } from '$utils';
 	import { loading } from '$stores';
 	import { onMount } from 'svelte';
-	// lastPostID -> The ID of the last Post -> is needed to load the next posts
 	export let data: PostData | ErrorObject;
 	let postData: PostData = {
 		posts: new Array<PostWithRepost>(),
