@@ -5,7 +5,7 @@
 	import type { UserInfo } from '$domains';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { uploadedImageUrl } from '$stores';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { getErrorMessage } from '$utils';
 	let uploadNewPicture = false;
 	export let data;
@@ -51,6 +51,7 @@
 				};
 				toastStore.trigger(t);
 				goto('/myProfile');
+				invalidateAll();
 			}
 
 			return dataResponse;
