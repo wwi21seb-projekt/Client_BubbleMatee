@@ -31,9 +31,10 @@
 			</div>
 			{#each chatDay.messages as chat}
 				{#if chat.username === username}
-					<!-- Needs to be changed after proper API integration -->
-					<div class="grid grid-cols-[1fr_auto] gap-2">
-						<div class="card p-4 rounded-tr-none space-y-2 bg-primary-700 dark:bg-primary-700">
+					<div class="flex justify-end gap-2">
+						<div
+							class="card p-4 rounded-tr-none space-y-2 bg-primary-700 dark:bg-primary-700 w-64 lg:w-96"
+						>
 							<header class="flex justify-between items-center">
 								<p class="text-lg md:text-xl font-bold">{chat.username}</p>
 								<small class="opacity-50 text-sm md:text-base"
@@ -43,14 +44,12 @@
 									})}</small
 								>
 							</header>
-							<p>{chat.content}</p>
+							<p class="break-words">{chat.content}</p>
 						</div>
-						<Avatar src={Person} height="auto" />
 					</div>
 				{:else}
-					<div class="grid grid-cols-[auto_1fr] gap-2">
-						<Avatar src={Person} height="auto" />
-						<div class="card p-4 variant-soft rounded-tl-none space-y-2">
+					<div class="flex gap-2">
+						<div class="card p-4 variant-soft rounded-tl-none space-y-2 w-64 lg:w-96">
 							<header class="flex justify-between items-center">
 								<p class="font-bold">{chat.username}</p>
 								<small class="opacity-50"
@@ -60,7 +59,7 @@
 									})}</small
 								>
 							</header>
-							<p class="text-xl md:text-2xl break-words">{chat.content}</p>
+							<p class="break-words">{chat.content}</p>
 						</div>
 					</div>
 				{/if}

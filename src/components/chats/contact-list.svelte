@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { ErrorAlert, NewChatsList, NothingFoundComponent } from '$components';
 	import type {
+		Author,
 		Chat,
 		Chats,
 		ChatsResponse,
@@ -23,7 +24,11 @@
 
 	export let data: ChatsResponse | ErrorResponse;
 	export let chatId: string = '';
-	export let chatPartner: string = '';
+	export let chatPartner: Author = {
+		username: '',
+		picture: { url: '', width: 0, height: 0 },
+		nickname: ''
+	};
 
 	$: messageNotifications = $notifications.filter(
 		(notification) => notification.notificationType === 'message'
@@ -75,7 +80,7 @@
 		});
 		goto(`/home/chats/${person.chatId}`);
 		chatId = person.chatId;
-		chatPartner = person.user.username;
+		chatPartner = person.user;
 	};
 
 	const onNewChat = () => {
@@ -141,7 +146,7 @@
 					</button>
 				</div>
 				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1 px-2">
-					{#if chats}
+					{#if chats && chats?.length > 0}
 						{#each chats as person (person.chatId)}
 							<button
 								disabled={$page.params.username === person.user.username}
@@ -151,7 +156,12 @@
 									: 'bg-surface-hover-token'}"
 								on:click={() => clickOnChat(person)}
 							>
-								<Avatar src={Person} height="auto" />
+								<Avatar
+									src={person.user.picture && person.user.picture.url
+										? person.user.picture.url
+										: Person}
+									height="auto"
+								/>
 								<h3 class="ml-2 text-lg md:text-xl flex-1 text-start">{person.user.username}</h3>
 
 								{#if person.newMessages > 0}
@@ -163,13 +173,11 @@
 						{/each}
 						<div class="grow"></div>
 					{:else}
-						<div>
-							<div class="flex justify-center items-center h-96 lg: p-32">
-								<NothingFoundComponent
-									message="Keine Chats vorhanden"
-									submessage="Nutze 'Neuer Chat' um eine Konversation zu starten"
-								/>
-							</div>
+						<div class="flex justify-center mx-4">
+							<NothingFoundComponent
+								message="Keine Chats vorhanden"
+								submessage="Nutze 'Neuer Chat' um eine Konversation zu starten"
+							/>
 						</div>
 					{/if}
 				</div>
