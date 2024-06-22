@@ -43,7 +43,7 @@
 				</div>
 			{/if}
 		{:else}
-			<div class=" mx-4">
+			<div class="flex justify-center mx-4">
 				<NothingFoundComponent
 					message={'Keine Kommentare zu diesem Post gefunden'}
 					submessage={'Sei der erste, der diesen Post kommentiert!'}
