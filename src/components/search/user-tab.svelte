@@ -118,7 +118,7 @@
 			<LoadMoreComponent {loadMore} />
 		{/if}
 	{:else if !$loading}
-		<div class=" mx-4">
+		<div class="flex justify-center mx-4">
 			<NothingFoundComponent message={nothingFoundMessage} submessage={nothingFoundSubMessage} />
 		</div>
 	{/if}

@@ -169,7 +169,7 @@
 	}
 </script>
 
-<div class="flex w-full justify-center items-center">
+<div class="flex px-4 w-full justify-center items-center">
 	<!--Switch the width on different devices-->
 	<div class={classString}>
 		{#if postData.posts.length > 0}
@@ -178,10 +178,12 @@
 				></FeedPostCard>
 			{/each}
 		{:else if !$loading}
-			<NothingFoundComponent
-				message={nothingFoundMessage ? nothingFoundMessage : 'Keine Posts gefunden'}
-				submessage={nothingFoundSubMessage ? nothingFoundSubMessage : null}
-			/>
+			<div class="flex justify-center">
+				<NothingFoundComponent
+					message={nothingFoundMessage ? nothingFoundMessage : 'Keine Posts gefunden'}
+					submessage={nothingFoundSubMessage ? nothingFoundSubMessage : null}
+				/>
+			</div>
 		{/if}
 		<!-- Button to load the next posts - is invisible, if there are no more posts-->
 		{#if postData.posts.length < postData.overallRecords}

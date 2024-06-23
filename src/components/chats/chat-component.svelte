@@ -7,7 +7,14 @@
 		ErrorAlert,
 		SendMessageComponent
 	} from '$components';
-	import type { ChatData, ChatMessage, ChatsResponse, ErrorObject, SortedMessages } from '$domains';
+	import type {
+		Author,
+		ChatData,
+		ChatMessage,
+		ChatsResponse,
+		ErrorObject,
+		SortedMessages
+	} from '$domains';
 	import { onMount } from 'svelte';
 
 	export let chatId: string;
@@ -17,7 +24,11 @@
 	export let chatMessagesError: ErrorObject | null;
 	export let errorChatMessage: string;
 
-	let chatPartner: string = '';
+	let chatPartner: Author = {
+		username: '',
+		picture: { url: '', width: 0, height: 0 },
+		nickname: ''
+	};
 	let chatPartnerUsernameFromUrl: string = $page.params.username?.toString() || '';
 
 	let sortedAndClusteredMessages: Array<SortedMessages> = [];
@@ -51,7 +62,7 @@
 		if (chatId && !chatData.chatsData.error) {
 			(chatData.chatsData as ChatsResponse).data.records.map((chat) => {
 				if (chat.chatId === chatId) {
-					chatPartner = chat.user.username;
+					chatPartner = chat.user;
 				}
 			});
 		}

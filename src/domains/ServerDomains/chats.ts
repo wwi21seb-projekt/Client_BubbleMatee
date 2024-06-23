@@ -1,5 +1,5 @@
+import type { Author } from '$domains/Post';
 import type { ChatMessageResponse, ChatsResponse, ErrorResponse } from '$domains/ServerResponses';
-import type { User } from './user';
 
 export interface Chats {
 	records: Array<Chat>;
@@ -7,7 +7,7 @@ export interface Chats {
 
 export interface Chat {
 	chatId: string;
-	user: User;
+	user: Author;
 }
 
 export interface ChatMessages {
