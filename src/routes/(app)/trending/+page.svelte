@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Feed } from '$components';
 	import type { ErrorObject, PostData, PostWithRepost } from '$domains';
-	import { fetchNextPostsFeed } from '$utils';
+	import { fetchNextPostsFeed, getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
 	import { loading } from '$stores';
@@ -22,7 +22,7 @@
 			postData.lastPostId = data.lastPostId!;
 		} else {
 			const t: ToastSettings = {
-				message: data.error.code,
+				message: getErrorMessage(data.error.code, false),
 				background: 'variant-filled-error'
 			};
 			toastStore.trigger(t);

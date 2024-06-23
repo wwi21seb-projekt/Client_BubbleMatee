@@ -5,6 +5,12 @@
 	import FeedPostCard from './feed-post-card.svelte';
 	export let post: Post;
 	import { postText } from '$stores';
+	import { getModalStore } from '@skeletonlabs/skeleton';
+
+	const modalStore = getModalStore();
+	const leave = () => {
+		modalStore.close();
+	};
 
 	$postText = '';
 </script>
@@ -14,7 +20,7 @@
 	class="h-[calc(100vh-32px)] bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full lg:h-[calc(75vh)] lg:ml-14 lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
 >
 	<header>
-		<ModalHeader title="Post teilen" />
+		<ModalHeader title="Post teilen" {leave} />
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">

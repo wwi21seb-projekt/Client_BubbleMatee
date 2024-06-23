@@ -34,8 +34,6 @@
 		const maxScroll = elemCarousel.scrollWidth - step;
 		isStart = elemCarousel.scrollLeft == 0;
 		isEnd = elemCarousel.scrollLeft > maxScroll - step + 1;
-		console.log(maxScroll);
-		console.log(elemCarousel.scrollLeft);
 	}
 </script>
 

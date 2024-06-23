@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Author, Error, FollowResponse, Follower } from '$domains';
+	import type { Author, Error, ErrorResponse, FollowResponse, Follower } from '$domains';
 	import { ErrorAlert, LoadMoreComponent, NothingFoundComponent, UserComponent } from '$components';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -58,13 +58,17 @@
 		if (body && body.error) {
 			if (body.data.error) {
 				const t: ToastSettings = {
-					message: body.data.error.message,
+					message: getErrorMessage(body.data.error.code, false),
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(t);
+				if ((body as ErrorResponse).data.error.code == 'ERR-014') {
+					modalStore.close();
+				}
 			}
+		} else {
+			changeUsers(user, body);
 		}
-		changeUsers(user, body);
 	};
 
 	function changeUsers(user: Follower, data: FollowResponse | undefined) {

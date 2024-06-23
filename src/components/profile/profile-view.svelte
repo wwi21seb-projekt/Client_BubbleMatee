@@ -54,7 +54,7 @@
 			postData.overallRecords = data.overallRecords;
 		} else {
 			const t: ToastSettings = {
-				message: data.error.code,
+				message: getErrorMessage(data.error.code, false),
 				background: 'variant-filled-error'
 			};
 			toastStore.trigger(t);

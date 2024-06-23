@@ -88,19 +88,15 @@ sw.addEventListener('fetch', (event) => {
 sw.addEventListener('notificationclick', (event) => {
 	let examplePage = '/';
 	if (!event.action) {
-		console.log('Notification Click.', event.notification.data.username);
 		examplePage = `/search/user/${event.notification.data.username}`;
-		console.log(event);
 		if (event.notification.data.type === 'message') examplePage = '/home/chats';
 	}
 
 	switch (event.action) {
 		case 'explore':
-			console.log("User clicked 'Explore'");
 			examplePage = '/trending';
 			break;
 		default:
-			console.log(`Unknown action clicked: '${event.action}'`);
 			break;
 	}
 	const urlToOpen = new URL(examplePage, sw.location.origin).href;

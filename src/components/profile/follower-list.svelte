@@ -10,10 +10,12 @@
 		Follower
 	} from '$domains';
 	import { onMount } from 'svelte';
+	import { getModalStore } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { currentUsername } from '$stores';
 	import { loading } from '$stores';
 
+	const modalStore = getModalStore();
 	export let username: string;
 	export let isFollowerlist: boolean;
 
@@ -24,7 +26,9 @@
 	let lastPage: boolean = false;
 	let isError: boolean = false;
 	let error: Error;
-
+	const leave = () => {
+		modalStore.close();
+	};
 	onMount(async () => {
 		loadMore();
 	});
@@ -58,6 +62,9 @@
 		if (body.error) {
 			//handle Error
 			error = (body as ErrorResponse).data.error;
+			if ((body as ErrorResponse).data.error.code == 'ERR-014') {
+				leave();
+			}
 			isError = true;
 		} else {
 			const subscriptionData: SubscriptionList = (body as SubscriptionListResponse).data;
@@ -75,7 +82,7 @@
 	class="h-[calc(100vh-32px)] bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full lg:h-[calc(75vh)] lg:ml-14 lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
 >
 	<header>
-		<ModalHeader {title} />
+		<ModalHeader {title} {leave} />
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">

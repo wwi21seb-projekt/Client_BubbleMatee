@@ -35,7 +35,7 @@
 		if (localFiles.length === null || localFiles.length !== 1) {
 			passedChecks = false;
 			const t: ToastSettings = {
-				message: getErrorMessage('ERR-021', true),
+				message: getErrorMessage('ERR-100', true),
 				background: 'variant-filled-error'
 			};
 			toastStore.trigger(t);
@@ -50,7 +50,7 @@
 		if (!validTypes.includes(file.type)) {
 			passedChecks = false;
 			const t: ToastSettings = {
-				message: getErrorMessage('ERR-022', true),
+				message: getErrorMessage('ERR-101', true),
 				background: 'variant-filled-error'
 			};
 			toastStore.trigger(t);
@@ -59,7 +59,7 @@
 		if (file.size > maxSizeInBytes) {
 			passedChecks = false;
 			const t: ToastSettings = {
-				message: getErrorMessage('ERR-023', true),
+				message: getErrorMessage('ERR-102', true),
 				background: 'variant-filled-error'
 			};
 			toastStore.trigger(t);
@@ -114,7 +114,7 @@
 </div>
 {#if $isEditing}
 	<div class="controls">
-		<button class="btn btn variant-filled-error" on:click={cancelEditing}
+		<button class="btn variant-filled-error" on:click={cancelEditing}
 			>Bildaktualisierung Abbrechen</button
 		>
 	</div>

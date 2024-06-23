@@ -29,10 +29,7 @@ export const GET: RequestHandler = async ({ fetch, params }) => {
 	} catch (exception) {
 		return json({
 			error: true,
-			data: {
-				code: 500,
-				message: 'Internal Server Error'
-			}
+			data: { error: { code: 500, message: 'Internal Server Error' } }
 		});
 	}
 };

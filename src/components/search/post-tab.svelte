@@ -17,7 +17,7 @@
 		nothingFoundSubMessage={'Sei der erste, der diesen Hashtag verwendet!'}
 	/>
 {:else if error}
-	<p>{getErrorMessage(error.code, false)}</p>
+	<p>{getErrorMessage(error.code, true)}</p>
 {:else}
 	<p>Es ist ein Fehler aufgetreten</p>
 {/if}

@@ -7,6 +7,7 @@
 	import { hasNotifications, notifications } from '$stores';
 	import { Person } from '$images';
 	import type { Notification } from '$domains';
+	import { page } from '$app/stores';
 	import { NothingFoundComponent } from '$components';
 	import { onMount } from 'svelte';
 
@@ -14,6 +15,7 @@
 	$: nonMessageNotifications = $notifications.filter(
 		(notification) => notification.notificationType !== 'message'
 	);
+	$: notificationError = $page.data.error ? $page.data.data.error : undefined;
 
 	function handleClick() {
 		goto('/home');
@@ -121,7 +123,14 @@
 						</button>
 					</div>
 				{/each}
-				{#if nonMessageNotifications.length === 0}
+				{#if notificationError}
+					<div class="flex justify-center items-center h-96">
+						<NothingFoundComponent
+							message="Fehler"
+							submessage={getErrorMessage(notificationError.code, true)}
+						/>
+					</div>
+				{:else if nonMessageNotifications.length === 0}
 					<div class="flex justify-center items-center h-96">
 						<NothingFoundComponent
 							message="Keine Meldungen"

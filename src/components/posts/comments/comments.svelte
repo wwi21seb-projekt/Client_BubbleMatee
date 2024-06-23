@@ -13,6 +13,12 @@
 	export let loadMoreComments: () => Promise<CommentData>;
 	export let commentData: CommentData;
 	export let commentPost: (content: string) => Promise<CommentData>;
+	import { getModalStore } from '@skeletonlabs/skeleton';
+
+	const modalStore = getModalStore();
+	const leave = () => {
+		modalStore.close();
+	};
 	async function load() {
 		commentData = await loadMoreComments();
 	}
@@ -27,7 +33,7 @@
 	class="h-[calc(100vh-32px)] bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 w-full lg:h-[calc(75vh)] lg:ml-14 lg:w-[75vw] lg:p-4 lg:card lg overflow-hidden flex flex-col"
 >
 	<header>
-		<ModalHeader title="Kommentare" />
+		<ModalHeader title="Kommentare" {leave} />
 	</header>
 	<hr class="opacity-50 mt-2 mb-2" />
 	<div class="overflow-y-auto overflow-x-hidden h-full pr-1 w-full">

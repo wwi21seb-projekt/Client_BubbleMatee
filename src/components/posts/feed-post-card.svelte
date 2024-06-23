@@ -15,7 +15,7 @@
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getModalStore, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	export let post: PostWithRepost;
 	export let likePost: ((postId: string) => void) | null;
 	export let unlikePost: ((postId: string) => void) | null;
@@ -25,9 +25,10 @@
 	export let postComment:
 		| ((postId: string, content: string) => Promise<ErrorResponse | PostCommentResponse>)
 		| null;
-	const toastStore = getToastStore();
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
+	const toastStore = getToastStore();
+	const modalStore = getModalStore();
 	let comments: Array<Comment> = new Array<Comment>();
 	let commentData: CommentData = {
 		comments: comments,
@@ -73,6 +74,7 @@
 					commentData.isError = true;
 					commentData.errorText = getErrorMessage(data.error.code, false);
 				}
+				commentData.isError = true;
 			} else {
 				const data = body.data as CommentList;
 				if (data.records) {
@@ -104,6 +106,9 @@
 			const body = await postComment(post.postId, content);
 			if (body.error) {
 				const data = body.data as ErrorObject;
+				if (data.error.code == 'ERR-014') {
+					modalStore.close();
+				}
 				if (data.error) {
 					const t: ToastSettings = {
 						message: getErrorMessage(data.error.code, false),

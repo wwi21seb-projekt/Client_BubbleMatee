@@ -7,7 +7,6 @@
 - [ ] Das Design (Farben/Icons...) sind stimmen mit denen der restlichen Anwendung überein.
 - [ ] Der Benutzer kann alle ausgeführten Aktionen jederzeit einfach beenden und ggf. rückgängig machen.
 - [ ] Der Nutzer sieht jederzeit, in welchem Bereich der Anwendung er sich befindet und wie er auf die Hauptseiten zurückgelangt.
-- [ ] Der Nutzer sieht jederzeit, in welchem Bereich der Anwendung er sich befindet und wie er auf die Hauptseiten zurückgelangt.
 - [ ] Klare Anweisungen und Hinweise werden bereitgestellt, um Benutzerfehler zu minimieren.
 - [ ] Validierung und Feedback sind vorhanden, um Benutzer vor Fehlern zu warnen (Überprüfung der Logik von Eingaben etc.).
 - [ ] Das Design ist klar, minimalistisch und lenkt nicht von den Hauptaufgaben ab - Unwichtige Informationen werden vermieden.

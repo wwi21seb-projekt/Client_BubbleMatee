@@ -1,18 +1,16 @@
 <script lang="ts">
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type {
-		Error,
-		ErrorObject,
-		ErrorResponse,
-		Follower,
-		PostData,
-		PostWithRepost,
-		SearchParams,
-		UserSearch
-	} from '$domains';
+	import type { Error, ErrorObject, ErrorResponse, Follower } from '$domains';
+	import type { PostData, PostWithRepost, SearchParams, UserSearch } from '$domains';
 	import { goto } from '$app/navigation';
 	import { Feed, SearchTabs, SearchBar } from '$components';
-	import { fetchNextPostsFeed, loadSearchedUser, searchPostByHashtag, globalConfig } from '$utils';
+	import {
+		fetchNextPostsFeed,
+		loadSearchedUser,
+		searchPostByHashtag,
+		globalConfig,
+		getErrorMessage
+	} from '$utils';
 	import { onMount } from 'svelte';
 	import { loading } from '$stores';
 	export let data: PostData | ErrorObject;
@@ -38,7 +36,6 @@
 		lastPostId: ''
 	};
 	handleLoadResult(data);
-
 	onMount(async () => {
 		main.scrollIntoView();
 		const urlParams = new URLSearchParams(window.location.search);
@@ -63,7 +60,7 @@
 			postDataGlobaleFeed.lastPostId = data.lastPostId!;
 		} else {
 			const t: ToastSettings = {
-				message: data.error.code,
+				message: getErrorMessage(data.error.code, false),
 				background: 'variant-filled-error'
 			};
 			toastStore.trigger(t);
@@ -88,7 +85,10 @@
 		if (urlProps.offset !== null) {
 			urlProps.offset = urlProps.offset + parseInt(globalConfig.limit);
 			const response = await searchUsers(searchTerm, urlProps.offset);
-			handleUsers({ ...response, records: [...userSearch, ...response.records] });
+			handleUsers({
+				...response,
+				records: 'error' in response ? [...userSearch] : [...userSearch, ...response.records]
+			});
 		}
 	}
 	async function loadMorePostsSearch() {
@@ -114,17 +114,19 @@
 		postSearch.overallRecords = response.overallRecords;
 	}
 	async function handleUsers(response: UserSearch) {
-		userSearch = response.records.map((record) => ({
-			followerId: '',
-			followingId: '',
-			nickname: record.nickname,
-			picture: record.picture,
-			username: record.username
-		}));
+		if (!('error' in response)) {
+			userSearch = response.records.map((record) => ({
+				followerId: '',
+				followingId: '',
+				nickname: record.nickname,
+				profilePictureUrl: record.picture,
+				username: record.username
+			}));
+			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
+				? (lastPage = false)
+				: (lastPage = true);
+		}
 		postSearch.posts = [];
-		urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
-			? (lastPage = false)
-			: (lastPage = true);
 	}
 	export async function handleSearch() {
 		$loading = true;
@@ -157,7 +159,6 @@
 		}
 		$loading = false;
 	}
-	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts() {
 		$loading = true;
 		const data: PostData | ErrorObject = await fetchNextPostsFeed(
