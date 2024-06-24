@@ -171,7 +171,6 @@
 		$loading = false;
 	}
 </script>
-
 <main bind:this={main}>
 	<div class="flex justify-center m-0 sticky top-0 z-40 p-4 bg-surface-50 dark:bg-surface-900">
 		<SearchBar {handleSearch} bind:searchTerm />
