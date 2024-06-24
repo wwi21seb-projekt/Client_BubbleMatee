@@ -100,7 +100,7 @@
 	}
 	async function searchHashtags(hashtag: string, offset: number) {
 		goto(`/search?q=${searchTerm}`);
-		hashtag = hashtag.startsWith("#") ? hashtag.substring(1) : hashtag
+		hashtag = hashtag.startsWith('#') ? hashtag.substring(1) : hashtag;
 		const response = await getSearch(tabSet, hashtag, offset, globalConfig.limit);
 		return response;
 	}

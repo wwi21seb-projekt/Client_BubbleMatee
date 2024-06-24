@@ -127,7 +127,10 @@
 		<div class="flex justify-center pb-4">
 			<h1 class="h1">Profilbild bearbeiten</h1>
 		</div>
-		<Avatar src={user && user.picture && user.picture.url ? user.picture.url : Person} class="max-h-72 w-auto max-w-3/4" />
+		<Avatar
+			src={user && user.picture && user.picture.url ? user.picture.url : Person}
+			class="max-h-72 w-auto max-w-3/4"
+		/>
 		<button
 			class="btn variant-filled mt-2 w-full max-w-[31.25rem]"
 			on:click={() => {
