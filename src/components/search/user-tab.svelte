@@ -90,7 +90,7 @@
 			{#if !isFollowerlist}
 				<button
 					on:click={() => onUserClick(user)}
-					class="p-4 w-full hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card m-2 bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
+					class="p-4 w-full hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card my-1 bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
 				>
 					<UserComponent author={user} />
 				</button>
