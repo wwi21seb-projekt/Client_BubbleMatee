@@ -100,6 +100,7 @@
 	}
 	async function searchHashtags(hashtag: string, offset: number) {
 		goto(`/search?q=${searchTerm}`);
+		hashtag = hashtag.startsWith("#") ? hashtag.substring(1) : hashtag
 		const response = await getSearch(tabSet, hashtag, offset, globalConfig.limit);
 		return response;
 	}
@@ -119,7 +120,7 @@
 				followerId: '',
 				followingId: '',
 				nickname: record.nickname,
-				profilePictureUrl: record.picture,
+				picture: record.picture,
 				username: record.username
 			}));
 			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records

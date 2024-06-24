@@ -27,7 +27,7 @@ function cointainsSpecialChar(str: string): boolean {
  * @returns true if the username is valid; otherwise, false.
  */
 export function isValidUsername(username: string): boolean {
-	return !containsSpace(username) && !cointainsSpecialChar(username) && username.length <= 20;
+	return !containsSpace(username) && !cointainsSpecialChar(username) && username.length <= 20 && username.length >= 1;
 }
 
 /**

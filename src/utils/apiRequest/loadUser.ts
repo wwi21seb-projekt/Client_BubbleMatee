@@ -37,7 +37,6 @@ export async function loadSearchedUser(searchQuery: string, offset: number, limi
 			}
 		}
 	);
-
 	const body = await response.json();
 	return body;
 }
