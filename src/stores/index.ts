@@ -13,8 +13,7 @@ export { hasNotifications, notifications } from './notifications';
 export {
 	subscribeMessage,
 	sendMessage,
-	storeUnsendMessage,
-	subscribeUnsendMessage,
 	connectToWebSocket,
-	disconnectFromWebSocket
+	disconnectFromWebSocket,
+	subscribeMessageError
 } from './webSocket';

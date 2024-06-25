@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PaperAirplane } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { sendMessage, storeUnsendMessage } from '$stores';
+	import { sendMessage } from '$stores';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import {
@@ -80,15 +80,11 @@
 		}
 
 		if (currentMessage && currentMessage.length > 0) {
-			storeUnsendMessage({
-				content: currentMessage,
-				username: username,
-				creationDate: new Date().toISOString()
-			});
 			sendMessage(currentMessage);
+			// Wait for the answer from server
 		}
 		currentMessage = '';
-		textarea.style.height = 'auto'; // Setzt die Höhe des Textfelds zurück
+		textarea.style.height = 'auto';
 	}
 
 	function autoResize(event: Event) {
