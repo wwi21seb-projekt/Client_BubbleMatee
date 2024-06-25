@@ -36,8 +36,26 @@ export const sendMessage = (message: string) => {
 	}
 };
 
+/**
+ * Stores an error message.
+ *
+ * @param error The error to store.
+ * @returns void
+ */
 const storeMessageError = (error: Error) => {
 	messageErrorStore.set(error);
+};
+
+/**
+ * Resets the error message.
+ *
+ * @returns void
+ */
+export const resetMessageError = () => {
+	storeMessageError({
+		code: 'noerror',
+		message: 'Kein Fehler aufgetreten'
+	});
 };
 
 export const subscribeMessage = messageStore.subscribe;

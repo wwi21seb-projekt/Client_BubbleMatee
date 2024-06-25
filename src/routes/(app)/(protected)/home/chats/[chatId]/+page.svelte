@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { ChatComponent } from '$components';
 	import type { ChatData, ChatMessage, ChatMessages, ErrorObject } from '$domains';
 	import {
 		connectToWebSocket,
 		disconnectFromWebSocket,
+		resetMessageError,
 		subscribeMessage,
 		subscribeMessageError
 	} from '$stores';
@@ -36,6 +38,8 @@
 
 	unsubscribeErrorMessages = subscribeMessageError((error) => {
 		if (error.code !== 'noerror') {
+			if (error.code === 'ERR-027') goto('/home/chats');
+			console.log('error', error);
 			const t: ToastSettings = {
 				message: getErrorMessage(error.code, false),
 				background: 'variant-filled-error'
@@ -53,6 +57,7 @@
 		if (unsubscribeMessages) {
 			unsubscribeMessages();
 			unsubscribeErrorMessages();
+			resetMessageError();
 		}
 		disconnectFromWebSocket();
 	});
