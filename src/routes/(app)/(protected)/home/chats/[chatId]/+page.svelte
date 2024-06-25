@@ -28,13 +28,17 @@
 	let unsubscribeMessages: (() => void) | null = null;
 	let unsubscribeErrorMessages: (() => void) | null = null;
 
-	unsubscribeMessages = subscribeMessage((currentMessage) => {
-		if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
-			chatMessages = chatMessages.length
-				? [...chatMessages, currentMessage as unknown as ChatMessage]
-				: [currentMessage as unknown as ChatMessage];
+	$: {
+		if (chatMessages && !unsubscribeMessages) {
+			unsubscribeMessages = subscribeMessage((currentMessage) => {
+				if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
+					chatMessages = chatMessages.length
+						? [...chatMessages, currentMessage as unknown as ChatMessage]
+						: [currentMessage as unknown as ChatMessage];
+				}
+			});
 		}
-	});
+	}
 
 	unsubscribeErrorMessages = subscribeMessageError((error) => {
 		if (error.code !== 'noerror') {

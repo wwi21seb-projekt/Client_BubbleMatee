@@ -85,10 +85,7 @@
 					<Chat chatMessages={sortedAndClusteredMessages} username={chatData.username} />
 				</main>
 				<footer class="flex-shrink-0 m-0 bottom-0 z-40 bg-surface-50 dark:bg-surface-900">
-					<SendMessageComponent
-						username={chatData.username}
-						chatPartnerUsername={chatPartnerUsernameFromUrl}
-					/>
+					<SendMessageComponent chatPartnerUsername={chatPartnerUsernameFromUrl} />
 				</footer>
 			{/if}
 		</div>

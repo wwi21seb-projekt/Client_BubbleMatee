@@ -66,23 +66,6 @@
 </div>
 
 <style>
-	.loader-container {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		padding: 10px;
-	}
-
-	.loader {
-		border: 3px solid #f3f3f3; /* Adjust border thickness */
-		border-radius: 50%;
-		border-top: 3px solid #3498db; /* Adjust border thickness */
-		width: 20px; /* Adjust width */
-		height: 20px; /* Adjust height */
-		-webkit-animation: spin 2s linear infinite; /* Safari */
-		animation: spin 2s linear infinite;
-	}
-
 	/* Safari */
 	@-webkit-keyframes spin {
 		0% {

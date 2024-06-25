@@ -11,7 +11,6 @@
 		type ToastSettings
 	} from '@skeletonlabs/skeleton';
 	import { getErrorMessage } from '$utils';
-	export let username: string;
 	export let chatPartnerUsername: string;
 	const toastStore = getToastStore();
 
