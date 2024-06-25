@@ -4,7 +4,11 @@ import { type Writable, writable } from 'svelte/store';
 
 let socket: WebSocket | null = null;
 
-const messageStore: Writable<ChatMessage> = writable({} as ChatMessage);
+const messageStore: Writable<ChatMessage> = writable({
+	content: '',
+	creationDate: '',
+	username: ''
+} as ChatMessage);
 const messageErrorStore: Writable<Error> = writable({
 	code: 'noerror',
 	message: 'Kein Fehler aufgetreten'
@@ -55,6 +59,19 @@ export const resetMessageError = () => {
 	storeMessageError({
 		code: 'noerror',
 		message: 'Kein Fehler aufgetreten'
+	});
+};
+
+/**
+ * Resets the message.
+ *
+ * @returns void
+ */
+export const resetMessage = () => {
+	storeMessage({
+		content: '',
+		creationDate: '',
+		username: ''
 	});
 };
 

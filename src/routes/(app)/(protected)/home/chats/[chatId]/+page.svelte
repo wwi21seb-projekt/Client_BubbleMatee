@@ -6,17 +6,18 @@
 	import {
 		connectToWebSocket,
 		disconnectFromWebSocket,
+		resetMessage,
 		resetMessageError,
 		subscribeMessage,
 		subscribeMessageError
 	} from '$stores';
 	import { getErrorMessage } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 
 	export let data: ChatData;
 	const toastStore = getToastStore();
-	let chatId: string = $page.params.chatId;
+	$: chatId = $page.params.chatId;
 	let errorChatMessage: string = '';
 	$: chatMessagesError = data.chatMessageData.error
 		? (data.chatMessageData.data as ErrorObject)
@@ -28,8 +29,20 @@
 	let unsubscribeMessages: (() => void) | null = null;
 	let unsubscribeErrorMessages: (() => void) | null = null;
 
-	$: {
-		if (chatMessages && !unsubscribeMessages) {
+	const leaveChat = () => {
+		if (unsubscribeMessages && unsubscribeErrorMessages) {
+			unsubscribeMessages();
+			unsubscribeErrorMessages();
+			resetMessageError();
+			resetMessage();
+		}
+		disconnectFromWebSocket();
+	};
+
+	const enterChat = () => {
+		connectToWebSocket(chatId, data.token);
+		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
+		if (chatMessages) {
 			unsubscribeMessages = subscribeMessage((currentMessage) => {
 				if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
 					chatMessages = chatMessages.length
@@ -38,32 +51,27 @@
 				}
 			});
 		}
+		unsubscribeErrorMessages = subscribeMessageError((error) => {
+			if (error.code !== 'noerror') {
+				if (error.code === 'ERR-027') goto('/home/chats');
+				const t: ToastSettings = {
+					message: getErrorMessage(error.code, false),
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			}
+		});
+	};
+
+	$: {
+		if (chatId) {
+			leaveChat();
+			enterChat();
+		}
 	}
 
-	unsubscribeErrorMessages = subscribeMessageError((error) => {
-		if (error.code !== 'noerror') {
-			if (error.code === 'ERR-027') goto('/home/chats');
-			console.log('error', error);
-			const t: ToastSettings = {
-				message: getErrorMessage(error.code, false),
-				background: 'variant-filled-error'
-			};
-			toastStore.trigger(t);
-		}
-	});
-
-	onMount(() => {
-		connectToWebSocket(chatId, data.token); //, getToastStore()
-		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
-	});
-
 	onDestroy(() => {
-		if (unsubscribeMessages) {
-			unsubscribeMessages();
-			unsubscribeErrorMessages();
-			resetMessageError();
-		}
-		disconnectFromWebSocket();
+		leaveChat();
 	});
 </script>
 
