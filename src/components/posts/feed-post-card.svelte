@@ -10,7 +10,8 @@
 		ErrorResponse,
 		PostWithRepost,
 		PostCommentResponse,
-		Post
+		Post,
+		Follower
 	} from '$domains';
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
