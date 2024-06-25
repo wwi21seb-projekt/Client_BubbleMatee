@@ -11,7 +11,6 @@
 		PostWithRepost,
 		PostCommentResponse,
 		Post,
-		Follower
 	} from '$domains';
 	import type { CommentList } from '$domains/ServerDomains/comments';
 	import { isLoggedIn } from '$stores';
@@ -146,6 +145,8 @@
 		}
 		return commentData;
 	}
+	let myNumber: number = 'Hello'; // Falsche Zuweisung von Typ string zu number
+	myNumber++;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
