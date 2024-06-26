@@ -32,7 +32,7 @@ export const personsData: PersonSourceData[] = [
 			{ position: 1, description: 'Name', value: 'Herr Dr. Prof Eichberg' },
 			{ position: 2, description: 'Rolle', value: 'Projektbegleiter' },
 			{ position: 3, description: 'Modulleiter', value: 'Projektkonzeption' },
-			{ position: 4, description: 'Vorleungszeitraum', value: '5./6. Semester' }
+			{ position: 4, description: 'Vorlesungszeitraum', value: '5./6. Semester' }
 		]
 	},
 	{
