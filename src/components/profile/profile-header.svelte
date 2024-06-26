@@ -59,18 +59,30 @@
 				</div>
 				<div class="flex flex-col self-center">
 					<div class="place-self-center">{user.posts}</div>
-					<div class="place-self-center text-[11px] sm:text-base">Posts</div>
+					{#if user.posts == 1}
+						<div class="place-self-center text-[11px] sm:text-base">Post</div>
+					{:else}
+						<div class="place-self-center text-[11px] sm:text-base">Posts</div>
+					{/if}
 				</div>
 				<button on:click={() => openFollowerlist(true)}>
 					<div class="flex flex-col self-center hover:text-gray-400">
 						<div class="place-self-center">{user.follower}</div>
-						<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
+						{#if user.follower == 1}
+							<div class="place-self-center text-[11px] sm:text-base">Abonnent</div>
+						{:else}
+							<div class="place-self-center text-[11px] sm:text-base">Abonnenten</div>
+						{/if}
 					</div>
 				</button>
 				<button on:click={() => openFollowerlist(false)}>
 					<div class="flex flex-col self-center hover:text-gray-400">
 						<div class="place-self-center">{user.following}</div>
-						<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
+						{#if user.following == 1}
+							<div class="place-self-center text-[11px] sm:text-base">Abonnierter</div>
+						{:else}
+							<div class="place-self-center text-[11px] sm:text-base">Abonnierte</div>
+						{/if}
 					</div>
 				</button>
 			</div>

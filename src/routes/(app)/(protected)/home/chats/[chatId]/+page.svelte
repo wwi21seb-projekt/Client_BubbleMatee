@@ -1,18 +1,23 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { ChatComponent } from '$components';
 	import type { ChatData, ChatMessage, ChatMessages, ErrorObject } from '$domains';
 	import {
 		connectToWebSocket,
 		disconnectFromWebSocket,
+		resetMessage,
+		resetMessageError,
 		subscribeMessage,
-		subscribeUnsendMessage
+		subscribeMessageError
 	} from '$stores';
 	import { getErrorMessage } from '$utils';
-	import { onDestroy, onMount } from 'svelte';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { onDestroy } from 'svelte';
 
 	export let data: ChatData;
-	let chatId: string = $page.params.chatId;
+	const toastStore = getToastStore();
+	$: chatId = $page.params.chatId;
 	let errorChatMessage: string = '';
 	$: chatMessagesError = data.chatMessageData.error
 		? (data.chatMessageData.data as ErrorObject)
@@ -21,50 +26,53 @@
 		? []
 		: ((data.chatMessageData.data as ChatMessages).records as Array<ChatMessage>);
 
-	let unsendChatMessages: Array<ChatMessage> = [];
-	let unsubscribeUnsendMessages: (() => void) | null = null;
 	let unsubscribeMessages: (() => void) | null = null;
+	let unsubscribeErrorMessages: (() => void) | null = null;
 
-	unsubscribeUnsendMessages = subscribeUnsendMessage((currentMessage) => {
-		if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
-			unsendChatMessages = unsendChatMessages.length
-				? [...unsendChatMessages, currentMessage as unknown as ChatMessage]
-				: [currentMessage as unknown as ChatMessage];
-		}
-	});
-
-	unsubscribeMessages = subscribeMessage((currentMessage) => {
-		if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
-			unsendChatMessages = unsendChatMessages.filter(
-				(message) => message.content !== currentMessage.content
-			);
-			chatMessages = chatMessages.length
-				? [...chatMessages, currentMessage as unknown as ChatMessage]
-				: [currentMessage as unknown as ChatMessage];
-		}
-	});
-
-	onMount(() => {
-		connectToWebSocket(chatId, data.token);
-		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
-	});
-
-	onDestroy(() => {
-		if (unsubscribeUnsendMessages) {
-			unsubscribeUnsendMessages();
-		}
-		if (unsubscribeMessages) {
+	const leaveChat = () => {
+		if (unsubscribeMessages && unsubscribeErrorMessages) {
 			unsubscribeMessages();
+			unsubscribeErrorMessages();
+			resetMessageError();
+			resetMessage();
 		}
 		disconnectFromWebSocket();
+	};
+
+	const enterChat = () => {
+		connectToWebSocket(chatId, data.token);
+		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
+		if (chatMessages) {
+			unsubscribeMessages = subscribeMessage((currentMessage) => {
+				if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
+					chatMessages = chatMessages.length
+						? [...chatMessages, currentMessage as unknown as ChatMessage]
+						: [currentMessage as unknown as ChatMessage];
+				}
+			});
+		}
+		unsubscribeErrorMessages = subscribeMessageError((error) => {
+			if (error.code !== 'noerror') {
+				if (error.code === 'ERR-027') goto('/home/chats');
+				const t: ToastSettings = {
+					message: getErrorMessage(error.code, false),
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(t);
+			}
+		});
+	};
+
+	$: {
+		if (chatId) {
+			leaveChat();
+			enterChat();
+		}
+	}
+
+	onDestroy(() => {
+		leaveChat();
 	});
 </script>
 
-<ChatComponent
-	chatData={data}
-	{chatId}
-	{chatMessages}
-	{unsendChatMessages}
-	{chatMessagesError}
-	{errorChatMessage}
-/>
+<ChatComponent chatData={data} {chatId} {chatMessages} {chatMessagesError} {errorChatMessage} />
