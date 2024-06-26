@@ -31,7 +31,7 @@
 
 	// Handler for file change events
 	function onChangeHandler() {
-		var passedChecks = true;
+		let passedChecks = true;
 		if (localFiles.length === null || localFiles.length !== 1) {
 			passedChecks = false;
 			const t: ToastSettings = {
