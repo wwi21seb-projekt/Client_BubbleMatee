@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { postText } from '$stores';
 
-	var localPostText: string = '';
+	let localPostText: string = '';
 	$postText = '';
 	// CSS class names for different text states
 	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';

@@ -25,7 +25,7 @@
 	<ChipComponent message={`Sucherergebnisse für ${chipString}`} />
 </div>
 <div class="flex justify-center">
-	<div class="p-4 w-full sm:w-3/4 md:w-full lg:w-3/4 z-10">
+	<div class="w-full sm:w-3/4 md:w-full lg:w-3/4 z-10">
 		<TabGroup
 			justify="justify-center"
 			active="variant-filled-primary"

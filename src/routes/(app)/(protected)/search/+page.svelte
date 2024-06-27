@@ -100,6 +100,7 @@
 	}
 	async function searchHashtags(hashtag: string, offset: number) {
 		goto(`/search?q=${searchTerm}`);
+		hashtag = hashtag.startsWith('#') ? hashtag.substring(1) : hashtag;
 		const response = await getSearch(tabSet, hashtag, offset, globalConfig.limit);
 		return response;
 	}
@@ -118,9 +119,7 @@
 			userSearch = response.records.map((record) => ({
 				followerId: '',
 				followingId: '',
-				nickname: record.nickname,
-				profilePictureUrl: record.picture,
-				username: record.username
+				...record
 			}));
 			urlProps.offset + parseInt(globalConfig.limit) + 1 < response.pagination.records
 				? (lastPage = false)

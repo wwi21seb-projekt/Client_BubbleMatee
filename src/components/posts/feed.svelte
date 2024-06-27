@@ -2,7 +2,7 @@
 <script lang="ts">
 	export let postData: PostData;
 	export let loadMorePosts: () => Promise<void>;
-	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4';
+	export let classString: string = 'w-full sm:w-3/4 md:w-full lg:w-3/4 px-4';
 	export let notifyDeletedPost: (() => void) | null = null;
 	export let nothingFoundMessage: string | null;
 	export let nothingFoundSubMessage: string | null;
@@ -169,7 +169,7 @@
 	}
 </script>
 
-<div class="flex px-4 w-full justify-center items-center">
+<div class="flex w-full justify-center items-center">
 	<!--Switch the width on different devices-->
 	<div class={classString}>
 		{#if postData.posts.length > 0}

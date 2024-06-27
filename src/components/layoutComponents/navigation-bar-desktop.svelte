@@ -4,7 +4,7 @@
 	import { isLoggedIn } from '$stores';
 	import {
 		Home,
-		MagnifyingGlass,
+		GlobeEuropeAfrica,
 		PlusCircle,
 		InformationCircle,
 		UserCircle,
@@ -46,7 +46,7 @@
 		<AppRailAnchor href="/search">
 			<svelte:fragment slot="lead">
 				<Icon
-					src={MagnifyingGlass}
+					src={GlobeEuropeAfrica}
 					class={'mx-auto ' +
 						($page.url.pathname.startsWith('/search')
 							? ' text-secondary-500 dark:text-primary-500 stroke-2'
@@ -67,7 +67,7 @@
 		<AppRailAnchor href="/trending">
 			<svelte:fragment slot="lead">
 				<Icon
-					src={MagnifyingGlass}
+					src={GlobeEuropeAfrica}
 					class={'mx-auto ' +
 						($page.url.pathname.startsWith('/trending')
 							? ' text-secondary-500 dark:text-primary-500 stroke-2'

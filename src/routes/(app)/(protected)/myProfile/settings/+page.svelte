@@ -34,7 +34,7 @@
 </script>
 
 <main class="p-4 h-full w-full grid grid-cols-1 place-content-center justify-items-center">
-	<nav class="list-nav w-full">
+	<nav class="list-nav w-full md:w-3/4">
 		<div class="flex flex-row h-16 mb-1">
 			<button on:click={() => goto('/myProfile')} class="focus:outline-none">
 				<Icon src={ChevronLeft} class="h-10 font-bold hover:stroke-gray-400" />

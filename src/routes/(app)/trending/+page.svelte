@@ -51,7 +51,7 @@
 	<h1 class="h1 flex justify-center m-4">
 		<span
 			class="bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone"
-			>AKTUELLE TRENDS</span
+			>GLOBALE TRENDS</span
 		>
 	</h1>
 	<!-- Separator Line -->

@@ -10,7 +10,7 @@
 
 {#if !isError}
 	<Feed
-		classString={'w-full'}
+		classString={'w-full px-0 mt-2'}
 		{postData}
 		loadMorePosts={loadMore}
 		nothingFoundMessage={'Keine passenden Post gefunden'}

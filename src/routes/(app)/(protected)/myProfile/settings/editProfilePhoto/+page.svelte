@@ -3,7 +3,7 @@
 	import { FileInput } from '$components';
 	import { Person } from '$images';
 	import type { UserInfo } from '$domains';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { uploadedImageUrl } from '$stores';
 	import { goto } from '$app/navigation';
 	import { getErrorMessage } from '$utils';
@@ -127,12 +127,10 @@
 		<div class="flex justify-center pb-4">
 			<h1 class="h1">Profilbild bearbeiten</h1>
 		</div>
-		<img
+		<Avatar
 			src={user && user.picture && user.picture.url ? user.picture.url : Person}
-			class="h-72 w-72 m-[12px] rounded-full"
-			alt="Profilbild"
+			class="max-h-72 w-auto max-w-3/4"
 		/>
-
 		<button
 			class="btn variant-filled mt-2 w-full max-w-[31.25rem]"
 			on:click={() => {
