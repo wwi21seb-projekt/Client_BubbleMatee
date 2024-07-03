@@ -8,14 +8,14 @@
 
 	// Carousel element
 	let elemCarousel: HTMLDivElement;
-	let isStart = true;
-	let isEnd = false;
+	let isStart: boolean = true;
+	let isEnd: boolean = false;
 
 	// Carousel navigation functions
 	function carouselMove(direction: 'left' | 'right'): void {
-		const step = elemCarousel.clientWidth;
-		const maxScroll = elemCarousel.scrollWidth - step;
-		let newX =
+		const step: number = elemCarousel.clientWidth;
+		const maxScroll: number = elemCarousel.scrollWidth - step;
+		let newX: number =
 			direction === 'left'
 				? Math.max(0, elemCarousel.scrollLeft - step)
 				: Math.min(maxScroll, elemCarousel.scrollLeft + step);
@@ -30,8 +30,8 @@
 		carouselMove('right');
 	}
 	function handleScroll() {
-		const step = elemCarousel.clientWidth;
-		const maxScroll = elemCarousel.scrollWidth - step;
+		const step: number = elemCarousel.clientWidth;
+		const maxScroll: number = elemCarousel.scrollWidth - step;
 		isStart = elemCarousel.scrollLeft == 0;
 		isEnd = elemCarousel.scrollLeft > maxScroll - step + 1;
 	}

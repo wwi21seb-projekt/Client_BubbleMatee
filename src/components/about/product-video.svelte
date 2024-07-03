@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { VideoMarketing } from '$images';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>

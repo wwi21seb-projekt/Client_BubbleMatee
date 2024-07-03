@@ -2,13 +2,13 @@
 	// Importing the FileDropzone component and upload restrictions
 	import { FileDropzone } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 	import { getErrorMessage } from '$utils';
 	import { Photo } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { uploadRestrictions } from '../../../../static/components/index.ts';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	// Importing stores for managing file upload state
 	import { files, isFileUploaded, uploadedImageUrl, isEditing, isFileSelected } from '$stores';
@@ -31,7 +31,7 @@
 
 	// Handler for file change events
 	function onChangeHandler() {
-		let passedChecks = true;
+		let passedChecks: boolean = true;
 		if (localFiles.length === null || localFiles.length !== 1) {
 			passedChecks = false;
 			const t: ToastSettings = {
@@ -42,9 +42,9 @@
 			return;
 		}
 
-		const file = localFiles[0];
-		const validTypes = ['image/jpeg', 'image/webp', 'image/png', 'image/svg+xml'];
-		const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB in bytes
+		const file: File = localFiles[0];
+		const validTypes: Array<string> = ['image/jpeg', 'image/webp', 'image/png', 'image/svg+xml'];
+		const maxSizeInBytes: number = 5 * 1024 * 1024; // 5 MB in bytes
 
 		// Checking for valid file type and size
 		if (!validTypes.includes(file.type)) {
