@@ -1,5 +1,12 @@
 import type { Logo, PersonSourceData } from '$domains';
-import { Aidan, Dhbw, Instagram, Johanna, Jonas, Paul, Professor, Twitter } from '$images';
+import Aidan from '$lib/assets/about/Aidan.png';
+import Dhbw from '$lib/assets/about/DHBW.jpg';
+import Instagram from '$lib/assets/about/Instagram.png';
+import Johanna from '$lib/assets/about/Johanna.png';
+import Jonas from '$lib/assets/about/Jonas.png';
+import Paul from '$lib/assets/about/Paul.png';
+import Professor from '$lib/assets/about/Professor.png';
+import Twitter from '$lib/assets/about/x.avif';
 
 // Creating a collection of logos
 export const logos: Logo[] = [

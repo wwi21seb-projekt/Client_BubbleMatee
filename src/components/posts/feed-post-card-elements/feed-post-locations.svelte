@@ -2,7 +2,7 @@
 <script lang="ts">
 	import type { LocationPlace, Location } from '$domains';
 	import { fetchLocation } from '$utils';
-	import { Pin } from '$images';
+	import Pin from '$lib/assets/Pin.png';
 	export let location: Location;
 
 	let locationPlace: LocationPlace;

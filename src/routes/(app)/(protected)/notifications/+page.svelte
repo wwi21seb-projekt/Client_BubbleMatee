@@ -5,7 +5,7 @@
 	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getErrorMessage, getNotificationOptions, getNotificationTitle } from '$utils';
 	import { hasNotifications, notifications } from '$stores';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import type { Notification } from '$domains';
 	import { page } from '$app/stores';
 	import { NothingFoundComponent } from '$components';

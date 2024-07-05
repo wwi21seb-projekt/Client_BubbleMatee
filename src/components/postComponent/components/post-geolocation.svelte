@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { LocationPlace } from '$domains';
-	import { Pin } from '$images';
+	import Pin from '$lib/assets/pin.png';
 	import { fetchLocation } from '$utils';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import Geolocation from 'svelte-geolocation';

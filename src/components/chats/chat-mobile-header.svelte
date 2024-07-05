@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import type { Author } from '$domains';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { ChevronLeft } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';

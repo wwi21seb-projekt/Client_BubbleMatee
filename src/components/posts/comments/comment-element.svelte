@@ -6,7 +6,7 @@
 	export let id: string;
 	export let comment: Comment;
 	import { Avatar, getModalStore } from '@skeletonlabs/skeleton';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import { calculatePassedTime } from '$utils';
 
 	let shortComment: string = comment.content.substring(0, 64);

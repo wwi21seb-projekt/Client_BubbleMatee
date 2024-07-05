@@ -1,7 +1,7 @@
 <!--Post-Page -->
 <script lang="ts">
 	import { FileInput } from '$components';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import type { UserInfo } from '$domains';
 	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { uploadedImageUrl } from '$stores';

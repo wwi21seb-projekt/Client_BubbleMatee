@@ -1,5 +1,5 @@
 <script>
-	import { VideoMarketing } from '$images';
+	import VideoMarketing from '$lib/assets/about/video-marketing.png';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 

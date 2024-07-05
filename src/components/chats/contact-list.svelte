@@ -10,7 +10,7 @@
 		ErrorResponse,
 		Notification
 	} from '$domains';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import { getErrorMessage } from '$utils';
 	import { Avatar, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { Plus } from '@steeze-ui/heroicons';

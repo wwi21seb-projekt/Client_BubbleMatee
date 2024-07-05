@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Settings } from '$components';
-	import { Logo, Text } from '$images';
+	import Logo from '$lib/assets/layout/logo.png';
+	import Text from '$lib/assets/layout/schriftzug.png';
 	import { AppBar, LightSwitch, modeCurrent, setModeUserPrefers } from '@skeletonlabs/skeleton';
 	import NotificationButton from '$components/notifications/notification-button.svelte';
 	import ChatButton from '$components/chats/chat-button.svelte';
