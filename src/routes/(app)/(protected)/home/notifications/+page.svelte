@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Check, ChevronLeft } from '@steeze-ui/heroicons';
+	import { Check } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getErrorMessage, getNotificationOptions, getNotificationTitle } from '$utils';
@@ -16,10 +16,6 @@
 		(notification) => notification.notificationType !== 'message'
 	);
 	$: notificationError = $page.data.error ? $page.data.data.error : undefined;
-
-	function handleClick() {
-		goto('/home');
-	}
 
 	function handleNotificationClick(notification: Notification) {
 		goto(`/search/user/${notification.user.username}`);
@@ -74,12 +70,6 @@
 
 <main bind:this={main}>
 	<span class="relative">
-		<button on:click={handleClick} class="ml-2 absolute left-0 inset-y-0">
-			<Icon
-				src={ChevronLeft}
-				class="h1 h-8 md:h-10 font-bold stroke-primary-900 dark:stroke-primary-500 z-100"
-			/>
-		</button>
 		<h1
 			class="h1 bg-gradient-to-br from-primary-900 to-primary-600 dark:from-primary-500 dark:to-primary-200 bg-clip-text text-transparent box-decoration-clone z-0"
 		>

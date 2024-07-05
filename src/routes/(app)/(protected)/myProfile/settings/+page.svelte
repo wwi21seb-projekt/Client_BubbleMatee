@@ -4,8 +4,6 @@
 	import { goto } from '$app/navigation';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { currentUsername, hasNotifications, isLoggedIn, notifications } from '$stores';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { ChevronLeft } from '@steeze-ui/heroicons';
 	const toastStore = getToastStore();
 	const t: ToastSettings = {
 		message: 'Abmeldung erfolgreich',
@@ -36,9 +34,6 @@
 <main class="p-4 h-full w-full grid grid-cols-1 place-content-center justify-items-center">
 	<nav class="list-nav w-full md:w-3/4">
 		<div class="flex flex-row h-16 mb-1">
-			<button on:click={() => goto('/myProfile')} class="focus:outline-none">
-				<Icon src={ChevronLeft} class="h-10 font-bold hover:stroke-gray-400" />
-			</button>
 			<h1 class="h1 mr-16 w-full flex justify-center items-center">Einstellungen</h1>
 		</div>
 		<ul>

@@ -29,7 +29,9 @@
 			{#if !$page.url.pathname.includes('chats')}
 				<ChatButton />
 			{/if}
-			<Settings />
+			{#if !$page.url.pathname.includes('settings')}
+				<Settings />
+			{/if}
 		{/if}
 	</svelte:fragment>
 </AppBar>
