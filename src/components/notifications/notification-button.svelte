@@ -5,7 +5,6 @@
 	import { goto } from '$app/navigation';
 
 	export let disabled = false;
-	console.log(disabled);
 
 	const handleClick = () => {
 		goto('/notifications');

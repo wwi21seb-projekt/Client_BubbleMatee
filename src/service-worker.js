@@ -172,7 +172,8 @@ sw.addEventListener('push', (event) => {
 		windowClients.forEach((windowClient) => {
 			windowClient.postMessage({
 				message: 'Received a push message.',
-				time: new Date().toString()
+				time: new Date().toString(),
+				data: notification
 			});
 		});
 	}
