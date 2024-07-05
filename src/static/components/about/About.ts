@@ -39,7 +39,7 @@ export const personsData: PersonSourceData[] = [
 		src: Paul,
 		data: [
 			{ position: 1, description: 'Name', value: 'Paul Bahde' },
-			{ position: 2, description: 'Martriktelnummer', value: '5584368' },
+			{ position: 2, description: 'Rolle', value: 'Projektmitglied' },
 			{ position: 3, description: 'Hauptverantwortlichkeit', value: 'Mock-Server' },
 			{ position: 4, description: 'Stellvertreter', value: 'Schnittstellenbeauftragter' }
 		]
@@ -48,7 +48,7 @@ export const personsData: PersonSourceData[] = [
 		src: Jonas,
 		data: [
 			{ position: 1, description: 'Name', value: 'Jonas Braun' },
-			{ position: 2, description: 'Martriktelnummer', value: '6813146' },
+			{ position: 2, description: 'Rolle', value: 'Projektmitglied' },
 			{ position: 3, description: 'Hauptverantwortlichkeit', value: 'Build Prozess - CI/CD' },
 			{ position: 4, description: 'Stellvertreter', value: 'UI/UX' }
 		]
@@ -57,7 +57,7 @@ export const personsData: PersonSourceData[] = [
 		src: Johanna,
 		data: [
 			{ position: 1, description: 'Name', value: 'Johanna Deike' },
-			{ position: 2, description: 'Martriktelnummer', value: 'xxxxxx' },
+			{ position: 2, description: 'Rolle', value: 'Projektmitglied' },
 			{ position: 3, description: 'Hauptverantwortlichkeit', value: 'UI/UX' },
 			{ position: 4, description: 'Stellvertreter', value: 'Mock-Server' }
 		]
@@ -66,7 +66,7 @@ export const personsData: PersonSourceData[] = [
 		src: Aidan,
 		data: [
 			{ position: 1, description: 'Name', value: 'Aidan Zimmer' },
-			{ position: 2, description: 'Martriktelnummer', value: 'xxxxxxxx' },
+			{ position: 2, description: 'Rolle', value: 'Projektmitglied' },
 			{ position: 3, description: 'Hauptverantwortlichkeit', value: 'Schnittstellenbeauftragter' },
 			{ position: 4, description: 'Stellvertreter', value: 'Build Prozess - CI/CD' }
 		]
