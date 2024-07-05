@@ -34,10 +34,8 @@ const isUnauthorizedRoute = (pathname: string, method: string) => {
 			const pattern = new RegExp(`^${route}$`);
 			return pattern.test(pathname);
 		});
-		console.log(`Route is unauthorized: ${result}`);
 		return result;
 	} else {
-		console.log(`Route not unauthorized: ${pathname}`);
 		return false;
 	}
 };

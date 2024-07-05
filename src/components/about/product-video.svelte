@@ -3,7 +3,6 @@
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
-<!-- svelte-ignore a11y-media-has-caption -->
 <AccordionItem>
 	<svelte:fragment slot="lead"
 		><img

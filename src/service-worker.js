@@ -146,24 +146,16 @@ sw.addEventListener('push', (event) => {
 	event.waitUntil(promiseChain);
 
 	/**
-	 * Check if the client is focused
-	 * @returns {Promise<boolean>} Whether the client is focused
+	 * Check if the client is open
+	 * @param {boolean} focused Whether the client is open
 	 */
-	async function isClientFocused() {
+	async function isClientOpen() {
 		const windowClients = await sw.clients.matchAll({
 			type: 'window',
 			includeUncontrolled: true
 		});
 
-		let clientIsFocused = false;
-		for (let i = 0; i < windowClients.length; i++) {
-			const windowClient = windowClients[i];
-			if (windowClient.focused) {
-				clientIsFocused = true;
-				break;
-			}
-		}
-		return clientIsFocused;
+		return windowClients && windowClients.length > 0;
 	}
 
 	/**
@@ -171,7 +163,7 @@ sw.addEventListener('push', (event) => {
 	 * @returns {Promise<void>} An empty Promise
 	 */
 	async function postMessageToClients() {
-		if (!(await isClientFocused())) return;
+		if (!(await isClientOpen())) return;
 		const windowClients = await sw.clients.matchAll({
 			type: 'window',
 			includeUncontrolled: true

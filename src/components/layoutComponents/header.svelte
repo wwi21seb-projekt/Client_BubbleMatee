@@ -23,8 +23,12 @@
 	<svelte:fragment slot="trail">
 		<LightSwitch on:click={handleLightSwitch} />
 		{#if $isLoggedIn}
-			<NotificationButton />
-			<ChatButton />
+			{#if !$page.url.pathname.includes('notifications')}
+				<NotificationButton />
+			{/if}
+			{#if !$page.url.pathname.includes('chats')}
+				<ChatButton />
+			{/if}
 			<Settings />
 		{/if}
 	</svelte:fragment>

@@ -11,29 +11,21 @@
 		ArrowRightEndOnRectangle
 	} from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { hasNotifications } from '$stores';
 </script>
 
 <AppRail class="p-1" hover="" active="" width="w-20">
 	{#if $isLoggedIn}
 		<AppRailAnchor class="mt-20" href="/home">
 			<svelte:fragment slot="lead">
-				<div class="relative inline-block flex flex-col items-center">
-					<Icon
-						src={Home}
-						class={'mx-auto' +
-							($page.url.pathname.startsWith('/home')
-								? ' text-secondary-500 dark:text-primary-500 stroke-2'
-								: ' text-primary-900 dark:text-primary-100 stroke-1') +
-							' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}
-					/>
-					{#if $hasNotifications && !$page.url.pathname.startsWith('/home')}
-						<span
-							class="badge-icon variant-filled-warning absolute bottom-[-5px] text-[0.1rem] z-10 w-[10px] h-[10px]"
-						></span>
-					{/if}
-				</div></svelte:fragment
-			>
+				<Icon
+					src={Home}
+					class={'mx-auto' +
+						($page.url.pathname.startsWith('/home')
+							? ' text-secondary-500 dark:text-primary-500 stroke-2'
+							: ' text-primary-900 dark:text-primary-100 stroke-1') +
+						' hover:text-secondary-500 hover:dark:text-primary-500 hover:stroke-2'}
+				/>
+			</svelte:fragment>
 			<span
 				class={'' +
 					($page.url.pathname.startsWith('/home')
