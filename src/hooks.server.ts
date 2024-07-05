@@ -30,7 +30,6 @@ const unauthorizedRoutes = [
  */
 const isUnauthorizedRoute = (pathname: string, method: string) => {
 	if (pathname !== '/api/users' || method === 'POST') {
-		console.log(`Checking if route is unauthorized: ${pathname}`);
 		const result = unauthorizedRoutes.some((route) => {
 			const pattern = new RegExp(`^${route}$`);
 			return pattern.test(pathname);
@@ -38,7 +37,7 @@ const isUnauthorizedRoute = (pathname: string, method: string) => {
 		console.log(`Route is unauthorized: ${result}`);
 		return result;
 	} else {
-		console.log(`Rote not unauthorized: ${pathname}`);
+		console.log(`Route not unauthorized: ${pathname}`);
 		return false;
 	}
 };

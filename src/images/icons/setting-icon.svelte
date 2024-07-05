@@ -5,7 +5,7 @@
 	stroke-width="1.5"
 	stroke="currentColor"
 	data-slot="icon"
-	class="w-6 h-6"
+	class="w-8 h-8"
 >
 	<path
 		stroke-linecap="round"

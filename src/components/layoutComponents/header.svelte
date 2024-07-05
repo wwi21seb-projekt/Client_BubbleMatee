@@ -5,6 +5,7 @@
 	import { AppBar, LightSwitch, modeCurrent, setModeUserPrefers } from '@skeletonlabs/skeleton';
 	import NotificationButton from '$components/notifications/notification-button.svelte';
 	import ChatButton from '$components/chats/chat-button.svelte';
+	import { isLoggedIn } from '$stores';
 
 	const handleLightSwitch = () => {
 		setModeUserPrefers($modeCurrent);
@@ -21,11 +22,10 @@
 	</svelte:fragment>
 	<svelte:fragment slot="trail">
 		<LightSwitch on:click={handleLightSwitch} />
-		{#if $page.url.pathname === '/myProfile'}
-			<Settings />
-		{:else if $page.url.pathname === '/home'}
+		{#if $isLoggedIn}
 			<NotificationButton />
 			<ChatButton />
+			<Settings />
 		{/if}
 	</svelte:fragment>
 </AppBar>
