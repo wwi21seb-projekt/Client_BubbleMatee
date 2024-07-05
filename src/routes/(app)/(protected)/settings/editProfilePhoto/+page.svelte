@@ -149,7 +149,7 @@
 		<button
 			class="btn variant-ghost w-full max-w-[31.25rem] mt-2"
 			on:click={() => {
-				goto('/myProfile/settings');
+				goto('/settings');
 			}}>Abbrechen</button
 		>
 	</main>

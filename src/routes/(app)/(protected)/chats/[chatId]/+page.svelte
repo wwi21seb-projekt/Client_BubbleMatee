@@ -53,7 +53,7 @@
 		}
 		unsubscribeErrorMessages = subscribeMessageError((error) => {
 			if (error.code !== 'noerror') {
-				if (error.code === 'ERR-027') goto('/home/chats');
+				if (error.code === 'ERR-027') goto('/chats');
 				const t: ToastSettings = {
 					message: getErrorMessage(error.code, false),
 					background: 'variant-filled-error'

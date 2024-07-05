@@ -39,7 +39,7 @@
 		<ul>
 			<hr class="!border-t-2" />
 			<li>
-				<a href="/myProfile/settings/editProfileInformation" class="flex justify-between">
+				<a href="/settings/editProfileInformation" class="flex justify-between">
 					<span class="flex self-center">
 						<span class="badge self-center"><EditIcon /></span>
 						<span class="flex-auto self-center">Profilinformationen bearbeiten</span>
@@ -49,7 +49,7 @@
 			</li>
 			<hr class="!border-t-2" />
 			<li>
-				<a href="/myProfile/settings/editProfilePhoto" class="flex justify-between">
+				<a href="/settings/editProfilePhoto" class="flex justify-between">
 					<span class="flex self-center">
 						<span class="badge self-center"><PhotoIcon /></span>
 						<span class="flex-auto self-center">Profilbild bearbeiten</span>
@@ -59,7 +59,7 @@
 			</li>
 			<hr class="!border-t-2" />
 			<li>
-				<a href="/myProfile/settings/changePassword" class="flex justify-between">
+				<a href="/settings/changePassword" class="flex justify-between">
 					<span class="flex self-center">
 						<span class="badge self-center"><PasswordIcon /></span>
 						<span class="flex-auto self-center">Passwort ändern</span>

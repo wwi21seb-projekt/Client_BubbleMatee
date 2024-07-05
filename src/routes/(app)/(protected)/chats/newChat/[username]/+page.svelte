@@ -21,7 +21,7 @@
 	if (!data.chatsData.error) {
 		(data.chatsData.data as Chats).records.map((chat) => {
 			if (chat.user.username === newUser) {
-				goto(`/home/chats/${chat.chatId}`);
+				goto(`/chats/${chat.chatId}`);
 			}
 		});
 	}

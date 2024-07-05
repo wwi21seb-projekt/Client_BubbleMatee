@@ -5,7 +5,7 @@
 	import { goto } from '$app/navigation';
 
 	const handleClick = () => {
-		goto('/home/notifications');
+		goto('/notifications');
 	};
 	$: nonMessageNotifications = $notifications.filter(
 		(notification) => notification.notificationType !== 'message'

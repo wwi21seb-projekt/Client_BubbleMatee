@@ -41,7 +41,7 @@
 						<button
 							class="w-full my-2hover:bg-gradient-to-br hover:dark:to-tertiary-500 hover:to-primary-400 card bg-gradient-to-br dark:from-tertiary-500 dark:to-secondary-500 from-primary-400 to-primary-600 rounded-xl"
 							on:click={() => {
-								goto(`/home/chats/newChat/${author.username}`);
+								goto(`/chats/newChat/${author.username}`);
 								modalStore.close();
 							}}
 						>

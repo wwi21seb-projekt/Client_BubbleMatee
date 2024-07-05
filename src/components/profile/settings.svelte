@@ -4,7 +4,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	const handleClick = () => {
-		goto('/myProfile/settings');
+		goto('/settings');
 	};
 </script>
 

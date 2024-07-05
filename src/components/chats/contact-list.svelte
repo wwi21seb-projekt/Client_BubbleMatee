@@ -78,7 +78,7 @@
 		notificationsToDelete.forEach((notification) => {
 			deleteNotificationRequest(notification.notificationId);
 		});
-		goto(`/home/chats/${person.chatId}`);
+		goto(`/chats/${person.chatId}`);
 		chatId = person.chatId;
 		chatPartner = person.user;
 	};

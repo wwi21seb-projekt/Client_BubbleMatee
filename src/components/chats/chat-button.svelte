@@ -12,7 +12,7 @@
 	$: messageNotificationLength = messageNotificationUsers.size;
 
 	const handleClick = () => {
-		goto('/home/chats');
+		goto('/chats');
 	};
 </script>
 

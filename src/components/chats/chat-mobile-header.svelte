@@ -15,7 +15,7 @@
 	<button
 		class="lg:hidden h-12 btn"
 		on:click={() => {
-			goto('/home/chats');
+			goto('/chats');
 		}}
 	>
 		<Icon src={ChevronLeft} />
