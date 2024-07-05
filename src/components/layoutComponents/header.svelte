@@ -10,6 +10,10 @@
 	const handleLightSwitch = () => {
 		setModeUserPrefers($modeCurrent);
 	};
+
+	$: chatDisabled = $page.url.pathname.includes('chats');
+	$: notificationDisabled = $page.url.pathname.includes('notifications');
+	$: settingsDisabled = $page.url.pathname.includes('settings');
 </script>
 
 <!-- App Shell -->
@@ -23,15 +27,9 @@
 	<svelte:fragment slot="trail">
 		<LightSwitch on:click={handleLightSwitch} />
 		{#if $isLoggedIn}
-			{#if !$page.url.pathname.includes('notifications')}
-				<NotificationButton />
-			{/if}
-			{#if !$page.url.pathname.includes('chats')}
-				<ChatButton />
-			{/if}
-			{#if !$page.url.pathname.includes('settings')}
-				<Settings />
-			{/if}
+			<NotificationButton disabled={notificationDisabled} />
+			<ChatButton disabled={chatDisabled} />
+			<Settings disabled={settingsDisabled} />
 		{/if}
 	</svelte:fragment>
 </AppBar>
