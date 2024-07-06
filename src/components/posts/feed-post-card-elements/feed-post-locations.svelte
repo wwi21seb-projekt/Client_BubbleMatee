@@ -25,11 +25,13 @@
 	>
 		<img src={Pin} alt="Icon für Location" class="w-6 md:w-6 pr-1 flex-shrink-0" />
 		{#if !locationPlace || locationPlace.country === ''}
-			<span class="max-w-full break-words whitespace-normal">{`(${location.latitude.toString().substring(0, 5)}, ${location.longitude.toString().substring(0, 5)})`}</span>
+			<span class="max-w-full break-words whitespace-normal"
+				>{`(${location.latitude.toString().substring(0, 5)}, ${location.longitude.toString().substring(0, 5)})`}</span
+			>
 		{:else}
-			<span class="max-w-full break-words whitespace-normal">{`${locationPlace.city}, ${locationPlace.country}`}</span>
+			<span class="max-w-full break-words whitespace-normal"
+				>{`${locationPlace.city}, ${locationPlace.country}`}</span
+			>
 		{/if}
 	</a>
 </div>
-  
-

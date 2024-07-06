@@ -37,32 +37,34 @@
 </script>
 
 <header class="mb-2">
-	<div class="flex items-center justify-between">
+	<div class="flex items-center justify-between gap-2">
 		<!--Element shows the profile picture, username, nickname and the time that has passed since the post-->
 		<button
-			class={`${cantNavigate ? '' : 'hover:text-gray-400'}`}
+			class={`${cantNavigate ? 'max-w-[70%]' : 'hover:text-gray-400 max-w-[70%]'}`}
 			on:click={onNavigationClick}
 			disabled={cantNavigate}
 		>
 			<UserComponent {author} />
 		</button>
 		<!--Show time that has passed since the post-->
-		<div class="flex flex-row text-right h-full items-center">
-			<small class="text-sm md:text-base flex items-center overflow-hidden text-ellipsis whitespace-nowrap">
+		<div class="flex flex-row text-right h-full items-center max-w-[30%]">
+			<small class="text-sm md:text-base max-w-full break-words flex-shrink">
 				{'vor ' + dateString}
 			</small>
 			<!--If the post belongs to the active user, a context-menu is shown-->
 			<div class={`w-2 ${isOwnUser && !isRepost ? '' : 'hidden'}`}></div>
 			<button
-				class={`focus:outline-none ${isOwnUser && !isRepost ? '' : 'hidden'}`}
+				class={`focus:outline-none flex-shrink-0 ${isOwnUser && !isRepost ? '' : 'hidden'}`}
 				use:popup={popupClick}
 			>
-				<Icon src={EllipsisVertical} class="h-6 md:h-8 hover:stroke-gray-400" />
+				<Icon
+					src={EllipsisVertical}
+					class="h-6 md:h-8 hover:stroke-gray-400 text-sm md:text-base"
+				/>
 			</button>
 		</div>
 	</div>
 </header>
-
 
 <!--Options-Popup -> All the options a user has to change or delete his own post (for the moment he con only delete it)-->
 <div class="w-1/2 sm:w-1/3 md:w-1/4" data-popup="popupClick-{post.postId}">
