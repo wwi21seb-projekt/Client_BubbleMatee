@@ -30,6 +30,6 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
 					message: 'Internal Server Error'
 				}
 			}
-		});
+		} as ErrorResponse);
 	}
 };
