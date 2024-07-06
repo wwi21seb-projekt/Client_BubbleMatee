@@ -47,8 +47,8 @@
 			<UserComponent {author} />
 		</button>
 		<!--Show time that has passed since the post-->
-		<div class="flex flex-row text-right h-full">
-			<small class="text-sm md:text-base flex items-center">
+		<div class="flex flex-row text-right h-full items-center">
+			<small class="text-sm md:text-base flex items-center overflow-hidden text-ellipsis whitespace-nowrap">
 				{'vor ' + dateString}
 			</small>
 			<!--If the post belongs to the active user, a context-menu is shown-->
@@ -62,6 +62,7 @@
 		</div>
 	</div>
 </header>
+
 
 <!--Options-Popup -> All the options a user has to change or delete his own post (for the moment he con only delete it)-->
 <div class="w-1/2 sm:w-1/3 md:w-1/4" data-popup="popupClick-{post.postId}">
