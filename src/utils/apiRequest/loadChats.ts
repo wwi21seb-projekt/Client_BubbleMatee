@@ -18,20 +18,42 @@ export async function loadChats(event: ServerLoadEvent) {
 }
 
 /**
- * Loads the first posts from the feed endpoint
+ * Loads the first chat messages from the current chat
  *
  * @param event - The ServerLoadEvent
  * @param offset - the start of the chat messages
  * @param limit - the maximum number of chat messages that should be fetched
  * @returns a ChatMessage-Object consisting of an Array with the next chat messages and additional information needed to load the next page
  * @throws an error: type = Error code
- */ export async function loadChatMessages(
+ */ export async function loadFirstChatMessages(
 	event: ServerLoadEvent,
 	chatId: string,
 	offset: string,
-	limit: string
+	limit: string,
 ) {
 	const response = await event.fetch(`/api/chats/${chatId}?offset=${offset}&limit${limit}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+	const body: ErrorResponse | ChatMessageResponse = await response.json();
+	return body;
+}
+
+/**
+ * Loads the next chat messages from the current chat
+ *
+ * @param offset - the start of the chat messages
+ * @param limit - the maximum number of chat messages that should be fetched
+ * @returns a ChatMessage-Object consisting of an Array with the next chat messages and additional information needed to load the next page
+ * @throws an error: type = Error code
+ */ export async function loadNextChatMessages(
+	chatId: string,
+	offset: string,
+	limit: string,
+) {
+	const response = await fetch(`/api/chats/${chatId}?offset=${offset}&limit${limit}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

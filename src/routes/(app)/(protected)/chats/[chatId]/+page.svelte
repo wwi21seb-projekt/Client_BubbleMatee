@@ -2,7 +2,13 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { ChatComponent } from '$components';
-	import type { ChatData, ChatMessage, ChatMessages, ErrorObject } from '$domains';
+	import type {
+		ChatData,
+		ChatMessage,
+		ChatMessageResponse,
+		ChatMessages,
+		ErrorObject
+	} from '$domains';
 	import {
 		connectToWebSocket,
 		disconnectFromWebSocket,
@@ -11,7 +17,7 @@
 		subscribeMessage,
 		subscribeMessageError
 	} from '$stores';
-	import { getErrorMessage } from '$utils';
+	import { getErrorMessage, globalConfig, loadNextChatMessages } from '$utils';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { onDestroy } from 'svelte';
 
@@ -26,6 +32,29 @@
 		? []
 		: ((data.chatMessageData.data as ChatMessages).records as Array<ChatMessage>);
 
+	$: overallRecords = data.chatMessageData.error
+		? 0
+		: (data.chatMessageData as ChatMessageResponse).data.pagination.records;
+
+	async function loadMoreMessages(offset: string): Promise<void> {
+		let result = await loadNextChatMessages(
+			chatId,
+			offset,
+			(parseInt(offset) + parseInt(globalConfig.limit)).toString()
+		);
+		if (result.error) {
+			const t: ToastSettings = {
+				message: getErrorMessage((result.data as ErrorObject).error.code, false),
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
+		} else {
+			chatMessages = [
+				...chatMessages,
+				...((result.data as ChatMessages).records as Array<ChatMessage>)
+			];
+		}
+	}
 	let unsubscribeMessages: (() => void) | null = null;
 	let unsubscribeErrorMessages: (() => void) | null = null;
 
@@ -75,4 +104,12 @@
 	});
 </script>
 
-<ChatComponent chatData={data} {chatId} {chatMessages} {chatMessagesError} {errorChatMessage} />
+<ChatComponent
+	{loadMoreMessages}
+	chatData={data}
+	{chatId}
+	{chatMessages}
+	{chatMessagesError}
+	{errorChatMessage}
+	{overallRecords}
+/>
