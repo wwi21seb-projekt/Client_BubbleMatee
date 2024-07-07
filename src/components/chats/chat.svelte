@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { LoadMoreComponent } from '$components';
 	import type { Author, SortedMessages } from '$domains';
-	import { afterUpdate, onMount } from 'svelte';
+	import { afterUpdate } from 'svelte';
 
 	export let username: string;
 	export let chatMessages: Array<SortedMessages>;
@@ -14,9 +14,11 @@
 	let firstChildId: string;
 
 	$: latestMessageDate =
-		chatMessages[chatMessages.length - 1].messages[
-			chatMessages[chatMessages.length - 1].messages.length - 1
-		].creationDate;
+		chatMessages.length === 0
+			? ''
+			: chatMessages[chatMessages.length - 1].messages[
+					chatMessages[chatMessages.length - 1].messages.length - 1
+				].creationDate;
 
 	function sleep(ms: number) {
 		return new Promise((resolve) => setTimeout(resolve, ms));

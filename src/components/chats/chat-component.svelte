@@ -22,8 +22,8 @@
 	export let chatMessages: Array<ChatMessage>;
 	export let chatMessagesError: ErrorObject | null;
 	export let errorChatMessage: string;
-	export let overallRecords: number;
-	export let loadMoreMessages: (offset: string) => Promise<void>;
+	export let overallRecords: number = 0;
+	export let loadMoreMessages: (offset: string) => Promise<void> = () => Promise.resolve();
 
 	let chatPartner: Author = {
 		username: '',

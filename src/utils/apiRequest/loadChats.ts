@@ -29,7 +29,7 @@ export async function loadChats(event: ServerLoadEvent) {
 	event: ServerLoadEvent,
 	chatId: string,
 	offset: string,
-	limit: string,
+	limit: string
 ) {
 	const response = await event.fetch(`/api/chats/${chatId}?offset=${offset}&limit${limit}`, {
 		method: 'GET',
@@ -48,11 +48,7 @@ export async function loadChats(event: ServerLoadEvent) {
  * @param limit - the maximum number of chat messages that should be fetched
  * @returns a ChatMessage-Object consisting of an Array with the next chat messages and additional information needed to load the next page
  * @throws an error: type = Error code
- */ export async function loadNextChatMessages(
-	chatId: string,
-	offset: string,
-	limit: string,
-) {
+ */ export async function loadNextChatMessages(chatId: string, offset: string, limit: string) {
 	const response = await fetch(`/api/chats/${chatId}?offset=${offset}&limit${limit}`, {
 		method: 'GET',
 		headers: {

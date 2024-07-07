@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { UserComponent } from '$components';
 	import type { Author } from '$domains';
-	import Person from '$lib/assets/person.png';
-	import { Avatar } from '@skeletonlabs/skeleton';
 	import { ChevronLeft } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
@@ -26,11 +25,8 @@
 			goto(`/home/user/${chatPartner.username}`);
 		}}
 	>
-		<Avatar
-			class="m-2"
-			src={chatPartner.picture && chatPartner.picture.url ? chatPartner.picture.url : Person}
-			height="auto"
-		/>
-		<h3 class="flex-1 text-start font-bold ml-2 text-xl md:text-2xl">{chatPartner.username}</h3>
+		<div class="p-2">
+			<UserComponent author={chatPartner} />
+		</div>
 	</button>
 </div>
