@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { notifications } from '$stores';
 
-	export let disabled = false;
+	export let disabled: boolean = false;
 
 	$: messageNotificationUsers = new Set(
 		$notifications

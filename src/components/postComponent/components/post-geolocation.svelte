@@ -6,14 +6,14 @@
 	import Geolocation from 'svelte-geolocation';
 
 	export let coords: [number, number];
-	let getPosition = false;
-	let isLocationActivated = false;
-	let buttonDisabled = false;
-	let standorttext = 'Standort wird geladen';
+	let getPosition: boolean = false;
+	let isLocationActivated: boolean = false;
+	let buttonDisabled: boolean = false;
+	let standorttext: string = 'Standort wird geladen';
 	const toastStore = getToastStore();
-	const buttonLoadingText = 'Standort wird geladen';
-	const buttonActivationText = 'Standort teilen';
-	const buttonActivatedText = 'Standort nicht teilen';
+	const buttonLoadingText: string = 'Standort wird geladen';
+	const buttonActivationText: string = 'Standort teilen';
+	const buttonActivatedText: string = 'Standort nicht teilen';
 	//HighAccuracy für Standortermittlung
 	let options = {
 		/**
@@ -35,7 +35,7 @@
 		maximumAge: 60 * 60 * 1000 // milliseconds
 	};
 
-	let buttonGeolocationText = buttonActivationText;
+	let buttonGeolocationText: string = buttonActivationText;
 
 	// State management for button
 	function updateButtonState(status: 'loading' | 'activated' | 'deactivated'): string {

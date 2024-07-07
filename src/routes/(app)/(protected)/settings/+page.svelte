@@ -1,6 +1,5 @@
 <script lang="ts">
-	import ArrowRightIcon from '../../../../icons/arrow-right-icon.svelte';
-	import { EditIcon, LogoutIcon, PasswordIcon, PhotoIcon } from '$icons';
+	import { EditIcon, LogoutIcon, PasswordIcon, PhotoIcon, ArrowRightIcon } from '$icons';
 	import { goto } from '$app/navigation';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { currentUsername, hasNotifications, isLoggedIn, notifications } from '$stores';

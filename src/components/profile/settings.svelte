@@ -3,7 +3,7 @@
 	import { Cog6Tooth } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	export let disabled = false;
+	export let disabled: boolean = false;
 
 	const handleClick = () => {
 		goto('/settings');

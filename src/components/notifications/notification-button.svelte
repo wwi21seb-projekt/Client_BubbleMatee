@@ -4,7 +4,7 @@
 	import { notifications } from '$stores';
 	import { goto } from '$app/navigation';
 
-	export let disabled = false;
+	export let disabled: boolean = false;
 
 	const handleClick = () => {
 		goto('/notifications');

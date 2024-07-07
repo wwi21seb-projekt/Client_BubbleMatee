@@ -8,7 +8,7 @@
 	import ChatButton from '$components/chats/chat-button.svelte';
 	import { isLoggedIn } from '$stores';
 
-	const handleLightSwitch = () => {
+	const handleLightSwitch: () => void = () => {
 		setModeUserPrefers($modeCurrent);
 	};
 

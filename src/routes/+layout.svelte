@@ -11,7 +11,7 @@
 
 	export let data: NotificationResponse | ErrorResponse;
 
-	let isInvalidating = false;
+	let isInvalidating: boolean = false;
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 	initializeStores();
