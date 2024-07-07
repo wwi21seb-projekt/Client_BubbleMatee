@@ -72,7 +72,7 @@
 	{/if}
 	{#if !isOwnUser && !user.status}
 		<button
-			on:click={() => goto(`/home/chats/newChat/${user.username}`)}
+			on:click={() => goto(`/chats/newChat/${user.username}`)}
 			class="flex items-center justify-center btn w-full mt-2 md:max-w-xs mx-4 variant-ghost-primary h-10"
 		>
 			<Icon class="mr-2 h-5 w-5" src={Envelope} />
@@ -93,7 +93,7 @@
 	{/if}
 	{#if !isOwnUser && user.status}
 		<button
-			on:click={() => goto(`/home/chats/newChat/${user.username}`)}
+			on:click={() => goto(`/chats/newChat/${user.username}`)}
 			class="flex items-center justify-center btn w-full mt-2 md:max-w-xs mx-4 variant-ghost-primary h-10"
 		>
 			<Icon class="mr-2 h-5 w-5" src={Envelope} />

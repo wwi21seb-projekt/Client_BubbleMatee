@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CarouselElement } from '$components';
-	import { Team } from '$images';
+	import Team from '$lib/assets/about/team.png';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 

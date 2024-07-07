@@ -10,10 +10,10 @@
 		ErrorResponse,
 		Notification
 	} from '$domains';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import { getErrorMessage } from '$utils';
 	import { Avatar, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
-	import { ChevronLeft, Plus } from '@steeze-ui/heroicons';
+	import { Plus } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
 	import { getModalStore } from '@skeletonlabs/skeleton';
@@ -78,7 +78,7 @@
 		notificationsToDelete.forEach((notification) => {
 			deleteNotificationRequest(notification.notificationId);
 		});
-		goto(`/home/chats/${person.chatId}`);
+		goto(`/chats/${person.chatId}`);
 		chatId = person.chatId;
 		chatPartner = person.user;
 	};
@@ -131,14 +131,6 @@
 			<!-- List -->
 			<div class="p-4 px-0 space-y-4 w-full">
 				<div class="flex justify-between items-center">
-					<button
-						class="h-10 btn w-auto"
-						on:click={() => {
-							goto('/home');
-						}}
-					>
-						<Icon src={ChevronLeft} />
-					</button>
 					<p class="opacity-50 w-28 mx-auto hidden sm:block text-lg md:text-xl">Kontakte</p>
 					<button type="button" class="btn variant-filled-primary mr-2" on:click={onNewChat}>
 						<p>Neuer Chat</p>

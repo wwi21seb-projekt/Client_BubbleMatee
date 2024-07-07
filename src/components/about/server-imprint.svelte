@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ErrorResponse, ImprintResponse } from '$domains';
-	import { Imprint } from '$images';
+	import Imprint from '$lib/assets/about/imprint.png';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 
 	export let data: ImprintResponse | ErrorResponse;

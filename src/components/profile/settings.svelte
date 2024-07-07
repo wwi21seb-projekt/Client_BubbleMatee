@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { SettingIcon } from '$images';
+	import { Cog6Tooth } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+
+	export let disabled: boolean = false;
 
 	const handleClick = () => {
-		goto('/myProfile/settings');
+		goto('/settings');
 	};
 </script>
 
-<button on:click={handleClick}>
-	<SettingIcon />
+<button on:click={handleClick} class={disabled ? 'disabled' : ''} {disabled}>
+	<Icon
+		src={Cog6Tooth}
+		class="h-8 md:h-10 font-bold hover:stroke-gray-400 {disabled ? 'stroke-gray-400' : ''}"
+	/>
 </button>

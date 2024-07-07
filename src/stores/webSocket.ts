@@ -1,11 +1,18 @@
-import type { ChatMessage } from '$domains';
+import type { ChatMessage, Error } from '$domains';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { type Writable, writable } from 'svelte/store';
 
 let socket: WebSocket | null = null;
 
-const messageStore: Writable<ChatMessage> = writable({} as ChatMessage);
-const unsendMessageStore: Writable<ChatMessage> = writable({} as ChatMessage);
+const messageStore: Writable<ChatMessage> = writable({
+	content: '',
+	creationDate: '',
+	username: ''
+} as ChatMessage);
+const messageErrorStore: Writable<Error> = writable({
+	code: 'noerror',
+	message: 'Kein Fehler aufgetreten'
+} as Error);
 
 /**
  * Stores a message.
@@ -34,22 +41,48 @@ export const sendMessage = (message: string) => {
 };
 
 /**
- * Stores an unsend message.
+ * Stores an error message.
  *
- * @param message The unsend message.
+ * @param error The error to store.
  * @returns void
  */
-export const storeUnsendMessage = (message: ChatMessage) => {
-	unsendMessageStore.set(message);
+const storeMessageError = (error: Error) => {
+	messageErrorStore.set(error);
+};
+
+/**
+ * Resets the error message.
+ *
+ * @returns void
+ */
+export const resetMessageError = () => {
+	storeMessageError({
+		code: 'noerror',
+		message: 'Kein Fehler aufgetreten'
+	});
+};
+
+/**
+ * Resets the message.
+ *
+ * @returns void
+ */
+export const resetMessage = () => {
+	storeMessage({
+		content: '',
+		creationDate: '',
+		username: ''
+	});
 };
 
 export const subscribeMessage = messageStore.subscribe;
-export const subscribeUnsendMessage = unsendMessageStore.subscribe;
+export const subscribeMessageError = messageErrorStore.subscribe;
 
 /**
  * Connects to the WebSocket.
  *
  * @param chatId The ID of the chat.
+ * @param token The token to connect with.
  * @returns void
  */
 export function connectToWebSocket(chatId: string, token: string) {
@@ -69,7 +102,20 @@ export function connectToWebSocket(chatId: string, token: string) {
 		socket?.addEventListener('message', (event) => {
 			try {
 				const decodedMessage = JSON.parse(event.data);
-				storeMessage(decodedMessage);
+				if (decodedMessage.error) {
+					storeMessageError(decodedMessage.error);
+				} else if (
+					!decodedMessage.content ||
+					!decodedMessage.creationDate ||
+					!decodedMessage.username
+				) {
+					storeMessageError({
+						code: '500',
+						message: 'Unbekannter Fehler'
+					});
+				} else {
+					storeMessage(decodedMessage);
+				}
 			} catch (error) {
 				console.error('Fehler beim Parsen von JSON: ', error);
 			}

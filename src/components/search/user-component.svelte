@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Author } from '$domains';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let author: Author;

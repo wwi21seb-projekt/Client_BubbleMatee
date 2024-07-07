@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Settings } from '$components';
-	import { Logo, Text } from '$images';
+	import Logo from '$lib/assets/layout/logo.png';
+	import Text from '$lib/assets/layout/schriftzug.png';
 	import { AppBar, LightSwitch, modeCurrent, setModeUserPrefers } from '@skeletonlabs/skeleton';
 	import NotificationButton from '$components/notifications/notification-button.svelte';
 	import ChatButton from '$components/chats/chat-button.svelte';
+	import { isLoggedIn } from '$stores';
 
-	const handleLightSwitch = () => {
+	const handleLightSwitch: () => void = () => {
 		setModeUserPrefers($modeCurrent);
 	};
+
+	$: chatDisabled = $page.url.pathname.includes('chats');
+	$: notificationDisabled = $page.url.pathname.includes('notifications');
+	$: settingsDisabled = $page.url.pathname.includes('settings');
 </script>
 
 <!-- App Shell -->
@@ -21,11 +27,10 @@
 	</svelte:fragment>
 	<svelte:fragment slot="trail">
 		<LightSwitch on:click={handleLightSwitch} />
-		{#if $page.url.pathname === '/myProfile'}
-			<Settings />
-		{:else if $page.url.pathname === '/home'}
-			<NotificationButton />
-			<ChatButton />
+		{#if $isLoggedIn}
+			<NotificationButton disabled={notificationDisabled} />
+			<ChatButton disabled={chatDisabled} />
+			<Settings disabled={settingsDisabled} />
 		{/if}
 	</svelte:fragment>
 </AppBar>

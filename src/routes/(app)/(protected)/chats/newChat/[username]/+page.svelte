@@ -3,9 +3,8 @@
 	import { page } from '$app/stores';
 	import { ChatComponent } from '$components';
 	import type { ChatData, ChatMessage, ChatMessages, Chats, ErrorObject } from '$domains';
-	import { subscribeUnsendMessage } from '$stores';
 	import { getErrorMessage } from '$utils';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	export let data: ChatData;
 	export let newUser: string = $page.params.username;
@@ -22,7 +21,7 @@
 	if (!data.chatsData.error) {
 		(data.chatsData.data as Chats).records.map((chat) => {
 			if (chat.user.username === newUser) {
-				goto(`/home/chats/${chat.chatId}`);
+				goto(`/chats/${chat.chatId}`);
 			}
 		});
 	}
@@ -46,29 +45,9 @@
 		}
 	};
 
-	let unsendChatMessages: Array<ChatMessage> = [];
-	let unsubscribeUnsendMessages: () => void = subscribeUnsendMessage((currentMessage) => {
-		if (currentMessage.content && currentMessage.username && currentMessage.creationDate) {
-			unsendChatMessages = unsendChatMessages.length
-				? [...unsendChatMessages, currentMessage as unknown as ChatMessage]
-				: [currentMessage as unknown as ChatMessage];
-		}
-	});
-
 	onMount(() => {
 		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
 	});
-
-	onDestroy(() => {
-		unsubscribeUnsendMessages();
-	});
 </script>
 
-<ChatComponent
-	chatData={data}
-	{chatId}
-	{chatMessages}
-	{unsendChatMessages}
-	{chatMessagesError}
-	{errorChatMessage}
-/>
+<ChatComponent chatData={data} {chatId} {chatMessages} {chatMessagesError} {errorChatMessage} />

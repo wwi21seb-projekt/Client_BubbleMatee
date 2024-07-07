@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { VideoMarketing } from '$images';
+	import VideoMarketing from '$lib/assets/about/video-marketing.png';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
-<!-- svelte-ignore a11y-media-has-caption -->
 <AccordionItem>
 	<svelte:fragment slot="lead"
 		><img
@@ -21,9 +20,16 @@
 		</h2>
 	</svelte:fragment>
 	<svelte:fragment slot="content">
-		<video src="pfad/zu/deinem/video.mp4" controls poster="pfad/zu/deinem/poster.jpg">
-			Dein Browser unterstützt das Video-Tag nicht.
-		</video>
+		<iframe
+			width="560"
+			height="315"
+			src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=oXg6NlZ94uWhuo1h"
+			title="YouTube video player"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin"
+			allowfullscreen
+		></iframe>
 	</svelte:fragment>
 </AccordionItem>
 

@@ -1,7 +1,7 @@
 <!--Post-Page -->
 <script lang="ts">
 	import { FileInput } from '$components';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 	import type { UserInfo } from '$domains';
 	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { uploadedImageUrl } from '$stores';
@@ -149,7 +149,7 @@
 		<button
 			class="btn variant-ghost w-full max-w-[31.25rem] mt-2"
 			on:click={() => {
-				goto('/myProfile/settings');
+				goto('/settings');
 			}}>Abbrechen</button
 		>
 	</main>
