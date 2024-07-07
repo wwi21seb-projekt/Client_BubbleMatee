@@ -7,7 +7,7 @@
 		type ModalSettings
 	} from '@skeletonlabs/skeleton';
 	import { FollowerList, ProfileHeaderBottom } from '$components';
-	import { Person } from '$images';
+	import Person from '$lib/assets/person.png';
 
 	const modalStore = getModalStore();
 

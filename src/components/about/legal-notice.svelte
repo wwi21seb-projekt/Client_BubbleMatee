@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Law } from '$images';
+	import Law from '$lib/assets/about/law.png';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 

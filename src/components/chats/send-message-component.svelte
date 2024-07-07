@@ -56,7 +56,7 @@
 				toastStore.trigger(t);
 			} else {
 				let chatId = body.data.chatId;
-				goto(`/home/chats/${chatId}`);
+				goto(`/chats/${chatId}`);
 			}
 
 			return body;

@@ -68,7 +68,7 @@ async function main(folderPath, abortAt200Lines, excludedFolder) {
 // Use Cli-Arguments to configure the script
 const folderPath = './src';
 const abortAt200Lines = process.argv.includes('--abort-at-200-lines');
-const excludedFolder = 'src/images';
+const excludedFolder = 'src/lib';
 
 // Start the script
 main(folderPath, abortAt200Lines, excludedFolder);

@@ -1,5 +1,5 @@
 <script>
-	import { Folders } from '$images';
+	import Folders from '$lib/assets/about/folders.png';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 

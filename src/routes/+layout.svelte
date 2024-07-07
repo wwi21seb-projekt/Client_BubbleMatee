@@ -11,13 +11,24 @@
 
 	export let data: NotificationResponse | ErrorResponse;
 
+	let isInvalidating: boolean = false;
+
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 	initializeStores();
 
 	if (typeof navigator !== 'undefined') {
-		navigator.serviceWorker.addEventListener('message', function () {
+		navigator.serviceWorker.addEventListener('message', async function (event) {
 			hasNotifications.set(true);
-			invalidateAll();
+			if (
+				!$notifications.find(
+					(notification) => notification.notificationId === event.data.data.notificationId
+				) &&
+				!isInvalidating
+			) {
+				isInvalidating = true;
+				await invalidateAll();
+				isInvalidating = false;
+			}
 		});
 	}
 	$: pageNotifications = data.error

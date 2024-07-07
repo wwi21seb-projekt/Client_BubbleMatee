@@ -3,7 +3,7 @@
 	import type { PersonData } from '$domains';
 	import { personsData } from '../../static/components/index.ts';
 	import { ListProjectParticipants } from '$components';
-	import { ArrowLeftIcon, ArrowRightIcon } from '$images';
+	import { ArrowLeftIcon, ArrowRightIcon } from '$icons';
 
 	// Helper function to create TableSource objects
 	function createTableSource(data: PersonData[]): TableSource {

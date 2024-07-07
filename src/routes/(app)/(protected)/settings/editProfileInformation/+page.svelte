@@ -84,7 +84,7 @@
 			<button
 				class="btn variant-ghost"
 				on:click={() => {
-					goto('/myProfile/settings');
+					goto('/settings');
 				}}>Abbrechen</button
 			>
 		</div>
