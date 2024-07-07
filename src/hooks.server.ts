@@ -49,8 +49,7 @@ const isUnauthorizedRoute = (pathname: string, method: string) => {
  */
 export const handle = async ({ event, resolve }) => {
 	console.log(
-		`\tInternal request: ${event.request.method} ${
-			event.url.pathname + event.url.search
+		`\tInternal request: ${event.request.method} ${event.url.pathname + event.url.search
 		}, ${Date.now()}}`
 	);
 	const isLoggedInLocal: boolean = get(isLoggedIn);
@@ -152,8 +151,7 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	//Special case: 
 	// If the global feed (unauthoized route) is requested by an authorized user the auth-token should be send, 
 	// so that the server can identify wether the user has liked the post or not.
-	else if (PUBLIC_BASE_URL === url.origin && new RegExp(`^/api/feed.*feedType=global`).test(url.pathname + url.search))
-	{
+	else if (PUBLIC_BASE_URL === url.origin && new RegExp(`^/api/feed.*feedType=global`).test(url.pathname + url.search)) {
 		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
 	}
 	const response = await fetch(request);
