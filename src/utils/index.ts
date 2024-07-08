@@ -28,7 +28,7 @@ export {
 export { fetchNextPostsUser, fetchFirstPostsUser } from './apiRequest/loadPostUser';
 export { fetchLocation } from './apiRequest/loadLocation';
 export { loadUser, loadSearchedUser } from './apiRequest/loadUser';
-export { loadChats, loadChatMessages } from './apiRequest/loadChats';
+export { loadChats, loadFirstChatMessages, loadNextChatMessages } from './apiRequest/loadChats';
 export { subscribe, unsubscribe } from './apiRequest/postSubscriptions';
 export { tokenExpired } from './token/tokenExpired';
 export { getCurrentUser } from './token/getUser';

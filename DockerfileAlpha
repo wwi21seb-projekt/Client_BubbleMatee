@@ -30,7 +30,7 @@ COPY . .
 RUN npm install
 
 # Erstellen einer .env-Datei und Hinzufügen von Umgebungsvariablen
-RUN echo "PUBLIC_BASE_URL=https://server-alpha.tech" > .env && \
+RUN echo "PUBLIC_BASE_URL=https://alpha.c930.net" > .env && \
     echo "PRIVATE_GEO_API_KEY=<YOUR-GEO-API-KEY>" >> .env
 
 # Bauen der Anwendung für die Produktion

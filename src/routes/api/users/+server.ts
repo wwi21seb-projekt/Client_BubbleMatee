@@ -106,7 +106,7 @@ export const PATCH: RequestHandler = async ({ fetch, request }) => {
 					message: 'Internal Server Error'
 				}
 			}
-		});
+		} as ErrorResponse);
 	}
 };
 

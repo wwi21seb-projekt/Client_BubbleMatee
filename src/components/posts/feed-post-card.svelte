@@ -75,6 +75,7 @@
 					commentData.errorText = getErrorMessage(data.error.code, false);
 				}
 				commentData.isError = true;
+				commentData.overallRecords = 0;
 			} else {
 				const data = body.data as CommentList;
 				if (data.records) {
@@ -97,7 +98,6 @@
 					errorText: ''
 				};
 			}
-			commentData.overallRecords = 0;
 		}
 		return commentData;
 	}
@@ -127,15 +127,15 @@
 					}
 				];
 				comments = comments.concat(newComment);
+				let commentDataNew: CommentData = {
+					comments: comments,
+					overallRecords: commentData.overallRecords + 1,
+					isError: false,
+					errorText: ''
+				};
+				commentData = commentDataNew;
+				post.comments++;
 			}
-			let commentDataNew: CommentData = {
-				comments: comments,
-				overallRecords: commentData.overallRecords + 1,
-				isError: false,
-				errorText: ''
-			};
-			commentData = commentDataNew;
-			post.comments++;
 		} else if (commentData.isError) {
 			const t: ToastSettings = {
 				message: 'Lade zunächst die Kommentare neu, bevor du kommentierst!',

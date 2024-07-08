@@ -131,7 +131,7 @@
 			<!-- List -->
 			<div class="p-4 px-0 space-y-4 w-full overflow-hidden">
 				<div class="flex justify-between items-center">
-					<p class="opacity-50 w-28 mx-auto hidden sm:block text-lg md:text-xl">Kontakte</p>
+					<p class="opacity-50 ml-8 w-full mx-auto hidden sm:block text-lg md:text-xl">Kontakte</p>
 					<button
 						type="button"
 						class="btn variant-filled-primary mr-2 ml-7 md:ml-0"
