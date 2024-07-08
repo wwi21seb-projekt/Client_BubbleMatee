@@ -124,7 +124,7 @@ const errorMessages: Array<Error> = [
 	},
 	{
 		code: 'ERR-101',
-		message: 'Es sind nur die Dateiformate JPG, JPEG, WebP und SVG erlaubt.'
+		message: 'Es sind nur die Dateiformate JPG, JPEG und WebP erlaubt.' //Change Text for Push Notification SVG Image and take changes in Post.ts and filedropzone.svelte
 	},
 	{
 		code: 'ERR-102',
