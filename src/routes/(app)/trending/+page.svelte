@@ -12,8 +12,8 @@
 		overallRecords: 0,
 		lastPostId: ''
 	};
-	handleLoadResult(data);
 	const toastStore = getToastStore();
+	handleLoadResult(data);
 
 	function handleLoadResult(data: PostData | ErrorObject): void {
 		if ('posts' in data) {
