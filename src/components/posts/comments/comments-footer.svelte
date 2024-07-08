@@ -10,9 +10,12 @@
 
 	let newComment: string = '';
 	//post of a comment
+	// if the comment contains only whitespaces nothing is posted
 	const postComment = () => {
-		commentPost(newComment);
-		newComment = '';
+		if (!/^\s*$/.test(newComment)) {
+			commentPost(newComment);
+			newComment = '';
+		}
 	};
 
 	let authors = new Array<Author>();
@@ -115,7 +118,7 @@
 			<Icon
 				src={PaperAirplane}
 				class={`w-6 md:w-8 font-bold ${
-					newComment == ''
+					/^\s*$/.test(newComment)
 						? 'stroke-gray-400'
 						: 'stroke-black dark:stroke-white dark:hover:stroke-gray-400 hover:stroke-gray-400'
 				} `}

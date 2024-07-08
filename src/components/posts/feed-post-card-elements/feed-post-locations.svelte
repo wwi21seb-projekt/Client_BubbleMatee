@@ -30,7 +30,7 @@
 			>
 		{:else}
 			<span class="max-w-full break-words whitespace-normal"
-				>{`${locationPlace.city}, ${locationPlace.country}`}</span
+				>{`${locationPlace.city ? locationPlace.city + ', ' : ''}${locationPlace.country}`}</span
 			>
 		{/if}
 	</a>

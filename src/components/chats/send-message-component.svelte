@@ -73,17 +73,18 @@
 	}
 
 	function onSendMessage(): void {
-		if ($page.url.pathname.includes('newChat')) {
-			createNewChat();
-			return;
-		}
+		if (currentMessage && !/^\s*$/.test(currentMessage)) {
+			if ($page.url.pathname.includes('newChat')) {
+				createNewChat();
+				return;
+			}
 
-		if (currentMessage && currentMessage.length > 0) {
 			sendMessage(currentMessage);
 			// Wait for the answer from server
+
+			currentMessage = '';
+			textarea.style.height = 'auto';
 		}
-		currentMessage = '';
-		textarea.style.height = 'auto';
 	}
 
 	function autoResize(event: Event) {
@@ -125,7 +126,7 @@
 			<Icon
 				src={PaperAirplane}
 				class={`w-6 md:w-8 font-bold ${
-					currentMessage == ''
+					/^\s*$/.test(currentMessage)
 						? 'stroke-gray-400'
 						: 'stroke-black dark:stroke-white dark:hover:stroke-gray-400 hover:stroke-gray-400'
 				} `}
