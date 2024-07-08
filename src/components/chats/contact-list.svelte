@@ -131,7 +131,7 @@
 			<!-- List -->
 			<div class="p-4 px-0 space-y-4 w-full">
 				<div class="flex justify-between items-center">
-					<p class="opacity-50 w-28 mx-auto hidden sm:block text-lg md:text-xl">Kontakte</p>
+					<p class="opacity-50 ml-8 w-full mx-auto hidden sm:block text-lg md:text-xl">Kontakte</p>
 					<button type="button" class="btn variant-filled-primary mr-2" on:click={onNewChat}>
 						<p>Neuer Chat</p>
 						<Icon src={Plus} class="h-4 font-bold hover:stroke-gray-400" />
@@ -154,8 +154,14 @@
 										: Person}
 									height="auto"
 								/>
-								<h3 class="ml-2 text-lg md:text-xl flex-1 text-start">{person.user.username}</h3>
-
+								<div class="flex flex-col w-full">
+									<h3 class="ml-2 font-bold text-xl md:text-2xl flex-1 text-start">
+										{person.user.username}
+									</h3>
+									<small class="ml-2 text-sm md:text-base flex-1 text-start"
+										>{person.user.nickname}</small
+									>
+								</div>
 								{#if person.newMessages > 0}
 									<span class="badge-icon variant-filled-warning -top-0 -right-0 z-10"
 										>{person.newMessages}</span

@@ -22,6 +22,8 @@
 	export let chatMessages: Array<ChatMessage>;
 	export let chatMessagesError: ErrorObject | null;
 	export let errorChatMessage: string;
+	export let overallRecords: number = 0;
+	export let loadMoreMessages: (offset: string) => Promise<void> = () => Promise.resolve();
 
 	let chatPartner: Author = {
 		username: '',
@@ -40,7 +42,6 @@
 
 		// Reset sortedAndClusteredMessages
 		sortedAndClusteredMessages = [];
-
 		// Cluster messages by day
 		chatMessages.forEach((message) => {
 			const messageDate = new Date(message.creationDate).toLocaleDateString('de-DE');
@@ -82,7 +83,14 @@
 					<ChatMobileHeader {chatPartner} />
 				</div>
 				<main class="flex-grow overflow-y-auto overflow-x-hidden pr-1">
-					<Chat chatMessages={sortedAndClusteredMessages} username={chatData.username} />
+					<Chat
+						bind:chatPartner
+						{loadMoreMessages}
+						chatMessages={sortedAndClusteredMessages}
+						username={chatData.username}
+						{overallRecords}
+						currentRecords={chatMessages.length}
+					/>
 				</main>
 				<footer class="flex-shrink-0 m-0 bottom-0 z-40 bg-surface-50 dark:bg-surface-900">
 					<SendMessageComponent chatPartnerUsername={chatPartnerUsernameFromUrl} />

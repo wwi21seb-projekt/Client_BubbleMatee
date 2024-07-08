@@ -32,7 +32,7 @@ export interface SortedMessages {
 
 export interface ChatData {
 	chatsData: ChatsResponse | ErrorResponse;
-	chatMessageData: ErrorResponse | ChatMessageResponse;
+	chatMessageData: ChatMessageResponse | ErrorResponse;
 	username: string;
 	token: string;
 }
