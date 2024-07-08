@@ -7,7 +7,8 @@
 		ChatMessage,
 		ChatMessageResponse,
 		ChatMessages,
-		ErrorObject
+		ErrorObject,
+		ErrorResponse
 	} from '$domains';
 	import {
 		connectToWebSocket,
@@ -37,7 +38,7 @@
 		: (data.chatMessageData as ChatMessageResponse).data.pagination.records;
 
 	async function loadMoreMessages(offset: string): Promise<void> {
-		let result = await loadNextChatMessages(
+		let result: ChatMessageResponse | ErrorResponse = await loadNextChatMessages(
 			chatId,
 			offset,
 			(parseInt(offset) + parseInt(globalConfig.limit)).toString()

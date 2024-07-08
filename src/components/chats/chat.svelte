@@ -41,7 +41,7 @@
 			}
 		}
 	}
-	// After rendering the new child, call this function
+
 	function loadMore() {
 		firstChildId = chatMessages[0].messages[0].creationDate;
 		loadMoreMessages(currentRecords.toString());
