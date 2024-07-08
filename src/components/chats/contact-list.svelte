@@ -137,7 +137,7 @@
 						class="btn variant-filled-primary mr-2 ml-7 md:ml-0"
 						on:click={onNewChat}
 					>
-						<p>Neuer Chat</p>
+						<p>Neuer Chat123</p>
 						<Icon src={Plus} class="h-4 font-bold hover:stroke-gray-400" />
 					</button>
 				</div>
@@ -159,13 +159,15 @@
 									height="auto"
 									class="w-12 md:w-16 shrink"
 								/>
-								<span
-									class="ml-2 text-lg md:text-xl text-start break-all overflow-hidden"
-									style="width: calc(100% - 100px);"
-								>
-									{person.user.username}
-								</span>
-								{#if !(person.newMessages > 0)}
+								<div class="flex flex-col w-calc(100% - 100px) text-start overflow-hidden">
+									<h3 class="ml-2 font-bold text-xl md:text-2xl flex-1 text-start">
+										{person.user.username}
+									</h3>
+									<small class="ml-2 text-sm md:text-base flex-1 text-start"
+										>{person.user.nickname}</small
+									>
+								</div>
+								{#if (person.newMessages > 0)}
 									<span class="badge-icon variant-filled-warning -top-0 -right-0 z-10 w-6 h-6"
 										>{person.newMessages}</span
 									>
