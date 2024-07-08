@@ -75,6 +75,7 @@
 					commentData.errorText = getErrorMessage(data.error.code, false);
 				}
 				commentData.isError = true;
+				commentData.overallRecords = 0;
 			} else {
 				const data = body.data as CommentList;
 				if (data.records) {
@@ -97,7 +98,6 @@
 					errorText: ''
 				};
 			}
-			commentData.overallRecords = 0;
 		}
 		return commentData;
 	}
