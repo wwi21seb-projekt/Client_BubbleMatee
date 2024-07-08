@@ -170,7 +170,7 @@
 										>{person.user.nickname}</small
 									>
 								</div>
-								{#if !(person.newMessages > 0)}
+								{#if (person.newMessages > 0)}
 									<span class="badge-icon variant-filled-warning -top-0 -right-0 z-10 w-6 h-6"
 										>{person.newMessages}</span
 									>
