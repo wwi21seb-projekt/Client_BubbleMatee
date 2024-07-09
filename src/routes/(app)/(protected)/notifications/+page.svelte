@@ -17,9 +17,9 @@
 	);
 	$: notificationError = $page.data.error ? $page.data.data.error : undefined;
 
-	function handleNotificationClick(notification: Notification) {
+	async function handleNotificationClick(notification: Notification) {
+		await deleteNotificationRequest(notification.notificationId);
 		goto(`/search/user/${notification.user.username}`);
-		deleteNotificationRequest(notification.notificationId);
 	}
 
 	async function deleteNotificationRequest(notificationId: string | undefined) {
@@ -39,7 +39,6 @@
 					};
 					toastStore.trigger(t);
 				}
-				//show confirmation if succesfull
 			} else {
 				const notificationsNew: Array<Notification> = $notifications.filter(
 					(notification) => notification.notificationId !== notificationId
