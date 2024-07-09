@@ -152,7 +152,7 @@
 					});
 				}
 			} catch (e) {
-				console.error(e);
+				goto('/login?redirect=1');
 			} finally {
 				loading.set(false);
 				modalStore.close();
