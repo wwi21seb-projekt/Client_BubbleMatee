@@ -67,11 +67,11 @@
 		<LoadMoreComponent {loadMore} isDown={false} />
 	{/if}
 	{#if chatMessages}
-		{#each chatMessages as chatDay (chatDay.date)}
-			<div class="flex flex justify-center items-center">
+		{#each chatMessages as chatDay}
+			<div class="flex justify-center items-center">
 				<span class="chip-disabled variant-ghost text-sm w-auto rounded px-2">{chatDay.date}</span>
 			</div>
-			{#each chatDay.messages as chat (chat.creationDate)}
+			{#each chatDay.messages as chat}
 				{#if chat.username === username}
 					<div class="flex justify-end gap-2" id={chat.creationDate}>
 						<div
