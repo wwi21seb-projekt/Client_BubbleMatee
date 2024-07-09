@@ -37,7 +37,7 @@
 			return;
 		}
 		const file = localFiles[0];
-		const validTypes = ['image/jpeg', 'image/webp', 'image/png', 'image/svg+xml'];
+		const validTypes = ['image/jpeg', 'image/webp', 'image/png']; // input , 'image/svg+xml' for svg picture and takte changes in Post.ts and errorMessages.ts
 		const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB in bytes
 		// Checking for valid file type and size
 		if (!validTypes.includes(file.type)) {
