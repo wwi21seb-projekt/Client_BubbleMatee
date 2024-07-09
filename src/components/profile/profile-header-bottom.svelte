@@ -4,13 +4,13 @@
 	import type { UserInfo } from '$domains';
 	import { currentUsername } from '$stores';
 	import { subscribe, unsubscribe, getErrorMessage } from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { Envelope } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	export let user: UserInfo;
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let loading: boolean = false;
 	let isOwnUser: boolean =
@@ -33,7 +33,7 @@
 		}
 	};
 
-	const handleButtonClick = async () => {
+	const handleButtonClick: () => Promise<void> = async () => {
 		let body;
 		if (isSubscriber) {
 			body = await unsubscribe(user.subscriptionId, user.username);

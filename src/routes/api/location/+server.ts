@@ -13,7 +13,7 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 	const lat: string | null = url.searchParams.get('lat');
 
 	try {
-		const response = await fetch(
+		const response: Response = await fetch(
 			`https://api.geoapify.com/v1/geocode/reverse?lon=${long}&lat=${lat}&apiKey=${PRIVATE_GEO_API_KEY}&lang=de&type=city`,
 			{
 				method: 'GET',

@@ -2,11 +2,11 @@
 	import { goto } from '$app/navigation';
 	import { UserInfoStep, PasswordStep, ProfileImageInputStep } from '$components';
 	import { getErrorMessage } from '$utils';
-	import { Stepper, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { Stepper, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { uploadedImageUrl } from '$stores';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let email: string;
 	let password: string;
@@ -23,9 +23,9 @@
 
 	const handleSubmit = async () => {
 		loading = true;
-		let pictureData = $uploadedImageUrl ? removeBase64Prefix($uploadedImageUrl) : '';
+		let pictureData: string = $uploadedImageUrl ? removeBase64Prefix($uploadedImageUrl) : '';
 		try {
-			const response = await fetch('/api/users', {
+			const response: Response = await fetch('/api/users', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

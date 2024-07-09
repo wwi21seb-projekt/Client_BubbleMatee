@@ -6,7 +6,7 @@ import type { ServerLoadEvent } from '@sveltejs/kit';
  */
 
 export async function loadChats(event: ServerLoadEvent) {
-	const response = await event.fetch('/api/chats', {
+	const response: Response = await event.fetch('/api/chats', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -31,12 +31,15 @@ export async function loadChats(event: ServerLoadEvent) {
 	offset: string,
 	limit: string
 ) {
-	const response = await event.fetch(`/api/chats/${chatId}?offset=${offset}&limit${limit}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
+	const response: Response = await event.fetch(
+		`/api/chats/${chatId}?offset=${offset}&limit${limit}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		}
-	});
+	);
 	const body: ErrorResponse | ChatMessageResponse = await response.json();
 	return body;
 }
@@ -49,7 +52,7 @@ export async function loadChats(event: ServerLoadEvent) {
  * @returns a ChatMessage-Object consisting of an Array with the next chat messages and additional information needed to load the next page
  * @throws an error: type = Error code
  */ export async function loadNextChatMessages(chatId: string, offset: string, limit: string) {
-	const response = await fetch(`/api/chats/${chatId}?offset=${offset}&limit${limit}`, {
+	const response: Response = await fetch(`/api/chats/${chatId}?offset=${offset}&limit${limit}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

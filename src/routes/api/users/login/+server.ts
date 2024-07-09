@@ -13,7 +13,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const POST: RequestHandler = async ({ fetch, request, cookies }) => {
 	const requestBody = await request.json();
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/login`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ fetch, request, cookies }) => {
 		const body = await response.json();
 
 		if (response.ok) {
-			const { token, refreshToken } = body;
+			const { token, refreshToken }: { token: string; refreshToken: string } = body;
 
 			cookies.set('token', token, { path: '/' });
 			cookies.set('refreshToken', refreshToken, { path: '/' });

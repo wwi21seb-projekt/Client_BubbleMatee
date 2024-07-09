@@ -141,7 +141,7 @@ const errorMessages: Array<Error> = [
  */
 export function getErrorMessage(code: string, hasNoToast: boolean): string {
 	handleUnauthorized(code, hasNoToast);
-	const error = errorMessages.find((error) => {
+	const error: Error | undefined = errorMessages.find((error) => {
 		return error.code === code;
 	});
 	if (error) {

@@ -3,26 +3,31 @@
 	import { FileInput } from '$components';
 	import Person from '$lib/assets/person.png';
 	import type { UserInfo } from '$domains';
-	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import {
+		Avatar,
+		getToastStore,
+		type ToastStore,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 	import { uploadedImageUrl } from '$stores';
 	import { goto } from '$app/navigation';
 	import { getErrorMessage } from '$utils';
-	let uploadNewPicture = false;
+	let uploadNewPicture: boolean = false;
 	export let data;
-	let toastStore = getToastStore();
+	let toastStore: ToastStore = getToastStore();
 
-	let user = data.error ? null : (data.data as UserInfo);
+	let user: UserInfo | null = data.error ? null : (data.data as UserInfo);
 
 	// Function to remove the Base64 prefix from an image URL
 	function removeBase64Prefix(base64Url: string): string {
 		return base64Url.split(',')[1]; // Split the string at the comma and return the second part, which is the actual Base64 data
 	}
 
-	const profilePictureTransmit = async () => {
+	const profilePictureTransmit: () => Promise<void> = async () => {
 		try {
-			let pictureData = $uploadedImageUrl ? removeBase64Prefix($uploadedImageUrl) : '';
+			let pictureData: string = $uploadedImageUrl ? removeBase64Prefix($uploadedImageUrl) : '';
 
-			const response = await fetch('/api/users', {
+			const response: Response = await fetch('/api/users', {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
@@ -61,8 +66,8 @@
 
 	const deletePicture = async () => {
 		try {
-			let pictureData = '';
-			const response = await fetch('/api/users', {
+			let pictureData: string = '';
+			const response: Response = await fetch('/api/users', {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'

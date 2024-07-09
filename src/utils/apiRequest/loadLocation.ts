@@ -10,7 +10,7 @@ import type { Error, ErrorResponse, LocationPlace, LocationResponse } from '$dom
  *
  */
 export async function fetchLocation(long: string, lat: string): Promise<LocationPlace> {
-	const response = await fetch(`/api/location?long=${long}&lat=${lat}`, {
+	const response: Response = await fetch(`/api/location?long=${long}&lat=${lat}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ export async function fetchLocation(long: string, lat: string): Promise<Location
 	if (body.error) {
 		//handle Error
 		const error: Error = (body as ErrorResponse).data.error;
-		const message = error.message;
+		const message: string = error.message;
 		throw new ErrorEvent(message);
 	} else {
 		const data: LocationPlace = body.data as LocationPlace;

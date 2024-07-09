@@ -14,7 +14,7 @@
 	let localFiles: FileList;
 	//Base 64 convert
 	function convertToBase64(file: File) {
-		const reader = new FileReader();
+		const reader: FileReader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = () => {
 			$uploadedImageUrl = reader.result as string;
@@ -26,7 +26,7 @@
 	}
 	// Handler for file change events
 	function onChangeHandler() {
-		let passedChecks = true;
+		let passedChecks: boolean = true;
 		if (localFiles.length === null || localFiles.length !== 1) {
 			passedChecks = false;
 			const t: ToastSettings = {
@@ -36,9 +36,9 @@
 			toastStore.trigger(t);
 			return;
 		}
-		const file = localFiles[0];
-		const validTypes = ['image/jpeg', 'image/webp', 'image/png']; // input , 'image/svg+xml' for svg picture and takte changes in Post.ts and errorMessages.ts
-		const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB in bytes
+		const file: File = localFiles[0];
+		const validTypes: Array<string> = ['image/jpeg', 'image/webp', 'image/png']; // input , 'image/svg+xml' for svg picture and takte changes in Post.ts and errorMessages.ts
+		const maxSizeInBytes: number = 5 * 1024 * 1024; // 5 MB in bytes
 		// Checking for valid file type and size
 		if (!validTypes.includes(file.type)) {
 			passedChecks = false;

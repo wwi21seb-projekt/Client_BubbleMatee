@@ -10,11 +10,14 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing follow data or an error.
  */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
-	const subscriptionId = params.subscriptionId;
+	const subscriptionId: string | undefined = params.subscriptionId;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions/${subscriptionId}`, {
-			method: 'DELETE'
-		});
+		const response: Response = await fetch(
+			`${PUBLIC_BASE_URL}/api/subscriptions/${subscriptionId}`,
+			{
+				method: 'DELETE'
+			}
+		);
 
 		if (response.ok) {
 			return json({ data: {}, error: false });
@@ -42,14 +45,17 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
  * @returns The response containing feed data or an error.
  */
 export const GET: RequestHandler = async ({ fetch, url, params }) => {
-	const username = params.subscriptionId;
+	const username: string | undefined = params.subscriptionId;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions/${username + url.search}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
+		const response: Response = await fetch(
+			`${PUBLIC_BASE_URL}/api/subscriptions/${username + url.search}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			}
-		});
+		);
 		const body = await response.json();
 
 		if (response.ok) {

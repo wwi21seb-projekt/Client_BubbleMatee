@@ -2,7 +2,7 @@
 	import { Feed } from '$components';
 	import type { ErrorObject, PostData, PostWithRepost } from '$domains';
 	import { fetchNextPostsFeed, getErrorMessage } from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { globalConfig } from '$utils';
 	import { loading } from '$stores';
 	import { onMount } from 'svelte';
@@ -12,7 +12,7 @@
 		overallRecords: 0,
 		lastPostId: ''
 	};
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 	handleLoadResult(data);
 	function handleLoadResult(data: PostData | ErrorObject): void {
 		if ('posts' in data) {
@@ -31,7 +31,11 @@
 	//function that can be called from the post component to trigger the loading of more posts
 	async function loadMorePosts(): Promise<void> {
 		$loading = true;
-		const data = await fetchNextPostsFeed(postData.lastPostId!, globalConfig.limit, 'personal');
+		const data: ErrorObject | PostData = await fetchNextPostsFeed(
+			postData.lastPostId!,
+			globalConfig.limit,
+			'personal'
+		);
 		handleLoadResult(data);
 		$loading = false;
 	}

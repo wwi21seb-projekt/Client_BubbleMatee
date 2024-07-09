@@ -27,7 +27,7 @@
 	async function autoScrollDown() {
 		if (!scrollDiv) return;
 		await sleep(10);
-		const lastMessage = document.getElementById(latestMessageDate);
+		const lastMessage: HTMLElement | null = document.getElementById(latestMessageDate);
 		if (lastMessage instanceof HTMLElement) {
 			lastMessage.scrollIntoView({ behavior: 'auto', block: 'end' });
 		}
@@ -35,7 +35,7 @@
 
 	function scrollTo(id: string) {
 		if (document) {
-			const element = document.getElementById(id);
+			const element: HTMLElement | null = document.getElementById(id);
 			if (element instanceof HTMLElement) {
 				element.scrollIntoView({ behavior: 'instant', block: 'start' });
 			}

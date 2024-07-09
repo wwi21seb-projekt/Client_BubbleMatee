@@ -16,7 +16,7 @@ import { fetchFirstPostsUser, globalConfig, loadUser } from '$utils';
  * @returns The response containing user data or an error.
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
-	const username = event.params.username as string;
+	const username: string = event.params.username as string;
 	const userData: UserInfoResponse | ErrorResponse = await loadUser(event);
 	const postData: ErrorObject | PostData = await fetchFirstPostsUser(
 		event,

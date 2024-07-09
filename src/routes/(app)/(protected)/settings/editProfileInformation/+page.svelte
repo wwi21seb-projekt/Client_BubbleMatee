@@ -2,17 +2,17 @@
 	import { goto } from '$app/navigation';
 	import { ErrorAlert, NicknameInput, ProfileInformationValidations } from '$components';
 	import StatusInput from '$components/profile/status-input.svelte';
-	import type { UserInfo, ErrorObject } from '$domains';
+	import type { UserInfo, ErrorObject, Error } from '$domains';
 	import { getErrorMessage } from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 
-	let toastStore = getToastStore();
+	let toastStore: ToastStore = getToastStore();
 
 	export let data;
 
-	let user = data.error ? null : (data.data as UserInfo);
-	let error = data.error ? (data.data as ErrorObject).error : null;
+	let user: UserInfo | null = data.error ? null : (data.data as UserInfo);
+	let error: Error | null = data.error ? (data.data as ErrorObject).error : null;
 	let errorMessage: string;
 
 	let nicknameInput: string = user?.nickname as string;
@@ -27,10 +27,10 @@
 		errorMessage = error ? getErrorMessage(error.code, false) : '';
 	});
 
-	const handleSave = async () => {
+	const handleSave: () => Promise<void> = async () => {
 		loading = true;
 		try {
-			const response = await fetch('/api/users', {
+			const response: Response = await fetch('/api/users', {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'

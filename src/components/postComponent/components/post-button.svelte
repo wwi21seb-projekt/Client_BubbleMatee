@@ -1,14 +1,14 @@
 <script lang="ts">
 	// Importing required functions and types from Svelte, navigation, error handling, and utility libraries
-	import { derived } from 'svelte/store';
+	import { derived, type Readable } from 'svelte/store';
 	import { isFileSelected, postText, loading, uploadedImageUrl } from '$stores';
 	import { goto } from '$app/navigation';
 	import type { Post } from '$domains';
 	import { getErrorMessage } from '$utils';
-	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ModalStore } from '@skeletonlabs/skeleton';
 	import { PostGeolocation } from '$components';
 	import { getModalStore } from '@skeletonlabs/skeleton';
-	const modalStore = getModalStore();
+	const modalStore: ModalStore = getModalStore();
 
 	export let isRepost: boolean = false;
 	export let post: Post | undefined = undefined;
@@ -24,14 +24,14 @@
 	}
 
 	// Derived Svelte store to determine if the input is valid (either a file is selected or text is entered after whitespace removal)
-	const inputValid = derived(
+	const inputValid: Readable<boolean> = derived(
 		[isFileSelected, postText],
 		([$isFileSelected, $postText]) =>
 			$isFileSelected || Boolean(removeWhitespaceAndNewlines($postText))
 	);
 
 	// Initialization of toast notifications store
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let coords: [number, number];
 
@@ -96,17 +96,17 @@
 	}
 
 	// Asynchronous function to handle the post action, including API calls and error handling
-	const handlePost = async () => {
+	const handlePost: () => Promise<void> = async () => {
 		if ($inputValid) {
 			loading.set(true);
 
 			// Extrahieren der Längen- und Breitengrade aus der coords Variable
-			const LONGITUDE = coords[0];
-			const LATITUDE = coords[1];
-			const ACCURACY = 1; // oder ein Standardwert, falls gewünscht
+			const LONGITUDE: number = coords[0];
+			const LATITUDE: number = coords[1];
+			const ACCURACY: number = 1; // oder ein Standardwert, falls gewünscht
 
 			// Prüfen, ob die Koordinaten gültig sind
-			const ARE_COORDS_VALID = LONGITUDE >= 0 && LATITUDE >= 0;
+			const ARE_COORDS_VALID: boolean = LONGITUDE >= 0 && LATITUDE >= 0;
 
 			try {
 				// Ensure picture is set only if $uploadedImageUrl is defined
@@ -131,7 +131,7 @@
 					postBody.repostedPostId = post.postId;
 				}
 
-				const response = await fetch('/api/posts', {
+				const response: Response = await fetch('/api/posts', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(postBody)

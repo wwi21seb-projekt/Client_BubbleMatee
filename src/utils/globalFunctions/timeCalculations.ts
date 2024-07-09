@@ -9,13 +9,13 @@ export function calculatePassedTime(date: Date) {
 	const now: Date = new Date();
 	const nowUTC: Date = new Date(now.toUTCString());
 	// Difference in milliseconds
-	const differenceInMS = nowUTC.getTime() - date.getTime();
+	const differenceInMS: number = nowUTC.getTime() - date.getTime();
 	// Calculate difference in minutes, hours, days, and weeks
-	const differenceInSeconds = Math.ceil(differenceInMS / 1000);
-	const differenceInMinutes = Math.ceil(differenceInMS / (1000 * 60));
-	const differenceInHours = Math.ceil(differenceInMS / (1000 * 60 * 60));
-	const differenceInDays = Math.ceil(differenceInMS / (1000 * 60 * 60 * 24));
-	const differenceInWeeks = Math.ceil(differenceInMS / (1000 * 60 * 60 * 24 * 7));
+	const differenceInSeconds: number = Math.ceil(differenceInMS / 1000);
+	const differenceInMinutes: number = Math.ceil(differenceInMS / (1000 * 60));
+	const differenceInHours: number = Math.ceil(differenceInMS / (1000 * 60 * 60));
+	const differenceInDays: number = Math.ceil(differenceInMS / (1000 * 60 * 60 * 24));
+	const differenceInWeeks: number = Math.ceil(differenceInMS / (1000 * 60 * 60 * 24 * 7));
 
 	// Make decisions on how to represent the time
 	if (differenceInSeconds < 60) {

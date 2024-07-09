@@ -3,7 +3,13 @@
 	import { ErrorAlert, LoadMoreComponent, NothingFoundComponent, UserComponent } from '$components';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { getModalStore, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import {
+		getModalStore,
+		getToastStore,
+		type ModalStore,
+		type ToastStore,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 	import { subscribe, unsubscribe, getErrorMessage } from '$utils';
 	import { currentUsername, loading } from '$stores';
 
@@ -16,12 +22,12 @@
 	export let nothingFoundMessage: string;
 	export let nothingFoundSubMessage: string;
 
-	const modalStore = getModalStore();
-	const toastStore = getToastStore();
+	const modalStore: ModalStore = getModalStore();
+	const toastStore: ToastStore = getToastStore();
 
 	async function onUserClick(user: Author) {
-		const basepath = $page.url.pathname;
-		const tabPath = basepath.split('/')[1];
+		const basepath: string = $page.url.pathname;
+		const tabPath: string = basepath.split('/')[1];
 		if ($currentUsername === user.username) {
 			await goto('/myProfile');
 		} else {
@@ -46,7 +52,7 @@
 		}
 	};
 
-	const handleButtonClick = async (user: Follower) => {
+	const handleButtonClick: (user: Follower) => Promise<void> = async (user: Follower) => {
 		let body;
 		if (user.followingId) {
 			body = await unsubscribe(user.followingId, user.username);
@@ -72,7 +78,7 @@
 	};
 
 	function changeUsers(user: Follower, data: FollowResponse | undefined) {
-		const newUsers = users.map((record) => {
+		const newUsers: Array<Follower> = users.map((record) => {
 			if (record === user) {
 				if (data) {
 					record.followingId = data.data.subscriptionId;

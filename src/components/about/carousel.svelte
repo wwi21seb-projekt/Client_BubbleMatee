@@ -14,7 +14,11 @@
 		};
 	}
 	// Creating TableSource objects for each person in a map
-	const tableSources = personsData.map((person) => ({
+	const tableSources: {
+		data: PersonData[];
+		src: string;
+		table: TableSource;
+	}[] = personsData.map((person) => ({
 		...person, // Person takes the entire map from personsData
 		table: createTableSource(person.data) // Adds an element through the function
 	}));
@@ -23,8 +27,8 @@
 
 	// Carousel navigation functions
 	function carouselMove(direction: 'left' | 'right'): void {
-		const step = elemCarousel.clientWidth;
-		const maxScroll = elemCarousel.scrollWidth - step;
+		const step: number = elemCarousel.clientWidth;
+		const maxScroll: number = elemCarousel.scrollWidth - step;
 		let newX =
 			direction === 'left'
 				? Math.max(0, elemCarousel.scrollLeft - step)

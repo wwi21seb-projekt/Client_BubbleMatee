@@ -12,15 +12,15 @@
 	} from '$domains';
 	import Person from '$lib/assets/person.png';
 	import { getErrorMessage } from '$utils';
-	import { Avatar, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { Avatar, getModalStore } from '@skeletonlabs/skeleton';
+	import type { ModalComponent, ModalSettings, ModalStore } from '@skeletonlabs/skeleton';
 	import { Plus } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
-	import { getModalStore } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { hasNotifications, notifications } from '$stores';
 
-	const modalStore = getModalStore();
+	const modalStore: ModalStore = getModalStore();
 
 	export let data: ChatsResponse | ErrorResponse;
 	export let chatId: string = '';
@@ -65,13 +65,13 @@
 		username: string,
 		messageNotifications: Array<Notification>
 	): number {
-		const chat = messageNotifications.filter(
+		const chat: Notification[] = messageNotifications.filter(
 			(notification) => notification.user.username === username
 		);
 		return chat.length;
 	}
 
-	const clickOnChat = async (person: ChatRead) => {
+	const clickOnChat: (person: ChatRead) => Promise<void> = async (person: ChatRead) => {
 		const notificationsToDelete: Array<Notification> = messageNotifications.filter(
 			(notification) => notification.user.username === person.user.username
 		);
@@ -85,7 +85,7 @@
 		chatPartner = person.user;
 	};
 
-	const onNewChat = () => {
+	const onNewChat: () => void = () => {
 		const modalComponent: ModalComponent = {
 			ref: NewChatsList
 		};
@@ -100,7 +100,7 @@
 
 	async function deleteNotificationRequest(notificationId: string | undefined) {
 		try {
-			const response = await fetch(`/api/notifications/${notificationId}`, {
+			const response: Response = await fetch(`/api/notifications/${notificationId}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'

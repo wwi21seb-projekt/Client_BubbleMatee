@@ -4,7 +4,7 @@ import { tokenExpired } from '$utils';
 import { isLoggedIn } from '$stores';
 import { get } from 'svelte/store';
 
-const unauthorizedRoutes = [
+const unauthorizedRoutes: Array<string> = [
 	'/',
 	'/login.*',
 	'/about',
@@ -28,10 +28,13 @@ const unauthorizedRoutes = [
  * @param method The HTTP method of the request.
  * @returns True if the route is unauthorized, false otherwise.
  */
-const isUnauthorizedRoute = (pathname: string, method: string) => {
+const isUnauthorizedRoute: (pathname: string, method: string) => boolean = (
+	pathname: string,
+	method: string
+) => {
 	if (pathname !== '/api/users' || method === 'POST') {
-		const result = unauthorizedRoutes.some((route) => {
-			const pattern = new RegExp(`^${route}$`);
+		const result: boolean = unauthorizedRoutes.some((route) => {
+			const pattern: RegExp = new RegExp(`^${route}$`);
 			return pattern.test(pathname);
 		});
 		return result;
@@ -69,7 +72,7 @@ export const handle = async ({ event, resolve }) => {
 
 	// Unauthorized routes: Just let them pass through
 	if (isUnauthorizedRoute(event.url.pathname + event.url.search, event.request.method)) {
-		const response = await resolve(event);
+		const response: Response = await resolve(event);
 		return response;
 	}
 
@@ -80,10 +83,10 @@ export const handle = async ({ event, resolve }) => {
 	// 4. If refresh token is valid, refresh the token and execute the request
 
 	// Step 1
-	let token = event.cookies.get('token');
+	let token: string | undefined = event.cookies.get('token');
 	if (token && !tokenExpired(token)) {
 		event.request.headers.set('Authorization', `Bearer ${token}`);
-		const response = await resolve(event);
+		const response: Response = await resolve(event);
 
 		if (response.status === 401) {
 			throw redirect(302, '/login?redirect=1');
@@ -93,7 +96,7 @@ export const handle = async ({ event, resolve }) => {
 
 	console.log('Token expired');
 	// Step 2
-	const refreshToken = event.cookies.get('refreshToken');
+	const refreshToken: string | undefined = event.cookies.get('refreshToken');
 	if (!refreshToken || tokenExpired(refreshToken)) {
 		// Step 3
 		console.log('Refresh token expired');
@@ -125,7 +128,7 @@ export const handle = async ({ event, resolve }) => {
 	token = newToken;
 	event.request.headers.set('Authorization', `Bearer ${token}`);
 
-	const response = await resolve(event);
+	const response: Response = await resolve(event);
 	if (response.status === 401) {
 		throw redirect(302, '/login?redirect=1');
 	}
@@ -141,7 +144,7 @@ export const handle = async ({ event, resolve }) => {
  * @returns The response containing the data or an error.
  */
 export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
-	const url = new URL(request.url);
+	const url: URL = new URL(request.url);
 	console.log(`Outgoing request: ${request.method} ${url}`);
 	if (
 		PUBLIC_BASE_URL === url.origin &&
@@ -158,7 +161,7 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	) {
 		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
 	}
-	const response = await fetch(request);
+	const response: Response = await fetch(request);
 	console.log(`\tResponse: ${response.status} ${response.statusText}`); // skipcq: JS-A1004
 	return response;
 };

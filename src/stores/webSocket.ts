@@ -20,7 +20,7 @@ const messageErrorStore: Writable<Error> = writable({
  * @param message The message to store.
  * @returns void
  */
-const storeMessage = (message: ChatMessage) => {
+const storeMessage: (m: ChatMessage) => void = (message: ChatMessage) => {
 	messageStore.set(message);
 };
 
@@ -30,7 +30,7 @@ const storeMessage = (message: ChatMessage) => {
  * @param message The message to send.
  * @returns void
  */
-export const sendMessage = (message: string) => {
+export const sendMessage: (m: string) => void = (message: string) => {
 	if (socket && socket.readyState <= 1) {
 		socket.send(
 			JSON.stringify({
@@ -46,7 +46,7 @@ export const sendMessage = (message: string) => {
  * @param error The error to store.
  * @returns void
  */
-const storeMessageError = (error: Error) => {
+const storeMessageError: (e: Error) => void = (error: Error) => {
 	messageErrorStore.set(error);
 };
 
@@ -55,7 +55,7 @@ const storeMessageError = (error: Error) => {
  *
  * @returns void
  */
-export const resetMessageError = () => {
+export const resetMessageError: () => void = () => {
 	storeMessageError({
 		code: 'noerror',
 		message: 'Kein Fehler aufgetreten'
@@ -67,7 +67,7 @@ export const resetMessageError = () => {
  *
  * @returns void
  */
-export const resetMessage = () => {
+export const resetMessage: () => void = () => {
 	storeMessage({
 		content: '',
 		creationDate: '',
@@ -87,8 +87,8 @@ export const subscribeMessageError = messageErrorStore.subscribe;
  */
 export function connectToWebSocket(chatId: string, token: string) {
 	if (typeof window !== 'undefined') {
-		const protocol = PUBLIC_BASE_URL.startsWith('https') ? 'wss' : 'ws';
-		const base_url = `${protocol}://${PUBLIC_BASE_URL.replace('http://', '').replace('https://', '')}`;
+		const protocol: string = PUBLIC_BASE_URL.startsWith('https') ? 'wss' : 'ws';
+		const base_url: string = `${protocol}://${PUBLIC_BASE_URL.replace('http://', '').replace('https://', '')}`;
 		socket = new WebSocket(`${base_url}/api/chat?chatId=${chatId}`, [token]);
 	}
 

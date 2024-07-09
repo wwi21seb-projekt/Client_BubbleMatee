@@ -15,10 +15,10 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing user data or an error.
  */
 export const GET: RequestHandler = async ({ fetch, request }) => {
-	const url = new URL(request.url);
+	const url: URL = new URL(request.url);
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users${url.search}`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users${url.search}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ export const GET: RequestHandler = async ({ fetch, request }) => {
 export const POST: RequestHandler = async ({ fetch, request }) => {
 	const requestBody = await request.json();
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 export const PATCH: RequestHandler = async ({ fetch, request }) => {
 	const requestBody = await request.json();
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ export const PATCH: RequestHandler = async ({ fetch, request }) => {
 export const PUT: RequestHandler = async ({ fetch, request }) => {
 	const requestBody = await request.json();
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'

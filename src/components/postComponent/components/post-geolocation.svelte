@@ -2,7 +2,7 @@
 	import type { LocationPlace } from '$domains';
 	import Pin from '$lib/assets/pin.png';
 	import { fetchLocation } from '$utils';
-	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore } from '@skeletonlabs/skeleton';
 	import Geolocation from 'svelte-geolocation';
 
 	export let coords: [number, number];
@@ -10,12 +10,16 @@
 	let isLocationActivated: boolean = false;
 	let buttonDisabled: boolean = false;
 	let standorttext: string = 'Standort wird geladen';
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 	const buttonLoadingText: string = 'Standort wird geladen';
 	const buttonActivationText: string = 'Standort teilen';
 	const buttonActivatedText: string = 'Standort nicht teilen';
 	//HighAccuracy für Standortermittlung
-	let options = {
+	let options: {
+		enableHighAccuracy: boolean;
+		timeout: number;
+		maximumAge: number;
+	} = {
 		/**
 		 * @type {boolean}
 		 * @default false
@@ -58,12 +62,12 @@
 		}
 	}
 
-	const getLocation = async () => {
+	const getLocation: () => Promise<void> = async () => {
 		standorttext = 'Standort wird geladen';
 		let locationPlace: LocationPlace;
 
 		try {
-			const result = await fetchLocation(`${coords[0]}`, `${coords[1]}`);
+			const result: LocationPlace = await fetchLocation(`${coords[0]}`, `${coords[1]}`);
 			locationPlace = result;
 			standorttext = `${locationPlace.city}, ${locationPlace.country}`;
 		} catch (error) {

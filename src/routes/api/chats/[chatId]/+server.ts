@@ -11,7 +11,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  */
 export const GET: RequestHandler = async ({ fetch, url }) => {
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}${url.pathname}${url.search}`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}${url.pathname}${url.search}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

@@ -11,7 +11,7 @@ import { getCurrentUser } from '$utils';
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const username: string = getCurrentUser(event.cookies.get('token'));
-	const response = await event.fetch(`/api/users/${username}`, {
+	const response: Response = await event.fetch(`/api/users/${username}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

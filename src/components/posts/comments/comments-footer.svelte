@@ -11,14 +11,14 @@
 	let newComment: string = '';
 	//post of a comment
 	// if the comment contains only whitespaces nothing is posted
-	const postComment = () => {
+	const postComment: () => void = () => {
 		if (!/^\s*$/.test(newComment)) {
 			commentPost(newComment);
 			newComment = '';
 		}
 	};
 
-	let authors = new Array<Author>();
+	let authors: Array<Author> = new Array<Author>();
 	async function loadUsers(search: string) {
 		const response = await loadSearchedUser(search, 0, '5');
 		let userSearch = response.data.records.map((record: Author) => ({
@@ -29,11 +29,11 @@
 		authors = userSearch;
 	}
 	function handleInput(event: Event) {
-		const target = event.target as HTMLTextAreaElement;
-		const value = target.value;
+		const target: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
+		const value: string = target.value;
 		if (value.includes('@')) {
-			const lastAtIndex = value.lastIndexOf('@');
-			const afterAt = value.substring(lastAtIndex);
+			const lastAtIndex: number = value.lastIndexOf('@');
+			const afterAt: string = value.substring(lastAtIndex);
 			if (!afterAt.includes(' ')) {
 				loadUsers(afterAt);
 			} else {
@@ -50,13 +50,13 @@
 	}
 
 	// CSS class names for different text states
-	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';
-	const classWarning = 'text-warning-500';
-	const classMaxReached = 'text-error-500';
+	const classNormal: string = ' dark:from-tertiary-500 dark:to-secondary-500';
+	const classWarning: string = 'text-warning-500';
+	const classMaxReached: string = 'text-error-500';
 
 	// Character limit for showing a warning
-	const charsWarning = 50;
-	const maxChars = 256;
+	const charsWarning: number = 50;
+	const maxChars: number = 256;
 
 	$: classtext =
 		newComment.length > maxChars - charsWarning && newComment.length < maxChars

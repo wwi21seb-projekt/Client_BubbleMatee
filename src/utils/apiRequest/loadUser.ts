@@ -6,9 +6,9 @@ import type { ServerLoadEvent } from '@sveltejs/kit';
  */
 
 export async function loadUser(event: ServerLoadEvent) {
-	const username = event.params.username;
+	const username: string | undefined = event.params.username;
 
-	const response = await event.fetch(`/api/users/${username}`, {
+	const response: Response = await event.fetch(`/api/users/${username}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export async function loadUser(event: ServerLoadEvent) {
  * @returns a UserInfo-Object consisting of an Array with the users and additional information needed to load the next page
  * @throws an error: type = Error code */
 export async function loadSearchedUser(searchQuery: string, offset: number, limit: string) {
-	const response = await fetch(
+	const response: Response = await fetch(
 		`/api/users?username=${searchQuery}&offset=${offset}&limit=${limit}`,
 		{
 			method: 'GET',

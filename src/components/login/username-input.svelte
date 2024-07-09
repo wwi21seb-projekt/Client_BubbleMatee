@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { getUserInfoColors, getUserInfoIcons, isValidUsername } from '$utils';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 	const t: ToastSettings = {
 		message:
 			'Der Nutzername darf nur alphanumerische Zeichen enthalten und nicht länger als 20 Zeichen sein.',

@@ -8,7 +8,7 @@
 		isOverlayVisible // Tracks the visibility of the overlay on the image
 	} from '$stores';
 	// Set a delay in milliseconds (e.g., 500ms = 0.5 seconds)
-	const delay = 50;
+	const delay: number = 50;
 	// Function to start editing (sets editing mode to true)
 	function startEditing() {
 		$isEditing = true;

@@ -58,3 +58,5 @@ export type {
 	ChatData,
 	SortedMessages
 } from './ServerDomains/chats';
+
+export type { CommentList } from './ServerDomains/comments';

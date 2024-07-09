@@ -5,14 +5,14 @@
 	import { goto } from '$app/navigation';
 	export let id: string;
 	export let comment: Comment;
-	import { Avatar, getModalStore } from '@skeletonlabs/skeleton';
+	import { Avatar, getModalStore, type ModalStore } from '@skeletonlabs/skeleton';
 	import Person from '$lib/assets/person.png';
 	import { calculatePassedTime } from '$utils';
 
 	let shortComment: string = comment.content.substring(0, 64);
-	let moreClicked = false;
+	let moreClicked: boolean = false;
 	let dateString: string = calculatePassedTime(comment.creationDate);
-	const modalStore = getModalStore();
+	const modalStore: ModalStore = getModalStore();
 
 	//function to toggle wether the comment is shown fully or not (only for long comments)
 	function changeMoreClicked() {
@@ -20,7 +20,7 @@
 	}
 
 	function getWords(text: string) {
-		const words = text.split(' ');
+		const words: Array<string> = text.split(' ');
 		return words;
 	}
 </script>

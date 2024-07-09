@@ -10,13 +10,19 @@
 		Follower
 	} from '$domains';
 	import { onMount } from 'svelte';
-	import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
+	import {
+		getModalStore,
+		getToastStore,
+		type ToastStore,
+		type ModalStore,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { currentUsername } from '$stores';
 	import { loading } from '$stores';
 
-	const modalStore = getModalStore();
-	const toastStore = getToastStore();
+	const modalStore: ModalStore = getModalStore();
+	const toastStore: ToastStore = getToastStore();
 	export let username: string;
 	export let isFollowerlist: boolean;
 
@@ -27,7 +33,7 @@
 	let lastPage: boolean = false;
 	let isError: boolean = false;
 	let error: Error;
-	const leave = () => {
+	const leave: () => void = () => {
 		modalStore.close();
 	};
 	onMount(async () => {
@@ -50,7 +56,7 @@
 
 	async function loadMore() {
 		$loading = true;
-		const response = await fetch(
+		const response: Response = await fetch(
 			`/api/subscriptions/${username}?type=${type}&offset=${users.length}&limit=${globalConfig.limit}`,
 			{
 				method: 'GET',
@@ -66,7 +72,7 @@
 				leave();
 			}
 			isError = true;
-			const t = {
+			const t: ToastSettings = {
 				message: getErrorMessage(error.code, false),
 				background: 'variant-filled-error'
 			};

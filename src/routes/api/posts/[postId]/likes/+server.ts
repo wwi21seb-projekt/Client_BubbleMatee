@@ -9,9 +9,9 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing nothing or an error.
  */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
-	const postId = params.postId;
+	const postId: string | undefined = params.postId;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/posts/${postId}/likes`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/posts/${postId}/likes`, {
 			method: 'DELETE'
 		});
 
@@ -41,9 +41,9 @@ export const DELETE: RequestHandler = async ({ fetch, params }) => {
  * @returns The response containing nothing or an error.
  */
 export const POST: RequestHandler = async ({ fetch, params }) => {
-	const postId = params.postId;
+	const postId: string | undefined = params.postId;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/posts/${postId}/likes`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/posts/${postId}/likes`, {
 			method: 'POST'
 		});
 

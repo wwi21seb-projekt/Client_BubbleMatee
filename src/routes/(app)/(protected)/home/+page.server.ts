@@ -10,6 +10,11 @@ import { fetchFirstPostsFeed, globalConfig } from '$utils';
  * @returns The response containing user data or an error.
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
-	const data = await fetchFirstPostsFeed(event, '', globalConfig.limit, 'personal');
+	const data: ErrorObject | PostData = await fetchFirstPostsFeed(
+		event,
+		'',
+		globalConfig.limit,
+		'personal'
+	);
 	return data as ErrorObject | PostData;
 };

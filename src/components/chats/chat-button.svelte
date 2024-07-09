@@ -13,7 +13,7 @@
 	);
 	$: messageNotificationLength = messageNotificationUsers.size;
 
-	const handleClick = () => {
+	const handleClick: () => void = () => {
 		goto('/chats');
 	};
 </script>

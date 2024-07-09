@@ -4,13 +4,13 @@ import type { Notification } from '$domains';
  * Activates push notifications for the user.
  * @returns A promise that resolves to void
  */
-export const activatePushNotifications = async () => {
+export const activatePushNotifications: () => Promise<void> = async () => {
 	if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
 		return;
 	}
 
 	// 1. Request permission for notifications
-	const permission = await askPermission();
+	const permission: string = await askPermission();
 
 	if (permission !== 'granted') {
 		return;
@@ -29,7 +29,9 @@ export const activatePushNotifications = async () => {
  * @param notificationType - The type of the notification
  * @returns A string with the notification title
  */
-export const getNotificationTitle = (notificationType: string): string => {
+export const getNotificationTitle: (notType: string) => string = (
+	notificationType: string
+): string => {
 	switch (notificationType) {
 		case 'repost':
 			return 'Dein Beitrag wurde geteilt';
@@ -48,7 +50,7 @@ export const getNotificationTitle = (notificationType: string): string => {
  */
 export const getNotificationOptions = (notification: Notification): NotificationOptions => {
 	let body: string;
-	const user = notification.user.username;
+	const user: string = notification.user.username;
 
 	switch (notification.notificationType) {
 		case 'repost':
@@ -124,7 +126,7 @@ async function subscribeUserToPush(): Promise<PushSubscription | null> {
  */
 async function getVapidKey(): Promise<string> {
 	try {
-		const response = await fetch('/api/push/vapid', {
+		const response: Response = await fetch('/api/push/vapid', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
@@ -149,7 +151,7 @@ async function getVapidKey(): Promise<string> {
  */
 async function sendSubscriptionToBackEnd(subscription: PushSubscription): Promise<boolean> {
 	try {
-		const response = await fetch('/api/push/register', {
+		const response: Response = await fetch('/api/push/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

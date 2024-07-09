@@ -11,10 +11,10 @@
 		passwordValid,
 		passwordsMatch
 	} from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import type { Error } from '$domains';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let oldPassword: string = '';
 	let newPassword: string = '';
@@ -28,10 +28,10 @@
 		oldPassword === '' ||
 		loading;
 
-	const changePassword = async () => {
+	const changePassword: () => Promise<void> = async () => {
 		loading = true;
 		try {
-			const response = await fetch('/api/users', {
+			const response: Response = await fetch('/api/users', {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json'

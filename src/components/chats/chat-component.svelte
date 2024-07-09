@@ -44,8 +44,10 @@
 		sortedAndClusteredMessages = [];
 		// Cluster messages by day
 		chatMessages.forEach((message) => {
-			const messageDate = new Date(message.creationDate).toLocaleDateString('de-DE');
-			const cluster = sortedAndClusteredMessages.find((cluster) => cluster.date === messageDate);
+			const messageDate: string = new Date(message.creationDate).toLocaleDateString('de-DE');
+			const cluster: SortedMessages | undefined = sortedAndClusteredMessages.find(
+				(cluster) => cluster.date === messageDate
+			);
 
 			if (cluster) {
 				cluster.messages = [...cluster.messages, message];

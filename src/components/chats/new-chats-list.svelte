@@ -3,17 +3,17 @@
 	import { UserComponent, SearchBar } from '$components';
 	import { globalConfig, loadSearchedUser } from '$utils';
 	import { goto } from '$app/navigation';
-	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore, type ModalStore } from '@skeletonlabs/skeleton';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ChevronLeft } from '@steeze-ui/heroicons';
-	const modalStore = getModalStore();
+	const modalStore: ModalStore = getModalStore();
 
 	let searchTerm: string = '';
 	let offset: number = 0;
 
 	let isError: boolean;
 
-	const handleSearch = async () => {
+	const handleSearch: () => Promise<void> = async () => {
 		const body = await loadSearchedUser(searchTerm, offset, globalConfig.limit);
 		isError = body.error;
 		if (!isError) {
