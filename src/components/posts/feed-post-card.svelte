@@ -4,7 +4,7 @@
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostCard } from '$components';
 	import type { Comment, CommentData, CommentResponse, ErrorObject } from '$domains';
 	import type { CommentList, ErrorResponse, PostWithRepost, PostCommentResponse } from '$domains';
-	import { Post } from '$domains';
+	import type { Post } from '$domains';
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
 	import type { ToastStore, ToastSettings, ModalStore } from '@skeletonlabs/skeleton';
