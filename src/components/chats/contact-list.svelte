@@ -71,13 +71,15 @@
 		return chat.length;
 	}
 
-	const clickOnChat = (person: ChatRead) => {
+	const clickOnChat = async (person: ChatRead) => {
 		const notificationsToDelete: Array<Notification> = messageNotifications.filter(
 			(notification) => notification.user.username === person.user.username
 		);
-		notificationsToDelete.forEach((notification) => {
-			deleteNotificationRequest(notification.notificationId);
-		});
+		await Promise.all(
+			notificationsToDelete.map((notification) =>
+				deleteNotificationRequest(notification.notificationId)
+			)
+		);
 		goto(`/chats/${person.chatId}`);
 		chatId = person.chatId;
 		chatPartner = person.user;
@@ -105,15 +107,14 @@
 				}
 			});
 			const body = await response.json();
-			if (!body.error) {
-				const notificationsNew: Array<Notification> = $notifications.filter(
-					(notification) => notification.notificationId !== notificationId
-				);
-				notifications.set(notificationsNew);
-				if (notificationsNew.length === 0) {
-					hasNotifications.set(false);
-				}
+			const notificationsNew: Array<Notification> = $notifications.filter(
+				(notification) => notification.notificationId !== notificationId
+			);
+			notifications.set([...notificationsNew]);
+			if (notificationsNew.length === 0) {
+				hasNotifications.set(false);
 			}
+
 			return body;
 		} catch (e) {
 			console.error(e);
