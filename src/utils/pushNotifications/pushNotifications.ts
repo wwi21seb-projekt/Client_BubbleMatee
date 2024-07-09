@@ -48,7 +48,7 @@ export const getNotificationTitle = (notificationType: string): string => {
  */
 export const getNotificationOptions = (notification: Notification): NotificationOptions => {
 	let body: string;
-	const user = notification.user.nickname ? notification.user.nickname : notification.user.username;
+	const user = notification.user.username;
 
 	switch (notification.notificationType) {
 		case 'repost':
@@ -71,9 +71,9 @@ export const getNotificationOptions = (notification: Notification): Notification
 			username: notification.user.username,
 			type: notification.notificationType
 		},
-		icon: '/src/images/layout/logo.png', //icon on the left
-		badge: '/src/images/layout/logo.png', //icon on top of screen
-		image: '/src/images/layout/logo.png', //on the right on mobile
+		icon: '/src/lib/assets/layout/logo.png', //icon on the left
+		badge: '/src/lib/assets/layout/logo.png', //icon on top of screen
+		image: '/src/lib/assets/layout/logo.png', //on the right on mobile
 		vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
 		sound: '/src/sound/notification.mp3',
 		tag: notification.notificationId

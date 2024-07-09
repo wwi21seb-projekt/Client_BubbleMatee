@@ -140,7 +140,7 @@
 				const body = await response.json();
 				if (body.error) {
 					toastStore.trigger({
-						message: getErrorMessage(body.error.code, false),
+						message: getErrorMessage(body.data.error.code, false),
 						background: 'variant-filled-error'
 					});
 				} else {
@@ -152,7 +152,7 @@
 					});
 				}
 			} catch (e) {
-				console.error(e);
+				goto('/login?redirect=1');
 			} finally {
 				loading.set(false);
 				modalStore.close();

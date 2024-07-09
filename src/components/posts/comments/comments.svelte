@@ -1,6 +1,5 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
-	//TODO: Datenanbindung wenn der Endpunkt definiert ist
 	import {
 		ModalHeader,
 		CommentElement,
@@ -52,7 +51,7 @@
 			<div class="flex justify-center mx-4">
 				<NothingFoundComponent
 					message={'Keine Kommentare zu diesem Post gefunden'}
-					submessage={'Sei der erste, der diesen Post kommentiert!'}
+					submessage={'Sei der Erste, der diesen Post kommentiert!'}
 				/>
 			</div>
 		{/if}

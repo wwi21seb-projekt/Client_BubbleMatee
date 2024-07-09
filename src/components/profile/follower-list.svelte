@@ -1,7 +1,7 @@
 <!--Modal component for the comment section-->
 <script lang="ts">
 	import { ModalHeader, UserTab } from '$components';
-	import { globalConfig } from '$utils';
+	import { getErrorMessage, globalConfig } from '$utils';
 	import type {
 		ErrorResponse,
 		SubscriptionListResponse,
@@ -10,12 +10,13 @@
 		Follower
 	} from '$domains';
 	import { onMount } from 'svelte';
-	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { currentUsername } from '$stores';
 	import { loading } from '$stores';
 
 	const modalStore = getModalStore();
+	const toastStore = getToastStore();
 	export let username: string;
 	export let isFollowerlist: boolean;
 
@@ -60,12 +61,17 @@
 		);
 		const body: ErrorResponse | SubscriptionListResponse = await response.json();
 		if (body.error) {
-			//handle Error
 			error = (body as ErrorResponse).data.error;
-			if ((body as ErrorResponse).data.error.code == 'ERR-014') {
+			if (error.code == 'ERR-014') {
 				leave();
 			}
 			isError = true;
+			const t = {
+				message: getErrorMessage(error.code, false),
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(t);
+			leave();
 		} else {
 			const subscriptionData: SubscriptionList = (body as SubscriptionListResponse).data;
 			//map the feed-data to a Post-Array with new Posts

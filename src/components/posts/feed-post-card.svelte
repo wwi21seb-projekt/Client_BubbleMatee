@@ -73,6 +73,7 @@
 					toastStore.trigger(t);
 					commentData.isError = true;
 					commentData.errorText = getErrorMessage(data.error.code, false);
+					modalStore.close();
 				}
 				commentData.isError = true;
 				commentData.overallRecords = 0;
