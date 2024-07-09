@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import VideoMarketing from '$lib/assets/about/video-marketing.png';
 	import { AccordionItem } from '@skeletonlabs/skeleton';
 </script>

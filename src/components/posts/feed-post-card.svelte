@@ -127,15 +127,15 @@
 					}
 				];
 				comments = comments.concat(newComment);
+				let commentDataNew: CommentData = {
+					comments: comments,
+					overallRecords: commentData.overallRecords + 1,
+					isError: false,
+					errorText: ''
+				};
+				commentData = commentDataNew;
+				post.comments++;
 			}
-			let commentDataNew: CommentData = {
-				comments: comments,
-				overallRecords: commentData.overallRecords + 1,
-				isError: false,
-				errorText: ''
-			};
-			commentData = commentDataNew;
-			post.comments++;
 		} else if (commentData.isError) {
 			const t: ToastSettings = {
 				message: 'Lade zunächst die Kommentare neu, bevor du kommentierst!',

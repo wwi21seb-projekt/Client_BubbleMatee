@@ -7,15 +7,11 @@
 	import { Photo } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { uploadRestrictions } from '../../../../static/components/index.ts';
-
 	const toastStore = getToastStore();
-
 	// Importing stores for managing file upload state
 	import { files, isFileUploaded, uploadedImageUrl, isEditing, isFileSelected } from '$stores';
-
 	// Local variable to track selected files
 	let localFiles: FileList;
-
 	//Base 64 convert
 	function convertToBase64(file: File) {
 		const reader = new FileReader();
@@ -28,7 +24,6 @@
 			console.error('Error converting file to Base64:', error);
 		};
 	}
-
 	// Handler for file change events
 	function onChangeHandler() {
 		let passedChecks = true;
@@ -41,11 +36,9 @@
 			toastStore.trigger(t);
 			return;
 		}
-
 		const file = localFiles[0];
 		const validTypes = ['image/jpeg', 'image/webp', 'image/png', 'image/svg+xml'];
 		const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB in bytes
-
 		// Checking for valid file type and size
 		if (!validTypes.includes(file.type)) {
 			passedChecks = false;
@@ -65,7 +58,6 @@
 			toastStore.trigger(t);
 			return;
 		}
-
 		if (passedChecks) {
 			// Displaying the uploaded file
 			showUploadedFile(file);
@@ -75,13 +67,11 @@
 			$isFileSelected = true; // Sets the flag when a file is selected
 		}
 	}
-
 	// Function to display the uploaded file
 	function showUploadedFile(file: File) {
 		$uploadedImageUrl = URL.createObjectURL(file);
 		$isFileUploaded = true;
 	}
-
 	// Function to cancel editing
 	function cancelEditing() {
 		$isEditing = false;

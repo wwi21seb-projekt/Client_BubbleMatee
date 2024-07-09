@@ -129,21 +129,25 @@
 	<div class="w-full flex flex-col border-r border-surface-500/30">
 		<div class="{chatId ? 'hidden' : ''} lg:grid grid-rows-[auto_1fr_auto]">
 			<!-- List -->
-			<div class="p-4 px-0 space-y-4 w-full">
+			<div class="p-4 px-0 space-y-4 w-full overflow-hidden">
 				<div class="flex justify-between items-center">
 					<p class="opacity-50 ml-8 w-full mx-auto hidden sm:block text-lg md:text-xl">Kontakte</p>
-					<button type="button" class="btn variant-filled-primary mr-2" on:click={onNewChat}>
+					<button
+						type="button"
+						class="btn variant-filled-primary mr-2 ml-7 md:ml-0"
+						on:click={onNewChat}
+					>
 						<p>Neuer Chat</p>
 						<Icon src={Plus} class="h-4 font-bold hover:stroke-gray-400" />
 					</button>
 				</div>
-				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1 px-2">
+				<div style="height: 75vh;" class="flex flex-col overflow-auto space-y-1 px-2 w-full">
 					{#if chats && chats?.length > 0}
 						{#each chats as person (person.chatId)}
 							<button
 								disabled={$page.params.username === person.user.username}
 								type="button"
-								class="btn w-full flex items-center space-x-4 {person.chatId === chatId
+								class="btn w-full flex items-center justify-start {person.chatId === chatId
 									? 'variant-filled-primary'
 									: 'bg-surface-hover-token'}"
 								on:click={() => clickOnChat(person)}
@@ -153,17 +157,21 @@
 										? person.user.picture.url
 										: Person}
 									height="auto"
+									class="w-12 md:w-16 shrink"
 								/>
-								<div class="flex flex-col w-full">
-									<h3 class="ml-2 font-bold text-xl md:text-2xl flex-1 text-start">
+								<div
+									class="flex flex-col w-[calc(100% - 100px)] text-start overflow-hidden"
+									style="width: calc(100% - 100px);"
+								>
+									<h3 class="ml-2 font-bold text-xl md:text-2xl text-start w-full">
 										{person.user.username}
 									</h3>
-									<small class="ml-2 text-sm md:text-base flex-1 text-start"
+									<small class="ml-2 text-sm md:text-base text-start w-full"
 										>{person.user.nickname}</small
 									>
 								</div>
 								{#if person.newMessages > 0}
-									<span class="badge-icon variant-filled-warning -top-0 -right-0 z-10"
+									<span class="badge-icon variant-filled-warning -top-0 -right-0 z-10 w-6 h-6"
 										>{person.newMessages}</span
 									>
 								{/if}

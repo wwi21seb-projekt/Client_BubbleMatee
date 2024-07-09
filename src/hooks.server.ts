@@ -149,6 +149,15 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	) {
 		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
 	}
+	//Special case:
+	// If the global feed (unauthoized route) is requested by an authorized user the auth-token should be send,
+	// so that the server can identify wether the user has liked the post or not.
+	else if (
+		PUBLIC_BASE_URL === url.origin &&
+		/^\/api\/feed.*feedType=global/.test(url.pathname + url.search)
+	) {
+		request.headers.set('Authorization', event.request.headers.get('Authorization') ?? '');
+	}
 	const response = await fetch(request);
 	console.log(`\tResponse: ${response.status} ${response.statusText}`); // skipcq: JS-A1004
 	return response;

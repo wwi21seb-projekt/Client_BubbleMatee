@@ -34,22 +34,22 @@
 	/>
 	<!--right column-->
 	<div
-		class="card p-2 variant-soft-tertiary dark:variant-soft-surface rounded-tl-none space-y-2 min-w-0"
+		class="card p-2 variant-soft-tertiary dark:variant-soft-surface rounded-tl-none space-y-2 min-w-0 w-full"
 	>
 		<!--Header containing the username and nickname and the time that has passed since the post-->
-		<header class="flex justify-between items-center pr-1">
+		<header class="flex justify-between items-center pr-1 w-full gap-2">
 			<button
-				class={`${'hover:text-gray-400'}`}
+				class={`${'hover:text-gray-400 text-left'}`}
 				on:click={() => {
 					const currentPath = $page.url.pathname.split('/')[1];
 					goto(`/${currentPath}/user/${comment.author.username}`);
 					modalStore.close();
 				}}
 			>
-				<p class="text-xl md:text-2xl font-bold">{comment.author.username}</p>
+				<p class="text-xl md:text-2xl font-bold break-all">{comment.author.username}</p>
 			</button>
 
-			<small class="text-sm md:text-base">{'vor ' + dateString}</small>
+			<small class="text-sm md:text-base text-right">{'vor ' + dateString}</small>
 		</header>
 		<div>
 			<!--The actual comment. If the text is longer than 128 characters it is shortend and the user can switch between the long and the short version-->

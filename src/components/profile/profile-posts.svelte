@@ -6,7 +6,7 @@
 	export let username: string;
 	export let loadMorePosts: () => Promise<void>;
 	export let notifyDeletedPost: () => void;
-	let isOwnUser = $currentUsername === username;
+	let isOwnUser: boolean = $currentUsername === username;
 </script>
 
 <Feed
