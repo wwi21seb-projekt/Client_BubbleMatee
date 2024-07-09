@@ -48,7 +48,7 @@ export const getNotificationTitle = (notificationType: string): string => {
  */
 export const getNotificationOptions = (notification: Notification): NotificationOptions => {
 	let body: string;
-	const user = notification.user.nickname ? notification.user.nickname : notification.user.username;
+	const user = notification.user.username;
 
 	switch (notification.notificationType) {
 		case 'repost':
