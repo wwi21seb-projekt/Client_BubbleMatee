@@ -40,4 +40,4 @@ RUN npm run build
 EXPOSE 4173
 
 # Starten der App
-CMD ["npm", "run", "preview"]
+CMD ["node", "-r", "dotenv/config", "build"]
