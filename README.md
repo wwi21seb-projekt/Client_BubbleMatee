@@ -37,8 +37,26 @@ Adhere to these instructions to configure your environment:
    Insert your `PRIVATE_GEO_API_KEY` within these files.
 
    Obtain your private API-KEY from https://myprojects.geoapify.com/projects
+ 
+5. ### 🧬 **Edit Network Adapter**
 
-5. ### 🐳 **Execute Docker Command**
+   To properly configure the adapter for Docker, follow these steps:
+
+   **Open the `svelte.config.js` File**: Locate the `svelte.config.js` file in your project directory.
+
+   **Change Adapter Configuration**:
+    - Change the adapter import line from `@sveltejs/adapter-auto` to `@sveltejs/adapter-node` to ensure that your application functions correctly in a Docker environment.
+
+      ```javascript
+      // Before
+      import adapter from '@sveltejs/adapter-auto';
+
+      // After
+      import adapter from '@sveltejs/adapter-node';
+      ```
+   
+
+6. ### 🐳 **Execute Docker Command**
 
    From within the directory, activate the Docker environment by executing:
 
@@ -48,16 +66,17 @@ Adhere to these instructions to configure your environment:
 
    Please be patient, this process takes some time.
 
-6. ### 🌐 **Access Webpage**
+7. ### 🌐 **Access Webpage**
 
-   Once both Docker containers are operational, they serve both backend systems within the Docker containers on port `4173`.
+   Once the Docker containers are fully operational, they can be accessed through the following endpoints:
 
-   They can be accessed within their respective Docker containers at:
+   They can be accessed inside the Docker Containers at:
 
    ```
-   http://localhost:4173/
-   or
-   http://192.168.16.2:4173/
+   Server Alpha
+   http://0.0.0.0:4173/
+   Server Beta
+   http://0.0.0.0:4172/
    ```
 
    Accessibility from outside the Docker containers is configured through port redirection at the following URLs:
@@ -65,13 +84,13 @@ Adhere to these instructions to configure your environment:
    - Server Alpha
 
    ```
-   http://localhost:4173/
+   http://127.0.0.1:4173/
    ```
 
    - Server Beta
 
    ```
-   http://localhost:4172/
+   http://127.0.0.1:4172/
    ```
 
    Additionally, the website is accessible at:
