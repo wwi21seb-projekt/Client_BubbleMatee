@@ -45,15 +45,16 @@ Adhere to these instructions to configure your environment:
    **Open the `svelte.config.js` File**: Locate the `svelte.config.js` file in your project directory.
 
    **Change Adapter Configuration**:
-    - Change the adapter import line from `@sveltejs/adapter-auto` to `@sveltejs/adapter-node` to ensure that your application functions correctly in a Docker environment.
 
-      ```javascript
-      // Before
-      import adapter from '@sveltejs/adapter-auto';
+   - Change the adapter import line from `@sveltejs/adapter-auto` to `@sveltejs/adapter-node` to ensure that your application functions correctly in a Docker environment.
 
-      // After
-      import adapter from '@sveltejs/adapter-node';
-      ```
+     ```javascript
+     // Before
+     import adapter from '@sveltejs/adapter-auto';
+
+     // After
+     import adapter from '@sveltejs/adapter-node';
+     ```
 
 ---
 
@@ -70,49 +71,49 @@ Adhere to these instructions to configure your environment:
 
 ### Building and Running Individual Services
 
-   If you only want to build and run a specific service, you can do so as follows:
+If you only want to build and run a specific service, you can do so as follows:
 
 #### Only `web-alpha` Service
 
-   To build and run the `web-alpha` service:
+To build and run the `web-alpha` service:
 
-   ```bash
-   docker-compose up --build web-alpha
-   ```
+```bash
+docker-compose up --build web-alpha
+```
 
-   To only build the `web-alpha` service without running it:
+To only build the `web-alpha` service without running it:
 
-   ```bash
-   docker-compose build web-alpha
-   ```
+```bash
+docker-compose build web-alpha
+```
 
-   To run the previously built `web-alpha` service:
+To run the previously built `web-alpha` service:
 
-   ```bash
-   docker-compose up web-alpha
-   ```
+```bash
+docker-compose up web-alpha
+```
 
 #### Only `web-beta` Service
 
-   To build and run the `web-beta` service:
+To build and run the `web-beta` service:
 
-   ```bash
-   docker-compose up --build web-beta
-   ```
+```bash
+docker-compose up --build web-beta
+```
 
-   To only build the `web-beta` service without running it:
+To only build the `web-beta` service without running it:
 
-   ```bash
-   docker-compose build web-beta
-   ```
+```bash
+docker-compose build web-beta
+```
 
-   To run the previously built `web-beta` service:
+To run the previously built `web-beta` service:
 
-   ```bash
-   docker-compose up web-beta
-   ```
+```bash
+docker-compose up web-beta
+```
 
-   ---
+---
 
 7. ### 🌐 **Access Webpage**
 
