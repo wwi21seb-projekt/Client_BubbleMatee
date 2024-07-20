@@ -9,7 +9,7 @@ services:
     networks:
       - external-network
     environment:
-      HOST: "0.0.0.0"
+      HOST: '0.0.0.0'
       PORT: 4173
 
   web-beta:
@@ -21,7 +21,7 @@ services:
     networks:
       - external-network
     environment:
-      HOST: "0.0.0.0"
+      HOST: '0.0.0.0'
       PORT: 4172
 
 networks:
