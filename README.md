@@ -36,8 +36,8 @@ Adhere to these instructions to configure your environment:
 
    Insert your `PRIVATE_GEO_API_KEY` within these files.
 
-   Obtain your private API-KEY from https://myprojects.geoapify.com/projects
- 
+   Obtain your private API-KEY from <https://myprojects.geoapify.com/projects>
+
 5. ### 🧬 **Edit Network Adapter**
 
    To properly configure the adapter for Docker, follow these steps:
@@ -54,63 +54,64 @@ Adhere to these instructions to configure your environment:
       // After
       import adapter from '@sveltejs/adapter-node';
       ```
+
 ---
 
 6. ### 🐳 **Execute Docker Command**
 
    From within the directory, activate the Docker environment by executing:
-   
+
    ```bash
    docker-compose up
    ```
-   
+
    Please be patient, this process to build the image takes some time.
    Please pay attention to your internet connection.
-   
-   ### Building and Running Individual Services
-   
+
+### Building and Running Individual Services
+
    If you only want to build and run a specific service, you can do so as follows:
-   
-   #### Only `web-alpha` Service:
-   
+
+#### Only `web-alpha` Service
+
    To build and run the `web-alpha` service:
-   
+
    ```bash
    docker-compose up --build web-alpha
    ```
-   
+
    To only build the `web-alpha` service without running it:
-   
+
    ```bash
    docker-compose build web-alpha
    ```
-   
+
    To run the previously built `web-alpha` service:
-   
+
    ```bash
    docker-compose up web-alpha
    ```
-   
-   #### Only `web-beta` Service:
-   
+
+#### Only `web-beta` Service
+
    To build and run the `web-beta` service:
-   
+
    ```bash
    docker-compose up --build web-beta
    ```
-   
+
    To only build the `web-beta` service without running it:
-   
+
    ```bash
    docker-compose build web-beta
    ```
-   
+
    To run the previously built `web-beta` service:
-   
+
    ```bash
    docker-compose up web-beta
    ```
-   
+
    ---
 
 7. ### 🌐 **Access Webpage**
