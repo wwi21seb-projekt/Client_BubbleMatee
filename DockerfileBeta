@@ -37,7 +37,7 @@ RUN echo "PUBLIC_BASE_URL=https://server-beta.de" > .env && \
 RUN npm run build
 
 # Der Port, auf dem der Container laufen soll
-EXPOSE 4173
+EXPOSE 4172
 
 # Starten der App
-CMD ["npm", "run", "preview"]
+CMD ["node", "-r", "dotenv/config", "build"]
