@@ -8,16 +8,22 @@ services:
       - '4173:4173'
     networks:
       - external-network
+    environment:
+      HOST: '0.0.0.0'
+      PORT: 4173
 
   web-beta:
     build:
       context: .
       dockerfile: DockerfileBeta
     ports:
-      - '4172:4173'
+      - '4172:4172'
     networks:
       - external-network
+    environment:
+      HOST: '0.0.0.0'
+      PORT: 4172
 
 networks:
   external-network:
-    internal: false
+    driver: bridge
