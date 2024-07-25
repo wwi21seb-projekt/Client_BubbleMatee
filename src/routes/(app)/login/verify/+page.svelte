@@ -5,20 +5,20 @@
 	import type { Error } from '$domains';
 	import { currentUsername, isLoggedIn } from '$stores';
 	import { activatePushNotifications, getErrorMessage } from '$utils';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let username: string = $page.url.searchParams.get('username')?.toString() ?? '';
 	let code: string;
 
 	let loading: boolean = false;
 
-	const handleSubmit = async () => {
+	const handleSubmit: () => Promise<void> = async () => {
 		loading = true;
 		try {
-			const response = await fetch(`/api/users/${username}/activate`, {
+			const response: Response = await fetch(`/api/users/${username}/activate`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

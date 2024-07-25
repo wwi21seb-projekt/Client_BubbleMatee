@@ -13,12 +13,15 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const POST: RequestHandler = async ({ fetch, params }) => {
 	const username: string = params.username as string;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/reset-password`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
+		const response: Response = await fetch(
+			`${PUBLIC_BASE_URL}/api/users/${username}/reset-password`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			}
-		});
+		);
 		if (response.ok) {
 			return json({ data: {}, error: false });
 		}
@@ -46,13 +49,16 @@ export const PATCH: RequestHandler = async ({ fetch, request, params }) => {
 	const requestBody = await request.json();
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/reset-password`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(requestBody)
-		});
+		const response: Response = await fetch(
+			`${PUBLIC_BASE_URL}/api/users/${username}/reset-password`,
+			{
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(requestBody)
+			}
+		);
 		if (response.ok) {
 			return json({ data: {}, error: false });
 		}

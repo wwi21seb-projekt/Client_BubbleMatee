@@ -2,7 +2,12 @@
 	import { goto } from '$app/navigation';
 	import { Check } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Avatar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import {
+		Avatar,
+		getToastStore,
+		type ToastStore,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 	import { getErrorMessage, getNotificationOptions, getNotificationTitle } from '$utils';
 	import { hasNotifications, notifications } from '$stores';
 	import Person from '$lib/assets/person.png';
@@ -11,7 +16,7 @@
 	import { NothingFoundComponent } from '$components';
 	import { onMount } from 'svelte';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 	$: nonMessageNotifications = $notifications.filter(
 		(notification) => notification.notificationType !== 'message'
 	);
@@ -24,7 +29,7 @@
 
 	async function deleteNotificationRequest(notificationId: string | undefined) {
 		try {
-			const response = await fetch(`/api/notifications/${notificationId}`, {
+			const response: Response = await fetch(`/api/notifications/${notificationId}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'

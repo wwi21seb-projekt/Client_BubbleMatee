@@ -7,24 +7,25 @@
 	import {
 		getToastStore,
 		popup,
+		type ToastStore,
 		type PopupSettings,
 		type ToastSettings
 	} from '@skeletonlabs/skeleton';
 	import { getErrorMessage } from '$utils';
 	export let chatPartnerUsername: string;
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let currentMessage: string = '';
 	let textarea: HTMLTextAreaElement;
 
 	// CSS class names for different text states
-	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';
-	const classWarning = 'text-warning-500';
-	const classMaxReached = 'text-error-500';
+	const classNormal: string = ' dark:from-tertiary-500 dark:to-secondary-500';
+	const classWarning: string = 'text-warning-500';
+	const classMaxReached: string = 'text-error-500';
 
 	// Character limit for showing a warning
-	const charsWarning = 50;
-	const maxChars = 256;
+	const charsWarning: number = 50;
+	const maxChars: number = 256;
 
 	$: classtext =
 		currentMessage.length > maxChars - charsWarning && currentMessage.length < maxChars
@@ -35,7 +36,7 @@
 
 	async function createNewChat() {
 		try {
-			const response = await fetch('/api/chats', {
+			const response: Response = await fetch('/api/chats', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -55,7 +56,7 @@
 				};
 				toastStore.trigger(t);
 			} else {
-				let chatId = body.data.chatId;
+				let chatId: string = body.data.chatId;
 				goto(`/chats/${chatId}`);
 			}
 

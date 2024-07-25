@@ -9,7 +9,7 @@ import { jwtDecode } from 'jwt-decode';
  */
 export function tokenExpired(token: string) {
 	const decodedToken: TokenPayload = jwtDecode<TokenPayload>(token);
-	const currentTime = Math.floor(Date.now() / 1000);
+	const currentTime: number = Math.floor(Date.now() / 1000);
 
 	return decodedToken.exp && decodedToken.exp < currentTime;
 }

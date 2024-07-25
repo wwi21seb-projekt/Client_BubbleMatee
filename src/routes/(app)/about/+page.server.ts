@@ -9,7 +9,7 @@ import type { ErrorResponse, ImprintResponse } from '$domains';
  * @returns The response containing imprint data or an error.
  */
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
-	const response = await event.fetch('/api/imprint', {
+	const response: Response = await event.fetch('/api/imprint', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

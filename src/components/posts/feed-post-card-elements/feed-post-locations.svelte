@@ -6,9 +6,9 @@
 	export let location: Location;
 
 	let locationPlace: LocationPlace;
-	const getLocation = async () => {
+	const getLocation: () => Promise<void> = async () => {
 		try {
-			const result = await fetchLocation(location.longitude, location.latitude);
+			const result: LocationPlace = await fetchLocation(location.longitude, location.latitude);
 			locationPlace = result;
 		} catch (error) {
 			// If there is an Error -> location isn't shown

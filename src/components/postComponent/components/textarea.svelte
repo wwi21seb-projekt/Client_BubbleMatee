@@ -4,12 +4,12 @@
 	let localPostText: string = '';
 	$postText = '';
 	// CSS class names for different text states
-	const classNormal = ' dark:from-tertiary-500 dark:to-secondary-500';
-	const classWarning = 'text-warning-500';
-	const classMaxReached = 'text-error-500';
+	const classNormal: string = ' dark:from-tertiary-500 dark:to-secondary-500';
+	const classWarning: string = 'text-warning-500';
+	const classMaxReached: string = 'text-error-500';
 
 	// Character limit for showing a warning
-	const charsWarning = 50;
+	const charsWarning: number = 50;
 
 	// Maximum characters allowed in the textarea
 	export let maxChars: number = 256;
@@ -25,7 +25,7 @@
 	// Function to handle input changes, update the text, and adjust the textarea height
 	function handleInput(event: Event) {
 		// Assert that event.target is of a specific type, e.g., HTMLTextAreaElement
-		const target = event.target as HTMLTextAreaElement;
+		const target: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
 
 		// Now you can use the target with its specific type properties
 		$postText = localPostText;

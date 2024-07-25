@@ -4,10 +4,10 @@
 	import { UsernameInput } from '$components';
 	import type { Error } from '$domains';
 	import { getErrorMessage } from '$utils';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let username: string = $page.url.searchParams.get('username')?.toString() ?? '';
 
@@ -16,7 +16,7 @@
 	const handleSubmit = async () => {
 		loading = true;
 		try {
-			const response = await fetch(`/api/users/${username}/activate`, {
+			const response: Response = await fetch(`/api/users/${username}/activate`, {
 				method: 'DELETE'
 			});
 

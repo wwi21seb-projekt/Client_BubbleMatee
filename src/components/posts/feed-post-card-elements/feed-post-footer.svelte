@@ -5,13 +5,13 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Heart, ChatBubbleLeft, ArrowPathRoundedSquare } from '@steeze-ui/heroicons';
 	import { getModalStore } from '@skeletonlabs/skeleton';
-	import type { ModalComponent, ModalSettings } from '@skeletonlabs/skeleton';
+	import type { ModalComponent, ModalSettings, ModalStore } from '@skeletonlabs/skeleton';
 	import { Comments, RepostComponent } from '$components';
 	import { isLoggedIn } from '$stores';
 	import { goto } from '$app/navigation';
 	import type { PostWithRepost, CommentData } from '$domains';
 	export let post: PostWithRepost;
-	const modalStore = getModalStore();
+	const modalStore: ModalStore = getModalStore();
 	export let likePost: () => void;
 	export let unlikePost: () => void;
 	export let loadMoreComments: () => Promise<CommentData>;

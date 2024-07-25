@@ -30,7 +30,7 @@
 		placement: 'left'
 	};
 
-	const onNavigationClick = () => {
+	const onNavigationClick: () => void = () => {
 		const currentPath: string = $page.url.pathname.split('/')[1];
 		goto(`/${currentPath}/user/${author.username}`);
 	};

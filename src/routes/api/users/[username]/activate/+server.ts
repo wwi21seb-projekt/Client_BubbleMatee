@@ -12,11 +12,11 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing login data or an error.
  */
 export const POST: RequestHandler = async ({ fetch, request, params, cookies }) => {
-	const username = params.username;
+	const username: string | undefined = params.username;
 	const requestBody = await request.json();
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/activate`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/activate`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
 		const body = await response.json();
 
 		if (response.ok && response.status !== 208) {
-			const { token, refreshToken } = body;
+			const { token, refreshToken }: { token: string; refreshToken: string } = body;
 
 			cookies.set('token', token, { path: '/' });
 			cookies.set('refreshToken', refreshToken, { path: '/' });
@@ -51,10 +51,10 @@ export const POST: RequestHandler = async ({ fetch, request, params, cookies }) 
  * @returns The response containing data or an error.
  */
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
-	const username = params.username;
+	const username: string | undefined = params.username;
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/activate`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/activate`, {
 			method: 'DELETE'
 		});
 

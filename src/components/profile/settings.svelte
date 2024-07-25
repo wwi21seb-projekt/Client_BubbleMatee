@@ -5,7 +5,7 @@
 
 	export let disabled: boolean = false;
 
-	const handleClick = () => {
+	const handleClick: () => void = () => {
 		goto('/settings');
 	};
 </script>

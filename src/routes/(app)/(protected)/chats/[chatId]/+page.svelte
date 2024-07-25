@@ -19,11 +19,11 @@
 		subscribeMessageError
 	} from '$stores';
 	import { getErrorMessage, globalConfig, loadNextChatMessages } from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { onDestroy } from 'svelte';
 
 	export let data: ChatData;
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 	$: chatId = $page.params.chatId;
 	let errorChatMessage: string = '';
 	$: chatMessagesError = data.chatMessageData.error
@@ -59,7 +59,7 @@
 	let unsubscribeMessages: (() => void) | null = null;
 	let unsubscribeErrorMessages: (() => void) | null = null;
 
-	const leaveChat = () => {
+	const leaveChat: () => void = () => {
 		if (unsubscribeMessages && unsubscribeErrorMessages) {
 			unsubscribeMessages();
 			unsubscribeErrorMessages();
@@ -69,7 +69,7 @@
 		disconnectFromWebSocket();
 	};
 
-	const enterChat = () => {
+	const enterChat: () => void = () => {
 		connectToWebSocket(chatId, data.token);
 		errorChatMessage = chatMessagesError ? getErrorMessage(chatMessagesError.error.code, true) : '';
 		if (chatMessages) {

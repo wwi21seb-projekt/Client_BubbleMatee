@@ -12,7 +12,7 @@ import { getCurrentUser, globalConfig, loadFirstChatMessages, loadChats } from '
 export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 	const username: string = getCurrentUser(event.cookies.get('token'));
 
-	const chatId = event.params.chatId ? event.params.chatId : '';
+	const chatId: string = event.params.chatId ? event.params.chatId : '';
 	const chatsData: ChatsResponse | ErrorResponse = await loadChats(event);
 	const chatMessageData: ErrorResponse | ChatMessageResponse = await loadFirstChatMessages(
 		event,
@@ -20,7 +20,7 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
 		'0',
 		globalConfig.limit
 	);
-	const token = event.cookies.get('token');
+	const token: string | undefined = event.cookies.get('token');
 	return {
 		chatsData,
 		chatMessageData,

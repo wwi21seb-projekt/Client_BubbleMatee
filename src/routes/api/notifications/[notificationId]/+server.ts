@@ -12,9 +12,12 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const DELETE: RequestHandler = async ({ fetch, params }) => {
 	const notificationId: string = params.notificationId as string;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/notifications/${notificationId}`, {
-			method: 'DELETE'
-		});
+		const response: Response = await fetch(
+			`${PUBLIC_BASE_URL}/api/notifications/${notificationId}`,
+			{
+				method: 'DELETE'
+			}
+		);
 
 		if (response.ok) {
 			return json({ data: {}, error: false });

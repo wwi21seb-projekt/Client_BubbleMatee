@@ -15,12 +15,15 @@ import type { ServerLoadEvent } from '@sveltejs/kit';
 	limit: string,
 	user: string
 ): Promise<PostData | ErrorObject> {
-	const response = await event.fetch(`/api/users/${user}/feed?limit=${limit}&offset=${offset}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
+	const response: Response = await event.fetch(
+		`/api/users/${user}/feed?limit=${limit}&offset=${offset}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		}
-	});
+	);
 	const body: ErrorResponse | UserFeedResponse = await response.json();
 	return handleUserFeedResponse(body);
 }
@@ -36,19 +39,22 @@ import type { ServerLoadEvent } from '@sveltejs/kit';
 	limit: string,
 	user: string
 ): Promise<PostData | ErrorObject> {
-	const response = await fetch(`/api/users/${user}/feed?limit=${limit}&offset=${offset}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
+	const response: Response = await fetch(
+		`/api/users/${user}/feed?limit=${limit}&offset=${offset}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		}
-	});
+	);
 	const body: ErrorResponse | UserFeedResponse = await response.json();
 	return handleUserFeedResponse(body);
 }
 function handleUserFeedResponse(body: ErrorResponse | UserFeedResponse): ErrorObject | PostData {
 	if (body.error) {
 		//handle Error
-		const data = body.data as ErrorObject;
+		const data: ErrorObject = body.data as ErrorObject;
 		return data;
 	} else {
 		const feedData: UserFeed = (body as UserFeedResponse).data;

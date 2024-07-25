@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 	const requestBody = await request.json();
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

@@ -2,20 +2,13 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import { FeedPostFooter, FeedPostMain, FeedPostHeader, FeedPostCard } from '$components';
-	import type {
-		Comment,
-		CommentData,
-		CommentResponse,
-		ErrorObject,
-		ErrorResponse,
-		PostWithRepost,
-		PostCommentResponse,
-		Post
-	} from '$domains';
-	import type { CommentList } from '$domains/ServerDomains/comments';
+	import type { Comment, CommentData, CommentResponse, ErrorObject } from '$domains';
+	import type { CommentList, ErrorResponse, PostWithRepost, PostCommentResponse } from '$domains';
+	import type { Post } from '$domains';
 	import { isLoggedIn } from '$stores';
 	import { getErrorMessage } from '$utils';
-	import { getModalStore, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import type { ToastStore, ToastSettings, ModalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
 	export let post: PostWithRepost;
 	export let likePost: ((postId: string) => void) | null;
 	export let unlikePost: ((postId: string) => void) | null;
@@ -27,8 +20,8 @@
 		| null;
 	export let deletePost: ((postId: string) => void) | null;
 	export let isRepost: boolean = false;
-	const toastStore = getToastStore();
-	const modalStore = getModalStore();
+	const toastStore: ToastStore = getToastStore();
+	const modalStore: ModalStore = getModalStore();
 	let comments: Array<Comment> = new Array<Comment>();
 	let commentData: CommentData = {
 		comments: comments,
@@ -64,7 +57,7 @@
 				comments.length
 			);
 			if (body.error) {
-				const data = body.data as ErrorObject;
+				const data: ErrorObject = body.data as ErrorObject;
 				if (data.error) {
 					const t: ToastSettings = {
 						message: getErrorMessage(data.error.code, false),
@@ -78,7 +71,7 @@
 				commentData.isError = true;
 				commentData.overallRecords = 0;
 			} else {
-				const data = body.data as CommentList;
+				const data: CommentList = body.data as CommentList;
 				if (data.records) {
 					const newComments: Array<Comment> = data.records.map((record: Comment) => ({
 						commentId: record.commentId,
@@ -104,9 +97,9 @@
 	}
 	async function commentThisPost(content: string): Promise<CommentData> {
 		if (postComment && !commentData.isError) {
-			const body = await postComment(post.postId, content);
+			const body: ErrorResponse | PostCommentResponse = await postComment(post.postId, content);
 			if (body.error) {
-				const data = body.data as ErrorObject;
+				const data: ErrorObject = body.data as ErrorObject;
 				if (data.error.code == 'ERR-014') {
 					modalStore.close();
 				}
@@ -118,7 +111,7 @@
 					toastStore.trigger(t);
 				}
 			} else {
-				const data = body.data as Comment;
+				const data: Comment = body.data as Comment;
 				let newComment: Array<Comment> = [
 					{
 						commentId: data.commentId,

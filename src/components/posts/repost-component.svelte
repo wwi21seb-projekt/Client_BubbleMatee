@@ -5,10 +5,10 @@
 	import FeedPostCard from './feed-post-card.svelte';
 	export let post: Post;
 	import { postText } from '$stores';
-	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore, type ModalStore } from '@skeletonlabs/skeleton';
 
-	const modalStore = getModalStore();
-	const leave = () => {
+	const modalStore: ModalStore = getModalStore();
+	const leave: () => void = () => {
 		modalStore.close();
 	};
 

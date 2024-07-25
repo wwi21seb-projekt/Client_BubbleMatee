@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { EditIcon, LogoutIcon, PasswordIcon, PhotoIcon, ArrowRightIcon } from '$icons';
 	import { goto } from '$app/navigation';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { currentUsername, hasNotifications, isLoggedIn, notifications } from '$stores';
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 	const t: ToastSettings = {
 		message: 'Abmeldung erfolgreich',
 		background: 'variant-filled-success'
 	};
-	const handleLogout = async () => {
-		const response = await fetch('/api/users/logout', {
+	const handleLogout: () => Promise<void> = async () => {
+		const response: Response = await fetch('/api/users/logout', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

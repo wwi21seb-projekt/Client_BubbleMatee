@@ -11,7 +11,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  */
 export const GET: RequestHandler = async ({ fetch }) => {
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/push/vapid`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/push/vapid`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

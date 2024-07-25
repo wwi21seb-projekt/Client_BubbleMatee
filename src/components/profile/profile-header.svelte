@@ -3,13 +3,14 @@
 	import {
 		Avatar,
 		getModalStore,
+		type ModalStore,
 		type ModalComponent,
 		type ModalSettings
 	} from '@skeletonlabs/skeleton';
 	import { FollowerList, ProfileHeaderBottom } from '$components';
 	import Person from '$lib/assets/person.png';
 
-	const modalStore = getModalStore();
+	const modalStore: ModalStore = getModalStore();
 
 	export let user: UserInfo;
 

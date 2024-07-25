@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { UsernameInput, PasswordInput, PasswordValidations } from '$components';
 	import { getErrorMessage } from '$utils';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import {
 		containsBigLetter,
@@ -27,14 +27,14 @@
 		!passwordsMatch(password, passwordRepeat) ||
 		code.length !== 6;
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let loading: boolean = false;
 
 	const sendReset = async () => {
 		loading = true;
 		try {
-			const response = await fetch(`/api/users/${username}/reset-password`, {
+			const response: Response = await fetch(`/api/users/${username}/reset-password`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json'
@@ -75,7 +75,7 @@
 		}
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit: () => Promise<void> = async () => {
 		await sendReset();
 	};
 </script>

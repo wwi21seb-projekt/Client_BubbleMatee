@@ -10,7 +10,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  */
 export const GET: RequestHandler = async ({ fetch }) => {
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/imprint`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/imprint`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

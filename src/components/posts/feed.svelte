@@ -7,16 +7,16 @@
 	export let nothingFoundMessage: string | null;
 	export let nothingFoundSubMessage: string | null;
 	import { LoadMoreComponent, FeedPostCard, NothingFoundComponent } from '$components';
-	import type { CommentResponse, ErrorResponse, PostData } from '$domains';
+	import type { CommentResponse, ErrorResponse, PostData, PostWithRepost } from '$domains';
 	import type { PostCommentResponse } from '$domains/ServerResponses';
 	import { loading } from '$stores';
 	import { getErrorMessage, globalConfig } from '$utils';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	const toastStore = getToastStore();
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	const toastStore: ToastStore = getToastStore();
 	//function to delete a post. Is passed to and called from each induciduall post-card-component
 	async function deletePost(postId: string) {
 		try {
-			const response = await fetch(`/api/posts/${postId}`, {
+			const response: Response = await fetch(`/api/posts/${postId}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'
@@ -53,7 +53,7 @@
 	//function to unlike a post. Is passed to and called from each induciduall post-card-component
 	async function unlikePost(postId: string) {
 		try {
-			const response = await fetch(`/api/posts/${postId}/likes`, {
+			const response: Response = await fetch(`/api/posts/${postId}/likes`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'
@@ -70,7 +70,7 @@
 					toastStore.trigger(t);
 				}
 			} else {
-				const post = postData.posts.filter((post) => post.postId === postId)[0];
+				const post: PostWithRepost = postData.posts.filter((post) => post.postId === postId)[0];
 				post.liked = false;
 				post.likes = post.likes - 1;
 				postData.posts = postData.posts;
@@ -83,7 +83,7 @@
 	//function to like a post. Is passed to and called from each induciduall post-card-component
 	async function likePost(postId: string) {
 		try {
-			const response = await fetch(`/api/posts/${postId}/likes`, {
+			const response: Response = await fetch(`/api/posts/${postId}/likes`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -100,7 +100,7 @@
 					toastStore.trigger(t);
 				}
 			} else {
-				const post = postData.posts.filter((post) => post.postId === postId)[0];
+				const post: PostWithRepost = postData.posts.filter((post) => post.postId === postId)[0];
 				post.liked = true;
 				post.likes = post.likes + 1;
 				postData.posts = postData.posts;
@@ -115,7 +115,7 @@
 		offset: number
 	): Promise<ErrorResponse | CommentResponse> {
 		try {
-			const response = await fetch(
+			const response: Response = await fetch(
 				`/api/posts/${postId}/comments?offset=${offset}&limit=${globalConfig.limit}`,
 				{
 					method: 'GET',
@@ -145,7 +145,7 @@
 		content: string
 	): Promise<ErrorResponse | PostCommentResponse> {
 		try {
-			const response = await fetch(`/api/posts/${postId}/comments`, {
+			const response: Response = await fetch(`/api/posts/${postId}/comments`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({

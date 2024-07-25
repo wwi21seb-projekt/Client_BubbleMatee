@@ -13,7 +13,7 @@ export function getCurrentUser(token: string | undefined): string {
 	}
 	const decodedToken: TokenPayload = jwtDecode<TokenPayload>(token);
 
-	const username = decodedToken.username;
+	const username: string | undefined = decodedToken.username;
 	if (username === undefined) {
 		return '';
 	}

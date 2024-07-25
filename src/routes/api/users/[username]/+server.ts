@@ -10,10 +10,10 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing user data or an error.
  */
 export const GET: RequestHandler = async ({ fetch, params }) => {
-	const username = params.username;
+	const username: string | undefined = params.username;
 
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

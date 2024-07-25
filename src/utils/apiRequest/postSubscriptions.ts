@@ -5,7 +5,7 @@
  * @returns a Server Response for Following
  * @throws an error: type = Error code */
 export async function subscribe(username: string) {
-	const response = await fetch('/api/subscriptions', {
+	const response: Response = await fetch('/api/subscriptions', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ export async function subscribe(username: string) {
  * @returns a Server Response for Unfollowing
  * @throws an error: type = Error code */
 export async function unsubscribe(id: string, username: string) {
-	const response = await fetch(`/api/subscriptions/${id}`, {
+	const response: Response = await fetch(`/api/subscriptions/${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json'

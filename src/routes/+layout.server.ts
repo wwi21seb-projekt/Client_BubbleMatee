@@ -10,12 +10,12 @@ import type { ErrorResponse, NotificationResponse } from '$domains';
  */
 export const load: LayoutServerLoad = async (event: ServerLoadEvent) => {
 	try {
-		const token = event.cookies.get('token');
+		const token: string | undefined = event.cookies.get('token');
 		if (!token) {
 			return { error: true, data: {} } as ErrorResponse;
 		}
 
-		const response = await event.fetch('/api/notifications', {
+		const response: Response = await event.fetch('/api/notifications', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

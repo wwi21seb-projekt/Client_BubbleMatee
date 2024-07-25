@@ -13,7 +13,7 @@
 	import { ProfilePosts } from '$components';
 	import { fetchNextPostsUser, getErrorMessage, globalConfig } from '$utils';
 	import { onMount } from 'svelte';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { loading } from '$stores';
 
 	export let userData: UserInfoResponse | ErrorResponse;
@@ -44,7 +44,7 @@
 		}
 	}
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 	function handleLoadResult(data: PostData | ErrorObject): void {
 		if ('posts' in data) {
 			if (user) {

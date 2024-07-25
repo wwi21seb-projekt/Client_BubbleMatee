@@ -2,9 +2,9 @@
 <script lang="ts">
 	import { Trash, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { type ModalSettings, getModalStore } from '@skeletonlabs/skeleton';
+	import { type ModalSettings, type ModalStore, getModalStore } from '@skeletonlabs/skeleton';
 	export let deletePost: () => void;
-	const modalStore = getModalStore();
+	const modalStore: ModalStore = getModalStore();
 
 	// function to handle a delete request. the user has to condirm, that he is sure. Then the passed function is called.
 	function handleDelete(): void {

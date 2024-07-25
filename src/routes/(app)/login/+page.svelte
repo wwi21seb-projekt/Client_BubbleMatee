@@ -4,18 +4,18 @@
 	import { PasswordInput, UsernameInput } from '$components';
 	import { currentUsername, isLoggedIn } from '$stores';
 	import { activatePushNotifications, getErrorMessage } from '$utils';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 
-	const toastStore = getToastStore();
+	const toastStore: ToastStore = getToastStore();
 
 	let username: string = $page.url.searchParams.get('username')?.toString() ?? '';
 	let password: string;
 
 	let loading: boolean = false;
 
-	const isRedirect = $page.url.searchParams.get('redirect');
+	const isRedirect: string | null = $page.url.searchParams.get('redirect');
 	//isRedirekt = '1' -> redirect to login page and show toast
 	//isRedirekt = '2' -> redirect to login page from client side, toast already shown
 
@@ -42,10 +42,10 @@
 		}
 	});
 
-	const login = async () => {
+	const login: () => Promise<void> = async () => {
 		loading = true;
 		try {
-			const response = await fetch('/api/users/login', {
+			const response: Response = await fetch('/api/users/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -86,7 +86,7 @@
 		}
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit: () => Promise<void> = async () => {
 		await login();
 	};
 </script>

@@ -11,7 +11,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  */
 export const GET: RequestHandler = async ({ fetch }) => {
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/chats`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/chats`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 export const POST: RequestHandler = async ({ fetch, request }) => {
 	const requestBody = await request.json();
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/chats`, {
+		const response: Response = await fetch(`${PUBLIC_BASE_URL}/api/chats`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

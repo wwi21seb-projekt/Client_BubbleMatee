@@ -14,7 +14,7 @@
 	const sendMailForCode = async () => {
 		loading = true;
 		try {
-			const response = await fetch(`/api/users/${username}/reset-password`, {
+			const response: Response = await fetch(`/api/users/${username}/reset-password`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

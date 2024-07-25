@@ -16,8 +16,8 @@ import type { ServerLoadEvent } from '@sveltejs/kit';
 	limit: string,
 	type: string
 ): Promise<PostData | ErrorObject> {
-	const lastPostIDString = lastPostID === '' ? '' : `postId=${lastPostID}&`;
-	const response = await event.fetch(
+	const lastPostIDString: string = lastPostID === '' ? '' : `postId=${lastPostID}&`;
+	const response: Response = await event.fetch(
 		`/api/feed?${lastPostIDString}limit=${limit}&feedType=${type}`,
 		{
 			method: 'GET',
@@ -42,13 +42,16 @@ import type { ServerLoadEvent } from '@sveltejs/kit';
 	limit: string,
 	type: string
 ): Promise<PostData | ErrorObject> {
-	const lastPostIDString = lastPostID === '' ? '' : `postId=${lastPostID}&`;
-	const response = await fetch(`/api/feed?${lastPostIDString}limit=${limit}&feedType=${type}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
+	const lastPostIDString: string = lastPostID === '' ? '' : `postId=${lastPostID}&`;
+	const response: Response = await fetch(
+		`/api/feed?${lastPostIDString}limit=${limit}&feedType=${type}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		}
-	});
+	);
 	const body: ErrorResponse | FeedResponse = await response.json();
 	return handleFeedResponse(body);
 }
@@ -65,17 +68,20 @@ export async function searchPostByHashtag(
 	offset: number,
 	limit: string
 ): Promise<PostData | ErrorObject> {
-	const response = await fetch(`/api/posts?q=${searchQuery}&offset=${offset}&limit=${limit}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
+	const response: Response = await fetch(
+		`/api/posts?q=${searchQuery}&offset=${offset}&limit=${limit}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		}
-	});
+	);
 
 	const body = await response.json();
 	if (body.error) {
 		//handle Error
-		const data = body.data as ErrorObject;
+		const data: ErrorObject = body.data as ErrorObject;
 		return data;
 	} else {
 		//map the feed-data to a Post-Array with new Posts
@@ -102,7 +108,7 @@ export async function searchPostByHashtag(
 function handleFeedResponse(body: ErrorResponse | FeedResponse): ErrorObject | PostData {
 	if (body.error) {
 		//handle Error
-		const data = body.data as ErrorObject;
+		const data: ErrorObject = body.data as ErrorObject;
 		return data;
 	} else {
 		const feedData: Feed = (body as FeedResponse).data;

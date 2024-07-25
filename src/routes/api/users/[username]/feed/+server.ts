@@ -13,14 +13,17 @@ import { json, type RequestHandler } from '@sveltejs/kit';
  * @returns The response containing feed data or an error.
  */
 export const GET: RequestHandler = async ({ fetch, url, params }) => {
-	const username = params.username;
+	const username: string | undefined = params.username;
 	try {
-		const response = await fetch(`${PUBLIC_BASE_URL}/api/users/${username}/feed${url.search}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
+		const response: Response = await fetch(
+			`${PUBLIC_BASE_URL}/api/users/${username}/feed${url.search}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			}
-		});
+		);
 		const body = await response.json();
 
 		if (response.ok) {
