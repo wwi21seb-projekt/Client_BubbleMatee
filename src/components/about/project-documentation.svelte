@@ -33,19 +33,7 @@
 				>.
 			</p>
 			<p>
-				Ergänzend dazu umfasst unser Dokumentationsrepository <strong
-					>"Documentation_Client_BubbleMatee"</strong
-				>
-				die gesamte Projektplanung und Prüfungsleistungen, einschließlich der Präsentationen. Dieses
-				bietet einen umfassenden Einblick in die konzeptionelle Arbeit unseres Teams:
-				<a
-					href="https://github.com/wwi21seb-projekt/Documentation_Client_BubbleMatee"
-					target="_blank"
-					style="text-decoration: underline;">Documentation_Client_BubbleMatee Repository</a
-				>.
-			</p>
-			<p>
-				Wir ermutigen alle Interessierten, die Repositories zu besuchen und einen tiefgreifenden
+				Wir ermutigen alle Interessierten, das Repository zu besuchen und einen tiefgreifenden
 				Einblick in unser Projekt zu gewinnen. Für Fragen, Feedback und Anregungen sind wir stets
 				offen und dankbar.
 			</p>
