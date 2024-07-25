@@ -70,50 +70,50 @@ Adhere to these instructions to configure your environment:
    Please pay attention to your internet connection.
 
    ### Building and Running Individual Services
-   
+
    If you only want to build and run a specific service, you can do so as follows:
-   
+
    #### Only `web-alpha` Service
-   
+
    To build and run the `web-alpha` service:
-   
+
    ```bash
    docker-compose up --build web-alpha
    ```
-   
+
    To only build the `web-alpha` service without running it:
-   
+
    ```bash
    docker-compose build web-alpha
    ```
-   
+
    To run the previously built `web-alpha` service:
-   
+
    ```bash
    docker-compose up web-alpha
    ```
-   
+
    #### Only `web-beta` Service
-   
+
    To build and run the `web-beta` service:
-   
+
    ```bash
    docker-compose up --build web-beta
    ```
-   
+
    To only build the `web-beta` service without running it:
-   
+
    ```bash
    docker-compose build web-beta
    ```
-   
+
    To run the previously built `web-beta` service:
-   
+
    ```bash
    docker-compose up web-beta
    ```
-   
-   ---
+
+   ***
 
 7. ### 🌐 **Access Webpage**
 
